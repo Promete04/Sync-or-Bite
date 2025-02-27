@@ -1,6 +1,6 @@
 # Sync or Bite
 
-<img src="https://github.com/Promete04//Advanced_Programming_CATL/blob/main/docs/images/logo.png" width=200>
+<img src="Docs/images/logo.png" width=200>
 
 Sync or Bite is project belonging to the Advanced programming course made by [Alejandro López](https://github.com/alejandrolm18) y [Guillermo Ramos](https://github.com/Promete04).  This repository contains all the source code, and required documentation in order to reflect the development process.
 
