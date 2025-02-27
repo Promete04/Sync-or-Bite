@@ -1,1 +1,10 @@
-# Advanced_Programming_CATL
+# Sync or Bite
+
+<img src="https://github.com/Promete04//Advanced_Programming_CATL/blob/main/docs/images/logo.png" width=200>
+
+Sync or Bite is project belonging to the Advanced programming course made by [Alejandro López](https://github.com/alejandrolm18) y [Guillermo Ramos](https://github.com/Promete04).  This repository contains all the source code, and required documentation in order to reflect the development process.
+
+## Documentation
+
+The `docs/` directory contains the essential project documentation, providing a comprehensive guide to the development and design of Sync or Bite. The documentation includes a development diary and the following elements to ensure a thorough understanding of the project's structure and functionality:
+
