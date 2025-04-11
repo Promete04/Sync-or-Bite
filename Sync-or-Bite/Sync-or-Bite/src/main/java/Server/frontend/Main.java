@@ -11,7 +11,7 @@ package Server.frontend;
 public class Main extends javax.swing.JFrame {
 
     /**
-     * Creates new form Main
+     * Creates new form NewJFrame
      */
     public Main() {
         initComponents();
@@ -67,6 +67,7 @@ public class Main extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
