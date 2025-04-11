@@ -269,17 +269,14 @@ public class Tunnel
     {
         List<String> ids = new ArrayList<>();
         exitWaitingLock.lock();
-        try 
+        
+        for (Human h : waitingToExitShelter) 
         {
-            for (Human h : waitingToExitShelter) 
-            {
-                ids.add(h.getId());
-            }
-        } 
-        finally 
-        {
-            exitWaitingLock.unlock();
+            ids.add(h.getId());
         }
+      
+        exitWaitingLock.unlock();
+  
         return ids;
     }
     
@@ -287,17 +284,13 @@ public class Tunnel
     {
         List<String> ids = new ArrayList<>();
         entryWaitingLock.lock();
-        try
+        
+        for (Human h : waitingToEnterShelter)
         {
-            for (Human h : waitingToEnterShelter)
-            {
-                ids.add(h.getId());
-            }
-        } 
-        finally 
-        {
-            entryWaitingLock.unlock();
+            ids.add(h.getId());
         }
+        entryWaitingLock.unlock();
+       
         return ids;
     }
 }
