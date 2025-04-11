@@ -6,8 +6,8 @@ package Server.backend;
 
 /**
  *
- * @author Lopex
+ * @author guill
  */
-public class NewClass {
+public class Human {
     
 }
