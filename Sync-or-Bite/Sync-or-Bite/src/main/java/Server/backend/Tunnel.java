@@ -1,7 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+package Server.backend;
+
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -14,7 +12,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 
-public class Tunnel {
+public class Tunnel 
+{
 
     private final RiskZone riskZone;
     
@@ -26,9 +25,9 @@ public class Tunnel {
     private final Condition entryCondition = usingLock.newCondition(); // For humans returning.
     private final Condition exitCondition = usingLock.newCondition();  // For humans exiting.
     
-    // New lock to protect waiting queues.
+    // Locks to protect waiting queues.
     private final ReentrantLock entryWaitingLock = new ReentrantLock(true);
-      private final ReentrantLock exitWaitingLock = new ReentrantLock(true);
+     private final ReentrantLock exitWaitingLock = new ReentrantLock(true);
     
     // State tracking variables for tunnel crossing.
     private boolean tunnelBusy = false;  // True if someone is crossing.
@@ -38,48 +37,63 @@ public class Tunnel {
     private final Queue<Human> waitingToExitShelter = new LinkedList<>();  // Exit queue.
     private final Queue<Human> waitingToEnterShelter = new LinkedList<>();   // Return queue.
     
+    //Variable use to easily control the number neede to launch an raid
     private static final int GROUP_SIZE = 3;
     
     // Constructor: associates Tunnel with a specific risk zone.
-    public Tunnel(RiskZone riskZone) {
+    public Tunnel(RiskZone riskZone) 
+    {
         this.riskZone = riskZone;
-        groups = new CyclicBarrier(GROUP_SIZE, new Runnable() {
+        groups = new CyclicBarrier(GROUP_SIZE, new Runnable() 
+        {
             @Override
-            public void run() {
+            public void run() 
+            {
                 System.out.println("A group of " + GROUP_SIZE + " has been formed for exiting to " + riskZone);
             }
         });
     }
     
-    public RiskZone getRiskZone() {
+    public RiskZone getRiskZone() 
+    {
         return riskZone;
     }
     
     // Methods for Humans Exiting to the Risk Zone
 
-    public void requestExit(Human h) throws InterruptedException {
+    public void requestExit(Human h) throws InterruptedException 
+    {
         // Add the human to the waiting-to-exit queue (using entryWaitingLock).
         exitWaitingLock.lock();
-        try {
+        try 
+        {
             waitingToExitShelter.add(h);
             System.out.println("Human " + h.getId() + " is waiting to form a group to exit to " + riskZone);
-        } finally {
+        } 
+        finally 
+        {
             exitWaitingLock.unlock();
         }
         
         // Wait at the barrier until a group of 3 is formed.
-        try {
+        try 
+        {
             groups.await();
-        } catch (BrokenBarrierException e) {
+        } 
+        catch (BrokenBarrierException e)
+        {
             System.out.println("Barrier broken for human " + h.getId() + ": " + e.getMessage());
             return;
         }
         
         // Remove the human from the waiting queue once released.
         exitWaitingLock.lock();
-        try {
+        try 
+        {
             waitingToExitShelter.remove(h);
-        } finally {
+        } 
+        finally 
+        {
             exitWaitingLock.unlock();
         }
         
@@ -88,18 +102,23 @@ public class Tunnel {
     }
     
     // Internal method for crossing to the risk zone.
-    private void crossToRiskZone(Human h) throws InterruptedException {
+    private void crossToRiskZone(Human h) throws InterruptedException
+    {
         // Use the usingLock to ensure only one human is in the tunnel.
         usingLock.lock();
-        try {
+        try 
+        {
             // While the tunnel is busy, or if any returners are waiting, the exiter must wait.
-            while (tunnelBusy || hasReturnersWaiting()) {
+            while (tunnelBusy || hasReturnersWaiting()) 
+            {
                 exitCondition.await();
             }
             // Reserve the tunnel.
             tunnelBusy = true;
             currentInside = h;
-        } finally {
+        } 
+        finally 
+        {
             usingLock.unlock();
         }
         
@@ -110,49 +129,66 @@ public class Tunnel {
         
         // Release the tunnel.
         usingLock.lock();
-        try {
+        try 
+        {
             tunnelBusy = false;
             currentInside = null;
             // Give priority to returners.
-            if (hasReturnersWaiting()) {
+            if (hasReturnersWaiting()) 
+            {
                 entryCondition.signal();
-            } else {
+            } 
+            else
+            {
                 exitCondition.signal();
             }
-        } finally {
+        } 
+        finally 
+        {
             usingLock.unlock();
         }
     }
     
     // Methods for Humans Returning to the Refuge
     
-    public void requestReturn(Human h) throws InterruptedException {
+    public void requestReturn(Human h) throws InterruptedException 
+    {
         // Add the human to the waiting-to-enter queue (using entryWaitingLock).
         entryWaitingLock.lock();
-        try {
+        try 
+        {
             waitingToEnterShelter.add(h);
             System.out.println("Human " + h.getId() + " queued to return via tunnel from " + riskZone);
-        } finally {
+        } 
+        finally
+        {
             entryWaitingLock.unlock();
         }
         
         // Acquire the tunnel using usingLock.
         usingLock.lock();
-        try {
+        try 
+        {
             // Wait until the tunnel is free.
-            while (tunnelBusy) {
+            while (tunnelBusy)
+            {
                 entryCondition.await();
             }
             tunnelBusy = true;
             currentInside = h;
             // Remove this human from the waiting queue.
             entryWaitingLock.lock();
-            try {
+            try 
+            {
                 waitingToEnterShelter.remove(h);
-            } finally {
+            } 
+            finally 
+            {
                 entryWaitingLock.unlock();
             }
-        } finally {
+        } 
+        finally 
+        {
             usingLock.unlock();
         }
         
@@ -163,74 +199,103 @@ public class Tunnel {
         
         // Release the tunnel.
         usingLock.lock();
-        try {
+        try 
+        {
             tunnelBusy = false;
             currentInside = null;
-            if (hasReturnersWaiting()) {
+            if (hasReturnersWaiting()) 
+            {
                 entryCondition.signal();
-            } else {
+            } 
+            else
+            {
                 exitCondition.signal();
             }
-        } finally {
+        } 
+        finally 
+        {
             usingLock.unlock();
         }
     }
     
     // Helper method to check if returners are waiting.
-    private boolean hasReturnersWaiting() {
+    private boolean hasReturnersWaiting() 
+    {
         entryWaitingLock.lock();
-        try {
+        try
+        {
             return !waitingToEnterShelter.isEmpty();
-        } finally {
+        } 
+        finally 
+        {
             entryWaitingLock.unlock();
         }
     }
     
     // --- Methods for Monitoring ---
     
-    public synchronized Human getCurrentInside() {
+    public synchronized Human getCurrentInside() 
+    {
         return currentInside;
     }
     
-    public synchronized int getWaitingToExitCount() {
+    public synchronized int getWaitingToExitCount()
+    {
         exitWaitingLock.lock();
-        try {
+        try 
+        {
             return waitingToExitShelter.size();
-        } finally {
+        } 
+        finally 
+        {
             exitWaitingLock.unlock();
         }
     }
     
-    public synchronized int getWaitingToEnterCount() {
+    public synchronized int getWaitingToEnterCount() 
+    {
         entryWaitingLock.lock();
-        try {
+        try 
+        {
             return waitingToEnterShelter.size();
-        } finally {
+        } 
+        finally
+        {
             entryWaitingLock.unlock();
         }
     }
     
-    public synchronized List<String> getWaitingToExitIds() {
+    public synchronized List<String> getWaitingToExitIds() 
+    {
         List<String> ids = new ArrayList<>();
         exitWaitingLock.lock();
-        try {
-            for (Human h : waitingToExitShelter) {
+        try 
+        {
+            for (Human h : waitingToExitShelter) 
+            {
                 ids.add(h.getId());
             }
-        } finally {
+        } 
+        finally 
+        {
             exitWaitingLock.unlock();
         }
         return ids;
     }
     
-    public synchronized List<String> getWaitingToEnterIds() {
+    public synchronized List<String> getWaitingToEnterIds() 
+    {
         List<String> ids = new ArrayList<>();
         entryWaitingLock.lock();
-        try {
-            for (Human h : waitingToEnterShelter) {
+        try
+        {
+            for (Human h : waitingToEnterShelter)
+            {
                 ids.add(h.getId());
             }
-        } finally {
+        } 
+        finally 
+        {
             entryWaitingLock.unlock();
         }
         return ids;
