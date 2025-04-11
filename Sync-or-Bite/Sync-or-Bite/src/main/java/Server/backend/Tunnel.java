@@ -27,7 +27,7 @@ public class Tunnel
     
     // Locks to protect waiting queues.
     private final ReentrantLock entryWaitingLock = new ReentrantLock(true);
-     private final ReentrantLock exitWaitingLock = new ReentrantLock(true);
+    private final ReentrantLock exitWaitingLock = new ReentrantLock(true);
     
     // State tracking variables for tunnel crossing.
     private boolean tunnelBusy = false;  // True if someone is crossing.
