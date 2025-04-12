@@ -159,7 +159,7 @@ public class Tunnel
         try 
         {
             waitingToEnterShelter.add(h);
-            logger.log("Human " + h.getHumanId() + " queued to return via tunnel from " + unsafeArea.getArea());
+            logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area" + unsafeArea.getArea());
         } 
         finally
         {

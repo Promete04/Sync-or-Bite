@@ -2724,3 +2724,155 @@
 [2025-04-12 13:41:33] Human H0004 has reached unsafe area 3
 [2025-04-12 13:41:33] Human H0004 queued to return via tunnel from 3
 [2025-04-12 13:41:33] Human H0004 is crossing to refuge from unsafe area 3
+[2025-04-12 13:41:33] Human H0023 has reached unsafe area 0
+[2025-04-12 13:41:33] Human H0023 queued to return via tunnel from 0
+[2025-04-12 13:41:33] Human H0023 is crossing to refuge from unsafe area 0
+[2025-04-12 13:41:34] Human H0053 has reached unsafe area 1
+[2025-04-12 13:41:34] Human H0053 queued to return via tunnel from 1
+[2025-04-12 13:41:34] Human H0053 is crossing to refuge from unsafe area 1
+[2025-04-12 13:41:34] Human H0006 is waiting to form a group to exit to unsafe area 2
+[2025-04-12 13:41:34] A group of 3 has been formed for exiting to unsafe area 2
+[2025-04-12 13:41:34] Human H0014 has reached unsafe area 2
+[2025-04-12 13:41:34] Human H0050 is crossing to unsafe area 2
+[2025-04-12 13:41:34] Human H0014 queued to return via tunnel from 2
+[2025-04-12 13:41:34] Human H0039 is waiting to form a group to exit to unsafe area 1
+[2025-04-12 13:41:34] A group of 3 has been formed for exiting to unsafe area 1
+[2025-04-12 13:41:34] Human H0004 has reached the refuge from unsafe area 3
+[2025-04-12 13:41:34] Human H0086 is crossing to unsafe area 3
+[2025-04-12 13:41:34] Human H0056 is waiting to form a group to exit to unsafe area 2
+[2025-04-12 13:41:34] Human H0023 has reached the refuge from unsafe area 0
+[2025-04-12 13:41:34] Human H0087 is crossing to unsafe area 0
+[2025-04-12 13:41:34] Human H0078 is waiting to form a group to exit to unsafe area 2
+[2025-04-12 13:41:35] Human H0053 has reached the refuge from unsafe area 1
+[2025-04-12 13:41:35] Human H0030 is crossing to unsafe area 1
+[2025-04-12 13:41:35] Human H0050 has reached unsafe area 2
+[2025-04-12 13:41:35] Human H0050 queued to return via tunnel from 2
+[2025-04-12 13:41:35] Human H0014 is crossing to refuge from unsafe area 2
+[2025-04-12 13:41:35] Zombie Z0000 left unsafe area 1.
+[2025-04-12 13:41:35] Zombie Z0000 enters unsafe area 2.
+[2025-04-12 13:41:35] Human H0086 has reached unsafe area 3
+[2025-04-12 13:41:35] Human H0086 queued to return via tunnel from 3
+[2025-04-12 13:41:35] Human H0086 is crossing to refuge from unsafe area 3
+[2025-04-12 13:41:35] Human H0087 has reached unsafe area 0
+[2025-04-12 13:41:35] Human H0087 queued to return via tunnel from 0
+[2025-04-12 13:41:35] Human H0087 is crossing to refuge from unsafe area 0
+[2025-04-12 13:41:35] Human H0004 is waiting to form a group to exit to unsafe area 2
+[2025-04-12 13:41:35] A group of 3 has been formed for exiting to unsafe area 2
+[2025-04-12 13:41:36] Human H0030 has reached unsafe area 1
+[2025-04-12 13:41:36] Human H0030 queued to return via tunnel from 1
+[2025-04-12 13:41:36] Human H0030 is crossing to refuge from unsafe area 1
+[2025-04-12 13:41:36] Human H0053 is waiting to form a group to exit to unsafe area 3
+[2025-04-12 13:41:36] A group of 3 has been formed for exiting to unsafe area 3
+[2025-04-12 13:41:36] Human H0014 has reached the refuge from unsafe area 2
+[2025-04-12 13:41:36] Human H0050 is crossing to refuge from unsafe area 2
+[2025-04-12 13:41:36] Human H0086 has reached the refuge from unsafe area 3
+[2025-04-12 13:41:36] Human H0015 is crossing to unsafe area 3
+[2025-04-12 13:41:36] Human H0023 is waiting to form a group to exit to unsafe area 3
+[2025-04-12 13:41:36] Human H0087 has reached the refuge from unsafe area 0
+[2025-04-12 13:41:36] Human H0031 is crossing to unsafe area 0
+[2025-04-12 13:41:37] Human H0030 has reached the refuge from unsafe area 1
+[2025-04-12 13:41:37] Human H0054 is crossing to unsafe area 1
+[2025-04-12 13:41:37] Human H0050 has reached the refuge from unsafe area 2
+[2025-04-12 13:41:37] Human H0040 is crossing to unsafe area 2
+[2025-04-12 13:41:37] Human H0014 is waiting to form a group to exit to unsafe area 1
+[2025-04-12 13:41:37] Human H0015 has reached unsafe area 3
+[2025-04-12 13:41:37] Human H0015 queued to return via tunnel from 3
+[2025-04-12 13:41:37] Human H0015 is crossing to refuge from unsafe area 3
+[2025-04-12 13:41:37] Human H0031 has reached unsafe area 0
+[2025-04-12 13:41:37] Human H0031 queued to return via tunnel from 0
+[2025-04-12 13:41:37] Human H0031 is crossing to refuge from unsafe area 0
+[2025-04-12 13:41:37] Human H0086 is waiting to form a group to exit to unsafe area 2
+[2025-04-12 13:41:38] Zombie Z0000 left unsafe area 2.
+[2025-04-12 13:41:38] Zombie Z0000 enters unsafe area 2.
+[2025-04-12 13:41:38] Human H0087 is waiting to form a group to exit to unsafe area 0
+[2025-04-12 13:41:38] A group of 3 has been formed for exiting to unsafe area 0
+[2025-04-12 13:41:38] Human H0054 has reached unsafe area 1
+[2025-04-12 13:41:38] Human H0054 queued to return via tunnel from 1
+[2025-04-12 13:41:38] Human H0054 is crossing to refuge from unsafe area 1
+[2025-04-12 13:41:38] Human H0040 has reached unsafe area 2
+[2025-04-12 13:41:38] Human H0040 queued to return via tunnel from 2
+[2025-04-12 13:41:38] Human H0040 is crossing to refuge from unsafe area 2
+[2025-04-12 13:41:38] Human H0030 is waiting to form a group to exit to unsafe area 2
+[2025-04-12 13:41:38] Human H0015 has reached the refuge from unsafe area 3
+[2025-04-12 13:41:38] Human H0063 is crossing to unsafe area 3
+[2025-04-12 13:41:38] Human H0031 has reached the refuge from unsafe area 0
+[2025-04-12 13:41:38] Human H0069 is crossing to unsafe area 0
+[2025-04-12 13:41:38] Human H0050 is waiting to form a group to exit to unsafe area 0
+[2025-04-12 13:41:39] Human H0054 has reached the refuge from unsafe area 1
+[2025-04-12 13:41:39] Human H0057 is crossing to unsafe area 1
+[2025-04-12 13:41:39] Human H0040 has reached the refuge from unsafe area 2
+[2025-04-12 13:41:39] Human H0100 is crossing to unsafe area 2
+[2025-04-12 13:41:39] Human H0063 has reached unsafe area 3
+[2025-04-12 13:41:39] Human H0063 queued to return via tunnel from 3
+[2025-04-12 13:41:39] Human H0063 is crossing to refuge from unsafe area 3
+[2025-04-12 13:41:39] Human H0069 has reached unsafe area 0
+[2025-04-12 13:41:39] Human H0069 queued to return via tunnel from 0
+[2025-04-12 13:41:39] Human H0069 is crossing to refuge from unsafe area 0
+[2025-04-12 13:41:39] Human H0015 is waiting to form a group to exit to unsafe area 0
+[2025-04-12 13:41:39] Human H0031 is waiting to form a group to exit to unsafe area 3
+[2025-04-12 13:41:40] Human H0057 has reached unsafe area 1
+[2025-04-12 13:41:40] Human H0057 queued to return via tunnel from 1
+[2025-04-12 13:41:40] Human H0057 is crossing to refuge from unsafe area 1
+[2025-04-12 13:41:40] Human H0100 has reached unsafe area 2
+[2025-04-12 13:41:40] Human H0100 queued to return via tunnel from 2
+[2025-04-12 13:41:40] Human H0100 is crossing to refuge from unsafe area 2
+[2025-04-12 13:41:40] Human H0054 is waiting to form a group to exit to unsafe area 2
+[2025-04-12 13:41:40] A group of 3 has been formed for exiting to unsafe area 2
+[2025-04-12 13:41:40] Human H0063 has reached the refuge from unsafe area 3
+[2025-04-12 13:41:40] Human H0059 is crossing to unsafe area 3
+[2025-04-12 13:41:40] Zombie Z0000 left unsafe area 2.
+[2025-04-12 13:41:40] Zombie Z0000 enters unsafe area 3.
+[2025-04-12 13:41:40] Human H0069 has reached the refuge from unsafe area 0
+[2025-04-12 13:41:40] Human H0005 is crossing to unsafe area 0
+[2025-04-12 13:41:41] Human H0057 has reached the refuge from unsafe area 1
+[2025-04-12 13:41:41] Human H0097 is crossing to unsafe area 1
+[2025-04-12 13:41:41] Human H0040 is waiting to form a group to exit to unsafe area 0
+[2025-04-12 13:41:41] A group of 3 has been formed for exiting to unsafe area 0
+[2025-04-12 13:41:41] Human H0100 has reached the refuge from unsafe area 2
+[2025-04-12 13:41:41] Human H0095 is crossing to unsafe area 2
+[2025-04-12 13:41:41] Human H0059 has reached unsafe area 3
+[2025-04-12 13:41:41] Human H0059 queued to return via tunnel from 3
+[2025-04-12 13:41:41] Human H0059 is crossing to refuge from unsafe area 3
+[2025-04-12 13:41:41] Human H0005 has reached unsafe area 0
+[2025-04-12 13:41:41] Human H0013 is crossing to unsafe area 0
+[2025-04-12 13:41:41] Human H0005 queued to return via tunnel from 0
+[2025-04-12 13:41:41] Human H0063 is waiting to form a group to exit to unsafe area 3
+[2025-04-12 13:41:41] A group of 3 has been formed for exiting to unsafe area 3
+[2025-04-12 13:41:42] Human H0097 has reached unsafe area 1
+[2025-04-12 13:41:42] Human H0097 queued to return via tunnel from 1
+[2025-04-12 13:41:42] Human H0097 is crossing to refuge from unsafe area 1
+[2025-04-12 13:41:42] Human H0069 is waiting to form a group to exit to unsafe area 3
+[2025-04-12 13:41:42] Human H0095 has reached unsafe area 2
+[2025-04-12 13:41:42] Human H0095 queued to return via tunnel from 2
+[2025-04-12 13:41:42] Human H0095 is crossing to refuge from unsafe area 2
+[2025-04-12 13:41:42] Human H0059 has reached the refuge from unsafe area 3
+[2025-04-12 13:41:42] Human H0044 is crossing to unsafe area 3
+[2025-04-12 13:41:42] Human H0013 has reached unsafe area 0
+[2025-04-12 13:41:42] Human H0013 queued to return via tunnel from 0
+[2025-04-12 13:41:42] Human H0005 is crossing to refuge from unsafe area 0
+[2025-04-12 13:41:42] Human H0100 is waiting to form a group to exit to unsafe area 2
+[2025-04-12 13:41:42] Human H0057 is waiting to form a group to exit to unsafe area 1
+[2025-04-12 13:41:43] Human H0097 has reached the refuge from unsafe area 1
+[2025-04-12 13:41:43] Human H0042 is crossing to unsafe area 1
+[2025-04-12 13:41:43] Human H0095 has reached the refuge from unsafe area 2
+[2025-04-12 13:41:43] Human H0089 is crossing to unsafe area 2
+[2025-04-12 13:41:43] Zombie Z0000 left unsafe area 3.
+[2025-04-12 13:41:43] Zombie Z0000 enters unsafe area 3.
+[2025-04-12 13:41:43] Human H0044 has reached unsafe area 3
+[2025-04-12 13:41:43] Human H0021 is crossing to unsafe area 3
+[2025-04-12 13:41:43] Human H0044 queued to return via tunnel from 3
+[2025-04-12 13:41:43] Human H0059 is waiting to form a group to exit to unsafe area 0
+[2025-04-12 13:41:43] Human H0005 has reached the refuge from unsafe area 0
+[2025-04-12 13:41:43] Human H0013 is crossing to refuge from unsafe area 0
+[2025-04-12 13:41:44] Human H0042 has reached unsafe area 1
+[2025-04-12 13:41:44] Human H0042 queued to return via tunnel from 1
+[2025-04-12 13:41:44] Human H0042 is crossing to refuge from unsafe area 1
+[2025-04-12 13:41:44] Human H0097 is waiting to form a group to exit to unsafe area 0
+[2025-04-12 13:41:44] Human H0089 has reached unsafe area 2
+[2025-04-12 13:41:44] Human H0089 queued to return via tunnel from 2
+[2025-04-12 13:41:44] Human H0089 is crossing to refuge from unsafe area 2
+[2025-04-12 13:41:44] Human H0021 has reached unsafe area 3
+[2025-04-12 13:41:44] Human H0021 queued to return via tunnel from 3
+[2025-04-12 13:41:44] Human H0044 is crossing to refuge from unsafe area 3
+[2025-04-12 13:41:44] Human H0013 has reached the refuge from unsafe area 0
+[2025-04-12 13:41:44] Human H0037 is crossing to unsafe area 0
