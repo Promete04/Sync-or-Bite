@@ -13,17 +13,20 @@ public class Zombie extends Thread
     private String zombieId;
     private int killCount = 0;
     private RiskZone riskZone;
+    private Logger logger;
 
-    public Zombie(RiskZone riskZone) 
+    public Zombie(RiskZone riskZone, Logger logger) 
     {
         this.zombieId = "Z0000";
-        this.riskZone = riskZone;
+        this.riskZone = riskZone; 
+        this.logger = logger;
     }
     
-    public Zombie(String zombieId, RiskZone riskZone)
+    public Zombie(String zombieId, RiskZone riskZone, Logger logger)
     {
         this.zombieId = zombieId;
         this.riskZone = riskZone;
+        this.logger = logger;
     }
     
     public void run()
@@ -34,7 +37,9 @@ public class Zombie extends Thread
             while(true)
             {
                 unsafeArea = (int) (Math.random()*4);
+                logger.log("Zombie " + zombieId + " enters unsafe area " + unsafeArea + ".");
                 riskZone.accessUnsafeArea(this, unsafeArea);
+                logger.log("Zombie " + zombieId + " left unsafe area " + unsafeArea + ".");
             }
         }
         catch(InterruptedException ie)

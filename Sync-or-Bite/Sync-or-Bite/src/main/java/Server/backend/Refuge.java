@@ -15,14 +15,15 @@ public class Refuge
     private CommonArea commonArea;
     private DiningRoom diningRoom;
     private AtomicInteger count;
+    private Logger logger;
     
-    public Refuge()
+    public Refuge(Logger logger)
     {
         AtomicInteger count = new AtomicInteger(0);
         restArea = new RestArea();
         commonArea = new CommonArea();
         diningRoom = new DiningRoom();
-        
+        this.logger = logger;
     }
     
     public void access()

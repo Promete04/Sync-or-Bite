@@ -12,12 +12,12 @@ public class Tunnels
 {
     private Tunnel[] tunnels;
     
-    public Tunnels()
+    public Tunnels(Logger logger)
     {
         tunnels = new Tunnel[4];
         for(int i = 0; i<4; i++)
         {
-            tunnels[i] = new Tunnel(i);   //i corresponds to the UnsafeArea to which the tunnel is connected.
+            tunnels[i] = new Tunnel(i, logger);   //i corresponds to the UnsafeArea to which the tunnel is connected.
         }
     }
     

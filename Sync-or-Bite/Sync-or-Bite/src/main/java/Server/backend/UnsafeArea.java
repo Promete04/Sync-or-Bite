@@ -14,14 +14,16 @@ import java.util.concurrent.Semaphore;
  */
 public class UnsafeArea 
 {
-    private final List<Zombie> zombiesInside = new ArrayList<Zombie>();  
-    private final List<Human> humansInside = new ArrayList<Human>();  
+    private List<Zombie> zombiesInside = new ArrayList<Zombie>();  
+    private List<Human> humansInside = new ArrayList<Human>();  
     private Semaphore mutex = new Semaphore(1,true);
     private int area;
+    private Logger logger;
     
-    public UnsafeArea(int area)
+    public UnsafeArea(int area, Logger logger)
     {
         this.area = area;
+        this.logger = logger;
     }
     
     public void wander(Zombie z) throws InterruptedException
@@ -40,7 +42,8 @@ public class UnsafeArea
         {
             if(!humansInside.isEmpty())
             {
-                int atackedHuman = (int) (Math.random()*humansInside.size());
+                int attackedHuman = (int) (Math.random()*humansInside.size());
+                logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + humansInside.get(attackedHuman).getHumanId());
             }
         }
         

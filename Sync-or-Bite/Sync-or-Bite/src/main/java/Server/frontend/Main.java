@@ -16,10 +16,11 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() 
     {
-        RiskZone riskZone = new RiskZone();
-        Refuge refuge = new Refuge();
-        Tunnels tunnels = new Tunnels();
-        new Zombie(riskZone).start();  // Patient zero
+        Logger logger = new Logger();
+        RiskZone riskZone = new RiskZone(logger);
+        Refuge refuge = new Refuge(logger);
+        Tunnels tunnels = new Tunnels(logger);
+        new Zombie(riskZone, logger).start();  // Patient zero
         initComponents();
     }
 

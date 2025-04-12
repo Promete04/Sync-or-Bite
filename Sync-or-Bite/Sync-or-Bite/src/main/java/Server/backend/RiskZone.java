@@ -12,12 +12,12 @@ public class RiskZone
 {
     private UnsafeArea[] unsafeAreas;
     
-    public RiskZone()
+    public RiskZone(Logger logger)
     {
         unsafeAreas = new UnsafeArea[4];
         for(int i=0; i<4; i++)
         {
-            unsafeAreas[i] = new UnsafeArea(i);
+            unsafeAreas[i] = new UnsafeArea(i, logger);
         }
     }
     

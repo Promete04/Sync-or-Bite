@@ -15,13 +15,15 @@ public class Human extends Thread
     private RiskZone riskZone;
     private Tunnels tunnels;
     private boolean marked = false;
+    private Logger logger;
     
-    public Human(int id, Refuge refuge, Tunnels tunnels, RiskZone riskZone)
+    public Human(int id, Refuge refuge, Tunnels tunnels, RiskZone riskZone, Logger logger)
     {
         this.humanId = String.format("H%04d", id);
         this.refuge = refuge;
         this.tunnels = tunnels;
         this.riskZone = riskZone;
+        this.logger = logger;
     }
     
     public void run()
@@ -29,6 +31,8 @@ public class Human extends Thread
         try
         {
             refuge.access();
+            logger.log("Human " + humanId + " enters the refuge.");
+            
             int tunnel;
             while(true)
             {

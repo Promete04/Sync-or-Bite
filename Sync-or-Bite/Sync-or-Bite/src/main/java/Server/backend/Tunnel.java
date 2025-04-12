@@ -15,10 +15,10 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Tunnel 
 {
 
-    private final RiskZone riskZone;
+    private RiskZone riskZone;
     
     // Barrier to wait for groups of 3 exiters.
-    private final CyclicBarrier groups;
+    private CyclicBarrier groups;
     
     // Lock and conditions for controlling tunnel crossing.
     private final ReentrantLock usingLock = new ReentrantLock(true);  // Fair lock to avoid starvation.
@@ -34,11 +34,13 @@ public class Tunnel
     private Human currentInside = null;  // The human currently inside the tunnel.
     
     // Queues for tracking waiting humans.
-    private final Queue<Human> waitingToExitShelter = new LinkedList<>();  // Exit queue.
-    private final Queue<Human> waitingToEnterShelter = new LinkedList<>();   // Return queue.
+    private Queue<Human> waitingToExitShelter = new LinkedList<>();  // Exit queue.
+    private Queue<Human> waitingToEnterShelter = new LinkedList<>();   // Return queue.
     
     // Variable use to easily control the number neede to launch an raid
     private static final int GROUP_SIZE = 3;
+    
+    private Logger logger;
     
     // Constructor: associates Tunnel with a specific risk zone.
     public Tunnel(RiskZone riskZone) 
@@ -53,9 +55,9 @@ public class Tunnel
         });
     }
     
-    public Tunnel(int unsafeArea)
+    public Tunnel(int unsafeArea, Logger logger)
     {
-        
+        this.logger = logger;
     }
     
     public RiskZone getRiskZone() 
