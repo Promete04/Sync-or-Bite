@@ -37,7 +37,7 @@ public class Tunnel
     private final Queue<Human> waitingToExitShelter = new LinkedList<>();  // Exit queue.
     private final Queue<Human> waitingToEnterShelter = new LinkedList<>();   // Return queue.
     
-    //Variable use to easily control the number neede to launch an raid
+    // Variable use to easily control the number neede to launch an raid
     private static final int GROUP_SIZE = 3;
     
     // Constructor: associates Tunnel with a specific risk zone.
@@ -46,7 +46,6 @@ public class Tunnel
         this.riskZone = riskZone;
         groups = new CyclicBarrier(GROUP_SIZE, new Runnable() 
         {
-            @Override
             public void run() 
             {
                 System.out.println("A group of " + GROUP_SIZE + " has been formed for exiting to " + riskZone);
@@ -60,7 +59,6 @@ public class Tunnel
     }
     
     // Methods for Humans Exiting to the Risk Zone
-
     public void requestExit(Human h) throws InterruptedException 
     {
         // Add the human to the waiting-to-exit queue (using entryWaitingLock).
@@ -68,7 +66,7 @@ public class Tunnel
         try 
         {
             waitingToExitShelter.add(h);
-            System.out.println("Human " + h.getId() + " is waiting to form a group to exit to " + riskZone);
+            System.out.println("Human " + h.getHumanId() + " is waiting to form a group to exit to " + riskZone);
         } 
         finally 
         {
@@ -82,7 +80,7 @@ public class Tunnel
         } 
         catch (BrokenBarrierException e)
         {
-            System.out.println("Barrier broken for human " + h.getId() + ": " + e.getMessage());
+            System.out.println("Barrier broken for human " + h.getHumanId() + ": " + e.getMessage());
             return;
         }
         
@@ -123,9 +121,9 @@ public class Tunnel
         }
         
         // Simulate the crossing (e.g., 1 second).
-        System.out.println("Human " + h.getId() + " is crossing to risk zone " + riskZone);
+        System.out.println("Human " + h.getHumanId() + " is crossing to risk zone " + riskZone);
         Thread.sleep(1000);
-        System.out.println("Human " + h.getId() + " has reached risk zone " + riskZone);
+        System.out.println("Human " + h.getHumanId() + " has reached risk zone " + riskZone);
         
         // Release the tunnel.
         usingLock.lock();
@@ -158,7 +156,7 @@ public class Tunnel
         try 
         {
             waitingToEnterShelter.add(h);
-            System.out.println("Human " + h.getId() + " queued to return via tunnel from " + riskZone);
+            System.out.println("Human " + h.getHumanId() + " queued to return via tunnel from " + riskZone);
         } 
         finally
         {
@@ -193,9 +191,9 @@ public class Tunnel
         }
         
         // Simulate the crossing (e.g., 1 second).
-        System.out.println("Human " + h.getId() + " is crossing to refuge from " + riskZone);
+        System.out.println("Human " + h.getHumanId() + " is crossing to refuge from " + riskZone);
         Thread.sleep(1000);
-        System.out.println("Human " + h.getId() + " has reached the refuge from " + riskZone);
+        System.out.println("Human " + h.getHumanId() + " has reached the refuge from " + riskZone);
         
         // Release the tunnel.
         usingLock.lock();
@@ -272,7 +270,7 @@ public class Tunnel
         
         for (Human h : waitingToExitShelter) 
         {
-            ids.add(h.getId());
+            ids.add(h.getHumanId ());
         }
       
         exitWaitingLock.unlock();
@@ -287,7 +285,7 @@ public class Tunnel
         
         for (Human h : waitingToEnterShelter)
         {
-            ids.add(h.getId());
+            ids.add(h.getHumanId());
         }
         entryWaitingLock.unlock();
        

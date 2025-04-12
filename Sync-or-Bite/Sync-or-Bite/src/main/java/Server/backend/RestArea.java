@@ -8,6 +8,7 @@ package Server.backend;
  *
  * @author guill
  */
-public class RestArea {
+public class RestArea 
+{
     
 }

@@ -8,11 +8,13 @@ package Server.backend;
  *
  * @author guill
  */
-public class Human {
+public class Human 
+{
 
     
     //Method needed for tunnel functionality
-    public String getId() {
+    public String getHumanId() 
+    {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

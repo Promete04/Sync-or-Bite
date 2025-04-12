@@ -37,7 +37,7 @@ public class CommonArea
         me.release();
     }
     
-    //  Methods for monitoring
+    // Methods for monitoring
     public synchronized int getCommon() throws InterruptedException
     {
         me.acquire();
@@ -58,7 +58,7 @@ public class CommonArea
        
         for (Human h : commonList) 
         {
-            ids.add(h.getId());
+            ids.add(h.getHumanId());
         }
         
          me.release();
