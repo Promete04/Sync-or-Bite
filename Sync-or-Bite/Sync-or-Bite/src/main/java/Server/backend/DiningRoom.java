@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class DiningRoom 
 {
-    private Food food = new Food();
-    private List<Human> diningList = new ArrayList<Human>();
+    private final Food food = new Food();
+    private final List<Human> diningList = new ArrayList<>();
     
     public DiningRoom()
     {
