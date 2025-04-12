@@ -4,11 +4,28 @@
  */
 package Server.backend;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author guill
  */
 public class RestArea 
 {
+    private ArrayList<Human> restList;
     
+    public RestArea()
+    {
+        
+    }
+    
+    public void rest(Human h)
+    {
+        
+    }
+    
+    public void fullRecover(Human h)
+    {
+        
+    }
 }

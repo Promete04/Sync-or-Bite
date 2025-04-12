@@ -4,15 +4,28 @@
  */
 package Server.backend;
 
+import java.util.concurrent.Semaphore;
+
 /**
  *
  * @author Lopex
  */
 public class Food 
 {
-    private int count = 0;
+    private Semaphore counter = new Semaphore(0, true);
     
     public Food()
     {
+    }
+    
+    public void deposit()
+    {
+        counter.release(2);
+    }
+    
+    public void eat() throws InterruptedException
+    {
+        counter.acquire();
+        Thread.sleep(3000 + (int) (Math.random() * 2000));
     }
 }

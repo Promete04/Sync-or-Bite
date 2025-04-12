@@ -14,6 +14,7 @@ public class Human extends Thread
     private Refuge refuge;
     private RiskZone riskZone;
     private Tunnels tunnels;
+    private boolean marked = false;
     
     public Human(int id, Refuge refuge, Tunnels tunnels, RiskZone riskZone)
     {
@@ -28,10 +29,19 @@ public class Human extends Thread
         try
         {
             refuge.access();
-            int tunnel = (int) (Math.random()*4);
+            int tunnel;
             while(true)
             {
+                refuge.accessCommonArea(this);
+                tunnel = (int) (Math.random()*4);
                 tunnels.accessTunnel(this, tunnel);
+                refuge.depositFoodInDiningRoom();
+                refuge.restInRestArea(this);
+                refuge.accessDiningRoom(this);
+                if(marked)
+                {
+                    refuge.fullRecoverInRestArea(this);
+                }
             }
         }
         catch(InterruptedException ie)

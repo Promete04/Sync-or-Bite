@@ -14,54 +14,52 @@ import java.util.concurrent.Semaphore;
  */
 public class CommonArea 
 {
-    ArrayList<Tunnel> tunnelList;
-    ArrayList<Human> commonList;
-    Semaphore me = new Semaphore(1,true);
+    private ArrayList<Human> commonList;
+    Semaphore mutex = new Semaphore(1,true);
     
     
-    public void CommonArea (int numTunnel)
+    public void CommonArea ()
     {
-        tunnelList = new ArrayList<>(numTunnel);
     }
     
     public void wander(Human h) throws InterruptedException
     {
-        me.acquire();
+        mutex.acquire();
         commonList.add(h);
-        me.release();
+        mutex.release();
         
         Thread.sleep((int) (1000 + Math.random() * 1000));
         
-        me.acquire();
+        mutex.acquire();
         commonList.remove(h);
-        me.release();
+        mutex.release();
     }
     
     // Methods for monitoring
     public synchronized int getCommon() throws InterruptedException
     {
-        me.acquire();
+        mutex.acquire();
         try 
         {
             return commonList.size();
         } 
         finally 
         {
-           me.release();
+           mutex.release();
         }
     }
     public synchronized List<String> getCommonIds() throws InterruptedException 
     {
         List<String> ids = new ArrayList<>();
         
-        me.acquire();
+        mutex.acquire();
        
         for (Human h : commonList) 
         {
             ids.add(h.getHumanId());
         }
         
-         me.release();
+         mutex.release();
          return ids;
     }
     

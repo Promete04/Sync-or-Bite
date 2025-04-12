@@ -15,7 +15,6 @@ public class Refuge
     private CommonArea commonArea;
     private DiningRoom diningRoom;
     private AtomicInteger count;
-    private Food food;
     
     public Refuge()
     {
@@ -23,7 +22,7 @@ public class Refuge
         restArea = new RestArea();
         commonArea = new CommonArea();
         diningRoom = new DiningRoom();
-        food = new Food();
+        
     }
     
     public void access()
@@ -36,13 +35,25 @@ public class Refuge
         commonArea.wander(h);
     }
     
-    public void accessRestArea(Human h)
+    public void restInRestArea(Human h)
     {
-        
+        restArea.rest(h);
+    }
+    
+    public void fullRecoverInRestArea(Human h)
+    {
+        restArea.fullRecover(h);
+    }
+    
+    public void depositFoodInDiningRoom()
+    {
+        diningRoom.depositFood();
     }
     
     public void accessDiningRoom(Human h)
     {
         
     }
+    
+    
 }
