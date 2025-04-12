@@ -65,4 +65,9 @@ public class UnsafeArea
     {
         
     }
+    
+    public int getArea()
+    {
+        return area;
+    }
 }

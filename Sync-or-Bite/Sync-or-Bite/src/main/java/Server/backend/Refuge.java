@@ -19,16 +19,23 @@ public class Refuge
     
     public Refuge(Logger logger)
     {
-        AtomicInteger count = new AtomicInteger(0);
+        count = new AtomicInteger(0);
         restArea = new RestArea();
         commonArea = new CommonArea();
         diningRoom = new DiningRoom();
         this.logger = logger;
     }
     
-    public void access()
+    public void access(Human h)
     {
         count.getAndIncrement();
+        logger.log("Human " + h.getHumanId() + " enters the refuge.");
+    }
+    
+    public void leave(Human h)
+    {
+        count.getAndDecrement();
+        logger.log("Human " + h.getHumanId() + " leaves the refuge.");
     }
     
     public void accessCommonArea(Human h) throws InterruptedException

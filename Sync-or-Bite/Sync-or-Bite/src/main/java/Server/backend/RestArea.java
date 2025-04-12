@@ -5,6 +5,7 @@
 package Server.backend;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 public class RestArea 
 {
-    private ArrayList<Human> restList;
+    private List<Human> restList = new ArrayList<Human>();
     
     public RestArea()
     {

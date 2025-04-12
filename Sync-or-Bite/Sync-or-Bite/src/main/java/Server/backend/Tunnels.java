@@ -11,18 +11,20 @@ package Server.backend;
 public class Tunnels 
 {
     private Tunnel[] tunnels;
+    private RiskZone riskZone;
     
-    public Tunnels(Logger logger)
+    public Tunnels(RiskZone riskZone, Logger logger)
     {
+        this.riskZone = riskZone;
         tunnels = new Tunnel[4];
         for(int i = 0; i<4; i++)
         {
-            tunnels[i] = new Tunnel(i, logger);   //i corresponds to the UnsafeArea to which the tunnel is connected.
+            tunnels[i] = new Tunnel(riskZone.getUnsafeAreas()[i], logger);   //i corresponds to the UnsafeArea to which the tunnel is connected.
         }
     }
     
-    public void accessTunnel(Human h, int tunnel) throws InterruptedException
+    public Tunnel accessTunnel(Human h, int tunnel) throws InterruptedException
     {
-        tunnels[tunnel].requestExit(h);
+        return tunnels[tunnel];
     }
 }

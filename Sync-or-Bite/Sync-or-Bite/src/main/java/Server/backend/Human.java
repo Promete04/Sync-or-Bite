@@ -30,15 +30,18 @@ public class Human extends Thread
     {
         try
         {
-            refuge.access();
-            logger.log("Human " + humanId + " enters the refuge.");
+            refuge.access(this);
             
             int tunnel;
             while(true)
             {
                 refuge.accessCommonArea(this);
+                
                 tunnel = (int) (Math.random()*4);
-                tunnels.accessTunnel(this, tunnel);
+                tunnels.accessTunnel(this, tunnel).requestExit(this);
+                tunnels.accessTunnel(this, tunnel).getUnsafeArea().wander(this);
+                tunnels.accessTunnel(this, tunnel).requestReturn(this);
+                
                 refuge.depositFoodInDiningRoom();
                 refuge.restInRestArea(this);
                 refuge.accessDiningRoom(this);

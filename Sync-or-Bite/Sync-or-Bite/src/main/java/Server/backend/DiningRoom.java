@@ -5,6 +5,7 @@
 package Server.backend;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -12,12 +13,11 @@ import java.util.ArrayList;
  */
 public class DiningRoom 
 {
-    private Food food;
-    private ArrayList<Human> diningList;
+    private Food food = new Food();
+    private List<Human> diningList = new ArrayList<Human>();
     
     public DiningRoom()
     {
-        food = new Food();
     }
     
     public void depositFood()

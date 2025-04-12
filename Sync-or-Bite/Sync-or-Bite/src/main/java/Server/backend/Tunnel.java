@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Tunnel 
 {
 
-    private RiskZone riskZone;
+    private UnsafeArea unsafeArea;
     
     // Barrier to wait for groups of 3 exiters.
     private CyclicBarrier groups;
@@ -42,27 +42,23 @@ public class Tunnel
     
     private Logger logger;
     
-    // Constructor: associates Tunnel with a specific risk zone.
-    public Tunnel(RiskZone riskZone) 
+    // Constructor: associates Tunnel with a specific unsafe area.
+    public Tunnel(UnsafeArea unsafeArea, Logger logger)
     {
-        this.riskZone = riskZone;
+        this.logger = logger;
+        this.unsafeArea = unsafeArea;
         groups = new CyclicBarrier(GROUP_SIZE, new Runnable() 
         {
             public void run() 
             {
-                System.out.println("A group of " + GROUP_SIZE + " has been formed for exiting to " + riskZone);
+                logger.log("A group of " + GROUP_SIZE + " has been formed for exiting to unsafe area " + unsafeArea.getArea());
             }
         });
     }
     
-    public Tunnel(int unsafeArea, Logger logger)
+    public UnsafeArea getUnsafeArea() 
     {
-        this.logger = logger;
-    }
-    
-    public RiskZone getRiskZone() 
-    {
-        return riskZone;
+        return unsafeArea;
     }
     
     // Methods for Humans Exiting to the Risk Zone
@@ -73,7 +69,7 @@ public class Tunnel
         try 
         {
             waitingToExitShelter.add(h);
-            System.out.println("Human " + h.getHumanId() + " is waiting to form a group to exit to " + riskZone);
+            logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea());
         } 
         finally 
         {
@@ -87,7 +83,7 @@ public class Tunnel
         } 
         catch (BrokenBarrierException e)
         {
-            System.out.println("Barrier broken for human " + h.getHumanId() + ": " + e.getMessage());
+            logger.log("Barrier broken for human " + h.getHumanId() + ": " + e.getMessage());
             return;
         }
         
@@ -128,9 +124,9 @@ public class Tunnel
         }
         
         // Simulate the crossing (e.g., 1 second).
-        System.out.println("Human " + h.getHumanId() + " is crossing to risk zone " + riskZone);
+        logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea());
         Thread.sleep(1000);
-        System.out.println("Human " + h.getHumanId() + " has reached risk zone " + riskZone);
+        logger.log("Human " + h.getHumanId() + " has reached unsafe area " + unsafeArea.getArea());
         
         // Release the tunnel.
         usingLock.lock();
@@ -154,7 +150,7 @@ public class Tunnel
         }
     }
     
-    // Methods for Humans Returning to the Refuge
+    // Methods for humans returning to the refuge
     
     public void requestReturn(Human h) throws InterruptedException 
     {
@@ -163,7 +159,7 @@ public class Tunnel
         try 
         {
             waitingToEnterShelter.add(h);
-            System.out.println("Human " + h.getHumanId() + " queued to return via tunnel from " + riskZone);
+            logger.log("Human " + h.getHumanId() + " queued to return via tunnel from " + unsafeArea.getArea());
         } 
         finally
         {
@@ -198,9 +194,9 @@ public class Tunnel
         }
         
         // Simulate the crossing (e.g., 1 second).
-        System.out.println("Human " + h.getHumanId() + " is crossing to refuge from " + riskZone);
+        logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea());
         Thread.sleep(1000);
-        System.out.println("Human " + h.getHumanId() + " has reached the refuge from " + riskZone);
+        logger.log("Human " + h.getHumanId() + " has reached the refuge from unsafe area " + unsafeArea.getArea());
         
         // Release the tunnel.
         usingLock.lock();

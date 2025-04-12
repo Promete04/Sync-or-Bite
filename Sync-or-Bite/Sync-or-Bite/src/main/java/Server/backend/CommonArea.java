@@ -14,7 +14,7 @@ import java.util.concurrent.Semaphore;
  */
 public class CommonArea 
 {
-    private ArrayList<Human> commonList;
+    private List<Human> commonList = new ArrayList<Human>();
     Semaphore mutex = new Semaphore(1,true);
     
     

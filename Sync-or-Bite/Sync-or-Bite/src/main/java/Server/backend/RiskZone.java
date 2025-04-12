@@ -30,5 +30,9 @@ public class RiskZone
     {
         unsafeAreas[area].wander(h);
     }
-            
+    
+    public UnsafeArea[] getUnsafeAreas()
+    {
+        return unsafeAreas;
+    }
 }
