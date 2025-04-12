@@ -53,9 +53,9 @@ public class Refuge
         restArea.fullRecover(h);
     }
     
-    public void depositFoodInDiningRoom()
+    public void depositFoodInDiningRoom(Food f)
     {
-        diningRoom.depositFood();
+        diningRoom.storeFood(f);
     }
     
     public void accessDiningRoom(Human h)

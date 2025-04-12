@@ -4,7 +4,6 @@
  */
 package Server.backend;
 
-import java.util.concurrent.Semaphore;
 
 /**
  *
@@ -12,20 +11,14 @@ import java.util.concurrent.Semaphore;
  */
 public class Food 
 {
-    private final Semaphore counter = new Semaphore(0, true);
+    private int ID;
     
-    public Food()
+    public void Food(int pID)
     {
+        this.ID=pID;
     }
-    
-    public void deposit()
-    {
-        counter.release(2);
-    }
-    
-    public void eat() throws InterruptedException
-    {
-        counter.acquire();
-        Thread.sleep(3000 + (int) (Math.random() * 2000));
-    }
+     public int getFoodID()
+     {
+         return ID;
+     }
 }

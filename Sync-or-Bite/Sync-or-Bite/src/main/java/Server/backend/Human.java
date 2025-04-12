@@ -4,6 +4,9 @@
  */
 package Server.backend;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author guill
@@ -15,6 +18,7 @@ public class Human extends Thread
     private final Tunnels tunnels;
     private boolean marked = false;
     private final Logger logger;
+    private final List<Food> foodList = new ArrayList<>();
     
     public Human(int id, Refuge refuge, Tunnels tunnels, Logger logger)
     {
@@ -64,5 +68,14 @@ public class Human extends Thread
     public void toggleMarked()
     {
         marked = !marked; 
+    }
+    
+    public void fillFood(Food f)
+    {
+        foodList.add(f);
+    }
+    public Food depositFood()
+    {
+        return foodList.removeFirst();
     }
 }

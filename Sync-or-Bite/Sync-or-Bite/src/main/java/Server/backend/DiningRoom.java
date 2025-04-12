@@ -13,20 +13,21 @@ import java.util.List;
  */
 public class DiningRoom 
 {
-    private final Food food = new Food();
     private final List<Human> diningList = new ArrayList<>();
+    private final List<Food> foodList = new ArrayList<>();
     
     public DiningRoom()
     {
     }
     
-    public void depositFood()
+    public synchronized void storeFood(Food f)
     {
-        food.deposit();
+        foodList.add(f);
     }
     
-    public void eatFood() throws InterruptedException
+    public  void eatFood(Human h) throws InterruptedException
     {
-        food.eat();
+        
+        foodList.removeFirst();
     }
 }
