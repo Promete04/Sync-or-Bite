@@ -10,10 +10,10 @@ package Server.backend;
  */
 public class Zombie extends Thread
 {
-    private String zombieId;
+    private final String zombieId;
     private int killCount = 0;
-    private RiskZone riskZone;
-    private Logger logger;
+    private final RiskZone riskZone;
+    private final Logger logger;
 
     public Zombie(RiskZone riskZone, Logger logger) 
     {
@@ -51,11 +51,6 @@ public class Zombie extends Thread
     public String getZombieId() 
     {
         return zombieId;
-    }
-
-    public void setId(String zombieId) 
-    {
-        this.zombieId = zombieId;
     }
 
     public int getKillCount() 

@@ -34,8 +34,8 @@ public class Tunnel
     private Human currentInside = null;  // The human currently inside the tunnel.
     
     // Queues for tracking waiting humans.
-    private Queue<Human> waitingToExitShelter = new LinkedList<>();  // Exit queue.
-    private Queue<Human> waitingToEnterShelter = new LinkedList<>();   // Return queue.
+    private final Queue<Human> waitingToExitShelter = new LinkedList<>();  // Exit queue.
+    private final Queue<Human> waitingToEnterShelter = new LinkedList<>();   // Return queue.
     
     // Variable use to easily control the number neede to launch an raid
     private static final int GROUP_SIZE = 3;
@@ -49,6 +49,7 @@ public class Tunnel
         this.unsafeArea = unsafeArea;
         groups = new CyclicBarrier(GROUP_SIZE, new Runnable() 
         {
+            @Override
             public void run() 
             {
                 logger.log("A group of " + GROUP_SIZE + " has been formed for exiting to unsafe area " + unsafeArea.getArea());
@@ -270,13 +271,14 @@ public class Tunnel
     {
         List<String> ids = new ArrayList<>();
         exitWaitingLock.lock();
-        
-        for (Human h : waitingToExitShelter) 
-        {
-            ids.add(h.getHumanId ());
+        try {
+            for (Human h : waitingToExitShelter)
+            {
+                ids.add(h.getHumanId ());
+            }
+        } finally {
+            exitWaitingLock.unlock();
         }
-      
-        exitWaitingLock.unlock();
   
         return ids;
     }
@@ -285,12 +287,14 @@ public class Tunnel
     {
         List<String> ids = new ArrayList<>();
         entryWaitingLock.lock();
-        
-        for (Human h : waitingToEnterShelter)
-        {
-            ids.add(h.getHumanId());
+        try {
+            for (Human h : waitingToEnterShelter)
+            {
+                ids.add(h.getHumanId());
+            }
+        } finally {
+            entryWaitingLock.unlock();
         }
-        entryWaitingLock.unlock();
        
         return ids;
     }

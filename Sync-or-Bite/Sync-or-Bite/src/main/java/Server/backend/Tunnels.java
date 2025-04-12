@@ -23,7 +23,7 @@ public class Tunnels
         }
     }
     
-    public Tunnel accessTunnel(int tunnel) throws InterruptedException
+    public Tunnel obtainTunnel(int tunnel) throws InterruptedException
     {
         return tunnels[tunnel];
     }

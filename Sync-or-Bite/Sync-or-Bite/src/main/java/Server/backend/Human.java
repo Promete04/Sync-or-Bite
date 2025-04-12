@@ -36,9 +36,9 @@ public class Human extends Thread
                 refuge.accessCommonArea(this);
                 
                 tunnel = (int) (Math.random()*4);
-                tunnels.accessTunnel(tunnel).requestExit(this);
-                tunnels.accessTunnel(tunnel).getUnsafeArea().wander(this);
-                tunnels.accessTunnel(tunnel).requestReturn(this);
+                tunnels.obtainTunnel(tunnel).requestExit(this);
+                tunnels.obtainTunnel(tunnel).getUnsafeArea().wander(this);
+                tunnels.obtainTunnel(tunnel).requestReturn(this);
                 
                 refuge.depositFoodInDiningRoom();
                 refuge.restInRestArea(this);
