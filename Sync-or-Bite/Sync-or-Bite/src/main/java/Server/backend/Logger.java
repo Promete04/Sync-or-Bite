@@ -17,16 +17,16 @@ import java.time.format.DateTimeFormatter;
 public class Logger 
 {
     private String file;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
+    private DateTimeFormatter filenameFormatter;
+    private DateTimeFormatter lineFormatter;
+    
     public Logger()
     {
-        DateTimeFormatter filenameFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        filenameFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         String timestamp = LocalDateTime.now().format(filenameFormatter);
         this.file = "apocalypse_" + timestamp + ".txt";
     }
     
-   
     public synchronized void log(String event) 
     {
         FileWriter fw = null;
@@ -36,8 +36,9 @@ public class Logger
         {
             fw = new FileWriter(file, true); 
             pw = new PrintWriter(fw);
-
-            String timestamp = java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            
+            lineFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            String timestamp = java.time.LocalDateTime.now().format(lineFormatter);
             pw.println("[" + timestamp + "] " + event);
 
         } 
