@@ -21,18 +21,13 @@ public class RiskZone
         }
     }
     
-    public void accessUnsafeArea(Zombie z, int area) throws InterruptedException
-    {
-        unsafeAreas[area].wander(z);
-    }
-    
-    public void accessUnsafeArea(Human h, int area)
-    {
-        unsafeAreas[area].wander(h);
-    }
-    
     public UnsafeArea[] getUnsafeAreas()
     {
         return unsafeAreas;
+    }
+    
+    public UnsafeArea accessUnsafeArea(int area)
+    {
+        return unsafeAreas[area];
     }
 }

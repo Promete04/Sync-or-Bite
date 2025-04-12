@@ -12,17 +12,15 @@ public class Human extends Thread
 {
     private String humanId;
     private Refuge refuge;
-    private RiskZone riskZone;
     private Tunnels tunnels;
     private boolean marked = false;
     private Logger logger;
     
-    public Human(int id, Refuge refuge, Tunnels tunnels, RiskZone riskZone, Logger logger)
+    public Human(int id, Refuge refuge, Tunnels tunnels, Logger logger)
     {
         this.humanId = String.format("H%04d", id);
         this.refuge = refuge;
         this.tunnels = tunnels;
-        this.riskZone = riskZone;
         this.logger = logger;
     }
     
@@ -38,9 +36,9 @@ public class Human extends Thread
                 refuge.accessCommonArea(this);
                 
                 tunnel = (int) (Math.random()*4);
-                tunnels.accessTunnel(this, tunnel).requestExit(this);
-                tunnels.accessTunnel(this, tunnel).getUnsafeArea().wander(this);
-                tunnels.accessTunnel(this, tunnel).requestReturn(this);
+                tunnels.accessTunnel(tunnel).requestExit(this);
+                tunnels.accessTunnel(tunnel).getUnsafeArea().wander(this);
+                tunnels.accessTunnel(tunnel).requestReturn(this);
                 
                 refuge.depositFoodInDiningRoom();
                 refuge.restInRestArea(this);

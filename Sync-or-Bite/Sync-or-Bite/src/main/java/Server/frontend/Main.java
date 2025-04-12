@@ -26,7 +26,7 @@ public class Main extends javax.swing.JFrame {
         {
             for (int i = 1; i < 101; i++) 
             {
-                new Human(i, refuge, tunnels, riskZone, logger).start();
+                new Human(i, refuge, tunnels, logger).start();
                 Thread.sleep(500 + (int) (Math.random() * 1500));
             }
         }

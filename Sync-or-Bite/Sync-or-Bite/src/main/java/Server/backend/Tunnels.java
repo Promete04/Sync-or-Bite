@@ -19,11 +19,11 @@ public class Tunnels
         tunnels = new Tunnel[4];
         for(int i = 0; i<4; i++)
         {
-            tunnels[i] = new Tunnel(riskZone.getUnsafeAreas()[i], logger);   //i corresponds to the UnsafeArea to which the tunnel is connected.
+            tunnels[i] = new Tunnel(riskZone.getUnsafeAreas()[i], logger);
         }
     }
     
-    public Tunnel accessTunnel(Human h, int tunnel) throws InterruptedException
+    public Tunnel accessTunnel(int tunnel) throws InterruptedException
     {
         return tunnels[tunnel];
     }
