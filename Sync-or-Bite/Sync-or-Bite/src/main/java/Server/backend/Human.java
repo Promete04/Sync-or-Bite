@@ -10,11 +10,11 @@ package Server.backend;
  */
 public class Human extends Thread
 {
-    private String humanId;
-    private Refuge refuge;
-    private Tunnels tunnels;
+    private final String humanId;
+    private final Refuge refuge;
+    private final Tunnels tunnels;
     private boolean marked = false;
-    private Logger logger;
+    private final Logger logger;
     
     public Human(int id, Refuge refuge, Tunnels tunnels, Logger logger)
     {
@@ -24,6 +24,7 @@ public class Human extends Thread
         this.logger = logger;
     }
     
+    @Override
     public void run()
     {
         try
@@ -60,4 +61,8 @@ public class Human extends Thread
         return humanId;
     }
     
+    public void toggleMarked()
+    {
+        marked = !marked; 
+    }
 }
