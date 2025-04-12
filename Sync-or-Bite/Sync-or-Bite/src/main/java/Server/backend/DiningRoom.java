@@ -6,6 +6,9 @@ package Server.backend;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Semaphore;
 
 /**
  *
@@ -14,7 +17,9 @@ import java.util.List;
 public class DiningRoom 
 {
     private final List<Human> diningList = new ArrayList<>();
-    private final List<Food> foodList = new ArrayList<>();
+    private final Queue<Food> foodList = new ConcurrentLinkedQueue<>();
+    private final Semaphore mutex = new Semaphore(1,true);
+    private final Semaphore foodCount = new Semaphore(0,true);
     
     public DiningRoom()
     {
@@ -22,12 +27,24 @@ public class DiningRoom
     
     public synchronized void storeFood(Food f)
     {
-        foodList.add(f);
+        foodList.offer(f);
+        foodCount.release();
     }
     
-    public  void eatFood(Human h) throws InterruptedException
-    {
+    
+    public  void eatFood(Human h) throws InterruptedException  
+    {                                    //Used semaphores to ensure fairness
+        mutex.acquire();       //Collections.synchronizedList(new ArrayList<>())
+        diningList.add(h);     //could be used, but do NOT ensure fairness
+        mutex.release();
         
-        foodList.removeFirst();
+        foodCount.acquire();
+        foodList.poll();
+        Thread.sleep(3000+(int) Math.random()*2000);
+        
+        mutex.acquire();
+        diningList.remove(h);
+        mutex.release();
+        
     }
 }

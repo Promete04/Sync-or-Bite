@@ -41,11 +41,14 @@ public class Human extends Thread
                 refuge.accessCommonArea(this);
                 
                 tunnel = (int) (Math.random()*4);
+                refuge.leave(this);
+                
                 tunnels.obtainTunnel(tunnel).requestExit(this);
                 tunnels.obtainTunnel(tunnel).getUnsafeArea().wander(this);
                 tunnels.obtainTunnel(tunnel).requestReturn(this);
                 
-                refuge.depositFoodInDiningRoom();
+                refuge.access(this);
+                refuge.depositFoodInDiningRoom(depositFood());
                 refuge.restInRestArea(this);
                 refuge.accessDiningRoom(this);
                 if(marked)
@@ -65,17 +68,25 @@ public class Human extends Thread
         return humanId;
     }
     
-    public void toggleMarked()
+    //---method for registering being attacked and healed---
+    public void toggleMarked() 
     {
         marked = !marked; 
     }
     
     public void fillFood(Food f)
     {
+        
         foodList.add(f);
     }
     public Food depositFood()
     {
         return foodList.removeFirst();
+    }
+    
+     //---method used when atacked but survived---
+    public void looseAll()
+    {
+        foodList.clear();
     }
 }

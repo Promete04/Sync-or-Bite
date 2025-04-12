@@ -20,7 +20,7 @@ public class Main extends javax.swing.JFrame {
         RiskZone riskZone = new RiskZone(logger);
         Refuge refuge = new Refuge(logger);
         Tunnels tunnels = new Tunnels(riskZone,logger);
-        
+         
         new Zombie(riskZone, logger).start();  // Patient zero
         initComponents();
         
