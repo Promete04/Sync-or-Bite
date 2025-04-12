@@ -12,7 +12,7 @@ import java.util.concurrent.Semaphore;
  */
 public class Food 
 {
-    private Semaphore counter = new Semaphore(0, true);
+    private final Semaphore counter = new Semaphore(0, true);
     
     public Food()
     {

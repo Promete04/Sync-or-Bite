@@ -100,11 +100,11 @@ public class Tunnel
         }
         
         // Now, cross the tunnel individually.
-        crossToRiskZone(h);
+        cross(h);
     }
     
     // Internal method for crossing to the risk zone.
-    private void crossToRiskZone(Human h) throws InterruptedException
+    private void cross(Human h) throws InterruptedException
     {
         // Use the usingLock to ensure only one human is in the tunnel.
         usingLock.lock();
