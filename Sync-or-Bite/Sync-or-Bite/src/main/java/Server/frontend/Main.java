@@ -20,20 +20,31 @@ public class Main extends javax.swing.JFrame {
         RiskZone riskZone = new RiskZone(logger);
         Refuge refuge = new Refuge(logger);
         Tunnels tunnels = new Tunnels(riskZone,logger);
+        
         new Zombie(riskZone, logger).start();  // Patient zero
         initComponents();
-        try
+        
+        Runnable r = new Runnable()
         {
-            for (int i = 1; i < 101; i++) 
+            public void run()
             {
-                new Human(i, refuge, tunnels, logger).start();
-                Thread.sleep(500 + (int) (Math.random() * 1500));
+                try 
+                {
+                    for (int i = 1; i < 101; i++) 
+                    {
+                        new Human(i, refuge, tunnels, logger).start();
+                        Thread.sleep(500 + (int) (Math.random() * 1500));
+                    }
+                } 
+                catch (InterruptedException ie) 
+                {
+                    ie.printStackTrace();
+                }
             }
-        }
-        catch(InterruptedException ie)
-        {
-            ie.printStackTrace();
-        }
+        };
+        
+        Thread humanGenerator = new Thread(r);
+        humanGenerator.start();
     }
 
     /**
