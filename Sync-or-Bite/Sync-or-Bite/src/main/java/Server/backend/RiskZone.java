@@ -21,7 +21,7 @@ public class RiskZone
         }
     }
     
-    public void accessUnsafeArea(Zombie z, int area)
+    public void accessUnsafeArea(Zombie z, int area) throws InterruptedException
     {
         unsafeAreas[area].wander(z);
     }

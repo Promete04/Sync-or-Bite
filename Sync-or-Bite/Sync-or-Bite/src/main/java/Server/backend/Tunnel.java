@@ -53,6 +53,11 @@ public class Tunnel
         });
     }
     
+    public Tunnel(int unsafeArea)
+    {
+        
+    }
+    
     public RiskZone getRiskZone() 
     {
         return riskZone;

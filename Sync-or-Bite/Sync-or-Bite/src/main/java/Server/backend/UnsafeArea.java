@@ -6,6 +6,7 @@ package Server.backend;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.List;
 public class UnsafeArea 
 {
     private final List<Zombie> zombiesInside = new ArrayList<Zombie>();  
-    private final List<Zombie> humansInside = new ArrayList<Human>();  
+    private final List<Human> humansInside = new ArrayList<Human>();  
     private Semaphore mutex = new Semaphore(1,true);
     private int area;
     
@@ -27,12 +28,34 @@ public class UnsafeArea
     {
         try
         {
-            
+            mutex.acquire();
+            zombiesInside.add(z); 
         }
         finally
         {
-            
+            mutex.release();
         }
+        
+        synchronized(humansInside)
+        {
+            if(!humansInside.isEmpty())
+            {
+                int atackedHuman = (int) (Math.random()*humansInside.size());
+            }
+        }
+        
+        Thread.sleep(2000 + (int) (Math.random()*1000));
+        
+        try
+        {
+            mutex.acquire();
+            zombiesInside.remove(z); 
+        }
+        finally
+        {
+            mutex.release();
+        }
+        
     }
     
     public void wander(Human h)

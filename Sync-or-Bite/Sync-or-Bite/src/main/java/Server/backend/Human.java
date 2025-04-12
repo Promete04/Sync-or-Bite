@@ -8,14 +8,41 @@ package Server.backend;
  *
  * @author guill
  */
-public class Human 
+public class Human extends Thread
 {
-
+    private String humanId;
+    private Refuge refuge;
+    private RiskZone riskZone;
+    private Tunnels tunnels;
     
-    //Method needed for tunnel functionality
+    public Human(int id, Refuge refuge, Tunnels tunnels, RiskZone riskZone)
+    {
+        this.humanId = String.format("H%04d", id);
+        this.refuge = refuge;
+        this.tunnels = tunnels;
+        this.riskZone = riskZone;
+    }
+    
+    public void run()
+    {
+        try
+        {
+            refuge.access();
+            int tunnel = (int) (Math.random()*4);
+            while(true)
+            {
+                tunnels.accessTunnel(this, tunnel);
+            }
+        }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
+    }
+    
     public String getHumanId() 
     {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return humanId;
     }
     
 }

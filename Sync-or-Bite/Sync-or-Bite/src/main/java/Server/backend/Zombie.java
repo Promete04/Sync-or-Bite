@@ -34,7 +34,7 @@ public class Zombie extends Thread
             while(true)
             {
                 unsafeArea = (int) (Math.random()*4);
-                wait();
+                riskZone.accessUnsafeArea(this, unsafeArea);
             }
         }
         catch(InterruptedException ie)
