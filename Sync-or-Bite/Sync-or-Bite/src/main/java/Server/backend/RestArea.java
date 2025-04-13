@@ -20,13 +20,23 @@ public class RestArea
         
     }
     
-    public void rest(Human h)
+    public synchronized void enter(Human h) throws InterruptedException
     {
-        
+        restList.add(h);
     }
     
-    public void fullRecover(Human h)
+    public synchronized void exit(Human h) throws InterruptedException
     {
-        
+        restList.remove(h);
+    }
+    
+    public void rest(Human h) throws InterruptedException
+    {
+        Thread.sleep(2000 + (int) (Math.random()*2000));
+    }
+    
+    public void fullRecover(Human h) throws InterruptedException
+    {
+        Thread.sleep(3000 + (int) (Math.random()*2000));
     }
 }

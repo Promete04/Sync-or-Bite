@@ -40,27 +40,35 @@ public class Refuge
     
     public void accessCommonArea(Human h) throws InterruptedException
     {
+        commonArea.enter(h);
         commonArea.wander(h);
+        commonArea.exit(h);
     }
     
-    public void restInRestArea(Human h)
+    public void restInRestArea(Human h) throws InterruptedException
     {
+        restArea.enter(h);
         restArea.rest(h);
+        restArea.exit(h);
     }
     
-    public void fullRecoverInRestArea(Human h)
+    public void fullRecoverInRestArea(Human h) throws InterruptedException
     {
+        restArea.enter(h);
         restArea.fullRecover(h);
+        restArea.exit(h);
     }
     
-    public void depositFoodInDiningRoom(Food f)
+    public void depositFoodInDiningRoom(Food f) throws InterruptedException  
     {
         diningRoom.storeFood(f);
     }
     
-    public void accessDiningRoom(Human h)
+    public void accessDiningRoom(Human h) throws InterruptedException
     {
-        
+        diningRoom.enter(h);
+        diningRoom.eatFood(h);
+        diningRoom.exit(h);
     }
     
     

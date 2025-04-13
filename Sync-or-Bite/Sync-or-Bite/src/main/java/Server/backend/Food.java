@@ -16,8 +16,8 @@ public class Food
     {
         this.ID=pID;
     }
-     public int getFoodID()
-     {
-         return ID;
-     }
+    public int getFoodID()
+    {
+        return ID;
+    }
 }

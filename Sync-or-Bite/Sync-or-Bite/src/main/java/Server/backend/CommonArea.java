@@ -22,17 +22,19 @@ public class CommonArea
     {
     }
     
-    public void wander(Human h) throws InterruptedException
+    public synchronized void enter(Human h) throws InterruptedException
     {
-        mutex.acquire();
         commonList.add(h);
-        mutex.release();
-        
-        Thread.sleep((int) (1000 + Math.random() * 1000));
-        
-        mutex.acquire();
+    }
+    
+    public synchronized void exit(Human h) throws InterruptedException
+    {
         commonList.remove(h);
-        mutex.release();
+    }
+    
+    public void wander(Human h) throws InterruptedException
+    {  
+        Thread.sleep((int) (1000 + Math.random() * 1000));
     }
     
     // Methods for monitoring
@@ -48,6 +50,7 @@ public class CommonArea
            mutex.release();
         }
     }
+    
     public synchronized List<String> getCommonIds() throws InterruptedException 
     {
         List<String> ids = new ArrayList<>();

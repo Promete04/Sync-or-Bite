@@ -25,26 +25,45 @@ public class DiningRoom
     {
     }
     
-    public synchronized void storeFood(Food f)
+    public synchronized void storeFood(Food f) throws InterruptedException  
     {
         foodList.offer(f);
         foodCount.release();
     }
     
-    
+    //Used semaphores to ensure fairness
     public  void eatFood(Human h) throws InterruptedException  
-    {                                    //Used semaphores to ensure fairness
-        mutex.acquire();       //Collections.synchronizedList(new ArrayList<>())
-        diningList.add(h);     //could be used, but do NOT ensure fairness
-        mutex.release();
-        
+    {                                    
         foodCount.acquire();
         foodList.poll();
         Thread.sleep(3000+(int) Math.random()*2000);
         
-        mutex.acquire();
-        diningList.remove(h);
-        mutex.release();
+    }
+    
+    public void enter(Human h) throws InterruptedException
+    {
+        try
+        {
+            mutex.acquire();
+            diningList.add(h);
+        }
+        finally
+        {
+            mutex.release();
+        }
         
+    }
+    
+    public void exit(Human h) throws InterruptedException
+    {
+        try 
+        {
+            mutex.acquire();
+            diningList.remove(h);
+        } 
+        finally 
+        {
+            mutex.release();
+        }
     }
 }
