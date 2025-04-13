@@ -45,14 +45,20 @@ public class Human extends Thread
                 tunnels.obtainTunnel(selectedTunnel).requestExit(this);
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().enter(this);
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this);
+                sleep(1);         //Sleep just to fire the interrupt in case it was interrupted (killed).
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().exit(this);
-                tunnels.obtainTunnel(selectedTunnel).requestReturn(this);
-                
+                tunnels.obtainTunnel(selectedTunnel).requestReturn(this); 
                 refuge.access(this);
-                refuge.depositFoodInDiningRoom(depositFood(), this);
-                refuge.depositFoodInDiningRoom(depositFood(), this);
+                
+                if(!marked)
+                {
+                    refuge.depositFoodInDiningRoom(depositFood(), this);
+                    refuge.depositFoodInDiningRoom(depositFood(), this);
+                }
+                
                 refuge.restInRestArea(this);
                 refuge.accessDiningRoom(this);
+                
                 if(marked)
                 {
                     refuge.fullRecoverInRestArea(this);
@@ -61,7 +67,6 @@ public class Human extends Thread
         }
         catch(InterruptedException ie)
         {
-            ie.printStackTrace();
         }
     }
     

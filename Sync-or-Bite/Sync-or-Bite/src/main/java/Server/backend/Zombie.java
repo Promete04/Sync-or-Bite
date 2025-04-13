@@ -13,6 +13,7 @@ public class Zombie extends Thread
     private final String zombieId;
     private int killCount = 0;
     private final RiskZone riskZone;
+    private int areaWhereReborned = -1;
     private final Logger logger;
 
     public Zombie(RiskZone riskZone, Logger logger) 
@@ -22,11 +23,12 @@ public class Zombie extends Thread
         this.logger = logger;
     }
     
-    public Zombie(String zombieId, RiskZone riskZone, Logger logger)
+    public Zombie(String zombieId, UnsafeArea unsafeArea, Logger logger)
     {
         this.zombieId = zombieId;
-        this.riskZone = riskZone;
+        this.riskZone = unsafeArea.getRiskZone();
         this.logger = logger;
+        this.areaWhereReborned = unsafeArea.getArea();
     }
     
     public void run()
@@ -36,10 +38,19 @@ public class Zombie extends Thread
             int unsafeArea;
             while(true)
             {
-                unsafeArea = (int) (Math.random()*4);
-                riskZone.accessUnsafeArea(unsafeArea).enter(this);
-                riskZone.accessUnsafeArea(unsafeArea).wander(this);
-                riskZone.accessUnsafeArea(unsafeArea).exit(this);
+                if(areaWhereReborned != -1)
+                {
+                    riskZone.accessUnsafeArea(areaWhereReborned).wander(this);
+                    riskZone.accessUnsafeArea(areaWhereReborned).exit(this);
+                    areaWhereReborned = -1;
+                }
+                else
+                {
+                    unsafeArea = (int) (Math.random() * 4);
+                    riskZone.accessUnsafeArea(unsafeArea).enter(this);
+                    riskZone.accessUnsafeArea(unsafeArea).wander(this);
+                    riskZone.accessUnsafeArea(unsafeArea).exit(this);
+                } 
             }
         }
         catch(InterruptedException ie)

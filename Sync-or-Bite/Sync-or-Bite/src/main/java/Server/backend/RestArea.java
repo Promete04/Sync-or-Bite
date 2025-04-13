@@ -43,5 +43,6 @@ public class RestArea
     {
         logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");
         Thread.sleep(3000 + (int) (Math.random()*2000));
+        h.toggleMarked();
     }
 }
