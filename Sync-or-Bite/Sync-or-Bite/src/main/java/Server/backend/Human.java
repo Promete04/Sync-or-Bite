@@ -49,7 +49,7 @@ public class Human extends Thread
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().exit(this);
                 tunnels.obtainTunnel(selectedTunnel).requestReturn(this); 
                 refuge.access(this);
-                
+                refuge.goThroughCommonArea(this);
                 if(!marked)
                 {
                     refuge.depositFoodInDiningRoom(depositFood(), this);
