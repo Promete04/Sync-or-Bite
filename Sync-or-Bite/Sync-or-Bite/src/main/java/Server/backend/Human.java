@@ -16,6 +16,7 @@ public class Human extends Thread
     private final String humanId;
     private final Refuge refuge;
     private final Tunnels tunnels;
+    private int selectedTunnel = -1;
     private boolean marked = false;
     private final Logger logger;
     private final List<Food> foodList = new ArrayList<>();
@@ -35,19 +36,17 @@ public class Human extends Thread
         {
             refuge.access(this);
             
-            int tunnel;
             while(true)
             {
                 refuge.accessCommonArea(this);
                 
-                tunnel = (int) (Math.random()*4);
                 refuge.leave(this);
                 
-                tunnels.obtainTunnel(tunnel).requestExit(this);
-                tunnels.obtainTunnel(tunnel).getUnsafeArea().enter(this);
-                tunnels.obtainTunnel(tunnel).getUnsafeArea().wander(this);
-                tunnels.obtainTunnel(tunnel).getUnsafeArea().exit(this);
-                tunnels.obtainTunnel(tunnel).requestReturn(this);
+                tunnels.obtainTunnel(selectedTunnel).requestExit(this);
+                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().enter(this);
+                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this);
+                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().exit(this);
+                tunnels.obtainTunnel(selectedTunnel).requestReturn(this);
                 
                 refuge.access(this);
                 refuge.depositFoodInDiningRoom(depositFood(), this);
@@ -93,4 +92,11 @@ public class Human extends Thread
     {
         foodList.clear();
     }
+
+    public void setSelectedTunnel(int selectedTunnel) 
+    {
+        this.selectedTunnel = selectedTunnel;
+    }
+    
+    
 }
