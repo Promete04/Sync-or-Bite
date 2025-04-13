@@ -10,7 +10,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author guill
  */
-public class FoodGenerator {
+public class FoodGenerator 
+{
     AtomicInteger IDs = new AtomicInteger(0);
     
     public void FoodGenerator()

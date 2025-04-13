@@ -12,9 +12,9 @@ public class Food
 {
     private int ID;
     
-    public void Food(int pID)
+    public Food(int ID)
     {
-        this.ID=pID;
+        this.ID=ID;
     }
     public int getFoodID()
     {
