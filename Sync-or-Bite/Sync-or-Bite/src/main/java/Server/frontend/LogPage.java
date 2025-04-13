@@ -20,7 +20,7 @@ public class LogPage extends javax.swing.JPanel {
     {
         initComponents();
         mapButton.setIcon(new ImageIcon(getClass().getResource( "/images/MapIcon.png" )));
-        GuiManager.confButton(mapButton);
+        mapButton.setBorder(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,6 +33,7 @@ public class LogPage extends javax.swing.JPanel {
 
         mapButton = new javax.swing.JButton();
 
+        mapButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MapIcon.png"))); // NOI18N
         mapButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mapButtonActionPerformed(evt);
@@ -46,7 +47,7 @@ public class LogPage extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(mapButton)
-                .addContainerGap(322, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
