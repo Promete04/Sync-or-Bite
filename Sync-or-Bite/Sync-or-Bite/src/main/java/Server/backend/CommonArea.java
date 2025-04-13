@@ -41,7 +41,7 @@ public class CommonArea
         logger.log("Human " + h.getHumanId() + " is getting prepared in the common area.");
         Thread.sleep((int) (1000 + Math.random() * 1000));
         int selectedTunnel = (int)(Math.random()*4);
-        logger.log("Human " + h.getHumanId() + " chose the tunnel " + selectedTunnel + " in the common area.");
+        logger.log("Human " + h.getHumanId() + " chose tunnel " + selectedTunnel + " in the common area.");
         h.setSelectedTunnel(selectedTunnel);
     }
     
