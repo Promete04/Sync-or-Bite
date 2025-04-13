@@ -17,11 +17,10 @@ public class FoodGenerator
     public void FoodGenerator()
     {
     }
+    
     public Food gatherFood()
     {
-        int ID = IDs.intValue();
-        IDs.incrementAndGet();
-        return new Food(ID);
+        return new Food(IDs.incrementAndGet());
     }
     
 }
