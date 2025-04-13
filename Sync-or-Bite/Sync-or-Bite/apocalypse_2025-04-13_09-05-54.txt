@@ -1,0 +1,64 @@
+[2025-04-13 09:05:54.193] Zombie Z0000 enters unsafe area 2.
+[2025-04-13 09:05:54.228] Human H0001 enters the refuge.
+[2025-04-13 09:05:54.230] Human Thread[#29,Thread-2,6,main] entered the common area.
+[2025-04-13 09:05:54.232] Human Thread[#29,Thread-2,6,main] is getting prepared in the common area.
+[2025-04-13 09:05:55.734] Human H0002 enters the refuge.
+[2025-04-13 09:05:55.735] Human Thread[#31,Thread-3,6,main] entered the common area.
+[2025-04-13 09:05:55.735] Human Thread[#31,Thread-3,6,main] is getting prepared in the common area.
+[2025-04-13 09:05:56.205] Human Thread[#29,Thread-2,6,main] left the common area.
+[2025-04-13 09:05:56.207] Human H0001 leaves the refuge.
+[2025-04-13 09:05:56.221] Human H0001 is waiting to form a group to exit to unsafe area 2
+[2025-04-13 09:05:56.373] Human H0003 enters the refuge.
+[2025-04-13 09:05:56.374] Human Thread[#32,Thread-4,6,main] entered the common area.
+[2025-04-13 09:05:56.374] Human Thread[#32,Thread-4,6,main] is getting prepared in the common area.
+[2025-04-13 09:05:57.101] Zombie Z0000 left unsafe area 2.
+[2025-04-13 09:05:57.102] Zombie Z0000 enters unsafe area 3.
+[2025-04-13 09:05:57.417] Human Thread[#31,Thread-3,6,main] left the common area.
+[2025-04-13 09:05:57.418] Human H0002 leaves the refuge.
+[2025-04-13 09:05:57.418] Human H0002 is waiting to form a group to exit to unsafe area 1
+[2025-04-13 09:05:57.943] Human H0004 enters the refuge.
+[2025-04-13 09:05:57.944] Human Thread[#33,Thread-5,6,main] entered the common area.
+[2025-04-13 09:05:57.945] Human Thread[#33,Thread-5,6,main] is getting prepared in the common area.
+[2025-04-13 09:05:58.148] Human Thread[#32,Thread-4,6,main] left the common area.
+[2025-04-13 09:05:58.150] Human H0003 leaves the refuge.
+[2025-04-13 09:05:58.151] Human H0003 is waiting to form a group to exit to unsafe area 2
+[2025-04-13 09:05:59.389] Human H0005 enters the refuge.
+[2025-04-13 09:05:59.390] Human Thread[#34,Thread-6,6,main] entered the common area.
+[2025-04-13 09:05:59.390] Human Thread[#34,Thread-6,6,main] is getting prepared in the common area.
+[2025-04-13 09:05:59.605] Human Thread[#33,Thread-5,6,main] left the common area.
+[2025-04-13 09:05:59.607] Human H0004 leaves the refuge.
+[2025-04-13 09:05:59.608] Human H0004 is waiting to form a group to exit to unsafe area 3
+[2025-04-13 09:05:59.697] Zombie Z0000 left unsafe area 3.
+[2025-04-13 09:05:59.697] Zombie Z0000 enters unsafe area 2.
+[2025-04-13 09:06:00.469] Human Thread[#34,Thread-6,6,main] left the common area.
+[2025-04-13 09:06:00.469] Human H0005 leaves the refuge.
+[2025-04-13 09:06:00.470] Human H0005 is waiting to form a group to exit to unsafe area 1
+[2025-04-13 09:06:00.650] Human H0006 enters the refuge.
+[2025-04-13 09:06:00.651] Human Thread[#35,Thread-7,6,main] entered the common area.
+[2025-04-13 09:06:00.651] Human Thread[#35,Thread-7,6,main] is getting prepared in the common area.
+[2025-04-13 09:06:02.184] Human H0007 enters the refuge.
+[2025-04-13 09:06:02.185] Human Thread[#36,Thread-8,6,main] entered the common area.
+[2025-04-13 09:06:02.185] Human Thread[#36,Thread-8,6,main] is getting prepared in the common area.
+[2025-04-13 09:06:02.309] Human Thread[#35,Thread-7,6,main] left the common area.
+[2025-04-13 09:06:02.310] Human H0006 leaves the refuge.
+[2025-04-13 09:06:02.311] Human H0006 is waiting to form a group to exit to unsafe area 3
+[2025-04-13 09:06:02.327] Zombie Z0000 left unsafe area 2.
+[2025-04-13 09:06:02.327] Zombie Z0000 enters unsafe area 1.
+[2025-04-13 09:06:03.233] Human H0008 enters the refuge.
+[2025-04-13 09:06:03.234] Human Thread[#37,Thread-9,6,main] entered the common area.
+[2025-04-13 09:06:03.234] Human Thread[#37,Thread-9,6,main] is getting prepared in the common area.
+[2025-04-13 09:06:03.294] Human Thread[#36,Thread-8,6,main] left the common area.
+[2025-04-13 09:06:03.295] Human H0007 leaves the refuge.
+[2025-04-13 09:06:03.296] Human H0007 is waiting to form a group to exit to unsafe area 0
+[2025-04-13 09:06:04.567] Zombie Z0000 left unsafe area 1.
+[2025-04-13 09:06:04.569] Zombie Z0000 enters unsafe area 0.
+[2025-04-13 09:06:04.831] Human H0009 enters the refuge.
+[2025-04-13 09:06:04.832] Human Thread[#38,Thread-10,6,main] entered the common area.
+[2025-04-13 09:06:04.833] Human Thread[#38,Thread-10,6,main] is getting prepared in the common area.
+[2025-04-13 09:06:04.863] Human Thread[#37,Thread-9,6,main] left the common area.
+[2025-04-13 09:06:04.864] Human H0008 leaves the refuge.
+[2025-04-13 09:06:04.866] Human H0008 is waiting to form a group to exit to unsafe area 1
+[2025-04-13 09:06:04.868] A group of 3 has been formed for exiting to unsafe area 1
+[2025-04-13 09:06:04.869] Human H0008 is crossing to unsafe area 1
+[2025-04-13 09:06:05.872] Human H0008 has reached unsafe area 1
+[2025-04-13 09:06:05.872] Human H0002 is crossing to unsafe area 1

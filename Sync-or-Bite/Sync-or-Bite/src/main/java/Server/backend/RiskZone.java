@@ -11,13 +11,14 @@ package Server.backend;
 public class RiskZone 
 {
     private UnsafeArea[] unsafeAreas;
+    private FoodGenerator fgenerator = new FoodGenerator();
     
     public RiskZone(Logger logger)
     {
         unsafeAreas = new UnsafeArea[4];
         for(int i=0; i<4; i++)
         {
-            unsafeAreas[i] = new UnsafeArea(i, logger);
+            unsafeAreas[i] = new UnsafeArea(i, logger, fgenerator);
         }
     }
     

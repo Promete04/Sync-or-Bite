@@ -44,11 +44,14 @@ public class Human extends Thread
                 refuge.leave(this);
                 
                 tunnels.obtainTunnel(tunnel).requestExit(this);
+                tunnels.obtainTunnel(tunnel).getUnsafeArea().enter(this);
                 tunnels.obtainTunnel(tunnel).getUnsafeArea().wander(this);
+                tunnels.obtainTunnel(tunnel).getUnsafeArea().exit(this);
                 tunnels.obtainTunnel(tunnel).requestReturn(this);
                 
                 refuge.access(this);
-                refuge.depositFoodInDiningRoom(depositFood());
+                refuge.depositFoodInDiningRoom(depositFood(), this);
+                refuge.depositFoodInDiningRoom(depositFood(), this);
                 refuge.restInRestArea(this);
                 refuge.accessDiningRoom(this);
                 if(marked)
@@ -74,11 +77,12 @@ public class Human extends Thread
         marked = !marked; 
     }
     
-    public void fillFood(Food f)
+    public void collectFood(Food f)
     {
         
         foodList.add(f);
     }
+    
     public Food depositFood()
     {
         return foodList.removeFirst();

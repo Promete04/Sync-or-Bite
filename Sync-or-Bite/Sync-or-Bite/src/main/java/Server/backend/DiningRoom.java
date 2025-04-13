@@ -20,15 +20,21 @@ public class DiningRoom
     private final Queue<Food> foodList = new ConcurrentLinkedQueue<>();
     private final Semaphore mutex = new Semaphore(1,true);
     private final Semaphore foodCount = new Semaphore(0,true);
+    private Logger logger;
     
-    public DiningRoom()
+    public DiningRoom(Logger logger)
     {
+        this.logger = logger;
     }
     
-    public synchronized void storeFood(Food f) throws InterruptedException  
+    public void storeFood(Food f, Human h) throws InterruptedException  
     {
-        foodList.offer(f);
-        foodCount.release();
+        synchronized(foodList)
+        {
+            foodList.offer(f);
+            foodCount.release();
+            logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size());
+        } 
     }
     
     //Used semaphores to ensure fairness
@@ -46,6 +52,7 @@ public class DiningRoom
         {
             mutex.acquire();
             diningList.add(h);
+            logger.log("Human " + h.getHumanId() + " entered the dining room.");
         }
         finally
         {
@@ -60,6 +67,7 @@ public class DiningRoom
         {
             mutex.acquire();
             diningList.remove(h);
+            logger.log("Human " + h.getHumanId() + " left the dining room.");
         } 
         finally 
         {

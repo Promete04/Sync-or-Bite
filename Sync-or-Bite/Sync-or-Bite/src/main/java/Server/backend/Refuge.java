@@ -20,9 +20,9 @@ public class Refuge
     public Refuge(Logger logger)
     {
         count = new AtomicInteger(0);
-        restArea = new RestArea();
-        commonArea = new CommonArea();
-        diningRoom = new DiningRoom();
+        restArea = new RestArea(logger);
+        commonArea = new CommonArea(logger);
+        diningRoom = new DiningRoom(logger);
         this.logger = logger;
     }
     
@@ -41,7 +41,7 @@ public class Refuge
     public void accessCommonArea(Human h) throws InterruptedException
     {
         commonArea.enter(h);
-        commonArea.wander(h);
+        commonArea.prepare(h);
         commonArea.exit(h);
     }
     
@@ -59,9 +59,9 @@ public class Refuge
         restArea.exit(h);
     }
     
-    public void depositFoodInDiningRoom(Food f) throws InterruptedException  
+    public void depositFoodInDiningRoom(Food f, Human h) throws InterruptedException  
     {
-        diningRoom.storeFood(f);
+        diningRoom.storeFood(f, h);
     }
     
     public void accessDiningRoom(Human h) throws InterruptedException

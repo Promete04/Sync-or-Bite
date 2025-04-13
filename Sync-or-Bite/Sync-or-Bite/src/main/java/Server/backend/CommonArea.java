@@ -15,25 +15,30 @@ import java.util.concurrent.Semaphore;
 public class CommonArea 
 {
     private List<Human> commonList = new ArrayList<>();
-    Semaphore mutex = new Semaphore(1,true);
+    private Semaphore mutex = new Semaphore(1,true);
+    private Logger logger;
     
     
-    public void CommonArea ()
+    public CommonArea(Logger logger)
     {
+        this.logger = logger;
     }
     
     public synchronized void enter(Human h) throws InterruptedException
     {
         commonList.add(h);
+        logger.log("Human " + h.getHumanId() + " entered the common area.");
     }
     
     public synchronized void exit(Human h) throws InterruptedException
     {
         commonList.remove(h);
+        logger.log("Human " + h.getHumanId() + " left the common area.");
     }
     
-    public void wander(Human h) throws InterruptedException
+    public void prepare(Human h) throws InterruptedException
     {  
+        logger.log("Human " + h.getHumanId() + " is getting prepared in the common area.");
         Thread.sleep((int) (1000 + Math.random() * 1000));
     }
     
