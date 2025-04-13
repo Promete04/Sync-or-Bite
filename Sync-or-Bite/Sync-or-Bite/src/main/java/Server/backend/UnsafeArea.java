@@ -47,6 +47,7 @@ public class UnsafeArea
         synchronized(zombiesInside)
         {
             zombiesInside.add(z);
+            logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
         }
     }
     
@@ -55,6 +56,7 @@ public class UnsafeArea
         synchronized (zombiesInside) 
         {
             zombiesInside.remove(z);
+            logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
         }
     }
     
@@ -63,6 +65,7 @@ public class UnsafeArea
         synchronized (humansInside)
         {
             humansInside.add(h);
+            logger.log("Human " + h.getHumanId() + " entered unsafe area " + area + ".");
         }
     }
     
@@ -71,14 +74,17 @@ public class UnsafeArea
         synchronized (humansInside) 
         {
             humansInside.remove(h);
+            logger.log("Human " + h.getHumanId() + " left unsafe area " + area + ".");
         }
     }
     
     public void wander(Human h) throws InterruptedException
     {
+        logger.log("Human " + h.getHumanId() + " is exploring unsafe area " + area + ".");
         Thread.sleep(3000 + (int) (Math.random()*2000));
         h.collectFood(fgenerator.gatherFood());
         h.collectFood(fgenerator.gatherFood());
+        logger.log("Human " + h.getHumanId() + " gathered 2 units of food in unsafe area " + area + ".");
     }
     
     public int getArea()

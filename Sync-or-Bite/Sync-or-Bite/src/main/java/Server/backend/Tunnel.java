@@ -52,7 +52,7 @@ public class Tunnel
             @Override
             public void run() 
             {
-                logger.log("A group of " + GROUP_SIZE + " has been formed for exiting to unsafe area " + unsafeArea.getArea());
+                logger.log("A group of " + GROUP_SIZE + " has been formed for exiting to unsafe area " + unsafeArea.getArea() + ".");
             }
         });
     }
@@ -70,7 +70,7 @@ public class Tunnel
         try 
         {
             waitingToExitShelter.add(h);
-            logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea());
+            logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea() + ".");
         } 
         finally 
         {
@@ -85,7 +85,6 @@ public class Tunnel
         catch (BrokenBarrierException e)
         {
             logger.log("Barrier broken for human " + h.getHumanId() + ": " + e.getMessage());
-            return;
         }
         
         // Remove the human from the waiting queue once released.
@@ -125,9 +124,9 @@ public class Tunnel
         }
         
         // Simulate the crossing (e.g., 1 second).
-        logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea());
+        logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea() + ".");
         Thread.sleep(1000);
-        logger.log("Human " + h.getHumanId() + " has reached unsafe area " + unsafeArea.getArea());
+        logger.log("Human " + h.getHumanId() + " has reached unsafe area " + unsafeArea.getArea() + ".");
         
         // Release the tunnel.
         usingLock.lock();
@@ -160,7 +159,7 @@ public class Tunnel
         try 
         {
             waitingToEnterShelter.add(h);
-            logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea());
+            logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea() + ".");
         } 
         finally
         {
@@ -195,9 +194,9 @@ public class Tunnel
         }
         
         // Simulate the crossing (e.g., 1 second).
-        logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea());
+        logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea() + ".");
         Thread.sleep(1000);
-        logger.log("Human " + h.getHumanId() + " has reached the refuge from unsafe area " + unsafeArea.getArea());
+        logger.log("Human " + h.getHumanId() + " has reached the refuge from unsafe area " + unsafeArea.getArea() + ".");
         
         // Release the tunnel.
         usingLock.lock();

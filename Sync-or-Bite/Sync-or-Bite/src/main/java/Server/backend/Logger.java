@@ -44,7 +44,7 @@ public class Logger
         } 
         catch (IOException e) 
         {
-            System.err.println("Logging failed: " + e.getMessage());
+            System.err.println("IO exception:" + e.getMessage());
         } 
         finally 
         {
@@ -61,7 +61,7 @@ public class Logger
             } 
             catch (IOException e) 
             {
-                System.err.println("Error closing log file: " + e.getMessage());
+                System.err.println("IO exception: " + e.getMessage());
             }
         }
     }

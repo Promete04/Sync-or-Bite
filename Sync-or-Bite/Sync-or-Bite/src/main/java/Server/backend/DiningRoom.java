@@ -33,15 +33,20 @@ public class DiningRoom
         {
             foodList.offer(f);
             foodCount.release();
-            logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size());
+            logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size() + ".");
         } 
     }
     
     //Used semaphores to ensure fairness
-    public  void eatFood(Human h) throws InterruptedException  
-    {                                    
+    public void eatFood(Human h) throws InterruptedException  
+    {   
         foodCount.acquire();
-        foodList.poll();
+        synchronized(foodList)
+        {  
+            foodList.poll();
+            logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
+        }
+        
         Thread.sleep(3000+(int) Math.random()*2000);
         
     }
