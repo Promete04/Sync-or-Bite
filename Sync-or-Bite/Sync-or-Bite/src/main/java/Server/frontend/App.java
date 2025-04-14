@@ -36,13 +36,14 @@ public class App
         Refuge refuge = new Refuge(logger);
         Tunnels tunnels = new Tunnels(riskZone,logger);
         PauseManager pm = new PauseManager();
+        ServerData server = new ServerData(pm, tunnels, refuge, riskZone);
   
         setupFrame();
         redirect("MAP");
              
         new Zombie(riskZone, logger, pm).start();  // Patient zero
         
-        Runnable r = new Runnable()
+        Runnable hr = new Runnable()
         {
             public void run()
             {
@@ -60,10 +61,11 @@ public class App
                     ie.printStackTrace();
                 }
             }
-        };
+        }; 
+        Thread humanGenerator = new Thread(hr);
         
-        Thread humanGenerator = new Thread(r);
         humanGenerator.start();
+        server.start();
     }   
    
    public static void redirect(String page){

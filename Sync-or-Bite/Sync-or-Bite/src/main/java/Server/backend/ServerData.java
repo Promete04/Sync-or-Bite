@@ -14,7 +14,7 @@ import java.net.Socket;
  *
  * @author Lopex
  */
-public class ServerData 
+public class ServerData extends Thread
 {
     private PauseManager pm;
     private Refuge r;
@@ -29,7 +29,7 @@ public class ServerData
         this.rk = rk;
     }
     
-    public void sendData()
+    public void run()
     {   
         try
         {
@@ -70,6 +70,5 @@ public class ServerData
         {
             e.printStackTrace();
         }
-        
     }
 }
