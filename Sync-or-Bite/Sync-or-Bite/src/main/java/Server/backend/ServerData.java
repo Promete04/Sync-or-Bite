@@ -1,0 +1,75 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Server.backend;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+/**
+ *
+ * @author Lopex
+ */
+public class ServerData 
+{
+    private PauseManager pm;
+    private Refuge r;
+    private Tunnels t;
+    private RiskZone rk;
+    
+    public ServerData(PauseManager pm, Tunnels t, Refuge r, RiskZone rk)
+    {
+        this.pm = pm;
+        this.t = t;
+        this.r = r;
+        this.rk = rk;
+    }
+    
+    public void sendData()
+    {   
+        try
+        {
+            ServerSocket server = new ServerSocket(1);
+            while (true) 
+            {
+                Socket connection = server.accept();
+                System.out.println("Connection from: " + connection.getInetAddress().getHostName());
+
+                DataInputStream input = new DataInputStream(connection.getInputStream());
+                DataOutputStream output = new DataOutputStream(connection.getOutputStream());
+
+                String request = input.readUTF();
+
+                if(request.equals("get")) 
+                {
+                    String data = r.getCount().get() + "|" 
+                            + t.obtainTunnel(0).getCount() + "|" + t.obtainTunnel(1).getCount() + "|" + t.obtainTunnel(2).getCount() + "|" + t.obtainTunnel(3).getCount() + "|"
+                            + rk.accessUnsafeArea(0).getHumansInside() + "|" + rk.accessUnsafeArea(1).getHumansInside() + "|" + rk.accessUnsafeArea(2).getHumansInside() 
+                            + "|" + rk.accessUnsafeArea(3).getHumansInside() + "|" + rk.accessUnsafeArea(0).getZombiesInside() + "|" + rk.accessUnsafeArea(1).getZombiesInside() 
+                            + "|" + rk.accessUnsafeArea(2).getZombiesInside() + "|" + rk.accessUnsafeArea(3).getZombiesInside();
+                    output.writeUTF(data);
+
+                } 
+                else if(request.equals("pause")) 
+                {
+                    pm.pause();
+
+                } 
+                else
+                {
+                    pm.resume();
+                } 
+                connection.close();
+            }
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+        
+    }
+}

@@ -172,4 +172,25 @@ public class UnsafeArea
     {
         return area;
     }
+    
+    
+    public int getHumansInside()
+    {
+        int count;
+        synchronized(humansInside)
+        {
+            count = humansInside.size();
+        }
+        return count;
+    }
+    
+    public int getZombiesInside()
+    {
+        int count;
+        synchronized(zombiesInside)
+        {
+            count = zombiesInside.size();
+        }
+        return count;
+    }
 }

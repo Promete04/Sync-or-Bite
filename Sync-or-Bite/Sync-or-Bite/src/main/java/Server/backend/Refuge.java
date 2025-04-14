@@ -70,6 +70,10 @@ public class Refuge
         diningRoom.eatFood(h);
         diningRoom.exit(h);
     }
-    
+
+    public AtomicInteger getCount() 
+    {
+        return count;
+    }
     
 }
