@@ -100,7 +100,7 @@ public class UnsafeArea
         }
     }
     
-    public void wander(Human h)
+    public void wander(Human h, PauseManager pm)
     {
         try
         {
@@ -148,7 +148,7 @@ public class UnsafeArea
                     killer.increaseKillCount();
                     logger.log("Zombie " + killer.getZombieId() + " killed human " + h.getHumanId() + " (Kill count: " + killer.getKillCount() + ")");
                     
-                    Zombie killed = new Zombie(zombieId,this,logger);
+                    Zombie killed = new Zombie(zombieId,this,logger,pm);
  
                     synchronized(zombiesInside)
                     {

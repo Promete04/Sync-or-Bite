@@ -35,11 +35,12 @@ public class App
         RiskZone riskZone = new RiskZone(logger);
         Refuge refuge = new Refuge(logger);
         Tunnels tunnels = new Tunnels(riskZone,logger);
+        PauseManager pm = new PauseManager();
   
         setupFrame();
         redirect("MAP");
              
-        new Zombie(riskZone, logger).start();  // Patient zero
+        new Zombie(riskZone, logger, pm).start();  // Patient zero
         
         Runnable r = new Runnable()
         {
@@ -49,8 +50,9 @@ public class App
                 {
                     for (int i = 1; i < 101; i++) 
                     {
-                        new Human(i, refuge, tunnels, logger).start();
+                        new Human(i, refuge, tunnels, logger, pm).start();
                         Thread.sleep(500 + (int) (Math.random() * 1500));
+                        pm.check();
                     }
                 } 
                 catch (InterruptedException ie) 

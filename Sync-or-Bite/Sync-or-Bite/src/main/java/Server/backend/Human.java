@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class Human extends Thread
 {
+    private PauseManager pm;
     private final String humanId;
     private final Refuge refuge;
     private final Tunnels tunnels;
@@ -21,8 +22,9 @@ public class Human extends Thread
     private final Logger logger;
     private final List<Food> foodList = new ArrayList<>();
     
-    public Human(int id, Refuge refuge, Tunnels tunnels, Logger logger)
+    public Human(int id, Refuge refuge, Tunnels tunnels, Logger logger, PauseManager pm)
     {
+        this.pm = pm;
         this.humanId = String.format("H%04d", id);
         this.refuge = refuge;
         this.tunnels = tunnels;
@@ -38,30 +40,41 @@ public class Human extends Thread
             
             while(true)
             {
+                pm.check();
                 refuge.accessCommonArea(this);
-                
+                pm.check();
                 refuge.leave(this);
-                
+                pm.check();
                 tunnels.obtainTunnel(selectedTunnel).requestExit(this);
+                pm.check();
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().enter(this);
-                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this);
-                sleep(1);         //Sleep just to fire the interrupt in case it was interrupted (killed).
+                pm.check();
+                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this, pm);
+                pm.check();
+                sleep(1);         //Sleep just to trigger the interrupt in case it was interrupted (killed).
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().exit(this);
+                pm.check();
                 tunnels.obtainTunnel(selectedTunnel).requestReturn(this); 
+                pm.check();
                 refuge.access(this);
-                refuge.goThroughCommonArea(this);
+                pm.check();
                 if(!marked)
                 {
                     refuge.depositFoodInDiningRoom(depositFood(), this);
+                    pm.check();
                     refuge.depositFoodInDiningRoom(depositFood(), this);
+                    pm.check();
                 }
                 
                 refuge.restInRestArea(this);
+                pm.check();
                 refuge.accessDiningRoom(this);
+                pm.check();
                 
                 if(marked)
                 {
                     refuge.fullRecoverInRestArea(this);
+                    pm.check();
                 }
             }
         }

@@ -44,13 +44,6 @@ public class Refuge
         commonArea.prepare(h);
         commonArea.exit(h);
     }
-    
-    public void goThroughCommonArea(Human h) throws InterruptedException
-    {
-        commonArea.enter(h);
-        Thread.sleep(1000); //tiny converation to share adventure
-        commonArea.exit(h);
-    }
             
     public void restInRestArea(Human h) throws InterruptedException
     {

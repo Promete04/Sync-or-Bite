@@ -10,21 +10,24 @@ package Server.backend;
  */
 public class Zombie extends Thread
 {
+    private PauseManager pm;
     private final String zombieId;
     private int killCount = 0;
     private final RiskZone riskZone;
     private int areaWhereReborned = -1;
     private final Logger logger;
 
-    public Zombie(RiskZone riskZone, Logger logger) 
+    public Zombie(RiskZone riskZone, Logger logger, PauseManager pm) 
     {
         this.zombieId = "Z0000";
         this.riskZone = riskZone; 
         this.logger = logger;
+        this.pm = pm;
     }
     
-    public Zombie(String zombieId, UnsafeArea unsafeArea, Logger logger)
+    public Zombie(String zombieId, UnsafeArea unsafeArea, Logger logger, PauseManager pm)
     {
+        this.pm = pm;
         this.zombieId = zombieId;
         this.riskZone = unsafeArea.getRiskZone();
         this.logger = logger;
