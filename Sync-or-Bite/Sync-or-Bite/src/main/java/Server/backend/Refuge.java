@@ -29,13 +29,13 @@ public class Refuge
     public void access(Human h)
     {
         count.getAndIncrement();
-        logger.log("Human " + h.getHumanId() + " enters the refuge.");
+        logger.log("Human " + h.getHumanId() + " entered the refuge.");
     }
     
     public void leave(Human h)
     {
         count.getAndDecrement();
-        logger.log("Human " + h.getHumanId() + " leaves the refuge.");
+        logger.log("Human " + h.getHumanId() + " left the refuge.");
     }
     
     public void accessCommonArea(Human h) throws InterruptedException
