@@ -4,6 +4,10 @@
  */
 package Server.frontend;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+
 /**
  *
  * @author guill
@@ -13,10 +17,38 @@ public class MapPage extends javax.swing.JPanel {
     /**
      * Creates new form map
      */
-    public MapPage() {
+    public MapPage() 
+    {
         initComponents();
+        
+    }
+    
+    public void confButtons()
+    {
+        List<JButton> buttonList = new ArrayList<>(); //to simplify mass modification
+        buttonList.add(HumanIcon1);
+        buttonList.add(HumanIcon2);
+        buttonList.add(HumanIcon3);
+        buttonList.add(HumanIcon4);
+        buttonList.add(ZombieIcon1);
+        buttonList.add(ZombieIcon2);
+        buttonList.add(ZombieIcon3);
+        buttonList.add(ZombieIcon4);
+        buttonList.add(commonHumanIcon);
+        buttonList.add(diningHumanIcon);
+        buttonList.add(foodIcon);
+        buttonList.add(logsButton);
+        buttonList.add(pauseResume);
+        buttonList.add(refugeIcon);
+        buttonList.add(restHumanIcon);
+        
+        
     }
 
+    /**
+     * 
+     * 
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,64 +59,160 @@ public class MapPage extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonPanel = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        pauseResume = new javax.swing.JButton();
+        logsButton = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         riskZonesPanel = new javax.swing.JPanel();
+        Risk1 = new javax.swing.JPanel();
+        riskZoneInfo1 = new javax.swing.JPanel();
+        HumanIcon1 = new javax.swing.JButton();
+        HumanCounter1 = new javax.swing.JLabel();
+        ZombieIcon1 = new javax.swing.JButton();
+        ZombieCounter1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         riskZonePanel1 = new javax.swing.JScrollPane();
         riskZone1 = new javax.swing.JTextArea();
-        riskZonePanel2 = new javax.swing.JScrollPane();
-        riskZone2 = new javax.swing.JTextArea();
         riskZonePanel3 = new javax.swing.JScrollPane();
         riskZone3 = new javax.swing.JTextArea();
+        Risk2 = new javax.swing.JPanel();
+        riskZoneInfo2 = new javax.swing.JPanel();
+        HumanIcon2 = new javax.swing.JButton();
+        HumanCounter2 = new javax.swing.JLabel();
+        ZombieIcon2 = new javax.swing.JButton();
+        ZombieCounter2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         riskZonePanel4 = new javax.swing.JScrollPane();
         riskZone4 = new javax.swing.JTextArea();
+        riskZonePanel7 = new javax.swing.JScrollPane();
+        riskZone7 = new javax.swing.JTextArea();
+        Risk3 = new javax.swing.JPanel();
+        riskZoneInfo3 = new javax.swing.JPanel();
+        HumanIcon3 = new javax.swing.JButton();
+        HumanCounter3 = new javax.swing.JLabel();
+        ZombieIcon3 = new javax.swing.JButton();
+        ZombieCounter3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        riskZonePanel8 = new javax.swing.JScrollPane();
+        riskZone8 = new javax.swing.JTextArea();
+        riskZonePanel9 = new javax.swing.JScrollPane();
+        riskZone9 = new javax.swing.JTextArea();
+        Risk4 = new javax.swing.JPanel();
+        riskZoneInfo4 = new javax.swing.JPanel();
+        HumanIcon4 = new javax.swing.JButton();
+        HumanCounter4 = new javax.swing.JLabel();
+        ZombieIcon4 = new javax.swing.JButton();
+        ZombieCounter4 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        riskZonePanel10 = new javax.swing.JScrollPane();
+        riskZone10 = new javax.swing.JTextArea();
+        riskZonePanel11 = new javax.swing.JScrollPane();
+        riskZone11 = new javax.swing.JTextArea();
         tunnelsPanel = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         tunnelPanel1 = new javax.swing.JScrollPane();
         tunnel1 = new javax.swing.JTextArea();
+        currentCrossing1 = new javax.swing.JLabel();
+        tunnelPanel6 = new javax.swing.JScrollPane();
+        tunnel6 = new javax.swing.JTextArea();
+        jPanel9 = new javax.swing.JPanel();
         tunnelPanel2 = new javax.swing.JScrollPane();
         tunnel2 = new javax.swing.JTextArea();
+        currentCrossing2 = new javax.swing.JLabel();
+        tunnelPanel16 = new javax.swing.JScrollPane();
+        tunnel16 = new javax.swing.JTextArea();
+        jPanel10 = new javax.swing.JPanel();
         tunnelPanel3 = new javax.swing.JScrollPane();
         tunnel3 = new javax.swing.JTextArea();
+        currentCrossing3 = new javax.swing.JLabel();
+        tunnelPanel17 = new javax.swing.JScrollPane();
+        tunnel17 = new javax.swing.JTextArea();
+        jPanel11 = new javax.swing.JPanel();
         tunnelPanel4 = new javax.swing.JScrollPane();
         tunnel4 = new javax.swing.JTextArea();
+        currentCrossing4 = new javax.swing.JLabel();
+        tunnelPanel18 = new javax.swing.JScrollPane();
+        tunnel18 = new javax.swing.JTextArea();
+        refuge = new javax.swing.JPanel();
         refugePanel = new javax.swing.JPanel();
+        commonAreaPanel1 = new javax.swing.JPanel();
         commonAreaPanel = new javax.swing.JScrollPane();
-        commonArea = new javax.swing.JTextArea();
+        commonList = new javax.swing.JTextArea();
+        commonAreainfo = new javax.swing.JPanel();
+        commonHumanIcon = new javax.swing.JButton();
+        commonHumanCounter = new javax.swing.JLabel();
+        diningRoomPanel1 = new javax.swing.JPanel();
         diningRoomPanel = new javax.swing.JScrollPane();
         diningRoom = new javax.swing.JTextArea();
+        diningRoomInfo = new javax.swing.JPanel();
+        diningHumanIcon = new javax.swing.JButton();
+        humanDiningCounter = new javax.swing.JLabel();
+        foodIcon = new javax.swing.JButton();
+        foodCounter = new javax.swing.JLabel();
+        restAreaPanel1 = new javax.swing.JPanel();
         restAreaPanel = new javax.swing.JScrollPane();
         restArea = new javax.swing.JTextArea();
+        restAreaInfo = new javax.swing.JPanel();
+        restHumanIcon = new javax.swing.JButton();
+        restHumanCounter = new javax.swing.JLabel();
+        refugeInfo = new javax.swing.JPanel();
+        refugeName = new javax.swing.JLabel();
+        refugeCounters = new javax.swing.JPanel();
+        refugeIcon = new javax.swing.JButton();
+        refugeCounter = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
         buttonPanel.setLayout(new java.awt.BorderLayout());
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        pauseResume.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
+        pauseResume.setBorderPainted(false);
+        pauseResume.setContentAreaFilled(false);
+        pauseResume.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                pauseResumeActionPerformed(evt);
             }
         });
-        buttonPanel.add(jButton2, java.awt.BorderLayout.LINE_START);
+        buttonPanel.add(pauseResume, java.awt.BorderLayout.LINE_START);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogsIcon.png"))); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setContentAreaFilled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        logsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogsIcon.png"))); // NOI18N
+        logsButton.setBorderPainted(false);
+        logsButton.setContentAreaFilled(false);
+        logsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                logsButtonActionPerformed(evt);
             }
         });
-        buttonPanel.add(jButton3, java.awt.BorderLayout.LINE_END);
+        buttonPanel.add(logsButton, java.awt.BorderLayout.LINE_END);
 
         add(buttonPanel, java.awt.BorderLayout.NORTH);
 
-        mainPanel.setLayout(new java.awt.GridLayout(3, 0));
+        mainPanel.setLayout(new java.awt.GridLayout(3, 0, 0, 5));
 
         riskZonesPanel.setLayout(new javax.swing.BoxLayout(riskZonesPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        Risk1.setLayout(new java.awt.BorderLayout());
+
+        HumanIcon1.setText("jButton1");
+        HumanIcon1.setEnabled(false);
+        HumanIcon1.setFocusPainted(false);
+        HumanIcon1.setFocusable(false);
+        riskZoneInfo1.add(HumanIcon1);
+
+        HumanCounter1.setText("jLabel5");
+        riskZoneInfo1.add(HumanCounter1);
+
+        ZombieIcon1.setText("jButton4");
+        ZombieIcon1.setEnabled(false);
+        ZombieIcon1.setFocusPainted(false);
+        ZombieIcon1.setFocusable(false);
+        riskZoneInfo1.add(ZombieIcon1);
+
+        ZombieCounter1.setText("jLabel6");
+        riskZoneInfo1.add(ZombieCounter1);
+
+        Risk1.add(riskZoneInfo1, java.awt.BorderLayout.NORTH);
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -92,15 +220,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZone1.setRows(5);
         riskZonePanel1.setViewportView(riskZone1);
 
-        riskZonesPanel.add(riskZonePanel1);
-
-        riskZonePanel2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        riskZone2.setColumns(20);
-        riskZone2.setRows(5);
-        riskZonePanel2.setViewportView(riskZone2);
-
-        riskZonesPanel.add(riskZonePanel2);
+        jPanel1.add(riskZonePanel1);
 
         riskZonePanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -108,7 +228,40 @@ public class MapPage extends javax.swing.JPanel {
         riskZone3.setRows(5);
         riskZonePanel3.setViewportView(riskZone3);
 
-        riskZonesPanel.add(riskZonePanel3);
+        jPanel1.add(riskZonePanel3);
+
+        Risk1.add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        riskZonesPanel.add(Risk1);
+
+        Risk2.setLayout(new java.awt.BorderLayout());
+
+        HumanIcon2.setText("jButton1");
+        HumanIcon2.setEnabled(false);
+        HumanIcon2.setFocusPainted(false);
+        HumanIcon2.setFocusable(false);
+        HumanIcon2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HumanIcon2ActionPerformed(evt);
+            }
+        });
+        riskZoneInfo2.add(HumanIcon2);
+
+        HumanCounter2.setText("jLabel5");
+        riskZoneInfo2.add(HumanCounter2);
+
+        ZombieIcon2.setText("jButton4");
+        ZombieIcon2.setEnabled(false);
+        ZombieIcon2.setFocusPainted(false);
+        ZombieIcon2.setFocusable(false);
+        riskZoneInfo2.add(ZombieIcon2);
+
+        ZombieCounter2.setText("jLabel6");
+        riskZoneInfo2.add(ZombieCounter2);
+
+        Risk2.add(riskZoneInfo2, java.awt.BorderLayout.NORTH);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -116,11 +269,113 @@ public class MapPage extends javax.swing.JPanel {
         riskZone4.setRows(5);
         riskZonePanel4.setViewportView(riskZone4);
 
-        riskZonesPanel.add(riskZonePanel4);
+        jPanel2.add(riskZonePanel4);
+
+        riskZonePanel7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        riskZone7.setColumns(20);
+        riskZone7.setRows(5);
+        riskZonePanel7.setViewportView(riskZone7);
+
+        jPanel2.add(riskZonePanel7);
+
+        Risk2.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        riskZonesPanel.add(Risk2);
+
+        Risk3.setLayout(new java.awt.BorderLayout());
+
+        HumanIcon3.setText("jButton1");
+        HumanIcon3.setEnabled(false);
+        HumanIcon3.setFocusPainted(false);
+        HumanIcon3.setFocusable(false);
+        riskZoneInfo3.add(HumanIcon3);
+
+        HumanCounter3.setText("jLabel5");
+        riskZoneInfo3.add(HumanCounter3);
+
+        ZombieIcon3.setText("jButton4");
+        ZombieIcon3.setEnabled(false);
+        ZombieIcon3.setFocusPainted(false);
+        ZombieIcon3.setFocusable(false);
+        riskZoneInfo3.add(ZombieIcon3);
+
+        ZombieCounter3.setText("jLabel6");
+        riskZoneInfo3.add(ZombieCounter3);
+
+        Risk3.add(riskZoneInfo3, java.awt.BorderLayout.NORTH);
+
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+
+        riskZonePanel8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        riskZone8.setColumns(20);
+        riskZone8.setRows(5);
+        riskZonePanel8.setViewportView(riskZone8);
+
+        jPanel3.add(riskZonePanel8);
+
+        riskZonePanel9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        riskZone9.setColumns(20);
+        riskZone9.setRows(5);
+        riskZonePanel9.setViewportView(riskZone9);
+
+        jPanel3.add(riskZonePanel9);
+
+        Risk3.add(jPanel3, java.awt.BorderLayout.CENTER);
+
+        riskZonesPanel.add(Risk3);
+
+        Risk4.setLayout(new java.awt.BorderLayout());
+
+        HumanIcon4.setText("jButton1");
+        HumanIcon4.setEnabled(false);
+        HumanIcon4.setFocusPainted(false);
+        HumanIcon4.setFocusable(false);
+        riskZoneInfo4.add(HumanIcon4);
+
+        HumanCounter4.setText("jLabel5");
+        riskZoneInfo4.add(HumanCounter4);
+
+        ZombieIcon4.setText("jButton4");
+        ZombieIcon4.setEnabled(false);
+        ZombieIcon4.setFocusPainted(false);
+        ZombieIcon4.setFocusable(false);
+        riskZoneInfo4.add(ZombieIcon4);
+
+        ZombieCounter4.setText("jLabel6");
+        riskZoneInfo4.add(ZombieCounter4);
+
+        Risk4.add(riskZoneInfo4, java.awt.BorderLayout.NORTH);
+
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
+
+        riskZonePanel10.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        riskZone10.setColumns(20);
+        riskZone10.setRows(5);
+        riskZonePanel10.setViewportView(riskZone10);
+
+        jPanel4.add(riskZonePanel10);
+
+        riskZonePanel11.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        riskZone11.setColumns(20);
+        riskZone11.setRows(5);
+        riskZonePanel11.setViewportView(riskZone11);
+
+        jPanel4.add(riskZonePanel11);
+
+        Risk4.add(jPanel4, java.awt.BorderLayout.CENTER);
+
+        riskZonesPanel.add(Risk4);
 
         mainPanel.add(riskZonesPanel);
 
         tunnelsPanel.setLayout(new javax.swing.BoxLayout(tunnelsPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel5.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -128,7 +383,24 @@ public class MapPage extends javax.swing.JPanel {
         tunnel1.setRows(5);
         tunnelPanel1.setViewportView(tunnel1);
 
-        tunnelsPanel.add(tunnelPanel1);
+        jPanel5.add(tunnelPanel1);
+
+        currentCrossing1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        currentCrossing1.setText("jLabel1");
+        currentCrossing1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel5.add(currentCrossing1);
+
+        tunnelPanel6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tunnel6.setColumns(20);
+        tunnel6.setRows(5);
+        tunnelPanel6.setViewportView(tunnel6);
+
+        jPanel5.add(tunnelPanel6);
+
+        tunnelsPanel.add(jPanel5);
+
+        jPanel9.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -136,7 +408,23 @@ public class MapPage extends javax.swing.JPanel {
         tunnel2.setRows(5);
         tunnelPanel2.setViewportView(tunnel2);
 
-        tunnelsPanel.add(tunnelPanel2);
+        jPanel9.add(tunnelPanel2);
+
+        currentCrossing2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        currentCrossing2.setText("jLabel1");
+        jPanel9.add(currentCrossing2);
+
+        tunnelPanel16.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tunnel16.setColumns(20);
+        tunnel16.setRows(5);
+        tunnelPanel16.setViewportView(tunnel16);
+
+        jPanel9.add(tunnelPanel16);
+
+        tunnelsPanel.add(jPanel9);
+
+        jPanel10.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -144,7 +432,23 @@ public class MapPage extends javax.swing.JPanel {
         tunnel3.setRows(5);
         tunnelPanel3.setViewportView(tunnel3);
 
-        tunnelsPanel.add(tunnelPanel3);
+        jPanel10.add(tunnelPanel3);
+
+        currentCrossing3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        currentCrossing3.setText("jLabel1");
+        jPanel10.add(currentCrossing3);
+
+        tunnelPanel17.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tunnel17.setColumns(20);
+        tunnel17.setRows(5);
+        tunnelPanel17.setViewportView(tunnel17);
+
+        jPanel10.add(tunnelPanel17);
+
+        tunnelsPanel.add(jPanel10);
+
+        jPanel11.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -152,79 +456,256 @@ public class MapPage extends javax.swing.JPanel {
         tunnel4.setRows(5);
         tunnelPanel4.setViewportView(tunnel4);
 
-        tunnelsPanel.add(tunnelPanel4);
+        jPanel11.add(tunnelPanel4);
+
+        currentCrossing4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        currentCrossing4.setText("jLabel1");
+        jPanel11.add(currentCrossing4);
+
+        tunnelPanel18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tunnel18.setColumns(20);
+        tunnel18.setRows(5);
+        tunnelPanel18.setViewportView(tunnel18);
+
+        jPanel11.add(tunnelPanel18);
+
+        tunnelsPanel.add(jPanel11);
 
         mainPanel.add(tunnelsPanel);
 
+        refuge.setLayout(new java.awt.BorderLayout());
+
         refugePanel.setLayout(new javax.swing.BoxLayout(refugePanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        commonAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         commonAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        commonArea.setColumns(20);
-        commonArea.setRows(5);
-        commonAreaPanel.setViewportView(commonArea);
+        commonList.setColumns(20);
+        commonList.setRows(5);
+        commonList.setMargin(new java.awt.Insets(5, 6, 5, 6));
+        commonAreaPanel.setViewportView(commonList);
 
-        refugePanel.add(commonAreaPanel);
+        commonAreaPanel1.add(commonAreaPanel, java.awt.BorderLayout.CENTER);
+
+        commonHumanIcon.setText("jButton1");
+        commonHumanIcon.setEnabled(false);
+        commonHumanIcon.setFocusPainted(false);
+        commonHumanIcon.setFocusable(false);
+        commonHumanIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commonHumanIconActionPerformed(evt);
+            }
+        });
+        commonAreainfo.add(commonHumanIcon);
+
+        commonHumanCounter.setText("jLabel1");
+        commonAreainfo.add(commonHumanCounter);
+
+        commonAreaPanel1.add(commonAreainfo, java.awt.BorderLayout.SOUTH);
+
+        refugePanel.add(commonAreaPanel1);
+
+        diningRoomPanel1.setLayout(new java.awt.BorderLayout());
 
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         diningRoom.setColumns(20);
         diningRoom.setRows(5);
+        diningRoom.setMargin(new java.awt.Insets(5, 6, 5, 6));
         diningRoomPanel.setViewportView(diningRoom);
 
-        refugePanel.add(diningRoomPanel);
+        diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
+
+        diningHumanIcon.setText("jButton4");
+        diningHumanIcon.setEnabled(false);
+        diningHumanIcon.setFocusPainted(false);
+        diningHumanIcon.setFocusable(false);
+        diningRoomInfo.add(diningHumanIcon);
+
+        humanDiningCounter.setText("jLabel2");
+        diningRoomInfo.add(humanDiningCounter);
+
+        foodIcon.setText("jButton6");
+        foodIcon.setEnabled(false);
+        foodIcon.setFocusPainted(false);
+        foodIcon.setFocusable(false);
+        diningRoomInfo.add(foodIcon);
+
+        foodCounter.setText("jLabel4");
+        diningRoomInfo.add(foodCounter);
+
+        diningRoomPanel1.add(diningRoomInfo, java.awt.BorderLayout.SOUTH);
+
+        refugePanel.add(diningRoomPanel1);
+
+        restAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         restArea.setColumns(20);
         restArea.setRows(5);
+        restArea.setMargin(new java.awt.Insets(5, 6, 5, 6));
         restAreaPanel.setViewportView(restArea);
 
-        refugePanel.add(restAreaPanel);
+        restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);
 
-        mainPanel.add(refugePanel);
+        restHumanIcon.setText("jButton5");
+        restHumanIcon.setEnabled(false);
+        restHumanIcon.setFocusPainted(false);
+        restHumanIcon.setFocusable(false);
+        restAreaInfo.add(restHumanIcon);
+
+        restHumanCounter.setText("jLabel3");
+        restAreaInfo.add(restHumanCounter);
+
+        restAreaPanel1.add(restAreaInfo, java.awt.BorderLayout.SOUTH);
+
+        refugePanel.add(restAreaPanel1);
+
+        refuge.add(refugePanel, java.awt.BorderLayout.CENTER);
+
+        refugeInfo.setLayout(new java.awt.BorderLayout());
+
+        refugeName.setText("Refuge");
+        refugeInfo.add(refugeName, java.awt.BorderLayout.WEST);
+
+        refugeIcon.setText("jButton1");
+        refugeIcon.setEnabled(false);
+        refugeIcon.setFocusable(false);
+        refugeCounters.add(refugeIcon);
+
+        refugeCounter.setText("jLabel5");
+        refugeCounters.add(refugeCounter);
+
+        refugeInfo.add(refugeCounters, java.awt.BorderLayout.EAST);
+
+        refuge.add(refugeInfo, java.awt.BorderLayout.NORTH);
+
+        mainPanel.add(refuge);
 
         add(mainPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void pauseResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseResumeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_pauseResumeActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void logsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logsButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_logsButtonActionPerformed
+
+    private void commonHumanIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonHumanIconActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_commonHumanIconActionPerformed
+
+    private void HumanIcon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HumanIcon2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HumanIcon2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel HumanCounter1;
+    private javax.swing.JLabel HumanCounter2;
+    private javax.swing.JLabel HumanCounter3;
+    private javax.swing.JLabel HumanCounter4;
+    private javax.swing.JButton HumanIcon1;
+    private javax.swing.JButton HumanIcon2;
+    private javax.swing.JButton HumanIcon3;
+    private javax.swing.JButton HumanIcon4;
+    private javax.swing.JPanel Risk1;
+    private javax.swing.JPanel Risk2;
+    private javax.swing.JPanel Risk3;
+    private javax.swing.JPanel Risk4;
+    private javax.swing.JLabel ZombieCounter1;
+    private javax.swing.JLabel ZombieCounter2;
+    private javax.swing.JLabel ZombieCounter3;
+    private javax.swing.JLabel ZombieCounter4;
+    private javax.swing.JButton ZombieIcon1;
+    private javax.swing.JButton ZombieIcon2;
+    private javax.swing.JButton ZombieIcon3;
+    private javax.swing.JButton ZombieIcon4;
     private javax.swing.JPanel buttonPanel;
-    private javax.swing.JTextArea commonArea;
     private javax.swing.JScrollPane commonAreaPanel;
+    private javax.swing.JPanel commonAreaPanel1;
+    private javax.swing.JPanel commonAreainfo;
+    private javax.swing.JLabel commonHumanCounter;
+    private javax.swing.JButton commonHumanIcon;
+    private javax.swing.JTextArea commonList;
+    private javax.swing.JLabel currentCrossing1;
+    private javax.swing.JLabel currentCrossing2;
+    private javax.swing.JLabel currentCrossing3;
+    private javax.swing.JLabel currentCrossing4;
+    private javax.swing.JButton diningHumanIcon;
     private javax.swing.JTextArea diningRoom;
+    private javax.swing.JPanel diningRoomInfo;
     private javax.swing.JScrollPane diningRoomPanel;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JPanel diningRoomPanel1;
+    private javax.swing.JLabel foodCounter;
+    private javax.swing.JButton foodIcon;
+    private javax.swing.JLabel humanDiningCounter;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JButton logsButton;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JButton pauseResume;
+    private javax.swing.JPanel refuge;
+    private javax.swing.JLabel refugeCounter;
+    private javax.swing.JPanel refugeCounters;
+    private javax.swing.JButton refugeIcon;
+    private javax.swing.JPanel refugeInfo;
+    private javax.swing.JLabel refugeName;
     private javax.swing.JPanel refugePanel;
     private javax.swing.JTextArea restArea;
+    private javax.swing.JPanel restAreaInfo;
     private javax.swing.JScrollPane restAreaPanel;
+    private javax.swing.JPanel restAreaPanel1;
+    private javax.swing.JLabel restHumanCounter;
+    private javax.swing.JButton restHumanIcon;
     private javax.swing.JTextArea riskZone1;
-    private javax.swing.JTextArea riskZone2;
+    private javax.swing.JTextArea riskZone10;
+    private javax.swing.JTextArea riskZone11;
     private javax.swing.JTextArea riskZone3;
     private javax.swing.JTextArea riskZone4;
+    private javax.swing.JTextArea riskZone7;
+    private javax.swing.JTextArea riskZone8;
+    private javax.swing.JTextArea riskZone9;
+    private javax.swing.JPanel riskZoneInfo1;
+    private javax.swing.JPanel riskZoneInfo2;
+    private javax.swing.JPanel riskZoneInfo3;
+    private javax.swing.JPanel riskZoneInfo4;
     private javax.swing.JScrollPane riskZonePanel1;
-    private javax.swing.JScrollPane riskZonePanel2;
+    private javax.swing.JScrollPane riskZonePanel10;
+    private javax.swing.JScrollPane riskZonePanel11;
     private javax.swing.JScrollPane riskZonePanel3;
     private javax.swing.JScrollPane riskZonePanel4;
+    private javax.swing.JScrollPane riskZonePanel7;
+    private javax.swing.JScrollPane riskZonePanel8;
+    private javax.swing.JScrollPane riskZonePanel9;
     private javax.swing.JPanel riskZonesPanel;
     private javax.swing.JTextArea tunnel1;
+    private javax.swing.JTextArea tunnel16;
+    private javax.swing.JTextArea tunnel17;
+    private javax.swing.JTextArea tunnel18;
     private javax.swing.JTextArea tunnel2;
     private javax.swing.JTextArea tunnel3;
     private javax.swing.JTextArea tunnel4;
+    private javax.swing.JTextArea tunnel6;
     private javax.swing.JScrollPane tunnelPanel1;
+    private javax.swing.JScrollPane tunnelPanel16;
+    private javax.swing.JScrollPane tunnelPanel17;
+    private javax.swing.JScrollPane tunnelPanel18;
     private javax.swing.JScrollPane tunnelPanel2;
     private javax.swing.JScrollPane tunnelPanel3;
     private javax.swing.JScrollPane tunnelPanel4;
+    private javax.swing.JScrollPane tunnelPanel6;
     private javax.swing.JPanel tunnelsPanel;
     // End of variables declaration//GEN-END:variables
 }
