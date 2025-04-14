@@ -4,8 +4,6 @@
  */
 package Server.frontend;
 
-import javax.swing.ImageIcon;
-
 /**
  *
  * @author guill
@@ -13,11 +11,10 @@ import javax.swing.ImageIcon;
 public class MapPage extends javax.swing.JPanel {
 
     /**
-     * Creates new form MapPage
+     * Creates new form map
      */
     public MapPage() {
         initComponents();
-        logButton.setIcon(new ImageIcon(getClass().getResource( "/images/LogsIcon.png" )));
     }
 
     /**
@@ -28,176 +25,206 @@ public class MapPage extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
-        jPanel6 = new javax.swing.JPanel();
-        logButton = new javax.swing.JButton();
-        RiskZonePanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        TunnelsPanel = new javax.swing.JPanel();
-        RefugePanel = new javax.swing.JPanel();
+        buttonPanel = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        mainPanel = new javax.swing.JPanel();
+        riskZonesPanel = new javax.swing.JPanel();
+        riskZonePanel1 = new javax.swing.JScrollPane();
+        riskZone1 = new javax.swing.JTextArea();
+        riskZonePanel2 = new javax.swing.JScrollPane();
+        riskZone2 = new javax.swing.JTextArea();
+        riskZonePanel3 = new javax.swing.JScrollPane();
+        riskZone3 = new javax.swing.JTextArea();
+        riskZonePanel4 = new javax.swing.JScrollPane();
+        riskZone4 = new javax.swing.JTextArea();
+        tunnelsPanel = new javax.swing.JPanel();
+        tunnelPanel1 = new javax.swing.JScrollPane();
+        tunnel1 = new javax.swing.JTextArea();
+        tunnelPanel2 = new javax.swing.JScrollPane();
+        tunnel2 = new javax.swing.JTextArea();
+        tunnelPanel3 = new javax.swing.JScrollPane();
+        tunnel3 = new javax.swing.JTextArea();
+        tunnelPanel4 = new javax.swing.JScrollPane();
+        tunnel4 = new javax.swing.JTextArea();
+        refugePanel = new javax.swing.JPanel();
+        commonAreaPanel = new javax.swing.JScrollPane();
+        commonArea = new javax.swing.JTextArea();
+        diningRoomPanel = new javax.swing.JScrollPane();
+        diningRoom = new javax.swing.JTextArea();
+        restAreaPanel = new javax.swing.JScrollPane();
+        restArea = new javax.swing.JTextArea();
 
-        jScrollPane1.setViewportView(jEditorPane1);
+        setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        buttonPanel.setLayout(new java.awt.BorderLayout());
 
-        logButton.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logButtonActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
+        buttonPanel.add(jButton2, java.awt.BorderLayout.LINE_START);
 
-        RiskZonePanel.setBackground(new java.awt.Color(153, 255, 153));
-        RiskZonePanel.setLayout(new java.awt.GridBagLayout());
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogsIcon.png"))); // NOI18N
+        jButton3.setBorderPainted(false);
+        jButton3.setContentAreaFilled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        buttonPanel.add(jButton3, java.awt.BorderLayout.LINE_END);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 102, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        add(buttonPanel, java.awt.BorderLayout.NORTH);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        RiskZonePanel.add(jPanel1, gridBagConstraints);
+        mainPanel.setLayout(new java.awt.GridLayout(3, 0));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        riskZonesPanel.setLayout(new javax.swing.BoxLayout(riskZonesPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        RiskZonePanel.add(jPanel3, gridBagConstraints);
+        riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        riskZone1.setColumns(20);
+        riskZone1.setRows(5);
+        riskZonePanel1.setViewportView(riskZone1);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        RiskZonePanel.add(jPanel4, gridBagConstraints);
+        riskZonesPanel.add(riskZonePanel1);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        riskZonePanel2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        RiskZonePanel.add(jPanel5, gridBagConstraints);
+        riskZone2.setColumns(20);
+        riskZone2.setRows(5);
+        riskZonePanel2.setViewportView(riskZone2);
 
-        TunnelsPanel.setBackground(new java.awt.Color(204, 153, 0));
+        riskZonesPanel.add(riskZonePanel2);
 
-        javax.swing.GroupLayout TunnelsPanelLayout = new javax.swing.GroupLayout(TunnelsPanel);
-        TunnelsPanel.setLayout(TunnelsPanelLayout);
-        TunnelsPanelLayout.setHorizontalGroup(
-            TunnelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        TunnelsPanelLayout.setVerticalGroup(
-            TunnelsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 112, Short.MAX_VALUE)
-        );
+        riskZonePanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RefugePanel.setBackground(new java.awt.Color(102, 102, 0));
+        riskZone3.setColumns(20);
+        riskZone3.setRows(5);
+        riskZonePanel3.setViewportView(riskZone3);
 
-        javax.swing.GroupLayout RefugePanelLayout = new javax.swing.GroupLayout(RefugePanel);
-        RefugePanel.setLayout(RefugePanelLayout);
-        RefugePanelLayout.setHorizontalGroup(
-            RefugePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        RefugePanelLayout.setVerticalGroup(
-            RefugePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 135, Short.MAX_VALUE)
-        );
+        riskZonesPanel.add(riskZonePanel3);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(RiskZonePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
-                    .addComponent(RefugePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TunnelsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(logButton)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(logButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RiskZonePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TunnelsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(RefugePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        riskZonePanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        logButton.getAccessibleContext().setAccessibleDescription("");
+        riskZone4.setColumns(20);
+        riskZone4.setRows(5);
+        riskZonePanel4.setViewportView(riskZone4);
+
+        riskZonesPanel.add(riskZonePanel4);
+
+        mainPanel.add(riskZonesPanel);
+
+        tunnelsPanel.setLayout(new javax.swing.BoxLayout(tunnelsPanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        tunnelPanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tunnel1.setColumns(20);
+        tunnel1.setRows(5);
+        tunnelPanel1.setViewportView(tunnel1);
+
+        tunnelsPanel.add(tunnelPanel1);
+
+        tunnelPanel2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tunnel2.setColumns(20);
+        tunnel2.setRows(5);
+        tunnelPanel2.setViewportView(tunnel2);
+
+        tunnelsPanel.add(tunnelPanel2);
+
+        tunnelPanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tunnel3.setColumns(20);
+        tunnel3.setRows(5);
+        tunnelPanel3.setViewportView(tunnel3);
+
+        tunnelsPanel.add(tunnelPanel3);
+
+        tunnelPanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tunnel4.setColumns(20);
+        tunnel4.setRows(5);
+        tunnelPanel4.setViewportView(tunnel4);
+
+        tunnelsPanel.add(tunnelPanel4);
+
+        mainPanel.add(tunnelsPanel);
+
+        refugePanel.setLayout(new javax.swing.BoxLayout(refugePanel, javax.swing.BoxLayout.LINE_AXIS));
+
+        commonAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        commonArea.setColumns(20);
+        commonArea.setRows(5);
+        commonAreaPanel.setViewportView(commonArea);
+
+        refugePanel.add(commonAreaPanel);
+
+        diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        diningRoom.setColumns(20);
+        diningRoom.setRows(5);
+        diningRoomPanel.setViewportView(diningRoom);
+
+        refugePanel.add(diningRoomPanel);
+
+        restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        restArea.setColumns(20);
+        restArea.setRows(5);
+        restAreaPanel.setViewportView(restArea);
+
+        refugePanel.add(restAreaPanel);
+
+        mainPanel.add(refugePanel);
+
+        add(mainPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
-        App.redirect("LOG");
-    }//GEN-LAST:event_logButtonActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel RefugePanel;
-    private javax.swing.JPanel RiskZonePanel;
-    private javax.swing.JPanel TunnelsPanel;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton logButton;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JTextArea commonArea;
+    private javax.swing.JScrollPane commonAreaPanel;
+    private javax.swing.JTextArea diningRoom;
+    private javax.swing.JScrollPane diningRoomPanel;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel refugePanel;
+    private javax.swing.JTextArea restArea;
+    private javax.swing.JScrollPane restAreaPanel;
+    private javax.swing.JTextArea riskZone1;
+    private javax.swing.JTextArea riskZone2;
+    private javax.swing.JTextArea riskZone3;
+    private javax.swing.JTextArea riskZone4;
+    private javax.swing.JScrollPane riskZonePanel1;
+    private javax.swing.JScrollPane riskZonePanel2;
+    private javax.swing.JScrollPane riskZonePanel3;
+    private javax.swing.JScrollPane riskZonePanel4;
+    private javax.swing.JPanel riskZonesPanel;
+    private javax.swing.JTextArea tunnel1;
+    private javax.swing.JTextArea tunnel2;
+    private javax.swing.JTextArea tunnel3;
+    private javax.swing.JTextArea tunnel4;
+    private javax.swing.JScrollPane tunnelPanel1;
+    private javax.swing.JScrollPane tunnelPanel2;
+    private javax.swing.JScrollPane tunnelPanel3;
+    private javax.swing.JScrollPane tunnelPanel4;
+    private javax.swing.JPanel tunnelsPanel;
     // End of variables declaration//GEN-END:variables
 }
