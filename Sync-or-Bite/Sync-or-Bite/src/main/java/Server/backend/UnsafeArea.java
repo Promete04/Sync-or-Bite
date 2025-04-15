@@ -121,7 +121,7 @@ public class UnsafeArea
                 int defense = (int) (Math.random() * 3);
                 if (defense < 2) 
                 {
-                    logger.log("Human " + h.getHumanId() + " succesfully defended itself from the attack.");
+                    logger.log("Human " + h.getHumanId() + " successfully defended itself from the attack.");
                     h.toggleMarked();
                     synchronized (attacks) 
                     { 
