@@ -32,6 +32,7 @@ public class CommonArea
         commonList.add(h);
         logger.log("Human " + h.getHumanId() + " entered the common area.");
         mapPage.setCounter("HC", String.valueOf(commonList.size()));
+        mapPage.addLabelToPanel("C", h.getHumanId());
     }
     
     public synchronized void exit(Human h) throws InterruptedException
@@ -39,6 +40,7 @@ public class CommonArea
         commonList.remove(h);
         logger.log("Human " + h.getHumanId() + " left the common area.");
         mapPage.setCounter("HC", String.valueOf(commonList.size()));
+        mapPage.removeLabelFromPanel("C", h.getHumanId() );
     }
     
     public void prepare(Human h) throws InterruptedException

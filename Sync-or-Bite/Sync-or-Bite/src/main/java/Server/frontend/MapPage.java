@@ -6,10 +6,12 @@ package Server.frontend;
 
 import Server.backend.PauseManager;
 import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -99,11 +101,73 @@ public class MapPage extends javax.swing.JPanel {
        if(isStopped){pm.resume();} else{pm.pause();}
     }
    
-   public void addToPanel(String namePanel, String value)
+   public void addLabelToPanel(String panelKey, String labelText)
    {
-       
-   }
-  
+    JPanel targetPanel = Panels.get(panelKey);
+
+    if (targetPanel == null) {
+        System.err.println("No panel found for key: " + panelKey);
+        return;
+    }
+
+    JLabel label = new JLabel(labelText);
+    label.setOpaque(true);
+    label.setBackground(utils.ColorManager.SHADOW_COLOR); 
+    label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
+
+    targetPanel.add(label);
+    targetPanel.revalidate();
+    targetPanel.repaint();
+}
+  public void removeLabelFromPanel(String panelKey, String labelText) 
+  {
+    JPanel targetPanel = Panels.get(panelKey);
+    
+    if (targetPanel == null) 
+    {
+        System.err.println("No panel found for key: " + panelKey);
+        return;
+    }
+
+    Component[] components = targetPanel.getComponents();
+    for (Component comp : components) 
+    {
+        if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+        {
+            targetPanel.remove(label);
+            targetPanel.revalidate();
+            targetPanel.repaint();
+            return;
+        }
+    }
+
+    System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
+    }
+  public void setLabelColorInPanel(String panelKey, String labelText, Color color) 
+  {
+    JPanel targetPanel = Panels.get(panelKey);
+    
+    if (targetPanel == null)
+    {
+        System.err.println("No panel found for key: " + panelKey);
+        return;
+    }
+
+    for (Component comp : targetPanel.getComponents()) 
+    {
+        if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+        {
+            label.setOpaque(true); // necesario para que el color de fondo se vea
+            label.setBackground(color);
+            targetPanel.repaint();
+            return;
+        }
+    }
+
+    System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
+}
+
+
    public void setCounter(String nameLabel, String value) 
    {
     Counters.get(nameLabel).setText(value);
@@ -356,14 +420,14 @@ public class MapPage extends javax.swing.JPanel {
         riskZonePanel1.setForeground(utils.ColorManager.INPUT_BG_COLOR);
         riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskHuman1.setLayout(new javax.swing.BoxLayout(RiskHuman1, javax.swing.BoxLayout.LINE_AXIS));
+        RiskHuman1.setLayout(new javax.swing.BoxLayout(RiskHuman1, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel1.setViewportView(RiskHuman1);
 
         jPanel1.add(riskZonePanel1);
 
         riskZonePanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskZombie1.setLayout(new javax.swing.BoxLayout(RiskZombie1, javax.swing.BoxLayout.LINE_AXIS));
+        RiskZombie1.setLayout(new javax.swing.BoxLayout(RiskZombie1, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel3.setViewportView(RiskZombie1);
 
         jPanel1.add(riskZonePanel3);
@@ -412,14 +476,14 @@ public class MapPage extends javax.swing.JPanel {
 
         riskZonePanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskHuman2.setLayout(new javax.swing.BoxLayout(RiskHuman2, javax.swing.BoxLayout.LINE_AXIS));
+        RiskHuman2.setLayout(new javax.swing.BoxLayout(RiskHuman2, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel4.setViewportView(RiskHuman2);
 
         jPanel2.add(riskZonePanel4);
 
         riskZonePanel7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskZombie2.setLayout(new javax.swing.BoxLayout(RiskZombie2, javax.swing.BoxLayout.LINE_AXIS));
+        RiskZombie2.setLayout(new javax.swing.BoxLayout(RiskZombie2, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel7.setViewportView(RiskZombie2);
 
         jPanel2.add(riskZonePanel7);
@@ -463,14 +527,14 @@ public class MapPage extends javax.swing.JPanel {
 
         riskZonePanel8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskHuman3.setLayout(new javax.swing.BoxLayout(RiskHuman3, javax.swing.BoxLayout.LINE_AXIS));
+        RiskHuman3.setLayout(new javax.swing.BoxLayout(RiskHuman3, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel8.setViewportView(RiskHuman3);
 
         jPanel3.add(riskZonePanel8);
 
         riskZonePanel9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskZombie3.setLayout(new javax.swing.BoxLayout(RiskZombie3, javax.swing.BoxLayout.LINE_AXIS));
+        RiskZombie3.setLayout(new javax.swing.BoxLayout(RiskZombie3, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel9.setViewportView(RiskZombie3);
 
         jPanel3.add(riskZonePanel9);
@@ -514,14 +578,14 @@ public class MapPage extends javax.swing.JPanel {
 
         riskZonePanel10.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskHuman4.setLayout(new javax.swing.BoxLayout(RiskHuman4, javax.swing.BoxLayout.LINE_AXIS));
+        RiskHuman4.setLayout(new javax.swing.BoxLayout(RiskHuman4, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel10.setViewportView(RiskHuman4);
 
         jPanel4.add(riskZonePanel10);
 
         riskZonePanel11.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskZombie4.setLayout(new javax.swing.BoxLayout(RiskZombie4, javax.swing.BoxLayout.LINE_AXIS));
+        RiskZombie4.setLayout(new javax.swing.BoxLayout(RiskZombie4, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel11.setViewportView(RiskZombie4);
 
         jPanel4.add(riskZonePanel11);
@@ -547,7 +611,7 @@ public class MapPage extends javax.swing.JPanel {
 
         currentCrossing1.setFont(utils.FontManager.boldFont);
         currentCrossing1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentCrossing1.setText("---");
+        currentCrossing1.setText("-----");
         currentCrossing1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel5.add(currentCrossing1);
 
@@ -575,7 +639,7 @@ public class MapPage extends javax.swing.JPanel {
 
         currentCrossing2.setFont(utils.FontManager.boldFont);
         currentCrossing2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentCrossing2.setText("---");
+        currentCrossing2.setText("-----");
         jPanel9.add(currentCrossing2);
 
         tunnelPanel16.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -602,7 +666,7 @@ public class MapPage extends javax.swing.JPanel {
 
         currentCrossing3.setFont(utils.FontManager.boldFont);
         currentCrossing3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentCrossing3.setText("---");
+        currentCrossing3.setText("-----");
         jPanel10.add(currentCrossing3);
 
         tunnelPanel17.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -629,7 +693,7 @@ public class MapPage extends javax.swing.JPanel {
 
         currentCrossing4.setFont(utils.FontManager.boldFont);
         currentCrossing4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentCrossing4.setText("---");
+        currentCrossing4.setText("-----");
         jPanel11.add(currentCrossing4);
 
         tunnelPanel18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -656,7 +720,7 @@ public class MapPage extends javax.swing.JPanel {
         commonAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Common Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
         commonAreaPanel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
-        CommonList.setLayout(new javax.swing.BoxLayout(CommonList, javax.swing.BoxLayout.LINE_AXIS));
+        CommonList.setLayout(new javax.swing.BoxLayout(CommonList, javax.swing.BoxLayout.Y_AXIS));
         commonAreaPanel.setViewportView(CommonList);
 
         commonAreaPanel1.add(commonAreaPanel, java.awt.BorderLayout.CENTER);
@@ -688,7 +752,7 @@ public class MapPage extends javax.swing.JPanel {
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         diningRoomPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dining Room", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
 
-        DiningList.setLayout(new javax.swing.BoxLayout(DiningList, javax.swing.BoxLayout.LINE_AXIS));
+        DiningList.setLayout(new javax.swing.BoxLayout(DiningList, javax.swing.BoxLayout.Y_AXIS));
         diningRoomPanel.setViewportView(DiningList);
 
         diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
@@ -725,7 +789,7 @@ public class MapPage extends javax.swing.JPanel {
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
 
-        RestList.setLayout(new javax.swing.BoxLayout(RestList, javax.swing.BoxLayout.LINE_AXIS));
+        RestList.setLayout(new javax.swing.BoxLayout(RestList, javax.swing.BoxLayout.Y_AXIS));
         restAreaPanel.setViewportView(RestList);
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);

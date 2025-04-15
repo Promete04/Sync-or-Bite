@@ -143,7 +143,7 @@ public class Tunnel
         {
             tunnelBusy = false;
             currentInside = null;
-            mapPage.setCounter("C"+String.valueOf(ID), "---");
+            mapPage.setCounter("C"+String.valueOf(ID), "-----");
             // Give priority to returners.
             if (hasReturnersWaiting()) 
             {
