@@ -20,7 +20,7 @@ public class Tunnels
         tunnels = new Tunnel[4];
         for(int i = 0; i<4; i++)
         {
-            tunnels[i] = new Tunnel(riskZone.getUnsafeAreas()[i], logger,i+1);
+            tunnels[i] = new Tunnel(riskZone.getUnsafeAreas()[i], logger,i);
         }
     }
     

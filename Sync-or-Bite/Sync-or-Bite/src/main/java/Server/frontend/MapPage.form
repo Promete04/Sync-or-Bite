@@ -610,7 +610,9 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelExiting1">
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
+                        <Property name="axis" type="int" value="0"/>
+                      </Layout>
                     </Container>
                   </SubComponents>
                 </Container>

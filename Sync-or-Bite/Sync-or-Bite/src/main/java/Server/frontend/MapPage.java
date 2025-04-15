@@ -617,7 +617,7 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelPanel6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        TunnelExiting1.setLayout(new javax.swing.BoxLayout(TunnelExiting1, javax.swing.BoxLayout.LINE_AXIS));
+        TunnelExiting1.setLayout(new javax.swing.BoxLayout(TunnelExiting1, javax.swing.BoxLayout.X_AXIS));
         tunnelPanel6.setViewportView(TunnelExiting1);
 
         jPanel5.add(tunnelPanel6);

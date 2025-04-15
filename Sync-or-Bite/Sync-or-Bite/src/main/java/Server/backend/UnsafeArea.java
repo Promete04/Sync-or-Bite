@@ -74,6 +74,7 @@ public class UnsafeArea
             zombiesInside.add(z);
             logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
             mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
+            mapPage.addLabelToPanel("RZ"+String.valueOf(area+1), z.getZombieId());
         }
     }
     
@@ -84,6 +85,7 @@ public class UnsafeArea
             zombiesInside.remove(z);
             logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
             mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
+            mapPage.removeLabelFromPanel("RZ"+String.valueOf(area+1), z.getZombieId());
         }
     }
     
@@ -94,6 +96,7 @@ public class UnsafeArea
             humansInside.add(h);
             logger.log("Human " + h.getHumanId() + " entered unsafe area " + area + ".");
             mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
+            mapPage.addLabelToPanel("RH"+String.valueOf(area+1), h.getHumanId());
         }
     }
     
@@ -104,6 +107,7 @@ public class UnsafeArea
             humansInside.remove(h);
             logger.log("Human " + h.getHumanId() + " left unsafe area " + area + ".");
             mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
+            mapPage.removeLabelFromPanel("RH"+String.valueOf(area+1), h.getHumanId());
         }
     }
     
@@ -143,6 +147,7 @@ public class UnsafeArea
                 else 
                 {
                     logger.log("Human " + h.getHumanId() + " failed to defend itself from the attack.");
+                    mapPage.removeLabelFromPanel("RH"+String.valueOf(area+1), h.getHumanId());
                     String zombieId = h.getHumanId().replaceFirst("H", "Z");
                     Zombie killer;
                     
@@ -161,6 +166,9 @@ public class UnsafeArea
                     synchronized(zombiesInside)
                     {
                         zombiesInside.add(killed);
+                        mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
+                        mapPage.addLabelToPanel("RZ"+String.valueOf(area+1), killed.getZombieId());
+                        
                     }
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");
                     killed.start();
