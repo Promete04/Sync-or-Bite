@@ -19,6 +19,8 @@ public class App
    private static final CardLayout cardLayout = new CardLayout();
    private static final JPanel cards = new JPanel(cardLayout);
    public static JFrame frame = new JFrame("Sync-or-Bite");
+   private static final MapPage mapPage = new MapPage();
+   private static final LogPage logPage = new LogPage();
    
    
    public static PauseManager  pm = new PauseManager();
@@ -26,8 +28,8 @@ public class App
    private static final Map<String, JPanel> pages = new HashMap<>()
    {
         {
-        put("MAP",new MapPage());
-        put("LOG", new LogPage()); 
+        put("MAP",mapPage);
+        put("LOG", logPage); 
         }
    };
    public static JPanel currentPanel = pages.get("MAP"); 
@@ -74,6 +76,10 @@ public class App
    {
          return pm;
    }
+   public static MapPage getMapPage() 
+   {
+    return mapPage;
+    }
            
            
    public static void redirect(String page){

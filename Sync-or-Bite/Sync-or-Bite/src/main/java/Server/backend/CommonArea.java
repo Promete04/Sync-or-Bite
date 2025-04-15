@@ -4,6 +4,8 @@
  */
 package Server.backend;
 
+import Server.frontend.App;
+import Server.frontend.MapPage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -17,6 +19,7 @@ public class CommonArea
     private List<Human> commonList = new ArrayList<>();
     private Semaphore mutex = new Semaphore(1,true);
     private Logger logger;
+    private MapPage mapPage = App.getMapPage();
     
     
     public CommonArea(Logger logger)
@@ -28,12 +31,14 @@ public class CommonArea
     {
         commonList.add(h);
         logger.log("Human " + h.getHumanId() + " entered the common area.");
+        mapPage.setCounter("HC", String.valueOf(commonList.size()));
     }
     
     public synchronized void exit(Human h) throws InterruptedException
     {
         commonList.remove(h);
         logger.log("Human " + h.getHumanId() + " left the common area.");
+        mapPage.setCounter("HC", String.valueOf(commonList.size()));
     }
     
     public void prepare(Human h) throws InterruptedException
@@ -46,19 +51,6 @@ public class CommonArea
     }
     
     // Methods for monitoring
-    public synchronized int getCommon() throws InterruptedException
-    {
-        mutex.acquire();
-        try 
-        {
-            return commonList.size();
-        } 
-        finally 
-        {
-           mutex.release();
-        }
-    }
-    
     public synchronized List<String> getCommonIds() throws InterruptedException 
     {
         List<String> ids = new ArrayList<>();

@@ -13,13 +13,14 @@ public class Tunnels
     private Tunnel[] tunnels;
     private RiskZone riskZone;
     
+    
     public Tunnels(RiskZone riskZone, Logger logger)
     {
         this.riskZone = riskZone;
         tunnels = new Tunnel[4];
         for(int i = 0; i<4; i++)
         {
-            tunnels[i] = new Tunnel(riskZone.getUnsafeAreas()[i], logger);
+            tunnels[i] = new Tunnel(riskZone.getUnsafeAreas()[i], logger,i+1);
         }
     }
     

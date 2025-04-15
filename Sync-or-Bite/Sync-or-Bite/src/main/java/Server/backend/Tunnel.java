@@ -1,6 +1,8 @@
 package Server.backend;
 
 
+import Server.frontend.App;
+import Server.frontend.MapPage;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,10 +14,12 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 
+
 public class Tunnel 
 {
 
     private UnsafeArea unsafeArea;
+    
     
     // Barrier to wait for groups of 3 exiters.
     private CyclicBarrier groups;
@@ -42,9 +46,13 @@ public class Tunnel
     
     private Logger logger;
     
+    private MapPage mapPage = App.getMapPage();
+    private int ID;
+    
     // Constructor: associates Tunnel with a specific unsafe area.
-    public Tunnel(UnsafeArea unsafeArea, Logger logger)
+    public Tunnel(UnsafeArea unsafeArea, Logger logger,int pID)
     {
+        this.ID=pID;
         this.logger = logger;
         this.unsafeArea = unsafeArea;
         groups = new CyclicBarrier(GROUP_SIZE, new Runnable() 
@@ -117,6 +125,7 @@ public class Tunnel
             // Reserve the tunnel.
             tunnelBusy = true;
             currentInside = h;
+            mapPage.setCounter("C"+String.valueOf(ID), currentInside.getHumanId());
         } 
         finally 
         {
@@ -134,6 +143,7 @@ public class Tunnel
         {
             tunnelBusy = false;
             currentInside = null;
+            mapPage.setCounter("C"+String.valueOf(ID), "");
             // Give priority to returners.
             if (hasReturnersWaiting()) 
             {

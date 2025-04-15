@@ -4,6 +4,8 @@
  */
 package Server.backend;
 
+import Server.frontend.App;
+import Server.frontend.MapPage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +24,7 @@ public class UnsafeArea
     private int area;
     private FoodGenerator fgenerator;
     private Logger logger;
+    private MapPage mapPage = App.getMapPage();
     
     public UnsafeArea(int area, Logger logger, FoodGenerator fgenerator, RiskZone riskZone)
     {
@@ -70,6 +73,7 @@ public class UnsafeArea
         {
             zombiesInside.add(z);
             logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
+            mapPage.setCounter("Z"+String.valueOf(area),String.valueOf(zombiesInside.size()));
         }
     }
     
@@ -79,6 +83,7 @@ public class UnsafeArea
         {
             zombiesInside.remove(z);
             logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
+            mapPage.setCounter("Z"+String.valueOf(area),String.valueOf(zombiesInside.size()));
         }
     }
     
@@ -88,6 +93,7 @@ public class UnsafeArea
         {
             humansInside.add(h);
             logger.log("Human " + h.getHumanId() + " entered unsafe area " + area + ".");
+            mapPage.setCounter("H"+String.valueOf(area),String.valueOf(humansInside.size()));
         }
     }
     
@@ -97,6 +103,7 @@ public class UnsafeArea
         {
             humansInside.remove(h);
             logger.log("Human " + h.getHumanId() + " left unsafe area " + area + ".");
+            mapPage.setCounter("H"+String.valueOf(area),String.valueOf(humansInside.size()));
         }
     }
     

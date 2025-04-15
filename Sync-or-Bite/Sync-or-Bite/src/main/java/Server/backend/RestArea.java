@@ -4,6 +4,8 @@
  */
 package Server.backend;
 
+import Server.frontend.App;
+import Server.frontend.MapPage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class RestArea
 {
     private List<Human> restList = new ArrayList<Human>();
     private Logger logger;
+    private MapPage mapPage = App.getMapPage();
     
     public RestArea(Logger logger)
     {
@@ -25,12 +28,15 @@ public class RestArea
     {
         restList.add(h);
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
+        mapPage.setCounter("HR", String.valueOf(restList.size()));
+        
     }
     
     public synchronized void exit(Human h) throws InterruptedException
     {
         restList.remove(h);
         logger.log("Human " + h.getHumanId() + " left the rest area.");
+        mapPage.setCounter("HR",String.valueOf(restList.size()));
     }
     
     public void rest(Human h) throws InterruptedException

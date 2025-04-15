@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Server.backend;
+import Server.frontend.App;
+import Server.frontend.MapPage;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -16,6 +18,7 @@ public class Refuge
     private DiningRoom diningRoom;
     private AtomicInteger count;
     private Logger logger;
+    private MapPage mapPage = App.getMapPage();
     
     public Refuge(Logger logger)
     {
@@ -30,12 +33,14 @@ public class Refuge
     {
         count.getAndIncrement();
         logger.log("Human " + h.getHumanId() + " entered the refuge.");
+        mapPage.setCounter("RC", String.valueOf(count));
     }
     
     public void leave(Human h)
     {
         count.getAndDecrement();
         logger.log("Human " + h.getHumanId() + " left the refuge.");
+        mapPage.setCounter("RC", String.valueOf(count));
     }
     
     public void accessCommonArea(Human h) throws InterruptedException

@@ -19,7 +19,7 @@ public class RiskZone
         unsafeAreas = new UnsafeArea[4];
         for(int i=0; i<4; i++)
         {
-            unsafeAreas[i] = new UnsafeArea(i, logger, fgenerator, this);
+            unsafeAreas[i] = new UnsafeArea(i+1, logger, fgenerator, this);
         }
     }
     

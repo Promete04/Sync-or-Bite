@@ -7,9 +7,13 @@ package Server.frontend;
 import Server.backend.PauseManager;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -28,6 +32,9 @@ public class MapPage extends javax.swing.JPanel {
     ImageIcon diningIcon= new ImageIcon(getClass().getResource( "/images/DiningRoomicon.png" ));
     ImageIcon groupIcon= new ImageIcon(getClass().getResource( "/images/Groupicon.png" ));
     PauseManager  pm;
+    private final Map<String, JLabel> Counters = new HashMap<>();
+    
+    
     public MapPage() 
     {
         initComponents();
@@ -35,6 +42,29 @@ public class MapPage extends javax.swing.JPanel {
         pauseResumeButton.setIcon(pauseIcon);
         isStopped= false;
         this.pm = App.getPM();
+        setupCounters();
+    }
+
+    private void setupCounters() 
+    {
+        Counters.put("H1", HumanCounter1);
+        Counters.put("H2", HumanCounter2); 
+        Counters.put("H3", HumanCounter3); 
+        Counters.put("H4", HumanCounter4); 
+        Counters.put("HC", commonHumanCounter);
+        Counters.put("HD", humanDiningCounter);
+        Counters.put("HR", restHumanCounter);
+        Counters.put("Z1", ZombieCounter1);
+        Counters.put("Z2", ZombieCounter2); 
+        Counters.put("Z3", ZombieCounter3); 
+        Counters.put("Z4", ZombieCounter4); 
+        Counters.put("C1", currentCrossing1);
+        Counters.put("C2", currentCrossing2); 
+        Counters.put("C3", currentCrossing3); 
+        Counters.put("C4", currentCrossing4); 
+        Counters.put("FC",foodCounter);
+        Counters.put("RC",refugeCounter);
+        
     }
     
    public void pauseResume()
@@ -43,6 +73,11 @@ public class MapPage extends javax.swing.JPanel {
        ImageIcon current = isStopped ? resumeIcon : pauseIcon;
        pauseResumeButton.setIcon(current);
        if(isStopped){pm.resume();} else{pm.pause();}
+    }
+  
+   public void setCounter(String nameLabel, String value) 
+   {
+    Counters.get(nameLabel).setText(value);
     }
 
     public final void confButtons()
@@ -170,18 +205,21 @@ public class MapPage extends javax.swing.JPanel {
         currentCrossing1 = new javax.swing.JLabel();
         tunnelPanel6 = new javax.swing.JScrollPane();
         tunnel6 = new javax.swing.JTextArea();
+        jSeparator4 = new javax.swing.JSeparator();
         jPanel9 = new javax.swing.JPanel();
         tunnelPanel2 = new javax.swing.JScrollPane();
         tunnel2 = new javax.swing.JTextArea();
         currentCrossing2 = new javax.swing.JLabel();
         tunnelPanel16 = new javax.swing.JScrollPane();
         tunnel16 = new javax.swing.JTextArea();
+        jSeparator5 = new javax.swing.JSeparator();
         jPanel10 = new javax.swing.JPanel();
         tunnelPanel3 = new javax.swing.JScrollPane();
         tunnel3 = new javax.swing.JTextArea();
         currentCrossing3 = new javax.swing.JLabel();
         tunnelPanel17 = new javax.swing.JScrollPane();
         tunnel17 = new javax.swing.JTextArea();
+        jSeparator6 = new javax.swing.JSeparator();
         jPanel11 = new javax.swing.JPanel();
         tunnelPanel4 = new javax.swing.JScrollPane();
         tunnel4 = new javax.swing.JTextArea();
@@ -268,7 +306,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZoneInfo1.add(HumanIcon1);
 
         HumanCounter1.setFont(utils.FontManager.regularFont);
-        HumanCounter1.setText("jLabel5");
+        HumanCounter1.setText("0");
         riskZoneInfo1.add(HumanCounter1);
 
         ZombieIcon1.setText("jButton4");
@@ -278,7 +316,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZoneInfo1.add(ZombieIcon1);
 
         ZombieCounter1.setFont(utils.FontManager.regularFont);
-        ZombieCounter1.setText("jLabel6");
+        ZombieCounter1.setText("0");
         riskZoneInfo1.add(ZombieCounter1);
 
         Risk1.add(riskZoneInfo1, java.awt.BorderLayout.NORTH);
@@ -290,6 +328,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         riskZone1.setColumns(20);
+        riskZone1.setFont(utils.FontManager.lightFont);
         riskZone1.setForeground(utils.ColorManager.INPUT_BG_COLOR);
         riskZone1.setRows(5);
         riskZonePanel1.setViewportView(riskZone1);
@@ -299,6 +338,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZonePanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         riskZone3.setColumns(20);
+        riskZone3.setFont(utils.FontManager.lightFont);
         riskZone3.setRows(5);
         riskZonePanel3.setViewportView(riskZone3);
 
@@ -328,7 +368,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZoneInfo2.add(HumanIcon2);
 
         HumanCounter2.setFont(utils.FontManager.regularFont);
-        HumanCounter2.setText("jLabel5");
+        HumanCounter2.setText("0");
         riskZoneInfo2.add(HumanCounter2);
 
         ZombieIcon2.setText("jButton4");
@@ -338,7 +378,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZoneInfo2.add(ZombieIcon2);
 
         ZombieCounter2.setFont(utils.FontManager.regularFont);
-        ZombieCounter2.setText("jLabel6");
+        ZombieCounter2.setText("0");
         riskZoneInfo2.add(ZombieCounter2);
 
         Risk2.add(riskZoneInfo2, java.awt.BorderLayout.NORTH);
@@ -349,6 +389,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZonePanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         riskZone4.setColumns(20);
+        riskZone4.setFont(utils.FontManager.lightFont);
         riskZone4.setRows(5);
         riskZonePanel4.setViewportView(riskZone4);
 
@@ -357,6 +398,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZonePanel7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         riskZone7.setColumns(20);
+        riskZone7.setFont(utils.FontManager.lightFont);
         riskZone7.setRows(5);
         riskZonePanel7.setViewportView(riskZone7);
 
@@ -381,7 +423,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZoneInfo3.add(HumanIcon3);
 
         HumanCounter3.setFont(utils.FontManager.regularFont);
-        HumanCounter3.setText("jLabel5");
+        HumanCounter3.setText("0");
         riskZoneInfo3.add(HumanCounter3);
 
         ZombieIcon3.setText("jButton4");
@@ -391,7 +433,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZoneInfo3.add(ZombieIcon3);
 
         ZombieCounter3.setFont(utils.FontManager.regularFont);
-        ZombieCounter3.setText("jLabel6");
+        ZombieCounter3.setText("0");
         riskZoneInfo3.add(ZombieCounter3);
 
         Risk3.add(riskZoneInfo3, java.awt.BorderLayout.NORTH);
@@ -402,6 +444,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZonePanel8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         riskZone8.setColumns(20);
+        riskZone8.setFont(utils.FontManager.lightFont);
         riskZone8.setRows(5);
         riskZonePanel8.setViewportView(riskZone8);
 
@@ -410,6 +453,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZonePanel9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         riskZone9.setColumns(20);
+        riskZone9.setFont(utils.FontManager.lightFont);
         riskZone9.setRows(5);
         riskZonePanel9.setViewportView(riskZone9);
 
@@ -434,7 +478,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZoneInfo4.add(HumanIcon4);
 
         HumanCounter4.setFont(utils.FontManager.regularFont);
-        HumanCounter4.setText("jLabel5");
+        HumanCounter4.setText("0");
         riskZoneInfo4.add(HumanCounter4);
 
         ZombieIcon4.setText("jButton4");
@@ -444,7 +488,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZoneInfo4.add(ZombieIcon4);
 
         ZombieCounter4.setFont(utils.FontManager.regularFont);
-        ZombieCounter4.setText("jLabel6");
+        ZombieCounter4.setText("0");
         riskZoneInfo4.add(ZombieCounter4);
 
         Risk4.add(riskZoneInfo4, java.awt.BorderLayout.NORTH);
@@ -455,6 +499,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZonePanel10.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         riskZone10.setColumns(20);
+        riskZone10.setFont(utils.FontManager.lightFont);
         riskZone10.setRows(5);
         riskZonePanel10.setViewportView(riskZone10);
 
@@ -463,6 +508,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZonePanel11.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         riskZone11.setColumns(20);
+        riskZone11.setFont(utils.FontManager.lightFont);
         riskZone11.setRows(5);
         riskZonePanel11.setViewportView(riskZone11);
 
@@ -483,6 +529,7 @@ public class MapPage extends javax.swing.JPanel {
         tunnelPanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         tunnel1.setColumns(20);
+        tunnel1.setFont(utils.FontManager.lightFont);
         tunnel1.setRows(5);
         tunnelPanel1.setViewportView(tunnel1);
 
@@ -490,13 +537,14 @@ public class MapPage extends javax.swing.JPanel {
 
         currentCrossing1.setFont(utils.FontManager.boldFont);
         currentCrossing1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentCrossing1.setText("jLabel1");
+        currentCrossing1.setText("---");
         currentCrossing1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel5.add(currentCrossing1);
 
         tunnelPanel6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         tunnel6.setColumns(20);
+        tunnel6.setFont(utils.FontManager.lightFont);
         tunnel6.setRows(5);
         tunnelPanel6.setViewportView(tunnel6);
 
@@ -504,12 +552,16 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelsPanel.add(jPanel5);
 
+        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        tunnelsPanel.add(jSeparator4);
+
         jPanel9.setForeground(utils.ColorManager.BG_COLOR);
         jPanel9.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         tunnel2.setColumns(20);
+        tunnel2.setFont(utils.FontManager.lightFont);
         tunnel2.setRows(5);
         tunnelPanel2.setViewportView(tunnel2);
 
@@ -517,12 +569,13 @@ public class MapPage extends javax.swing.JPanel {
 
         currentCrossing2.setFont(utils.FontManager.boldFont);
         currentCrossing2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentCrossing2.setText("jLabel1");
+        currentCrossing2.setText("---");
         jPanel9.add(currentCrossing2);
 
         tunnelPanel16.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         tunnel16.setColumns(20);
+        tunnel16.setFont(utils.FontManager.lightFont);
         tunnel16.setRows(5);
         tunnelPanel16.setViewportView(tunnel16);
 
@@ -530,12 +583,16 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelsPanel.add(jPanel9);
 
+        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        tunnelsPanel.add(jSeparator5);
+
         jPanel10.setForeground(utils.ColorManager.BG_COLOR);
         jPanel10.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         tunnel3.setColumns(20);
+        tunnel3.setFont(utils.FontManager.lightFont);
         tunnel3.setRows(5);
         tunnelPanel3.setViewportView(tunnel3);
 
@@ -543,12 +600,13 @@ public class MapPage extends javax.swing.JPanel {
 
         currentCrossing3.setFont(utils.FontManager.boldFont);
         currentCrossing3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentCrossing3.setText("jLabel1");
+        currentCrossing3.setText("---");
         jPanel10.add(currentCrossing3);
 
         tunnelPanel17.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         tunnel17.setColumns(20);
+        tunnel17.setFont(utils.FontManager.lightFont);
         tunnel17.setRows(5);
         tunnelPanel17.setViewportView(tunnel17);
 
@@ -556,12 +614,16 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelsPanel.add(jPanel10);
 
+        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        tunnelsPanel.add(jSeparator6);
+
         jPanel11.setForeground(utils.ColorManager.BG_COLOR);
         jPanel11.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         tunnel4.setColumns(20);
+        tunnel4.setFont(utils.FontManager.lightFont);
         tunnel4.setRows(5);
         tunnelPanel4.setViewportView(tunnel4);
 
@@ -569,12 +631,13 @@ public class MapPage extends javax.swing.JPanel {
 
         currentCrossing4.setFont(utils.FontManager.boldFont);
         currentCrossing4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentCrossing4.setText("jLabel1");
+        currentCrossing4.setText("---");
         jPanel11.add(currentCrossing4);
 
         tunnelPanel18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         tunnel18.setColumns(20);
+        tunnel18.setFont(utils.FontManager.lightFont);
         tunnel18.setRows(5);
         tunnelPanel18.setViewportView(tunnel18);
 
@@ -598,6 +661,7 @@ public class MapPage extends javax.swing.JPanel {
         commonAreaPanel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
         commonList.setColumns(20);
+        commonList.setFont(utils.FontManager.lightFont);
         commonList.setRows(5);
         commonList.setMargin(new java.awt.Insets(5, 6, 5, 6));
         commonAreaPanel.setViewportView(commonList);
@@ -618,7 +682,7 @@ public class MapPage extends javax.swing.JPanel {
         commonAreainfo.add(commonHumanIcon);
 
         commonHumanCounter.setFont(utils.FontManager.regularFont);
-        commonHumanCounter.setText("jLabel1");
+        commonHumanCounter.setText("0");
         commonAreainfo.add(commonHumanCounter);
 
         commonAreaPanel1.add(commonAreainfo, java.awt.BorderLayout.SOUTH);
@@ -632,6 +696,7 @@ public class MapPage extends javax.swing.JPanel {
         diningRoomPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dining Room", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
 
         diningRoom.setColumns(20);
+        diningRoom.setFont(utils.FontManager.lightFont);
         diningRoom.setRows(5);
         diningRoom.setMargin(new java.awt.Insets(5, 6, 5, 6));
         diningRoomPanel.setViewportView(diningRoom);
@@ -647,7 +712,7 @@ public class MapPage extends javax.swing.JPanel {
         diningRoomInfo.add(diningHumanIcon);
 
         humanDiningCounter.setFont(utils.FontManager.regularFont);
-        humanDiningCounter.setText("jLabel2");
+        humanDiningCounter.setText("0");
         diningRoomInfo.add(humanDiningCounter);
 
         foodIcon.setText("jButton6");
@@ -657,7 +722,7 @@ public class MapPage extends javax.swing.JPanel {
         diningRoomInfo.add(foodIcon);
 
         foodCounter.setFont(utils.FontManager.regularFont);
-        foodCounter.setText("jLabel4");
+        foodCounter.setText("0");
         diningRoomInfo.add(foodCounter);
 
         diningRoomPanel1.add(diningRoomInfo, java.awt.BorderLayout.SOUTH);
@@ -671,6 +736,7 @@ public class MapPage extends javax.swing.JPanel {
         restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
 
         restArea.setColumns(20);
+        restArea.setFont(utils.FontManager.lightFont);
         restArea.setRows(5);
         restArea.setMargin(new java.awt.Insets(5, 6, 5, 6));
         restAreaPanel.setViewportView(restArea);
@@ -686,7 +752,7 @@ public class MapPage extends javax.swing.JPanel {
         restAreaInfo.add(restHumanIcon);
 
         restHumanCounter.setFont(utils.FontManager.regularFont);
-        restHumanCounter.setText("jLabel3");
+        restHumanCounter.setText("0");
         restAreaInfo.add(restHumanCounter);
 
         restAreaPanel1.add(restAreaInfo, java.awt.BorderLayout.SOUTH);
@@ -711,7 +777,7 @@ public class MapPage extends javax.swing.JPanel {
         refugeCounters.add(refugeIcon);
 
         refugeCounter.setFont(utils.FontManager.regularFont);
-        refugeCounter.setText("jLabel5");
+        refugeCounter.setText("0");
         refugeCounter.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
         refugeCounters.add(refugeCounter);
 
@@ -792,6 +858,9 @@ public class MapPage extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JButton logsButton;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton pauseResumeButton;
