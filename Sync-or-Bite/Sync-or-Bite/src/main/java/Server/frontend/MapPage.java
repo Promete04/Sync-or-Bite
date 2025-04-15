@@ -4,8 +4,11 @@
  */
 package Server.frontend;
 
+import Server.backend.PauseManager;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -17,34 +20,84 @@ public class MapPage extends javax.swing.JPanel {
     /**
      * Creates new form map
      */
+    boolean isStopped;
+    ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
+    ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
+    ImageIcon humanIcon= new ImageIcon(getClass().getResource( "/images/HumanIcon.png" ));
+    ImageIcon zombieIcon= new ImageIcon(getClass().getResource( "/images/ZombieIcon.png" ));
+    ImageIcon diningIcon= new ImageIcon(getClass().getResource( "/images/DiningRoomicon.png" ));
+    ImageIcon groupIcon= new ImageIcon(getClass().getResource( "/images/Groupicon.png" ));
+    PauseManager  pm;
     public MapPage() 
     {
         initComponents();
-        
+        confButtons();
+        pauseResumeButton.setIcon(pauseIcon);
+        isStopped= false;
+        this.pm = App.getPM();
     }
     
-    public void confButtons()
+   public void pauseResume()
     {
-        List<JButton> buttonList = new ArrayList<>(); //to simplify mass modification
-        buttonList.add(HumanIcon1);
-        buttonList.add(HumanIcon2);
-        buttonList.add(HumanIcon3);
-        buttonList.add(HumanIcon4);
-        buttonList.add(ZombieIcon1);
-        buttonList.add(ZombieIcon2);
-        buttonList.add(ZombieIcon3);
-        buttonList.add(ZombieIcon4);
-        buttonList.add(commonHumanIcon);
-        buttonList.add(diningHumanIcon);
-        buttonList.add(foodIcon);
-        buttonList.add(logsButton);
-        buttonList.add(pauseResume);
-        buttonList.add(refugeIcon);
-        buttonList.add(restHumanIcon);
-        
-        
+        isStopped=!isStopped;
+       ImageIcon current = isStopped ? resumeIcon : pauseIcon;
+       pauseResumeButton.setIcon(current);
+       if(isStopped){pm.resume();} else{pm.pause();}
     }
 
+    public void confButtons()
+    {
+
+        List<JButton> buttonList = new ArrayList<>(); //to simplify mass modification
+        List<JButton> humanList = new ArrayList<>(); //to simplify mass modification
+        List<JButton> zombieList = new ArrayList<>(); //to simplify mass modification
+        buttonList.add(HumanIcon1);
+        humanList.add(HumanIcon1);
+        buttonList.add(HumanIcon2);
+        humanList.add(HumanIcon2);
+        buttonList.add(HumanIcon3);
+        humanList.add(HumanIcon3);
+        buttonList.add(HumanIcon4);
+        humanList.add(HumanIcon4);
+        buttonList.add(ZombieIcon1);
+        zombieList.add(ZombieIcon1);
+        buttonList.add(ZombieIcon2);
+        zombieList.add(ZombieIcon2);
+        buttonList.add(ZombieIcon3);
+        zombieList.add(ZombieIcon3);
+        buttonList.add(ZombieIcon4);
+        zombieList.add(ZombieIcon4);
+        buttonList.add(commonHumanIcon);
+        humanList.add(commonHumanIcon);
+        buttonList.add(diningHumanIcon);
+        humanList.add(diningHumanIcon);
+        buttonList.add(foodIcon);
+        buttonList.add(logsButton);
+        buttonList.add(pauseResumeButton);
+        buttonList.add(refugeIcon);
+        buttonList.add(restHumanIcon);
+        humanList.add(restHumanIcon);
+        
+        for(JButton button:buttonList)
+        {
+            button.setBorder(null);
+            //button.setBackground(utils.GuiManager.TRANSPARENT_COLOR);
+            button.setForeground(utils.GuiManager.INPUT_BG_COLOR);
+            button.setLabel("");
+        }
+        for(JButton button:humanList)
+        {
+            button.setIcon(humanIcon);
+        }
+        
+        for(JButton button:zombieList)
+        {
+            button.setIcon(zombieIcon);
+        }
+        
+        foodIcon.setIcon(diningIcon);
+        refugeIcon.setIcon(groupIcon);
+    }
     /**
      * 
      * 
@@ -59,7 +112,7 @@ public class MapPage extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonPanel = new javax.swing.JPanel();
-        pauseResume = new javax.swing.JButton();
+        pauseResumeButton = new javax.swing.JButton();
         logsButton = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         riskZonesPanel = new javax.swing.JPanel();
@@ -160,19 +213,22 @@ public class MapPage extends javax.swing.JPanel {
         refugeIcon = new javax.swing.JButton();
         refugeCounter = new javax.swing.JLabel();
 
+        setBackground(utils.GuiManager.INPUT_BG_COLOR);
+        setForeground(utils.GuiManager.BG_COLOR);
         setLayout(new java.awt.BorderLayout());
 
+        buttonPanel.setForeground(utils.GuiManager.BG_COLOR);
         buttonPanel.setLayout(new java.awt.BorderLayout());
 
-        pauseResume.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
-        pauseResume.setBorderPainted(false);
-        pauseResume.setContentAreaFilled(false);
-        pauseResume.addActionListener(new java.awt.event.ActionListener() {
+        pauseResumeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
+        pauseResumeButton.setBorderPainted(false);
+        pauseResumeButton.setContentAreaFilled(false);
+        pauseResumeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pauseResumeActionPerformed(evt);
+                pauseResumeButtonActionPerformed(evt);
             }
         });
-        buttonPanel.add(pauseResume, java.awt.BorderLayout.LINE_START);
+        buttonPanel.add(pauseResumeButton, java.awt.BorderLayout.LINE_START);
 
         logsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogsIcon.png"))); // NOI18N
         logsButton.setBorderPainted(false);
@@ -186,11 +242,17 @@ public class MapPage extends javax.swing.JPanel {
 
         add(buttonPanel, java.awt.BorderLayout.NORTH);
 
+        mainPanel.setForeground(utils.GuiManager.BG_COLOR);
+        mainPanel.setOpaque(false);
         mainPanel.setLayout(new java.awt.GridLayout(3, 0, 0, 5));
 
+        riskZonesPanel.setForeground(utils.GuiManager.BG_COLOR);
         riskZonesPanel.setLayout(new javax.swing.BoxLayout(riskZonesPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        Risk1.setForeground(utils.GuiManager.BG_COLOR);
         Risk1.setLayout(new java.awt.BorderLayout());
+
+        riskZoneInfo1.setForeground(utils.GuiManager.BG_COLOR);
 
         HumanIcon1.setText("jButton1");
         HumanIcon1.setEnabled(false);
@@ -212,6 +274,7 @@ public class MapPage extends javax.swing.JPanel {
 
         Risk1.add(riskZoneInfo1, java.awt.BorderLayout.NORTH);
 
+        jPanel1.setForeground(utils.GuiManager.BG_COLOR);
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -234,7 +297,10 @@ public class MapPage extends javax.swing.JPanel {
 
         riskZonesPanel.add(Risk1);
 
+        Risk2.setForeground(utils.GuiManager.BG_COLOR);
         Risk2.setLayout(new java.awt.BorderLayout());
+
+        riskZoneInfo2.setForeground(utils.GuiManager.BG_COLOR);
 
         HumanIcon2.setText("jButton1");
         HumanIcon2.setEnabled(false);
@@ -261,6 +327,7 @@ public class MapPage extends javax.swing.JPanel {
 
         Risk2.add(riskZoneInfo2, java.awt.BorderLayout.NORTH);
 
+        jPanel2.setForeground(utils.GuiManager.BG_COLOR);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -283,7 +350,10 @@ public class MapPage extends javax.swing.JPanel {
 
         riskZonesPanel.add(Risk2);
 
+        Risk3.setForeground(utils.GuiManager.BG_COLOR);
         Risk3.setLayout(new java.awt.BorderLayout());
+
+        riskZoneInfo3.setForeground(utils.GuiManager.BG_COLOR);
 
         HumanIcon3.setText("jButton1");
         HumanIcon3.setEnabled(false);
@@ -305,6 +375,7 @@ public class MapPage extends javax.swing.JPanel {
 
         Risk3.add(riskZoneInfo3, java.awt.BorderLayout.NORTH);
 
+        jPanel3.setForeground(utils.GuiManager.BG_COLOR);
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -327,7 +398,10 @@ public class MapPage extends javax.swing.JPanel {
 
         riskZonesPanel.add(Risk3);
 
+        Risk4.setForeground(utils.GuiManager.BG_COLOR);
         Risk4.setLayout(new java.awt.BorderLayout());
+
+        riskZoneInfo4.setForeground(utils.GuiManager.BG_COLOR);
 
         HumanIcon4.setText("jButton1");
         HumanIcon4.setEnabled(false);
@@ -349,6 +423,7 @@ public class MapPage extends javax.swing.JPanel {
 
         Risk4.add(riskZoneInfo4, java.awt.BorderLayout.NORTH);
 
+        jPanel4.setForeground(utils.GuiManager.BG_COLOR);
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel10.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -373,8 +448,10 @@ public class MapPage extends javax.swing.JPanel {
 
         mainPanel.add(riskZonesPanel);
 
+        tunnelsPanel.setForeground(utils.GuiManager.BG_COLOR);
         tunnelsPanel.setLayout(new javax.swing.BoxLayout(tunnelsPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel5.setForeground(utils.GuiManager.BG_COLOR);
         jPanel5.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -400,6 +477,7 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelsPanel.add(jPanel5);
 
+        jPanel9.setForeground(utils.GuiManager.BG_COLOR);
         jPanel9.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -424,6 +502,7 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelsPanel.add(jPanel9);
 
+        jPanel10.setForeground(utils.GuiManager.BG_COLOR);
         jPanel10.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -448,6 +527,7 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelsPanel.add(jPanel10);
 
+        jPanel11.setForeground(utils.GuiManager.BG_COLOR);
         jPanel11.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -474,10 +554,13 @@ public class MapPage extends javax.swing.JPanel {
 
         mainPanel.add(tunnelsPanel);
 
+        refuge.setForeground(utils.GuiManager.BG_COLOR);
         refuge.setLayout(new java.awt.BorderLayout());
 
+        refugePanel.setForeground(utils.GuiManager.BG_COLOR);
         refugePanel.setLayout(new javax.swing.BoxLayout(refugePanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        commonAreaPanel1.setForeground(utils.GuiManager.BG_COLOR);
         commonAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         commonAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -488,6 +571,8 @@ public class MapPage extends javax.swing.JPanel {
         commonAreaPanel.setViewportView(commonList);
 
         commonAreaPanel1.add(commonAreaPanel, java.awt.BorderLayout.CENTER);
+
+        commonAreainfo.setForeground(utils.GuiManager.INPUT_BG_COLOR);
 
         commonHumanIcon.setText("jButton1");
         commonHumanIcon.setEnabled(false);
@@ -507,6 +592,7 @@ public class MapPage extends javax.swing.JPanel {
 
         refugePanel.add(commonAreaPanel1);
 
+        diningRoomPanel1.setForeground(utils.GuiManager.BG_COLOR);
         diningRoomPanel1.setLayout(new java.awt.BorderLayout());
 
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -517,6 +603,8 @@ public class MapPage extends javax.swing.JPanel {
         diningRoomPanel.setViewportView(diningRoom);
 
         diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
+
+        diningRoomInfo.setForeground(utils.GuiManager.INPUT_BG_COLOR);
 
         diningHumanIcon.setText("jButton4");
         diningHumanIcon.setEnabled(false);
@@ -540,6 +628,7 @@ public class MapPage extends javax.swing.JPanel {
 
         refugePanel.add(diningRoomPanel1);
 
+        restAreaPanel1.setForeground(utils.GuiManager.BG_COLOR);
         restAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -550,6 +639,8 @@ public class MapPage extends javax.swing.JPanel {
         restAreaPanel.setViewportView(restArea);
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);
+
+        restAreaInfo.setForeground(utils.GuiManager.INPUT_BG_COLOR);
 
         restHumanIcon.setText("jButton5");
         restHumanIcon.setEnabled(false);
@@ -566,6 +657,7 @@ public class MapPage extends javax.swing.JPanel {
 
         refuge.add(refugePanel, java.awt.BorderLayout.CENTER);
 
+        refugeInfo.setForeground(utils.GuiManager.BG_COLOR);
         refugeInfo.setLayout(new java.awt.BorderLayout());
 
         refugeName.setText("Refuge");
@@ -588,12 +680,12 @@ public class MapPage extends javax.swing.JPanel {
         add(mainPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pauseResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseResumeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pauseResumeActionPerformed
+    private void pauseResumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseResumeButtonActionPerformed
+        pauseResume();
+    }//GEN-LAST:event_pauseResumeButtonActionPerformed
 
     private void logsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logsButtonActionPerformed
-        // TODO add your handling code here:
+       App.redirect("LOG");
     }//GEN-LAST:event_logsButtonActionPerformed
 
     private void commonHumanIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonHumanIconActionPerformed
@@ -655,7 +747,7 @@ public class MapPage extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JButton logsButton;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JButton pauseResume;
+    private javax.swing.JButton pauseResumeButton;
     private javax.swing.JPanel refuge;
     private javax.swing.JLabel refugeCounter;
     private javax.swing.JPanel refugeCounters;

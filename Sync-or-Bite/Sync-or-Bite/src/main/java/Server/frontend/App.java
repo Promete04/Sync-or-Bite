@@ -20,6 +20,9 @@ public class App
    private static final JPanel cards = new JPanel(cardLayout);
    public static JFrame frame = new JFrame("Sync-or-Bite");
    
+   
+   public static PauseManager  pm = new PauseManager();
+   
    private static final Map<String, JPanel> pages = new HashMap<>()
    {
         {
@@ -35,7 +38,6 @@ public class App
         RiskZone riskZone = new RiskZone(logger);
         Refuge refuge = new Refuge(logger);
         Tunnels tunnels = new Tunnels(riskZone,logger);
-        PauseManager pm = new PauseManager();
         ServerData server = new ServerData(pm, tunnels, refuge, riskZone);
   
         setupFrame();
@@ -68,6 +70,12 @@ public class App
         server.start();
     }   
    
+   public static PauseManager getPM()
+   {
+         return pm;
+   }
+           
+           
    public static void redirect(String page){
         
         JPanel p = pages.get(page);
