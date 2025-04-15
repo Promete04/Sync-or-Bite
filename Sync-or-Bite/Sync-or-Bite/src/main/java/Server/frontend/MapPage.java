@@ -33,6 +33,7 @@ public class MapPage extends javax.swing.JPanel {
     ImageIcon groupIcon= new ImageIcon(getClass().getResource( "/images/Groupicon.png" ));
     PauseManager  pm;
     private final Map<String, JLabel> Counters = new HashMap<>();
+    private final Map<String, JPanel> Panels = new HashMap<>();
     
     
     public MapPage() 
@@ -43,8 +44,31 @@ public class MapPage extends javax.swing.JPanel {
         isStopped= false;
         this.pm = App.getPM();
         setupCounters();
+        setupPanels();
     }
-
+    private void setupPanels() 
+    {
+         Panels.put("RH1", RiskHuman1);
+         Panels.put("RH2", RiskHuman2);
+         Panels.put("RH3", RiskHuman3);   
+         Panels.put("RH4", RiskHuman4);
+         Panels.put("RZ1", RiskZombie1);
+         Panels.put("RZ2", RiskZombie2);
+         Panels.put("RZ3", RiskZombie3);
+         Panels.put("RZ4", RiskZombie4);
+         Panels.put("TR1", TunnelReturning1);
+         Panels.put("TR2", TunnelReturning2);
+         Panels.put("TR3", TunnelReturning3);
+         Panels.put("TR4", TunnelReturning4);
+         Panels.put("TE1", TunnelExiting1);
+         Panels.put("TE2", TunnelExiting2);
+         Panels.put("TE3", TunnelExiting3);
+         Panels.put("TE4", TunnelExiting4);
+         Panels.put("C", CommonList);
+         Panels.put("D", DiningList);
+         Panels.put("R", RestList);
+    }
+   
     private void setupCounters() 
     {
         Counters.put("H1", HumanCounter1);
@@ -74,6 +98,11 @@ public class MapPage extends javax.swing.JPanel {
        pauseResumeButton.setIcon(current);
        if(isStopped){pm.resume();} else{pm.pause();}
     }
+   
+   public void addToPanel(String namePanel, String value)
+   {
+       
+   }
   
    public void setCounter(String nameLabel, String value) 
    {
@@ -236,7 +265,7 @@ public class MapPage extends javax.swing.JPanel {
         commonHumanCounter = new javax.swing.JLabel();
         diningRoomPanel1 = new javax.swing.JPanel();
         diningRoomPanel = new javax.swing.JScrollPane();
-        DiningList1 = new javax.swing.JPanel();
+        DiningList = new javax.swing.JPanel();
         diningRoomInfo = new javax.swing.JPanel();
         diningHumanIcon = new javax.swing.JButton();
         humanDiningCounter = new javax.swing.JLabel();
@@ -244,7 +273,7 @@ public class MapPage extends javax.swing.JPanel {
         foodCounter = new javax.swing.JLabel();
         restAreaPanel1 = new javax.swing.JPanel();
         restAreaPanel = new javax.swing.JScrollPane();
-        RestList1 = new javax.swing.JPanel();
+        RestList = new javax.swing.JPanel();
         restAreaInfo = new javax.swing.JPanel();
         restHumanIcon = new javax.swing.JButton();
         restHumanCounter = new javax.swing.JLabel();
@@ -659,8 +688,8 @@ public class MapPage extends javax.swing.JPanel {
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         diningRoomPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dining Room", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
 
-        DiningList1.setLayout(new javax.swing.BoxLayout(DiningList1, javax.swing.BoxLayout.LINE_AXIS));
-        diningRoomPanel.setViewportView(DiningList1);
+        DiningList.setLayout(new javax.swing.BoxLayout(DiningList, javax.swing.BoxLayout.LINE_AXIS));
+        diningRoomPanel.setViewportView(DiningList);
 
         diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
 
@@ -696,8 +725,8 @@ public class MapPage extends javax.swing.JPanel {
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
 
-        RestList1.setLayout(new javax.swing.BoxLayout(RestList1, javax.swing.BoxLayout.LINE_AXIS));
-        restAreaPanel.setViewportView(RestList1);
+        RestList.setLayout(new javax.swing.BoxLayout(RestList, javax.swing.BoxLayout.LINE_AXIS));
+        restAreaPanel.setViewportView(RestList);
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);
 
@@ -767,7 +796,7 @@ public class MapPage extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CommonList;
-    private javax.swing.JPanel DiningList1;
+    private javax.swing.JPanel DiningList;
     private javax.swing.JLabel HumanCounter1;
     private javax.swing.JLabel HumanCounter2;
     private javax.swing.JLabel HumanCounter3;
@@ -776,7 +805,7 @@ public class MapPage extends javax.swing.JPanel {
     private javax.swing.JButton HumanIcon2;
     private javax.swing.JButton HumanIcon3;
     private javax.swing.JButton HumanIcon4;
-    private javax.swing.JPanel RestList1;
+    private javax.swing.JPanel RestList;
     private javax.swing.JPanel Risk1;
     private javax.swing.JPanel Risk2;
     private javax.swing.JPanel Risk3;
