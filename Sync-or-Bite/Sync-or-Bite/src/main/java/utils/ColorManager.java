@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
  *
  * @author guill
  */
-public class GuiManager {
+public class ColorManager {
     
     // Main color, made for bigger visual impact
     public static Color MAIN_COLOR =            new Color(255,61,61);
@@ -53,7 +53,7 @@ public class GuiManager {
             {
                 if(component.isEnabled())
                 {
-                    component.setBackground(GuiManager.HIGHLIGHT_COLOR);
+                    component.setBackground(ColorManager.HIGHLIGHT_COLOR);
                 }
             }
 
@@ -62,7 +62,7 @@ public class GuiManager {
             {
                 if(component.isEnabled())
                 {
-                    component.setBackground(GuiManager.MAIN_COLOR);
+                    component.setBackground(ColorManager.MAIN_COLOR);
                 }
             }
         });
@@ -76,7 +76,7 @@ public class GuiManager {
             public void mouseEntered(MouseEvent e) 
             {
                 if(component.isEnabled()){
-                    component.setForeground(GuiManager.HIGHLIGHT_COLOR);
+                    component.setForeground(ColorManager.HIGHLIGHT_COLOR);
                 }
             }
 
@@ -84,7 +84,7 @@ public class GuiManager {
             public void mouseExited(MouseEvent e) 
             {
                 if(component.isEnabled()){
-                    component.setForeground(GuiManager.MAIN_COLOR);
+                    component.setForeground(ColorManager.MAIN_COLOR);
                 }
             }
         });

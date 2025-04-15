@@ -5,7 +5,7 @@
 package Server.frontend;
 
 import javax.swing.ImageIcon;
-import utils.GuiManager;
+import utils.ColorManager;
 
 /**
  *

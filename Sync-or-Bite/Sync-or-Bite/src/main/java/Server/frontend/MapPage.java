@@ -45,7 +45,7 @@ public class MapPage extends javax.swing.JPanel {
        if(isStopped){pm.resume();} else{pm.pause();}
     }
 
-    public void confButtons()
+    public final void confButtons()
     {
 
         List<JButton> buttonList = new ArrayList<>(); //to simplify mass modification
@@ -81,8 +81,8 @@ public class MapPage extends javax.swing.JPanel {
         for(JButton button:buttonList)
         {
             button.setBorder(null);
-            //button.setBackground(utils.GuiManager.TRANSPARENT_COLOR);
-            button.setForeground(utils.GuiManager.INPUT_BG_COLOR);
+            //button.setBackground(utils.ColorManager.TRANSPARENT_COLOR);
+            button.setForeground(utils.ColorManager.INPUT_BG_COLOR);
             button.setLabel("");
         }
         for(JButton button:humanList)
@@ -127,6 +127,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZone1 = new javax.swing.JTextArea();
         riskZonePanel3 = new javax.swing.JScrollPane();
         riskZone3 = new javax.swing.JTextArea();
+        jSeparator1 = new javax.swing.JSeparator();
         Risk2 = new javax.swing.JPanel();
         riskZoneInfo2 = new javax.swing.JPanel();
         HumanIcon2 = new javax.swing.JButton();
@@ -138,6 +139,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZone4 = new javax.swing.JTextArea();
         riskZonePanel7 = new javax.swing.JScrollPane();
         riskZone7 = new javax.swing.JTextArea();
+        jSeparator2 = new javax.swing.JSeparator();
         Risk3 = new javax.swing.JPanel();
         riskZoneInfo3 = new javax.swing.JPanel();
         HumanIcon3 = new javax.swing.JButton();
@@ -149,6 +151,7 @@ public class MapPage extends javax.swing.JPanel {
         riskZone8 = new javax.swing.JTextArea();
         riskZonePanel9 = new javax.swing.JScrollPane();
         riskZone9 = new javax.swing.JTextArea();
+        jSeparator3 = new javax.swing.JSeparator();
         Risk4 = new javax.swing.JPanel();
         riskZoneInfo4 = new javax.swing.JPanel();
         HumanIcon4 = new javax.swing.JButton();
@@ -213,11 +216,11 @@ public class MapPage extends javax.swing.JPanel {
         refugeIcon = new javax.swing.JButton();
         refugeCounter = new javax.swing.JLabel();
 
-        setBackground(utils.GuiManager.INPUT_BG_COLOR);
-        setForeground(utils.GuiManager.BG_COLOR);
+        setBackground(utils.ColorManager.INPUT_BG_COLOR);
+        setForeground(utils.ColorManager.BG_COLOR);
         setLayout(new java.awt.BorderLayout());
 
-        buttonPanel.setForeground(utils.GuiManager.BG_COLOR);
+        buttonPanel.setForeground(utils.ColorManager.BG_COLOR);
         buttonPanel.setLayout(new java.awt.BorderLayout());
 
         pauseResumeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
@@ -242,17 +245,17 @@ public class MapPage extends javax.swing.JPanel {
 
         add(buttonPanel, java.awt.BorderLayout.NORTH);
 
-        mainPanel.setForeground(utils.GuiManager.BG_COLOR);
+        mainPanel.setForeground(utils.ColorManager.BG_COLOR);
         mainPanel.setOpaque(false);
         mainPanel.setLayout(new java.awt.GridLayout(3, 0, 0, 5));
 
-        riskZonesPanel.setForeground(utils.GuiManager.BG_COLOR);
+        riskZonesPanel.setForeground(utils.ColorManager.BG_COLOR);
         riskZonesPanel.setLayout(new javax.swing.BoxLayout(riskZonesPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        Risk1.setForeground(utils.GuiManager.BG_COLOR);
+        Risk1.setForeground(utils.ColorManager.BG_COLOR);
         Risk1.setLayout(new java.awt.BorderLayout());
 
-        riskZoneInfo1.setForeground(utils.GuiManager.BG_COLOR);
+        riskZoneInfo1.setForeground(utils.ColorManager.BG_COLOR);
 
         HumanIcon1.setText("jButton1");
         HumanIcon1.setEnabled(false);
@@ -274,12 +277,14 @@ public class MapPage extends javax.swing.JPanel {
 
         Risk1.add(riskZoneInfo1, java.awt.BorderLayout.NORTH);
 
-        jPanel1.setForeground(utils.GuiManager.BG_COLOR);
+        jPanel1.setForeground(utils.ColorManager.BG_COLOR);
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
+        riskZonePanel1.setForeground(utils.ColorManager.INPUT_BG_COLOR);
         riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         riskZone1.setColumns(20);
+        riskZone1.setForeground(utils.ColorManager.INPUT_BG_COLOR);
         riskZone1.setRows(5);
         riskZonePanel1.setViewportView(riskZone1);
 
@@ -297,10 +302,13 @@ public class MapPage extends javax.swing.JPanel {
 
         riskZonesPanel.add(Risk1);
 
-        Risk2.setForeground(utils.GuiManager.BG_COLOR);
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        riskZonesPanel.add(jSeparator1);
+
+        Risk2.setForeground(utils.ColorManager.BG_COLOR);
         Risk2.setLayout(new java.awt.BorderLayout());
 
-        riskZoneInfo2.setForeground(utils.GuiManager.BG_COLOR);
+        riskZoneInfo2.setForeground(utils.ColorManager.BG_COLOR);
 
         HumanIcon2.setText("jButton1");
         HumanIcon2.setEnabled(false);
@@ -327,7 +335,7 @@ public class MapPage extends javax.swing.JPanel {
 
         Risk2.add(riskZoneInfo2, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setForeground(utils.GuiManager.BG_COLOR);
+        jPanel2.setForeground(utils.ColorManager.BG_COLOR);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -350,10 +358,13 @@ public class MapPage extends javax.swing.JPanel {
 
         riskZonesPanel.add(Risk2);
 
-        Risk3.setForeground(utils.GuiManager.BG_COLOR);
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        riskZonesPanel.add(jSeparator2);
+
+        Risk3.setForeground(utils.ColorManager.BG_COLOR);
         Risk3.setLayout(new java.awt.BorderLayout());
 
-        riskZoneInfo3.setForeground(utils.GuiManager.BG_COLOR);
+        riskZoneInfo3.setForeground(utils.ColorManager.BG_COLOR);
 
         HumanIcon3.setText("jButton1");
         HumanIcon3.setEnabled(false);
@@ -375,7 +386,7 @@ public class MapPage extends javax.swing.JPanel {
 
         Risk3.add(riskZoneInfo3, java.awt.BorderLayout.NORTH);
 
-        jPanel3.setForeground(utils.GuiManager.BG_COLOR);
+        jPanel3.setForeground(utils.ColorManager.BG_COLOR);
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -398,10 +409,13 @@ public class MapPage extends javax.swing.JPanel {
 
         riskZonesPanel.add(Risk3);
 
-        Risk4.setForeground(utils.GuiManager.BG_COLOR);
+        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        riskZonesPanel.add(jSeparator3);
+
+        Risk4.setForeground(utils.ColorManager.BG_COLOR);
         Risk4.setLayout(new java.awt.BorderLayout());
 
-        riskZoneInfo4.setForeground(utils.GuiManager.BG_COLOR);
+        riskZoneInfo4.setForeground(utils.ColorManager.BG_COLOR);
 
         HumanIcon4.setText("jButton1");
         HumanIcon4.setEnabled(false);
@@ -423,7 +437,7 @@ public class MapPage extends javax.swing.JPanel {
 
         Risk4.add(riskZoneInfo4, java.awt.BorderLayout.NORTH);
 
-        jPanel4.setForeground(utils.GuiManager.BG_COLOR);
+        jPanel4.setForeground(utils.ColorManager.BG_COLOR);
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel10.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -448,10 +462,10 @@ public class MapPage extends javax.swing.JPanel {
 
         mainPanel.add(riskZonesPanel);
 
-        tunnelsPanel.setForeground(utils.GuiManager.BG_COLOR);
+        tunnelsPanel.setForeground(utils.ColorManager.BG_COLOR);
         tunnelsPanel.setLayout(new javax.swing.BoxLayout(tunnelsPanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel5.setForeground(utils.GuiManager.BG_COLOR);
+        jPanel5.setForeground(utils.ColorManager.BG_COLOR);
         jPanel5.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -477,7 +491,7 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelsPanel.add(jPanel5);
 
-        jPanel9.setForeground(utils.GuiManager.BG_COLOR);
+        jPanel9.setForeground(utils.ColorManager.BG_COLOR);
         jPanel9.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -502,7 +516,7 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelsPanel.add(jPanel9);
 
-        jPanel10.setForeground(utils.GuiManager.BG_COLOR);
+        jPanel10.setForeground(utils.ColorManager.BG_COLOR);
         jPanel10.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -527,7 +541,7 @@ public class MapPage extends javax.swing.JPanel {
 
         tunnelsPanel.add(jPanel10);
 
-        jPanel11.setForeground(utils.GuiManager.BG_COLOR);
+        jPanel11.setForeground(utils.ColorManager.BG_COLOR);
         jPanel11.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -554,16 +568,18 @@ public class MapPage extends javax.swing.JPanel {
 
         mainPanel.add(tunnelsPanel);
 
-        refuge.setForeground(utils.GuiManager.BG_COLOR);
+        refuge.setForeground(utils.ColorManager.BG_COLOR);
         refuge.setLayout(new java.awt.BorderLayout());
 
-        refugePanel.setForeground(utils.GuiManager.BG_COLOR);
+        refugePanel.setForeground(utils.ColorManager.BG_COLOR);
         refugePanel.setLayout(new javax.swing.BoxLayout(refugePanel, javax.swing.BoxLayout.LINE_AXIS));
 
-        commonAreaPanel1.setForeground(utils.GuiManager.BG_COLOR);
+        commonAreaPanel1.setForeground(utils.ColorManager.BG_COLOR);
         commonAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         commonAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        commonAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Common Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
+        commonAreaPanel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
         commonList.setColumns(20);
         commonList.setRows(5);
@@ -572,7 +588,7 @@ public class MapPage extends javax.swing.JPanel {
 
         commonAreaPanel1.add(commonAreaPanel, java.awt.BorderLayout.CENTER);
 
-        commonAreainfo.setForeground(utils.GuiManager.INPUT_BG_COLOR);
+        commonAreainfo.setForeground(utils.ColorManager.INPUT_BG_COLOR);
 
         commonHumanIcon.setText("jButton1");
         commonHumanIcon.setEnabled(false);
@@ -592,10 +608,11 @@ public class MapPage extends javax.swing.JPanel {
 
         refugePanel.add(commonAreaPanel1);
 
-        diningRoomPanel1.setForeground(utils.GuiManager.BG_COLOR);
+        diningRoomPanel1.setForeground(utils.ColorManager.BG_COLOR);
         diningRoomPanel1.setLayout(new java.awt.BorderLayout());
 
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        diningRoomPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dining Room", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
 
         diningRoom.setColumns(20);
         diningRoom.setRows(5);
@@ -604,7 +621,7 @@ public class MapPage extends javax.swing.JPanel {
 
         diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
 
-        diningRoomInfo.setForeground(utils.GuiManager.INPUT_BG_COLOR);
+        diningRoomInfo.setForeground(utils.ColorManager.INPUT_BG_COLOR);
 
         diningHumanIcon.setText("jButton4");
         diningHumanIcon.setEnabled(false);
@@ -628,10 +645,11 @@ public class MapPage extends javax.swing.JPanel {
 
         refugePanel.add(diningRoomPanel1);
 
-        restAreaPanel1.setForeground(utils.GuiManager.BG_COLOR);
+        restAreaPanel1.setForeground(utils.ColorManager.BG_COLOR);
         restAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
 
         restArea.setColumns(20);
         restArea.setRows(5);
@@ -640,7 +658,7 @@ public class MapPage extends javax.swing.JPanel {
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);
 
-        restAreaInfo.setForeground(utils.GuiManager.INPUT_BG_COLOR);
+        restAreaInfo.setForeground(utils.ColorManager.INPUT_BG_COLOR);
 
         restHumanIcon.setText("jButton5");
         restHumanIcon.setEnabled(false);
@@ -657,11 +675,14 @@ public class MapPage extends javax.swing.JPanel {
 
         refuge.add(refugePanel, java.awt.BorderLayout.CENTER);
 
-        refugeInfo.setForeground(utils.GuiManager.BG_COLOR);
+        refugeInfo.setForeground(utils.ColorManager.BG_COLOR);
         refugeInfo.setLayout(new java.awt.BorderLayout());
 
         refugeName.setText("Refuge");
+        refugeName.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         refugeInfo.add(refugeName, java.awt.BorderLayout.WEST);
+
+        refugeCounters.setForeground(utils.ColorManager.BG_COLOR);
 
         refugeIcon.setText("jButton1");
         refugeIcon.setEnabled(false);
@@ -745,6 +766,9 @@ public class MapPage extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JButton logsButton;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton pauseResumeButton;

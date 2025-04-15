@@ -3,10 +3,10 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-      <Connection code="utils.GuiManager.INPUT_BG_COLOR" type="code"/>
+      <Connection code="utils.ColorManager.INPUT_BG_COLOR" type="code"/>
     </Property>
     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -27,7 +27,7 @@
     <Container class="javax.swing.JPanel" name="buttonPanel">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
         </Property>
       </Properties>
       <Constraints>
@@ -77,7 +77,7 @@
     <Container class="javax.swing.JPanel" name="mainPanel">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
         </Property>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -96,7 +96,7 @@
         <Container class="javax.swing.JPanel" name="riskZonesPanel">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+              <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
             </Property>
           </Properties>
 
@@ -105,7 +105,7 @@
             <Container class="javax.swing.JPanel" name="Risk1">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
 
@@ -114,7 +114,7 @@
                 <Container class="javax.swing.JPanel" name="riskZoneInfo1">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -156,7 +156,7 @@
                 <Container class="javax.swing.JPanel" name="jPanel1">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -169,6 +169,9 @@
                   <SubComponents>
                     <Container class="javax.swing.JScrollPane" name="riskZonePanel1">
                       <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.ColorManager.INPUT_BG_COLOR" type="code"/>
+                        </Property>
                         <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                       </Properties>
 
@@ -177,6 +180,9 @@
                         <Component class="javax.swing.JTextArea" name="riskZone1">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
+                            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="utils.ColorManager.INPUT_BG_COLOR" type="code"/>
+                            </Property>
                             <Property name="rows" type="int" value="5"/>
                           </Properties>
                         </Component>
@@ -201,10 +207,15 @@
                 </Container>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JSeparator" name="jSeparator1">
+              <Properties>
+                <Property name="orientation" type="int" value="1"/>
+              </Properties>
+            </Component>
             <Container class="javax.swing.JPanel" name="Risk2">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
 
@@ -213,7 +224,7 @@
                 <Container class="javax.swing.JPanel" name="riskZoneInfo2">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -258,7 +269,7 @@
                 <Container class="javax.swing.JPanel" name="jPanel2">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -303,10 +314,15 @@
                 </Container>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JSeparator" name="jSeparator2">
+              <Properties>
+                <Property name="orientation" type="int" value="1"/>
+              </Properties>
+            </Component>
             <Container class="javax.swing.JPanel" name="Risk3">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
 
@@ -315,7 +331,7 @@
                 <Container class="javax.swing.JPanel" name="riskZoneInfo3">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -357,7 +373,7 @@
                 <Container class="javax.swing.JPanel" name="jPanel3">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -402,10 +418,15 @@
                 </Container>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JSeparator" name="jSeparator3">
+              <Properties>
+                <Property name="orientation" type="int" value="1"/>
+              </Properties>
+            </Component>
             <Container class="javax.swing.JPanel" name="Risk4">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
 
@@ -414,7 +435,7 @@
                 <Container class="javax.swing.JPanel" name="riskZoneInfo4">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -456,7 +477,7 @@
                 <Container class="javax.swing.JPanel" name="jPanel4">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -506,7 +527,7 @@
         <Container class="javax.swing.JPanel" name="tunnelsPanel">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+              <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
             </Property>
           </Properties>
 
@@ -515,7 +536,7 @@
             <Container class="javax.swing.JPanel" name="jPanel5">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
 
@@ -566,7 +587,7 @@
             <Container class="javax.swing.JPanel" name="jPanel9">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
 
@@ -616,7 +637,7 @@
             <Container class="javax.swing.JPanel" name="jPanel10">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
 
@@ -666,7 +687,7 @@
             <Container class="javax.swing.JPanel" name="jPanel11">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
 
@@ -718,7 +739,7 @@
         <Container class="javax.swing.JPanel" name="refuge">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+              <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
             </Property>
           </Properties>
 
@@ -727,7 +748,7 @@
             <Container class="javax.swing.JPanel" name="refugePanel">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -741,7 +762,7 @@
                 <Container class="javax.swing.JPanel" name="commonAreaPanel1">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
 
@@ -750,6 +771,16 @@
                     <Container class="javax.swing.JScrollPane" name="commonAreaPanel">
                       <Properties>
                         <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+                        <Property name="viewportBorder" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder title="Common Area">
+                              <Connection PropertyName="font" code="utils.FontManager.boldFont" type="code"/>
+                            </TitledBorder>
+                          </Border>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Roboto" size="12" style="1"/>
+                        </Property>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -773,7 +804,7 @@
                     <Container class="javax.swing.JPanel" name="commonAreainfo">
                       <Properties>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="utils.GuiManager.INPUT_BG_COLOR" type="code"/>
+                          <Connection code="utils.ColorManager.INPUT_BG_COLOR" type="code"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -807,7 +838,7 @@
                 <Container class="javax.swing.JPanel" name="diningRoomPanel1">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
 
@@ -816,6 +847,13 @@
                     <Container class="javax.swing.JScrollPane" name="diningRoomPanel">
                       <Properties>
                         <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+                        <Property name="viewportBorder" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder title="Dining Room">
+                              <Connection PropertyName="font" code="utils.FontManager.boldFont" type="code"/>
+                            </TitledBorder>
+                          </Border>
+                        </Property>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -839,7 +877,7 @@
                     <Container class="javax.swing.JPanel" name="diningRoomInfo">
                       <Properties>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="utils.GuiManager.INPUT_BG_COLOR" type="code"/>
+                          <Connection code="utils.ColorManager.INPUT_BG_COLOR" type="code"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -883,7 +921,7 @@
                 <Container class="javax.swing.JPanel" name="restAreaPanel1">
                   <Properties>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                     </Property>
                   </Properties>
 
@@ -892,6 +930,13 @@
                     <Container class="javax.swing.JScrollPane" name="restAreaPanel">
                       <Properties>
                         <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
+                        <Property name="viewportBorder" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder title="Rest Area">
+                              <Connection PropertyName="font" code="utils.FontManager.boldFont" type="code"/>
+                            </TitledBorder>
+                          </Border>
+                        </Property>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -915,7 +960,7 @@
                     <Container class="javax.swing.JPanel" name="restAreaInfo">
                       <Properties>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="utils.GuiManager.INPUT_BG_COLOR" type="code"/>
+                          <Connection code="utils.ColorManager.INPUT_BG_COLOR" type="code"/>
                         </Property>
                       </Properties>
                       <Constraints>
@@ -948,7 +993,7 @@
             <Container class="javax.swing.JPanel" name="refugeInfo">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="utils.GuiManager.BG_COLOR" type="code"/>
+                  <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -962,6 +1007,11 @@
                 <Component class="javax.swing.JLabel" name="refugeName">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Refuge"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                        <EmptyBorder bottom="1" left="10" right="1" top="1"/>
+                      </Border>
+                    </Property>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -970,6 +1020,11 @@
                   </Constraints>
                 </Component>
                 <Container class="javax.swing.JPanel" name="refugeCounters">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                    </Property>
+                  </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                       <BorderConstraints direction="East"/>
