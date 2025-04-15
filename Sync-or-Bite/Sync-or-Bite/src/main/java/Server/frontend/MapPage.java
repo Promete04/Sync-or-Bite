@@ -112,7 +112,7 @@ public class MapPage extends javax.swing.JPanel {
 
     JLabel label = new JLabel(labelText);
     label.setOpaque(true);
-    label.setBackground(utils.ColorManager.SHADOW_COLOR); 
+    label.setBackground(utils.ColorManager.BG_COLOR); 
     label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
 
     targetPanel.add(label);
@@ -210,7 +210,7 @@ public class MapPage extends javax.swing.JPanel {
         {
             button.setBorder(null);
             //button.setBackground(utils.ColorManager.TRANSPARENT_COLOR);
-            button.setForeground(utils.ColorManager.INPUT_BG_COLOR);
+            button.setForeground(utils.ColorManager.TRANSPARENT_COLOR);
             button.setLabel("");
         }
         for(JButton button:humanList)
@@ -714,6 +714,7 @@ public class MapPage extends javax.swing.JPanel {
         refugePanel.setLayout(new javax.swing.BoxLayout(refugePanel, javax.swing.BoxLayout.X_AXIS));
 
         commonAreaPanel1.setForeground(utils.ColorManager.BG_COLOR);
+        commonAreaPanel1.setMaximumSize(new java.awt.Dimension(550, 2147483647));
         commonAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         commonAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -745,6 +746,7 @@ public class MapPage extends javax.swing.JPanel {
         refugePanel.add(commonAreaPanel1);
 
         diningRoomPanel1.setForeground(utils.ColorManager.BG_COLOR);
+        diningRoomPanel1.setMaximumSize(new java.awt.Dimension(550, 2147483647));
         diningRoomPanel1.setLayout(new java.awt.BorderLayout());
 
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -780,12 +782,11 @@ public class MapPage extends javax.swing.JPanel {
         refugePanel.add(diningRoomPanel1);
 
         restAreaPanel1.setForeground(utils.ColorManager.BG_COLOR);
+        restAreaPanel1.setMaximumSize(new java.awt.Dimension(550, 2147483647));
         restAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
-
-        RestList.setLayout(new java.awt.GridLayout(5, 10));
         restAreaPanel.setViewportView(RestList);
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);
@@ -821,11 +822,14 @@ public class MapPage extends javax.swing.JPanel {
         refugeIcon.setText("jButton1");
         refugeIcon.setEnabled(false);
         refugeIcon.setFocusable(false);
+        refugeIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         refugeCounters.add(refugeIcon);
 
         refugeCounter.setFont(utils.FontManager.regularFont);
+        refugeCounter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         refugeCounter.setText("0");
         refugeCounter.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        refugeCounter.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         refugeCounters.add(refugeCounter);
 
         refugeInfo.add(refugeCounters, java.awt.BorderLayout.EAST);

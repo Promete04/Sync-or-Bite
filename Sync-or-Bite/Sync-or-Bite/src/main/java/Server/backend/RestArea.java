@@ -30,6 +30,10 @@ public class RestArea
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
         mapPage.setCounter("HR", String.valueOf(restList.size()));
         mapPage.addLabelToPanel("R", h.getHumanId());
+        if(h.isMarked())
+         {
+            mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.INJURED_COLOR);
+         }
         
     }
     
@@ -52,5 +56,8 @@ public class RestArea
         logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");
         Thread.sleep(3000 + (int) (Math.random()*2000));
         h.toggleMarked();
+        
+        mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.BG_COLOR);
+            
     }
 }

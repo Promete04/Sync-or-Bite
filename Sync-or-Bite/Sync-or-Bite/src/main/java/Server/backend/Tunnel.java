@@ -81,7 +81,7 @@ public class Tunnel
             waitingToExitShelter.add(h);
             logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea() + ".");
             mapPage.addLabelToPanel("TE"+String.valueOf(ID+1), h.getHumanId());
-            mapPage.setLabelColorInPanel("TE"+String.valueOf(ID+1), h.getHumanId(), utils.ColorManager.HIGHLIGHT_COLOR);
+            mapPage.setLabelColorInPanel("TE"+String.valueOf(ID+1), h.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
         } 
         finally 
         {
@@ -98,7 +98,7 @@ public class Tunnel
             logger.log("Barrier broken for human " + h.getHumanId() + ": " + e.getMessage());
         }
         // Now, cross the tunnel individually.
-        mapPage.setLabelColorInPanel("TE"+String.valueOf(ID+1), h.getHumanId(), utils.ColorManager.SHADOW_COLOR);
+        mapPage.setLabelColorInPanel("TE"+String.valueOf(ID+1), h.getHumanId(), utils.ColorManager.BG_COLOR);
         cross(h);
     }
     
@@ -168,6 +168,10 @@ public class Tunnel
             waitingToEnterShelter.add(h);
             logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea() + ".");
             mapPage.addLabelToPanel("TR"+String.valueOf(ID+1), h.getHumanId());
+            if(h.isMarked())
+            {
+                mapPage.setLabelColorInPanel("TR"+String.valueOf(ID+1), h.getHumanId(),utils.ColorManager.INJURED_COLOR );
+            }
         } 
         finally
         {

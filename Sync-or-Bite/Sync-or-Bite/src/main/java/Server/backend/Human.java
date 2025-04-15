@@ -94,6 +94,11 @@ public class Human extends Thread
         marked = !marked; 
     }
     
+    public boolean isMarked()
+    {
+        return marked;
+    }
+    
     public void collectFood(Food f)
     {
         

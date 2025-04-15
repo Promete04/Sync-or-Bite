@@ -6,6 +6,7 @@ package Server.backend;
 
 import Server.frontend.App;
 import Server.frontend.MapPage;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +50,7 @@ public class UnsafeArea
         if(attackedHuman != null)
         {
             logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
+            mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ATACKING_COLOR);
             synchronized(attacks)
             {
                 attacks.put(attackedHuman, z);
@@ -58,10 +60,12 @@ public class UnsafeArea
             {
                 humansInside.remove(attackedHuman);       // So it can't be attacked by other zombie.
             }
-            
+ 
             attackedHuman.interrupt();                    // Attack starts
             Thread.sleep(500 + (int) (Math.random()*1000));
             attackedHuman.interrupt();                    // Attack ends
+            
+            mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
         }
         
         Thread.sleep(2000 + (int) (Math.random()*1000));
@@ -75,6 +79,7 @@ public class UnsafeArea
             logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
             mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
             mapPage.addLabelToPanel("RZ"+String.valueOf(area+1), z.getZombieId());
+            mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1), z.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
         }
     }
     
@@ -129,10 +134,12 @@ public class UnsafeArea
             }
             catch(InterruptedException ie2)
             {
+                mapPage.setLabelColorInPanel("RH"+String.valueOf(area+1),h.getHumanId(),utils.ColorManager.ATACKED_COLOR);
                 int defense = (int) (Math.random() * 3);
                 if (defense < 2) 
                 {
                     logger.log("Human " + h.getHumanId() + " successfully defended itself from the attack.");
+                    mapPage.setLabelColorInPanel("RH"+String.valueOf(area+1),h.getHumanId(),utils.ColorManager.INJURED_COLOR);
                     h.toggleMarked();
                     synchronized (attacks) 
                     { 

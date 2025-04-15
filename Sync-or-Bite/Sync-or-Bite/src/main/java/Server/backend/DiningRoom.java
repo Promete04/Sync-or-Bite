@@ -6,6 +6,7 @@ package Server.backend;
 
 import Server.frontend.App;
 import Server.frontend.MapPage;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -65,6 +66,10 @@ public class DiningRoom
             logger.log("Human " + h.getHumanId() + " entered the dining room.");
             mapPage.setCounter("HD",String.valueOf( diningList.size()));
             mapPage.addLabelToPanel("D", h.getHumanId());
+            if(h.isMarked())
+            {
+            mapPage.setLabelColorInPanel("D", h.getHumanId(),utils.ColorManager.INJURED_COLOR);
+            }
         }
         finally
         {
