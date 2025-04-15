@@ -73,7 +73,7 @@ public class UnsafeArea
         {
             zombiesInside.add(z);
             logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
-            mapPage.setCounter("Z"+String.valueOf(area),String.valueOf(zombiesInside.size()));
+            mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
         }
     }
     
@@ -83,7 +83,7 @@ public class UnsafeArea
         {
             zombiesInside.remove(z);
             logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
-            mapPage.setCounter("Z"+String.valueOf(area),String.valueOf(zombiesInside.size()));
+            mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
         }
     }
     
@@ -93,7 +93,7 @@ public class UnsafeArea
         {
             humansInside.add(h);
             logger.log("Human " + h.getHumanId() + " entered unsafe area " + area + ".");
-            mapPage.setCounter("H"+String.valueOf(area),String.valueOf(humansInside.size()));
+            mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
         }
     }
     
@@ -103,7 +103,7 @@ public class UnsafeArea
         {
             humansInside.remove(h);
             logger.log("Human " + h.getHumanId() + " left unsafe area " + area + ".");
-            mapPage.setCounter("H"+String.valueOf(area),String.valueOf(humansInside.size()));
+            mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
         }
     }
     

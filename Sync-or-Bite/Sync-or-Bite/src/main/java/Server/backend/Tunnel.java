@@ -143,7 +143,7 @@ public class Tunnel
         {
             tunnelBusy = false;
             currentInside = null;
-            mapPage.setCounter("C"+String.valueOf(ID), "");
+            mapPage.setCounter("C"+String.valueOf(ID), "---");
             // Give priority to returners.
             if (hasReturnersWaiting()) 
             {
@@ -244,37 +244,6 @@ public class Tunnel
     }
     
     // --- Methods for Monitoring ---
-    
-    public synchronized Human getCurrentInside() 
-    {
-        return currentInside;
-    }
-    
-    public synchronized int getWaitingToExitCount()
-    {
-        exitWaitingLock.lock();
-        try 
-        {
-            return waitingToExitShelter.size();
-        } 
-        finally 
-        {
-            exitWaitingLock.unlock();
-        }
-    }
-    
-    public synchronized int getWaitingToEnterCount() 
-    {
-        entryWaitingLock.lock();
-        try 
-        {
-            return waitingToEnterShelter.size();
-        } 
-        finally
-        {
-            entryWaitingLock.unlock();
-        }
-    }
     
     public synchronized List<String> getWaitingToExitIds() 
     {
