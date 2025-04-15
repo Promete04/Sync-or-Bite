@@ -12,6 +12,7 @@ public class RiskZone
 {
     private UnsafeArea[] unsafeAreas;
     private FoodGenerator fgenerator = new FoodGenerator();
+    private TopKillersManager tkm = new TopKillersManager();
     
     public RiskZone(Logger logger)
     {
@@ -30,5 +31,10 @@ public class RiskZone
     public UnsafeArea accessUnsafeArea(int area)
     {
         return unsafeAreas[area];
+    }
+
+    public TopKillersManager getTkm() 
+    {
+        return tkm;
     }
 }

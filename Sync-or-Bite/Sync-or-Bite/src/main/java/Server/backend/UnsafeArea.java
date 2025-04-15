@@ -53,12 +53,12 @@ public class UnsafeArea
             
             synchronized(humansInside)
             {
-                humansInside.remove(attackedHuman);       //So it can't be attacked by other zombie.
+                humansInside.remove(attackedHuman);       // So it can't be attacked by other zombie.
             }
             
-            attackedHuman.interrupt();
+            attackedHuman.interrupt();                    // Attack starts
             Thread.sleep(500 + (int) (Math.random()*1000));
-            attackedHuman.interrupt();
+            attackedHuman.interrupt();                    // Attack ends
         }
         
         Thread.sleep(2000 + (int) (Math.random()*1000));
@@ -146,6 +146,7 @@ public class UnsafeArea
                     }
                     
                     killer.increaseKillCount();
+                    riskZone.getTkm().reportKill(killer);
                     logger.log("Zombie " + killer.getZombieId() + " killed human " + h.getHumanId() + " (Kill count: " + killer.getKillCount() + ")");
                     
                     Zombie killed = new Zombie(zombieId,this,logger,pm);

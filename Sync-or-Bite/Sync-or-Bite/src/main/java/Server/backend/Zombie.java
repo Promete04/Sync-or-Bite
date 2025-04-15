@@ -76,6 +76,4 @@ public class Zombie extends Thread
     {
         killCount++;
     }
-    
-    
 }
