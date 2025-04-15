@@ -226,6 +226,8 @@ public class MapPage extends javax.swing.JPanel {
         pauseResumeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
         pauseResumeButton.setBorderPainted(false);
         pauseResumeButton.setContentAreaFilled(false);
+        pauseResumeButton.setMaximumSize(new java.awt.Dimension(50, 51));
+        pauseResumeButton.setMinimumSize(new java.awt.Dimension(50, 51));
         pauseResumeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pauseResumeButtonActionPerformed(evt);
@@ -236,6 +238,8 @@ public class MapPage extends javax.swing.JPanel {
         logsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogsIcon.png"))); // NOI18N
         logsButton.setBorderPainted(false);
         logsButton.setContentAreaFilled(false);
+        logsButton.setMaximumSize(new java.awt.Dimension(50, 51));
+        logsButton.setMinimumSize(new java.awt.Dimension(50, 51));
         logsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logsButtonActionPerformed(evt);
@@ -263,6 +267,7 @@ public class MapPage extends javax.swing.JPanel {
         HumanIcon1.setFocusable(false);
         riskZoneInfo1.add(HumanIcon1);
 
+        HumanCounter1.setFont(utils.FontManager.regularFont);
         HumanCounter1.setText("jLabel5");
         riskZoneInfo1.add(HumanCounter1);
 
@@ -272,6 +277,7 @@ public class MapPage extends javax.swing.JPanel {
         ZombieIcon1.setFocusable(false);
         riskZoneInfo1.add(ZombieIcon1);
 
+        ZombieCounter1.setFont(utils.FontManager.regularFont);
         ZombieCounter1.setText("jLabel6");
         riskZoneInfo1.add(ZombieCounter1);
 
@@ -321,6 +327,7 @@ public class MapPage extends javax.swing.JPanel {
         });
         riskZoneInfo2.add(HumanIcon2);
 
+        HumanCounter2.setFont(utils.FontManager.regularFont);
         HumanCounter2.setText("jLabel5");
         riskZoneInfo2.add(HumanCounter2);
 
@@ -330,6 +337,7 @@ public class MapPage extends javax.swing.JPanel {
         ZombieIcon2.setFocusable(false);
         riskZoneInfo2.add(ZombieIcon2);
 
+        ZombieCounter2.setFont(utils.FontManager.regularFont);
         ZombieCounter2.setText("jLabel6");
         riskZoneInfo2.add(ZombieCounter2);
 
@@ -372,6 +380,7 @@ public class MapPage extends javax.swing.JPanel {
         HumanIcon3.setFocusable(false);
         riskZoneInfo3.add(HumanIcon3);
 
+        HumanCounter3.setFont(utils.FontManager.regularFont);
         HumanCounter3.setText("jLabel5");
         riskZoneInfo3.add(HumanCounter3);
 
@@ -381,6 +390,7 @@ public class MapPage extends javax.swing.JPanel {
         ZombieIcon3.setFocusable(false);
         riskZoneInfo3.add(ZombieIcon3);
 
+        ZombieCounter3.setFont(utils.FontManager.regularFont);
         ZombieCounter3.setText("jLabel6");
         riskZoneInfo3.add(ZombieCounter3);
 
@@ -423,6 +433,7 @@ public class MapPage extends javax.swing.JPanel {
         HumanIcon4.setFocusable(false);
         riskZoneInfo4.add(HumanIcon4);
 
+        HumanCounter4.setFont(utils.FontManager.regularFont);
         HumanCounter4.setText("jLabel5");
         riskZoneInfo4.add(HumanCounter4);
 
@@ -432,6 +443,7 @@ public class MapPage extends javax.swing.JPanel {
         ZombieIcon4.setFocusable(false);
         riskZoneInfo4.add(ZombieIcon4);
 
+        ZombieCounter4.setFont(utils.FontManager.regularFont);
         ZombieCounter4.setText("jLabel6");
         riskZoneInfo4.add(ZombieCounter4);
 
@@ -476,6 +488,7 @@ public class MapPage extends javax.swing.JPanel {
 
         jPanel5.add(tunnelPanel1);
 
+        currentCrossing1.setFont(utils.FontManager.boldFont);
         currentCrossing1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         currentCrossing1.setText("jLabel1");
         currentCrossing1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -502,6 +515,7 @@ public class MapPage extends javax.swing.JPanel {
 
         jPanel9.add(tunnelPanel2);
 
+        currentCrossing2.setFont(utils.FontManager.boldFont);
         currentCrossing2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         currentCrossing2.setText("jLabel1");
         jPanel9.add(currentCrossing2);
@@ -527,6 +541,7 @@ public class MapPage extends javax.swing.JPanel {
 
         jPanel10.add(tunnelPanel3);
 
+        currentCrossing3.setFont(utils.FontManager.boldFont);
         currentCrossing3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         currentCrossing3.setText("jLabel1");
         jPanel10.add(currentCrossing3);
@@ -552,6 +567,7 @@ public class MapPage extends javax.swing.JPanel {
 
         jPanel11.add(tunnelPanel4);
 
+        currentCrossing4.setFont(utils.FontManager.boldFont);
         currentCrossing4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         currentCrossing4.setText("jLabel1");
         jPanel11.add(currentCrossing4);
@@ -601,6 +617,7 @@ public class MapPage extends javax.swing.JPanel {
         });
         commonAreainfo.add(commonHumanIcon);
 
+        commonHumanCounter.setFont(utils.FontManager.regularFont);
         commonHumanCounter.setText("jLabel1");
         commonAreainfo.add(commonHumanCounter);
 
@@ -629,6 +646,7 @@ public class MapPage extends javax.swing.JPanel {
         diningHumanIcon.setFocusable(false);
         diningRoomInfo.add(diningHumanIcon);
 
+        humanDiningCounter.setFont(utils.FontManager.regularFont);
         humanDiningCounter.setText("jLabel2");
         diningRoomInfo.add(humanDiningCounter);
 
@@ -638,6 +656,7 @@ public class MapPage extends javax.swing.JPanel {
         foodIcon.setFocusable(false);
         diningRoomInfo.add(foodIcon);
 
+        foodCounter.setFont(utils.FontManager.regularFont);
         foodCounter.setText("jLabel4");
         diningRoomInfo.add(foodCounter);
 
@@ -666,6 +685,7 @@ public class MapPage extends javax.swing.JPanel {
         restHumanIcon.setFocusable(false);
         restAreaInfo.add(restHumanIcon);
 
+        restHumanCounter.setFont(utils.FontManager.regularFont);
         restHumanCounter.setText("jLabel3");
         restAreaInfo.add(restHumanCounter);
 
@@ -678,6 +698,7 @@ public class MapPage extends javax.swing.JPanel {
         refugeInfo.setForeground(utils.ColorManager.BG_COLOR);
         refugeInfo.setLayout(new java.awt.BorderLayout());
 
+        refugeName.setFont(utils.FontManager.titleFont);
         refugeName.setText("Refuge");
         refugeName.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         refugeInfo.add(refugeName, java.awt.BorderLayout.WEST);
@@ -689,7 +710,9 @@ public class MapPage extends javax.swing.JPanel {
         refugeIcon.setFocusable(false);
         refugeCounters.add(refugeIcon);
 
+        refugeCounter.setFont(utils.FontManager.regularFont);
         refugeCounter.setText("jLabel5");
+        refugeCounter.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
         refugeCounters.add(refugeCounter);
 
         refugeInfo.add(refugeCounters, java.awt.BorderLayout.EAST);

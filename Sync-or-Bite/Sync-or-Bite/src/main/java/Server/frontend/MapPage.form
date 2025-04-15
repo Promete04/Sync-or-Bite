@@ -45,6 +45,12 @@
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[50, 51]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[50, 51]"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pauseResumeButtonActionPerformed"/>
@@ -62,6 +68,12 @@
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[50, 51]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[50, 51]"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logsButtonActionPerformed"/>
@@ -135,6 +147,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="HumanCounter1">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel5"/>
                       </Properties>
                     </Component>
@@ -148,6 +163,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="ZombieCounter1">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel6"/>
                       </Properties>
                     </Component>
@@ -248,6 +266,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="HumanCounter2">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel5"/>
                       </Properties>
                     </Component>
@@ -261,6 +282,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="ZombieCounter2">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel6"/>
                       </Properties>
                     </Component>
@@ -352,6 +376,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="HumanCounter3">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel5"/>
                       </Properties>
                     </Component>
@@ -365,6 +392,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="ZombieCounter3">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel6"/>
                       </Properties>
                     </Component>
@@ -456,6 +486,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="HumanCounter4">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel5"/>
                       </Properties>
                     </Component>
@@ -469,6 +502,9 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="ZombieCounter4">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel6"/>
                       </Properties>
                     </Component>
@@ -562,6 +598,9 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="currentCrossing1">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.FontManager.boldFont" type="code"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="jLabel1"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -613,6 +652,9 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="currentCrossing2">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.FontManager.boldFont" type="code"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="jLabel1"/>
                   </Properties>
@@ -663,6 +705,9 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="currentCrossing3">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.FontManager.boldFont" type="code"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="jLabel1"/>
                   </Properties>
@@ -713,6 +758,9 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="currentCrossing4">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.FontManager.boldFont" type="code"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="jLabel1"/>
                   </Properties>
@@ -828,6 +876,9 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="commonHumanCounter">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="utils.FontManager.regularFont" type="code"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="jLabel1"/>
                           </Properties>
                         </Component>
@@ -898,6 +949,9 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="humanDiningCounter">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="utils.FontManager.regularFont" type="code"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="jLabel2"/>
                           </Properties>
                         </Component>
@@ -911,6 +965,9 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="foodCounter">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="utils.FontManager.regularFont" type="code"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="jLabel4"/>
                           </Properties>
                         </Component>
@@ -981,6 +1038,9 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="restHumanCounter">
                           <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="utils.FontManager.regularFont" type="code"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="jLabel3"/>
                           </Properties>
                         </Component>
@@ -1006,6 +1066,9 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="refugeName">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.FontManager.titleFont" type="code"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Refuge"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
@@ -1042,7 +1105,15 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="refugeCounter">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="jLabel5"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                            <EmptyBorder bottom="1" left="1" right="10" top="1"/>
+                          </Border>
+                        </Property>
                       </Properties>
                     </Component>
                   </SubComponents>
