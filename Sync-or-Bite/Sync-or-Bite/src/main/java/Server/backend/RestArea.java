@@ -54,10 +54,11 @@ public class RestArea
     public void fullRecover(Human h) throws InterruptedException
     {
         logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");
+        mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.BG_COLOR);
         Thread.sleep(3000 + (int) (Math.random()*2000));
         h.toggleMarked();
         
-        mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.BG_COLOR);
+        
             
     }
 }

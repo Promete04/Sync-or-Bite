@@ -36,7 +36,7 @@ public class ColorManager {
     // Human color
     public static Color BG_COLOR =              new Color(204,255,204);
     // Human waiting for group color
-    public static Color WAITING4GROUP_COLOR =          new Color(0,0,0,25);
+    public static Color WAITING4GROUP_COLOR =          new Color(153,204,0);
     // Atacked human color
     public static Color INJURED_COLOR =    new Color(255,80,80);
     
