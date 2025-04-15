@@ -101,7 +101,7 @@ public class MapPage extends javax.swing.JPanel {
        if(isStopped){pm.resume();} else{pm.pause();}
     }
    
-   public void addLabelToPanel(String panelKey, String labelText)
+   public synchronized void addLabelToPanel(String panelKey, String labelText)
    {
     JPanel targetPanel = Panels.get(panelKey);
 
@@ -119,7 +119,7 @@ public class MapPage extends javax.swing.JPanel {
     targetPanel.revalidate();
     targetPanel.repaint();
 }
-  public void removeLabelFromPanel(String panelKey, String labelText) 
+  public synchronized void removeLabelFromPanel(String panelKey, String labelText) 
   {
     JPanel targetPanel = Panels.get(panelKey);
     
@@ -143,7 +143,7 @@ public class MapPage extends javax.swing.JPanel {
 
     System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
     }
-  public void setLabelColorInPanel(String panelKey, String labelText, Color color) 
+  public synchronized void setLabelColorInPanel(String panelKey, String labelText, Color color) 
   {
     JPanel targetPanel = Panels.get(panelKey);
     
@@ -168,7 +168,7 @@ public class MapPage extends javax.swing.JPanel {
 }
 
 
-   public void setCounter(String nameLabel, String value) 
+   public synchronized void setCounter(String nameLabel, String value) 
    {
     Counters.get(nameLabel).setText(value);
     }
@@ -711,7 +711,7 @@ public class MapPage extends javax.swing.JPanel {
         refuge.setLayout(new java.awt.BorderLayout());
 
         refugePanel.setForeground(utils.ColorManager.BG_COLOR);
-        refugePanel.setLayout(new javax.swing.BoxLayout(refugePanel, javax.swing.BoxLayout.LINE_AXIS));
+        refugePanel.setLayout(new javax.swing.BoxLayout(refugePanel, javax.swing.BoxLayout.X_AXIS));
 
         commonAreaPanel1.setForeground(utils.ColorManager.BG_COLOR);
         commonAreaPanel1.setLayout(new java.awt.BorderLayout());
@@ -719,8 +719,6 @@ public class MapPage extends javax.swing.JPanel {
         commonAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         commonAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Common Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
         commonAreaPanel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-
-        CommonList.setLayout(new javax.swing.BoxLayout(CommonList, javax.swing.BoxLayout.Y_AXIS));
         commonAreaPanel.setViewportView(CommonList);
 
         commonAreaPanel1.add(commonAreaPanel, java.awt.BorderLayout.CENTER);
@@ -751,8 +749,6 @@ public class MapPage extends javax.swing.JPanel {
 
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         diningRoomPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dining Room", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
-
-        DiningList.setLayout(new javax.swing.BoxLayout(DiningList, javax.swing.BoxLayout.Y_AXIS));
         diningRoomPanel.setViewportView(DiningList);
 
         diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
@@ -789,7 +785,7 @@ public class MapPage extends javax.swing.JPanel {
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
 
-        RestList.setLayout(new javax.swing.BoxLayout(RestList, javax.swing.BoxLayout.Y_AXIS));
+        RestList.setLayout(new java.awt.GridLayout(5, 10));
         restAreaPanel.setViewportView(RestList);
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);

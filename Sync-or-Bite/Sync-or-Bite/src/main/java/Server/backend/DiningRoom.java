@@ -64,6 +64,7 @@ public class DiningRoom
             diningList.add(h);
             logger.log("Human " + h.getHumanId() + " entered the dining room.");
             mapPage.setCounter("HD",String.valueOf( diningList.size()));
+            mapPage.addLabelToPanel("D", h.getHumanId());
         }
         finally
         {
@@ -80,6 +81,7 @@ public class DiningRoom
             diningList.remove(h);
             logger.log("Human " + h.getHumanId() + " left the dining room.");
             mapPage.setCounter("HD", String.valueOf(diningList.size()));
+            mapPage.removeLabelFromPanel("D", h.getHumanId() );
         } 
         finally 
         {

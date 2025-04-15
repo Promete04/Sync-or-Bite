@@ -29,6 +29,7 @@ public class RestArea
         restList.add(h);
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
         mapPage.setCounter("HR", String.valueOf(restList.size()));
+        mapPage.addLabelToPanel("R", h.getHumanId());
         
     }
     
@@ -37,6 +38,7 @@ public class RestArea
         restList.remove(h);
         logger.log("Human " + h.getHumanId() + " left the rest area.");
         mapPage.setCounter("HR",String.valueOf(restList.size()));
+        mapPage.removeLabelFromPanel("R", h.getHumanId() );
     }
     
     public void rest(Human h) throws InterruptedException
