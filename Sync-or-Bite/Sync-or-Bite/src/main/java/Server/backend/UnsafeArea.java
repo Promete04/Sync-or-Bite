@@ -153,8 +153,8 @@ public class UnsafeArea
                     }
                     
                     killer.increaseKillCount();
-                    riskZone.getTkm().reportKill(killer);
                     logger.log("Zombie " + killer.getZombieId() + " killed human " + h.getHumanId() + " (Kill count: " + killer.getKillCount() + ")");
+                    riskZone.reportKill(killer);
                     
                     Zombie killed = new Zombie(zombieId,this,logger,pm);
  
