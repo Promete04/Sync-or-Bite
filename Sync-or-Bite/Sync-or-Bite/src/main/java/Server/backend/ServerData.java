@@ -46,11 +46,11 @@ public class ServerData extends Thread
 
                 if(request.equals("get")) 
                 {
-                    String data = r.getCount().get() + "|" 
+                    String data = r.getCount().get()
 //                            + t.obtainTunnel(0).getCount() + "|" + t.obtainTunnel(1).getCount() + "|" + t.obtainTunnel(2).getCount() + "|" + t.obtainTunnel(3).getCount() + "|"
-                            + rk.accessUnsafeArea(0).getHumansInside() + "|" + rk.accessUnsafeArea(1).getHumansInside() + "|" + rk.accessUnsafeArea(2).getHumansInside() 
-                            + "|" + rk.accessUnsafeArea(3).getHumansInside() + "|" + rk.accessUnsafeArea(0).getZombiesInside() + "|" + rk.accessUnsafeArea(1).getZombiesInside() 
-                            + "|" + rk.accessUnsafeArea(2).getZombiesInside() + "|" + rk.accessUnsafeArea(3).getZombiesInside();
+                            + "|" + rk.accessUnsafeArea(0).getHumansInside() + "|" + rk.accessUnsafeArea(1).getHumansInside() + "|" + rk.accessUnsafeArea(2).getHumansInside() + "|" + rk.accessUnsafeArea(3).getHumansInside() 
+                            + "|" + rk.accessUnsafeArea(0).getZombiesInside() + "|" + rk.accessUnsafeArea(1).getZombiesInside() + "|" + rk.accessUnsafeArea(2).getZombiesInside() + "|" + rk.accessUnsafeArea(3).getZombiesInside()
+                            + "|" + rk.obtainTopKillers();
                     output.writeUTF(data);
                 } 
                 else if(request.equals("pause")) 

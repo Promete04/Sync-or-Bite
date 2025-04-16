@@ -109,5 +109,18 @@ public class RiskZone
 
         logger.log(sb.toString());
     }
+    
+    public String obtainTopKillers() 
+    {
+        StringBuilder sb = new StringBuilder();
 
+        for (int i = 0; i < 3; i++) 
+        {
+            if (topKillers[i] != null) 
+            {
+                sb.append(topKillers[i].getZombieId()).append("|").append(topKillers[i].getKillCount()).append("|");
+            }
+        }
+        return sb.toString();
+    }
 }
