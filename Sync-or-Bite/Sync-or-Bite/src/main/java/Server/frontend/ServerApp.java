@@ -13,7 +13,7 @@ import java.awt.Dimension;
  *
  * @author guill
  */
-public class App 
+public class ServerApp 
 {    
     
     private static final CardLayout cardLayout = new CardLayout();

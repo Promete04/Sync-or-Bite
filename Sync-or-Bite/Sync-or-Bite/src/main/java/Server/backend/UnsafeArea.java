@@ -4,7 +4,7 @@
  */
 package Server.backend;
 
-import Server.frontend.App;
+import Server.frontend.ServerApp;
 import Server.frontend.MapPage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class UnsafeArea
     private int area;
     private FoodGenerator fgenerator;
     private Logger logger;
-    private MapPage mapPage = App.getMapPage();
+    private MapPage mapPage = ServerApp.getMapPage();
     
     public UnsafeArea(int area, Logger logger, FoodGenerator fgenerator, RiskZone riskZone)
     {

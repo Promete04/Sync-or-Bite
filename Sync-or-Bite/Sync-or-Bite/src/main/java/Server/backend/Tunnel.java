@@ -1,7 +1,7 @@
 package Server.backend;
 
 
-import Server.frontend.App;
+import Server.frontend.ServerApp;
 import Server.frontend.MapPage;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -46,7 +46,7 @@ public class Tunnel
     
     private Logger logger;
     
-    private MapPage mapPage = App.getMapPage();
+    private MapPage mapPage = ServerApp.getMapPage();
     private int ID;
     
     // Constructor: associates Tunnel with a specific unsafe area.

@@ -32,8 +32,8 @@ public class LogPage extends javax.swing.JPanel
     
     public LogPage() 
     {
-        this.logger = App.getLogger();
-        this.pm = App.getPM();
+        this.logger = ServerApp.getLogger();
+        this.pm = ServerApp.getPM();
         logger.setLogPage(this);
         
         initComponents();
@@ -166,7 +166,7 @@ public class LogPage extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
 
     private void mapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtonActionPerformed
-        App.redirect("MAP");
+        ServerApp.redirect("MAP");
     }//GEN-LAST:event_mapButtonActionPerformed
 
     private void pauseResumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseResumeButtonActionPerformed

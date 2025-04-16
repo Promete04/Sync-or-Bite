@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package utils;
-import Server.frontend.App;
+import Server.frontend.ServerApp;
 import java.awt.*;
 import java.io.InputStream;
 
@@ -31,7 +31,7 @@ public class FontManager {
      */
     private static Font loadFont(String path,float size){
         try {
-            InputStream is = App.class.getResourceAsStream(path);
+            InputStream is = ServerApp.class.getResourceAsStream(path);
             Font font = Font.createFont(Font.TRUETYPE_FONT, is);
             return font.deriveFont(16f);
         }

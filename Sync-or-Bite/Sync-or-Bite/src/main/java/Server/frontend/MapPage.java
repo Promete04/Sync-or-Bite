@@ -42,7 +42,7 @@ public class MapPage extends javax.swing.JPanel
     public MapPage() 
     {
         isStopped= false;
-        this.pm = App.getPM();
+        this.pm = ServerApp.getPM();
         
         initComponents();
         confButtons();
@@ -856,7 +856,7 @@ public class MapPage extends javax.swing.JPanel
     }//GEN-LAST:event_pauseResumeButtonActionPerformed
 
     private void logsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logsButtonActionPerformed
-       App.redirect("LOG");
+       ServerApp.redirect("LOG");
     }//GEN-LAST:event_logsButtonActionPerformed
 
     private void commonHumanIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonHumanIconActionPerformed

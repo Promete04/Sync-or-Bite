@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Server.backend;
-import Server.frontend.App;
+import Server.frontend.ServerApp;
 import Server.frontend.MapPage;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,7 +18,7 @@ public class Refuge
     private DiningRoom diningRoom;
     private AtomicInteger count;
     private Logger logger;
-    private MapPage mapPage = App.getMapPage();
+    private MapPage mapPage = ServerApp.getMapPage();
     
     public Refuge(Logger logger)
     {

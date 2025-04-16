@@ -4,7 +4,7 @@
  */
 package Server.backend;
 
-import Server.frontend.App;
+import Server.frontend.ServerApp;
 import Server.frontend.MapPage;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class DiningRoom
     private final Queue<Food> foodList = new ConcurrentLinkedQueue<>();
     private final Semaphore mutex = new Semaphore(1,true);
     private final Semaphore foodCount = new Semaphore(0,true);
-    private MapPage mapPage = App.getMapPage();
+    private MapPage mapPage = ServerApp.getMapPage();
     private Logger logger;
     
     public DiningRoom(Logger logger)

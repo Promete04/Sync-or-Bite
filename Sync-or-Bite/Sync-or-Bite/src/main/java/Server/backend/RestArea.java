@@ -4,7 +4,7 @@
  */
 package Server.backend;
 
-import Server.frontend.App;
+import Server.frontend.ServerApp;
 import Server.frontend.MapPage;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class RestArea
 {
     private List<Human> restList = new ArrayList<Human>();
     private Logger logger;
-    private MapPage mapPage = App.getMapPage();
+    private MapPage mapPage = ServerApp.getMapPage();
     
     public RestArea(Logger logger)
     {
