@@ -4,8 +4,11 @@
  */
 package Server.frontend;
 
+import Server.backend.Human;
 import Server.backend.Logger;
 import Server.backend.PauseManager;
+import static Server.frontend.ServerApp.logger;
+import static Server.frontend.ServerApp.pm;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,7 +25,6 @@ public class LogPage extends javax.swing.JPanel
     /**
      * Creates new form LogPage
      */
-    private boolean isStopped;
     private PauseManager  pm;
     private Logger logger;
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
@@ -39,11 +41,28 @@ public class LogPage extends javax.swing.JPanel
         initComponents();
         mapButton.setIcon(new ImageIcon(getClass().getResource("/images/MapIcon.png")));
         mapButton.setBorder(null);
-        this.isStopped = false;
         
+        Runnable pc = new Runnable()
+        {
+            public void run()
+            {
+                while(true) 
+                {
+                    ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
+                    pauseResumeButton.setIcon(current);
+                }
+            }
+        }; 
+        Thread pauseChecker = new Thread(pc);
+        pauseChecker.start();
+       
         // Load existing log file content
         loadLogs();
+        
+        
     }
+    
+  
     
     private void loadLogs() 
     {
@@ -89,16 +108,8 @@ public class LogPage extends javax.swing.JPanel
 
     public void pauseResume()
     {
-        if(isStopped)
-        {
-            pm.resume();
-        } 
-        else
-        {
-            pm.pause();
-        }
-       isStopped=!isStopped;
-       ImageIcon current = isStopped ? resumeIcon : pauseIcon;
+       pm.togglePause();
+       ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
        pauseResumeButton.setIcon(current);
     }
     /**

@@ -27,7 +27,6 @@ public class MapPage extends javax.swing.JPanel
     /**
      * Creates new form map
      */
-    private boolean isStopped;
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
     private ImageIcon humanIcon= new ImageIcon(getClass().getResource( "/images/HumanIcon.png" ));
@@ -41,14 +40,28 @@ public class MapPage extends javax.swing.JPanel
     
     public MapPage() 
     {
-        isStopped= false;
         this.pm = ServerApp.getPM();
         
         initComponents();
         confButtons();
-        pauseResumeButton.setIcon(pauseIcon);
+        ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
+        pauseResumeButton.setIcon(current);
         setupCounters();
         setupPanels();
+        
+        Runnable pc = new Runnable()
+        {
+            public void run()
+            {
+                while(true) 
+                {
+                    ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
+                    pauseResumeButton.setIcon(current);
+                }
+            }
+        }; 
+        Thread pauseChecker = new Thread(pc);
+        pauseChecker.start();
     }
     private void setupPanels() 
     {
@@ -97,16 +110,8 @@ public class MapPage extends javax.swing.JPanel
     
    public void pauseResume()
     {
-        if(isStopped)
-        {
-           pm.resume();
-        } 
-        else
-        {
-           pm.pause();
-        }
-        isStopped = !isStopped;
-        ImageIcon current = isStopped ? resumeIcon : pauseIcon;
+        pm.togglePause();
+        ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
         pauseResumeButton.setIcon(current);
     }
    

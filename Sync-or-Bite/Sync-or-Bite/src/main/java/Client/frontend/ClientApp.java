@@ -37,7 +37,7 @@ public class ClientApp {
                 put("MAIN", mainPage);
             }
         };
-        currentPanel = pages.get("MAP");
+        currentPanel = pages.get("MAIN");
         setupFrame();
         redirect("MAIN");
          

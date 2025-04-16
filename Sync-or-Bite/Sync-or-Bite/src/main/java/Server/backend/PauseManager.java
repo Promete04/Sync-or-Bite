@@ -38,12 +38,16 @@ public class PauseManager
         }
     }
 
-    public void pause() 
+    public void togglePause() 
     {
         lock.lock();
         try 
         {
-            paused = true;
+            paused = !paused;
+            if(!paused)
+            {
+                stop.signalAll();
+            }
         } 
         finally 
         {
@@ -51,18 +55,10 @@ public class PauseManager
         }
     }
 
-    public void resume() 
+ 
+    public boolean isPaused()
     {
-        lock.lock();
-        try 
-        {
-            paused = false;
-            stop.signalAll();
-        } 
-        finally 
-        {
-            lock.unlock();
-        }
+        return paused;
     }
 }
 

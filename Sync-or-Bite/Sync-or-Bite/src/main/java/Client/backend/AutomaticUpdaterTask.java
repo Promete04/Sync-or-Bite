@@ -25,7 +25,7 @@ public class AutomaticUpdaterTask implements Callable<String[]>
 
             output.writeUTF("get");
             String data = input.readUTF();
-            individualData = data.split("|");
+            individualData = data.split("\\|");
 
             socket.close();
         } 

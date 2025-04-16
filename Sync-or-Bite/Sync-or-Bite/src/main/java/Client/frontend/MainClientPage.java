@@ -4,17 +4,85 @@
  */
 package Client.frontend;
 
+import Client.backend.AutomaticUpdaterTask;
+import Client.backend.Toggler;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author guill
  */
-public class MainClientPage extends javax.swing.JPanel {
+public class MainClientPage extends javax.swing.JPanel 
+{
+    private final Toggler toggler = new Toggler();
+    private ExecutorService automaticUpdater = Executors.newSingleThreadExecutor();
+    
+    private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
+    private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
+   
+    
 
     /**
      * Creates new form MainClientPage
      */
-    public MainClientPage() {
+    public MainClientPage() 
+    {
         initComponents();
+        
+        Runnable pc = new Runnable()
+        {
+            public void run()
+            {
+                while(true) 
+                {
+                    ImageIcon current = toggler.isPaused()? resumeIcon : pauseIcon;
+                    pauseResumeButton.setIcon(current);
+                }
+            }
+        }; 
+        Thread pauseChecker = new Thread(pc);
+        pauseChecker.start();
+        
+        updateData();
+    }
+    
+    public void updateData()
+    {
+        Runnable r = new Runnable() 
+        {
+            public void run() 
+            {
+                String[] data;
+                try 
+                {
+                    while (true) 
+                    {
+                        Future<String[]> future = automaticUpdater.submit(new AutomaticUpdaterTask());
+                        data = future.get();
+                        
+                        
+                        
+                        for (int i = 0; i < data.length; i++) 
+                        {
+                            System.out.print(data[i]);
+                        }
+                        System.out.println(); 
+
+                        Thread.sleep(1000);
+                    }
+                } 
+                catch (Exception e) 
+                {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Thread updater = new Thread(r);
+        updater.start();
     }
 
     /**
@@ -25,56 +93,367 @@ public class MainClientPage extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        pauseResumeButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel51 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel52 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel53 = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jPanel55 = new javax.swing.JPanel();
+        jPanel30 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jPanel31 = new javax.swing.JPanel();
+        jPanel34 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LogsIcon.png"))); // NOI18N
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        pauseResumeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
+        pauseResumeButton.setBorderPainted(false);
+        pauseResumeButton.setContentAreaFilled(false);
+        pauseResumeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                pauseResumeButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, java.awt.BorderLayout.EAST);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jPanel1.add(jButton2, java.awt.BorderLayout.WEST);
+        jPanel1.add(pauseResumeButton, java.awt.BorderLayout.WEST);
 
         add(jPanel1, java.awt.BorderLayout.NORTH);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 511, Short.MAX_VALUE)
+        jPanel2.setLayout(new java.awt.GridLayout(2, 0));
+
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel51.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel51.setLayout(new javax.swing.BoxLayout(jPanel51, javax.swing.BoxLayout.X_AXIS));
+
+        jPanel5.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel1.setFont(utils.FontManager.boldFont);
+        jLabel1.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel1.setText("Nº Zombies in risk zones");
+        jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
+        jPanel5.add(jLabel1);
+
+        jPanel51.add(jPanel5);
+
+        jPanel6.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel7.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel7.setLayout(new java.awt.BorderLayout());
+
+        jLabel2.setFont(utils.FontManager.regularFont);
+        jLabel2.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel2.setText("jLabel2");
+        jPanel7.add(jLabel2, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(jPanel7);
+
+        jPanel8.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        jLabel3.setFont(utils.FontManager.regularFont);
+        jLabel3.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel3.setText("jLabel2");
+        jPanel8.add(jLabel3, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(jPanel8);
+
+        jPanel9.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel9.setLayout(new java.awt.BorderLayout());
+
+        jLabel4.setFont(utils.FontManager.regularFont);
+        jLabel4.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel4.setText("jLabel2");
+        jPanel9.add(jLabel4, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(jPanel9);
+
+        jPanel10.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jLabel5.setFont(utils.FontManager.regularFont);
+        jLabel5.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel5.setText("jLabel2");
+        jPanel10.add(jLabel5, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(jPanel10);
+
+        jPanel51.add(jPanel6);
+
+        jPanel3.add(jPanel51);
+
+        jPanel52.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel52.setLayout(new javax.swing.BoxLayout(jPanel52, javax.swing.BoxLayout.X_AXIS));
+
+        jPanel11.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel11.setLayout(new javax.swing.BoxLayout(jPanel11, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel6.setFont(utils.FontManager.boldFont);
+        jLabel6.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel6.setText("Nº Humans in risk zones");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
+        jPanel11.add(jLabel6);
+
+        jPanel52.add(jPanel11);
+
+        jPanel13.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel14.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel14.setLayout(new java.awt.BorderLayout());
+
+        jLabel7.setFont(utils.FontManager.regularFont);
+        jLabel7.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel7.setText("jLabel2");
+        jPanel14.add(jLabel7, java.awt.BorderLayout.CENTER);
+
+        jPanel13.add(jPanel14);
+
+        jPanel15.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel15.setLayout(new java.awt.BorderLayout());
+
+        jLabel8.setFont(utils.FontManager.regularFont);
+        jLabel8.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel8.setText("jLabel2");
+        jPanel15.add(jLabel8, java.awt.BorderLayout.CENTER);
+
+        jPanel13.add(jPanel15);
+
+        jPanel16.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel16.setLayout(new java.awt.BorderLayout());
+
+        jLabel9.setFont(utils.FontManager.regularFont);
+        jLabel9.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel9.setText("jLabel2");
+        jPanel16.add(jLabel9, java.awt.BorderLayout.CENTER);
+
+        jPanel13.add(jPanel16);
+
+        jPanel17.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel17.setLayout(new java.awt.BorderLayout());
+
+        jLabel10.setFont(utils.FontManager.regularFont);
+        jLabel10.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel10.setText("jLabel2");
+        jPanel17.add(jLabel10, java.awt.BorderLayout.CENTER);
+
+        jPanel13.add(jPanel17);
+
+        jPanel52.add(jPanel13);
+
+        jPanel3.add(jPanel52);
+
+        jPanel53.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel53.setLayout(new javax.swing.BoxLayout(jPanel53, javax.swing.BoxLayout.X_AXIS));
+
+        jPanel18.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel11.setFont(utils.FontManager.boldFont);
+        jLabel11.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel11.setText("Nº Humans in tunnelsㅤ");
+        jLabel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
+        jPanel18.add(jLabel11);
+
+        jPanel53.add(jPanel18);
+
+        jPanel19.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel20.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel20.setLayout(new java.awt.BorderLayout());
+
+        jLabel12.setFont(utils.FontManager.regularFont);
+        jLabel12.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel12.setText("jLabel2");
+        jPanel20.add(jLabel12, java.awt.BorderLayout.CENTER);
+
+        jPanel19.add(jPanel20);
+
+        jPanel21.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel21.setLayout(new java.awt.BorderLayout());
+
+        jLabel13.setFont(utils.FontManager.regularFont);
+        jLabel13.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel13.setText("jLabel2");
+        jPanel21.add(jLabel13, java.awt.BorderLayout.CENTER);
+
+        jPanel19.add(jPanel21);
+
+        jPanel22.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel22.setLayout(new java.awt.BorderLayout());
+
+        jLabel14.setFont(utils.FontManager.regularFont);
+        jLabel14.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel14.setText("jLabel2");
+        jPanel22.add(jLabel14, java.awt.BorderLayout.CENTER);
+
+        jPanel19.add(jPanel22);
+
+        jPanel23.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel23.setLayout(new java.awt.BorderLayout());
+
+        jLabel15.setFont(utils.FontManager.regularFont);
+        jLabel15.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel15.setText("jLabel2");
+        jPanel23.add(jLabel15, java.awt.BorderLayout.CENTER);
+
+        jPanel19.add(jPanel23);
+
+        jPanel53.add(jPanel19);
+
+        jPanel3.add(jPanel53);
+
+        jPanel55.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel55.setLayout(new javax.swing.BoxLayout(jPanel55, javax.swing.BoxLayout.X_AXIS));
+
+        jPanel30.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel30.setLayout(new javax.swing.BoxLayout(jPanel30, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel21.setFont(utils.FontManager.boldFont);
+        jLabel21.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel21.setText("Nº Humans in refuge");
+        jLabel21.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
+        jPanel30.add(jLabel21);
+
+        jPanel55.add(jPanel30);
+
+        jPanel31.setForeground(utils.ColorManager.BG_COLOR);
+
+        jPanel34.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel34.setLayout(new java.awt.BorderLayout());
+
+        jLabel24.setFont(utils.FontManager.regularFont);
+        jLabel24.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel24.setText("jLabel2");
+        jPanel34.add(jLabel24, java.awt.BorderLayout.CENTER);
+
+        jPanel31.add(jPanel34);
+
+        jPanel55.add(jPanel31);
+
+        jPanel3.add(jPanel55);
+
+        jPanel2.add(jPanel3);
+
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 591, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 195, Short.MAX_VALUE)
         );
+
+        jPanel4.add(jPanel12);
+
+        jPanel2.add(jPanel4);
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void pauseResumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseResumeButtonActionPerformed
+        toggler.togglePause();
+        ImageIcon current= toggler.isPaused() ? resumeIcon : resumeIcon;
+        pauseResumeButton.setIcon(current);
+    }//GEN-LAST:event_pauseResumeButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel51;
+    private javax.swing.JPanel jPanel52;
+    private javax.swing.JPanel jPanel53;
+    private javax.swing.JPanel jPanel55;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JButton pauseResumeButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -54,13 +54,13 @@ public class ServerData extends Thread
                     
                     output.writeUTF(data);
                 } 
-                else if(request.equals("pause")) 
+                else if(request.equals("togglePause")) 
                 {
-                    pm.pause();
+                    pm.togglePause();
                 } 
                 else
                 {
-                    pm.resume();
+                    System.out.printf("Unknown message received");
                 } 
                 connection.close();
             }

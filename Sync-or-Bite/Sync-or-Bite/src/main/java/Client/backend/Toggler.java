@@ -28,15 +28,8 @@ public class Toggler
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
 
-            if(paused) 
-            {
-                output.writeUTF("resume");
-            } 
-            else 
-            {
-                output.writeUTF("pause");
-            }
-            
+            output.writeUTF("togglePause");
+
             paused = !paused;
             socket.close();
         } 
