@@ -26,6 +26,8 @@ public class ColorManager {
     //Atacking zombie color
     public static Color ATACKING_COLOR =       new Color(204, 0, 204);
     
+    public static Color TEXT_COLOR =       new Color(0, 0, 0,90);
+    
     // Input background color
     public static Color INPUT_BG_COLOR =        new Color(225,225,225);
     // Disabled background color

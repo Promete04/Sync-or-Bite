@@ -20,10 +20,15 @@ public class App
     private static final JPanel cards = new JPanel(cardLayout);
     public static JFrame frame = new JFrame("Sync-or-Bite");
     private static final MapPage mapPage = new MapPage();
-    private static final LogPage logPage = new LogPage();
+    
+    
+    public static Logger logger=new Logger();
+    
+    private static  LogPage logPage= new LogPage();;
    
    
-    public static PauseManager  pm = new PauseManager();
+    public static PauseManager pm;  
+
    
     private static final Map<String, JPanel> pages = new HashMap<>()
     {
@@ -36,7 +41,7 @@ public class App
    
     public static void main(String[] args)
     {
-        Logger logger = new Logger();
+        pm = new PauseManager();
         RiskZone riskZone = new RiskZone(logger);
         Refuge refuge = new Refuge(logger);
         Tunnels tunnels = new Tunnels(riskZone,logger, pm);
@@ -81,7 +86,13 @@ public class App
     {
     return mapPage;
     }
-              
+     
+    public static Logger getLogger()
+    {
+        return logger;
+    }
+    
+ 
    public static void redirect(String page)
    {
         

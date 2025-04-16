@@ -4,23 +4,105 @@
  */
 package Server.frontend;
 
+import Server.backend.Logger;
+import Server.backend.PauseManager;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 import utils.ColorManager;
+import utils.LogListener;
 
 /**
  *
  * @author guill
  */
-public class LogPage extends javax.swing.JPanel {
+public class LogPage extends javax.swing.JPanel implements LogListener
+{
 
     /**
      * Creates new form LogPage
      */
-    public LogPage() 
-    {
+    boolean isStopped;
+    PauseManager  pm;
+    Logger logger;
+    
+    ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
+    ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
+    
+    
+    
+    public LogPage() {
         initComponents();
-        mapButton.setIcon(new ImageIcon(getClass().getResource( "/images/MapIcon.png" )));
+        mapButton.setIcon(new ImageIcon(getClass().getResource("/images/MapIcon.png")));
         mapButton.setBorder(null);
+        this.isStopped = false;
+        this.pm = App.getPM();
+        this.logger = App.getLogger();
+        
+        // Register LogPage to listen for new log events
+        logger.addLogListener( this);
+        
+        // Load existing log file content
+        loadLogs();
+    }
+    private void loadLogs() 
+    {
+    File logFile = new File(logger.getFileName());
+    if (logFile.exists()) 
+    {
+        try (BufferedReader br = new BufferedReader(new FileReader(logFile))) 
+        {
+            String line;
+            while ((line = br.readLine()) != null) 
+            {
+                logsArea.append(line + "\n");
+            }
+        } catch (IOException e) 
+        {
+            System.err.println("Error reading log file: " + e.getMessage());
+        }
+    } else 
+    {
+        System.out.println("El archivo de logs todavía no existe: " + logFile.getAbsolutePath());
+    }
+}
+
+    
+    @Override
+    public void onNewLog(final String logEntry)
+    {
+        SwingUtilities.invokeLater(new Runnable() 
+        {
+            @Override
+            public void run() 
+            {
+                logsArea.append(logEntry + "\n");
+            }
+        });
+    }
+
+    
+    
+    
+    
+    
+    
+    public void pauseResume()
+    {
+        isStopped=!isStopped;
+       ImageIcon current = isStopped ? resumeIcon : pauseIcon;
+       pauseResumeButton.setIcon(current);
+       if(isStopped)
+       {
+           pm.resume();
+       } 
+       else
+       {
+           pm.pause();
+       }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,39 +113,76 @@ public class LogPage extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         mapButton = new javax.swing.JButton();
+        pauseResumeButton = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        logsArea = new javax.swing.JTextArea();
 
+        setLayout(new java.awt.BorderLayout());
+
+        jPanel2.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        mapButton.setForeground(utils.ColorManager.BG_COLOR);
         mapButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MapIcon.png"))); // NOI18N
+        mapButton.setBorderPainted(false);
+        mapButton.setContentAreaFilled(false);
+        mapButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        mapButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         mapButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mapButtonActionPerformed(evt);
             }
         });
+        jPanel2.add(mapButton, java.awt.BorderLayout.EAST);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mapButton)
-                .addContainerGap(364, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mapButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(261, Short.MAX_VALUE))
-        );
+        pauseResumeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PauseIcon.png"))); // NOI18N
+        pauseResumeButton.setBorderPainted(false);
+        pauseResumeButton.setContentAreaFilled(false);
+        pauseResumeButton.setMaximumSize(new java.awt.Dimension(50, 51));
+        pauseResumeButton.setMinimumSize(new java.awt.Dimension(50, 51));
+        pauseResumeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseResumeButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(pauseResumeButton, java.awt.BorderLayout.LINE_START);
+
+        add(jPanel2, java.awt.BorderLayout.NORTH);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setForeground(utils.ColorManager.BG_COLOR);
+
+        logsArea.setEditable(false);
+        logsArea.setColumns(20);
+        logsArea.setFont(utils.FontManager.regularFont);
+        logsArea.setForeground(utils.ColorManager.TEXT_COLOR);
+        logsArea.setRows(5);
+        jScrollPane1.setViewportView(logsArea);
+
+        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void mapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapButtonActionPerformed
         App.redirect("MAP");
     }//GEN-LAST:event_mapButtonActionPerformed
 
+    private void pauseResumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseResumeButtonActionPerformed
+        pauseResume();
+    }//GEN-LAST:event_pauseResumeButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea logsArea;
     private javax.swing.JButton mapButton;
+    private javax.swing.JButton pauseResumeButton;
     // End of variables declaration//GEN-END:variables
 }
