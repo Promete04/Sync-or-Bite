@@ -61,7 +61,8 @@ public class UnsafeArea
             synchronized(humansInside)
             {
                 humansInside.remove(attackedHuman);       // So it can't be attacked by other zombie.
-            }
+                mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()+1));
+            } 
             pm.check();
             attackedHuman.interrupt();                    // Attack starts
             pm.check();
@@ -196,10 +197,10 @@ public class UnsafeArea
                     { 
                         attacks.remove(h);
                     }
-                    
                     synchronized (humansInside)
                     {
                         humansInside.add(h);             //Add the human back 
+                        mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
                     }
                     pm.check();
                 } 
@@ -258,8 +259,8 @@ public class UnsafeArea
         synchronized(humansInside)
         {
             count = humansInside.size();
+            return count;
         }
-        return count;
     }
     
     public int getZombiesInside()
@@ -268,7 +269,7 @@ public class UnsafeArea
         synchronized(zombiesInside)
         {
             count = zombiesInside.size();
+            return count;
         }
-        return count;
     }
 }
