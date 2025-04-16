@@ -28,8 +28,8 @@ public class App
    
     public static void main(String[] args)
     {
-        mapPage = new MapPage(pm);
-        logPage= new LogPage(logger, pm);
+        mapPage = new MapPage();
+        logPage= new LogPage();
         
         RiskZone riskZone = new RiskZone(logger);
         Refuge refuge = new Refuge(logger);
@@ -73,12 +73,23 @@ public class App
         humanGenerator.start();
         server.start();
     }   
+   
+    public static PauseManager getPM()
+    {
+        return pm;
+    }
+     
+    public static Logger getLogger()
+    {
+        return logger;
+    }
+    
     
     public static MapPage getMapPage() 
     {
         return mapPage;
     }
-     
+    
  
    public static void redirect(String page)
    {

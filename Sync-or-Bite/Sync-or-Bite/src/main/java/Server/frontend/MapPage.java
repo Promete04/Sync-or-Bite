@@ -39,13 +39,13 @@ public class MapPage extends javax.swing.JPanel
     private final Map<String, JPanel> Panels = new HashMap<>();
     
     
-    public MapPage(PauseManager pm) 
+    public MapPage() 
     {
         initComponents();
         confButtons();
         pauseResumeButton.setIcon(pauseIcon);
         isStopped= false;
-        this.pm = pm;
+        this.pm = App.getPM();
         setupCounters();
         setupPanels();
     }

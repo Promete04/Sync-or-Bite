@@ -30,9 +30,10 @@ public class LogPage extends javax.swing.JPanel
     
     
     
-    public LogPage(Logger logger, PauseManager pm) 
+    public LogPage() 
     {
-        this.logger = logger;
+        this.logger = App.getLogger();
+        this.pm = App.getPM();
         logger.setLogPage(this);
         
         initComponents();
