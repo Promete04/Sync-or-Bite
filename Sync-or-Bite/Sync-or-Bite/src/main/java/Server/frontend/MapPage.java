@@ -96,17 +96,17 @@ public class MapPage extends javax.swing.JPanel
     
    public void pauseResume()
     {
-        isStopped=!isStopped;
-       ImageIcon current = isStopped ? resumeIcon : pauseIcon;
-       pauseResumeButton.setIcon(current);
-       if(isStopped)
-       {
+        if(isStopped)
+        {
            pm.resume();
-       } 
-       else
-       {
+        } 
+        else
+        {
            pm.pause();
-       }
+        }
+        isStopped = !isStopped;
+        ImageIcon current = isStopped ? resumeIcon : pauseIcon;
+        pauseResumeButton.setIcon(current);
     }
    
    public synchronized void addLabelToPanel(String panelKey, String labelText)

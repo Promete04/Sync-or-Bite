@@ -19,34 +19,31 @@ public class App
     private static final CardLayout cardLayout = new CardLayout();
     private static final JPanel cards = new JPanel(cardLayout);
     public static JFrame frame = new JFrame("Sync-or-Bite");
-    private static final MapPage mapPage = new MapPage();
-    
-    
+    private static MapPage mapPage;
     public static Logger logger=new Logger();
-    
-    private static  LogPage logPage= new LogPage();;
-   
-   
-    public static PauseManager pm;  
-
-   
-    private static final Map<String, JPanel> pages = new HashMap<>()
-    {
-        {
-        put("MAP",mapPage);
-        put("LOG", logPage); 
-        }
-    };
-    public static JPanel currentPanel = pages.get("MAP"); 
+    private static LogPage logPage;
+    public static PauseManager pm = new PauseManager();  
+    private static Map<String, JPanel> pages;
+    public static JPanel currentPanel; 
    
     public static void main(String[] args)
     {
-        pm = new PauseManager();
+        mapPage = new MapPage();
+        logPage= new LogPage();
+        
         RiskZone riskZone = new RiskZone(logger);
         Refuge refuge = new Refuge(logger);
         Tunnels tunnels = new Tunnels(riskZone,logger, pm);
         ServerData server = new ServerData(pm, tunnels, refuge, riskZone);
-  
+        
+        pages = new HashMap<>() 
+        {
+            {
+                put("MAP", mapPage);
+                put("LOG", logPage);
+            }
+        };
+        currentPanel = pages.get("MAP");
         setupFrame();
         redirect("MAP");
              

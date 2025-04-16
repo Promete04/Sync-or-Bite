@@ -25,16 +25,17 @@ public class LogPage extends javax.swing.JPanel implements LogListener
     /**
      * Creates new form LogPage
      */
-    boolean isStopped;
-    PauseManager  pm;
-    Logger logger;
+    private boolean isStopped;
+    private PauseManager  pm;
+    private Logger logger;
     
-    ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
-    ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
+    private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
+    private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
     
     
     
-    public LogPage() {
+    public LogPage() 
+    {
         initComponents();
         mapButton.setIcon(new ImageIcon(getClass().getResource("/images/MapIcon.png")));
         mapButton.setBorder(null);
@@ -48,27 +49,29 @@ public class LogPage extends javax.swing.JPanel implements LogListener
         // Load existing log file content
         loadLogs();
     }
+    
     private void loadLogs() 
     {
-    File logFile = new File(logger.getFileName());
-    if (logFile.exists()) 
-    {
-        try (BufferedReader br = new BufferedReader(new FileReader(logFile))) 
+        File logFile = new File(logger.getFileName());
+        if (logFile.exists()) 
         {
-            String line;
-            while ((line = br.readLine()) != null) 
+            try (BufferedReader br = new BufferedReader(new FileReader(logFile))) 
             {
-                logsArea.append(line + "\n");
+                String line;
+                while ((line = br.readLine()) != null) 
+                {
+                    logsArea.append(line + "\n");
+                }
+            } catch (IOException e) 
+            {
+                System.err.println("Error reading log file: " + e.getMessage());
             }
-        } catch (IOException e) 
+        } 
+        else 
         {
-            System.err.println("Error reading log file: " + e.getMessage());
+            System.out.println("Log file doesn't exist yet: " + logFile.getAbsolutePath());
         }
-    } else 
-    {
-        System.out.println("El archivo de logs todavía no existe: " + logFile.getAbsolutePath());
     }
-}
 
     
     @Override
@@ -84,25 +87,19 @@ public class LogPage extends javax.swing.JPanel implements LogListener
         });
     }
 
-    
-    
-    
-    
-    
-    
     public void pauseResume()
     {
-        isStopped=!isStopped;
+        if(isStopped)
+        {
+            pm.resume();
+        } 
+        else
+        {
+            pm.pause();
+        }
+       isStopped=!isStopped;
        ImageIcon current = isStopped ? resumeIcon : pauseIcon;
        pauseResumeButton.setIcon(current);
-       if(isStopped)
-       {
-           pm.resume();
-       } 
-       else
-       {
-           pm.pause();
-       }
     }
     /**
      * This method is called from within the constructor to initialize the form.
