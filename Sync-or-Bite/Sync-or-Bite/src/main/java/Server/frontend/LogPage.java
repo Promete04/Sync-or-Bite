@@ -11,15 +11,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.ImageIcon;
-import javax.swing.SwingUtilities;
-import utils.ColorManager;
-import utils.LogListener;
 
 /**
  *
  * @author guill
  */
-public class LogPage extends javax.swing.JPanel implements LogListener
+public class LogPage extends javax.swing.JPanel
 {
 
     /**
@@ -28,23 +25,21 @@ public class LogPage extends javax.swing.JPanel implements LogListener
     private boolean isStopped;
     private PauseManager  pm;
     private Logger logger;
-    
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
     
     
     
-    public LogPage() 
+    public LogPage(Logger logger, PauseManager pm) 
     {
+        this.logger = logger;
+        logger.setLogPage(this);
+        
         initComponents();
         mapButton.setIcon(new ImageIcon(getClass().getResource("/images/MapIcon.png")));
         mapButton.setBorder(null);
         this.isStopped = false;
-        this.pm = App.getPM();
-        this.logger = App.getLogger();
-        
-        // Register LogPage to listen for new log events
-        logger.addLogListener( this);
+        this.pm = pm;
         
         // Load existing log file content
         loadLogs();
@@ -52,39 +47,44 @@ public class LogPage extends javax.swing.JPanel implements LogListener
     
     private void loadLogs() 
     {
-        File logFile = new File(logger.getFileName());
-        if (logFile.exists()) 
+        BufferedReader br = null;
+        File file = new File(logger.getFileName());
+        if(file.exists())
         {
-            try (BufferedReader br = new BufferedReader(new FileReader(logFile))) 
+            try 
             {
+                br = new BufferedReader(new FileReader(file));
                 String line;
                 while ((line = br.readLine()) != null) 
                 {
                     logsArea.append(line + "\n");
                 }
-            } catch (IOException e) 
+            } 
+            catch (IOException e) 
             {
-                System.err.println("Error reading log file: " + e.getMessage());
+                e.printStackTrace();
+            } 
+            finally 
+            {
+                if (br != null) 
+                {
+                    try 
+                    {
+                        br.close();
+                    } 
+                    catch (IOException e) 
+                    {
+                        e.printStackTrace();
+                    }
+                }
             }
-        } 
-        else 
-        {
-            System.out.println("Log file doesn't exist yet: " + logFile.getAbsolutePath());
-        }
+        }    
     }
-
     
-    @Override
-    public void onNewLog(final String logEntry)
+
+    public void onNewLog(String logEntry)
     {
-        SwingUtilities.invokeLater(new Runnable() 
-        {
-            @Override
-            public void run() 
-            {
-                logsArea.append(logEntry + "\n");
-            }
-        });
+        logsArea.append(logEntry + "\n");  
     }
 
     public void pauseResume()
@@ -172,7 +172,6 @@ public class LogPage extends javax.swing.JPanel implements LogListener
     private void pauseResumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseResumeButtonActionPerformed
         pauseResume();
     }//GEN-LAST:event_pauseResumeButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
