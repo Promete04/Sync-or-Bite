@@ -6,7 +6,6 @@ package Server.backend;
 
 import Server.frontend.App;
 import Server.frontend.MapPage;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -68,8 +67,9 @@ public class DiningRoom
         pm.check();
         Thread.sleep(500 + (int) (Math.random() * 334));
         pm.check();
-        Thread.sleep(500 + (int) (Math.random() * 334));
-
+        Thread.sleep(250 + (int) (Math.random() * 167));
+        pm.check();
+        Thread.sleep(250 + (int) (Math.random() * 167));
         pm.check();
     }
     

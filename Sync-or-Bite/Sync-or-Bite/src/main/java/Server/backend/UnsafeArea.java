@@ -68,8 +68,11 @@ public class UnsafeArea
 //            Thread.sleep(500 + (int) (Math.random()*1000));
             Thread.sleep(250 + (int) (Math.random()*500));
             pm.check();
-            Thread.sleep(250 + (int) (Math.random()*500));
+            Thread.sleep(125 + (int) (Math.random()*250));
             pm.check();
+            Thread.sleep(125 + (int) (Math.random()*250));
+            pm.check();
+            
             attackedHuman.interrupt();                    // Attack ends
             pm.check();
             mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
@@ -82,7 +85,9 @@ public class UnsafeArea
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*250));
         pm.check();
-        Thread.sleep(500 + (int) (Math.random()*250));
+        Thread.sleep(250 + (int) (Math.random()*125));
+        pm.check();
+        Thread.sleep(250 + (int) (Math.random()*125));
         pm.check();
     }
     
@@ -157,8 +162,11 @@ public class UnsafeArea
             pm.check();
             Thread.sleep(500 + (int) (Math.random() * 334));
             pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 334));
+            Thread.sleep(250 + (int) (Math.random() * 167));
             pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 167));
+            pm.check();
+            
             h.collectFood(fgenerator.gatherFood());
             pm.check();
             h.collectFood(fgenerator.gatherFood());

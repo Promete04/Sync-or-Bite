@@ -3,7 +3,6 @@ package Server.backend;
 
 import Server.frontend.App;
 import Server.frontend.MapPage;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -144,7 +143,9 @@ public class Tunnel
 //        Thread.sleep(1000);
         Thread.sleep(500);
         pm.check();
-        Thread.sleep(500);
+        Thread.sleep(250);
+        pm.check();
+        Thread.sleep(250);
         pm.check();
         
         logger.log("Human " + h.getHumanId() + " has reached unsafe area " + unsafeArea.getArea() + ".");
@@ -243,7 +244,9 @@ public class Tunnel
 //        Thread.sleep(1000);
         Thread.sleep(500);
         pm.check();
-        Thread.sleep(500);
+        Thread.sleep(250);
+        pm.check();
+        Thread.sleep(250);
         pm.check();
         logger.log("Human " + h.getHumanId() + " has reached the refuge from unsafe area " + unsafeArea.getArea() + ".");
         

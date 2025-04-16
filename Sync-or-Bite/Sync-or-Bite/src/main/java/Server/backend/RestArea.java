@@ -62,7 +62,9 @@ public class RestArea
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*500));
         pm.check();
-        Thread.sleep(500 + (int) (Math.random()*500));
+        Thread.sleep(250 + (int) (Math.random()*250));
+        pm.check();
+        Thread.sleep(250 + (int) (Math.random()*250));
         pm.check();
     }
     
@@ -84,7 +86,9 @@ public class RestArea
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*334));
         pm.check();
-        Thread.sleep(500 + (int) (Math.random()*334));
+        Thread.sleep(250 + (int) (Math.random()*167));
+        pm.check();
+        Thread.sleep(250 + (int) (Math.random()*167));
         pm.check();
         
         h.toggleMarked();

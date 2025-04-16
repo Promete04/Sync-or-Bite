@@ -56,7 +56,9 @@ public class CommonArea
 
         Thread.sleep(500 + (int) (Math.random() * 500));
         pm.check();
-        Thread.sleep(500 + (int) (Math.random() * 500));
+        Thread.sleep(250 + (int) (Math.random() * 250));
+        pm.check();
+        Thread.sleep(250 + (int) (Math.random() * 250));
         pm.check();
         
         int selectedTunnel = (int)(Math.random()*4);
