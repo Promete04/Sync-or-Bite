@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -18,7 +19,8 @@ import java.util.Map;
 public class UnsafeArea 
 {
     private List<Zombie> zombiesInside = new ArrayList<>();  
-    private List<Human> humansInside = new ArrayList<>();  
+    private List<Human> possibleTargets = new ArrayList<>();  
+    private AtomicInteger humansInside = new AtomicInteger(0);
     private Map<Human,Zombie> attacks = new HashMap<>();
     private RiskZone riskZone;
     private int area;
@@ -38,12 +40,12 @@ public class UnsafeArea
     {
         pm.check();
         Human attackedHuman = null;
-        synchronized(humansInside)
+        synchronized(possibleTargets)
         {
-            if(!humansInside.isEmpty())
+            if(!possibleTargets.isEmpty())
             {
-                int attackedHumanIndex = (int) (Math.random()*humansInside.size());
-                attackedHuman = humansInside.get(attackedHumanIndex);
+                int attackedHumanIndex = (int) (Math.random()*possibleTargets.size());
+                attackedHuman = possibleTargets.get(attackedHumanIndex);
             }
         }
         pm.check();
@@ -58,10 +60,9 @@ public class UnsafeArea
                 attacks.put(attackedHuman, z);
             }
             
-            synchronized(humansInside)
+            synchronized(possibleTargets)
             {
-                humansInside.remove(attackedHuman);       // So it can't be attacked by other zombie.
-                mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()+1));
+                possibleTargets.remove(attackedHuman);       // So it can't be attacked by other zombie.
             } 
             pm.check();
             attackedHuman.interrupt();                    // Attack starts
@@ -122,11 +123,11 @@ public class UnsafeArea
     public void enter(Human h, PauseManager pm) throws InterruptedException
     {
         pm.check();
-        synchronized (humansInside)
-        {
-            humansInside.add(h);
+        synchronized (possibleTargets)
+        {;
+            possibleTargets.add(h);
             logger.log("Human " + h.getHumanId() + " entered unsafe area " + area + ".");
-            mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
+            mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.incrementAndGet()));
             mapPage.addLabelToPanel("RH"+String.valueOf(area+1), h.getHumanId());
         }
         pm.check();
@@ -135,11 +136,11 @@ public class UnsafeArea
     public void exit(Human h, PauseManager pm) throws InterruptedException
     {
         pm.check();
-        synchronized (humansInside) 
+        synchronized (possibleTargets) 
         {
-            humansInside.remove(h);
+            possibleTargets.remove(h);
             logger.log("Human " + h.getHumanId() + " left unsafe area " + area + ".");
-            mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
+            mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.decrementAndGet()));
             mapPage.removeLabelFromPanel("RH"+String.valueOf(area+1), h.getHumanId());
         }
         pm.check();
@@ -197,17 +198,13 @@ public class UnsafeArea
                     { 
                         attacks.remove(h);
                     }
-                    synchronized (humansInside)
-                    {
-                        humansInside.add(h);             //Add the human back 
-                        mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
-                    }
                     pm.check();
                 } 
                 else 
                 {
                     logger.log("Human " + h.getHumanId() + " failed to defend itself from the attack.");
-                    mapPage.removeLabelFromPanel("RH"+String.valueOf(area+1), h.getHumanId());
+                    mapPage.removeLabelFromPanel("RH"+String.valueOf(area+1), h.getHumanId()); 
+                    mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.decrementAndGet()));
                     String zombieId = h.getHumanId().replaceFirst("H", "Z");
                     Zombie killer;
                     
@@ -217,7 +214,7 @@ public class UnsafeArea
                         killer = attacks.get(h);
                         attacks.remove(h);
                     }
-                    pm.check();
+                    pm.check(); 
                     killer.increaseKillCount();
                     logger.log("Zombie " + killer.getZombieId() + " killed human " + h.getHumanId() + " (Kill count: " + killer.getKillCount() + ")");
                     riskZone.reportKill(killer);
@@ -253,14 +250,9 @@ public class UnsafeArea
     }
     
     
-    public int getHumansInside()
+    public AtomicInteger getHumansInside()
     {
-        int count;
-        synchronized(humansInside)
-        {
-            count = humansInside.size();
-            return count;
-        }
+        return humansInside;
     }
     
     public int getZombiesInside()

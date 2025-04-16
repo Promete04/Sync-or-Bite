@@ -48,7 +48,7 @@ public class ServerData extends Thread
                 {
                     String data = r.getCount().get()                 // Number of humans in refuge
                             + "|" + t.obtainTunnel(0).getInTunnel() + "|" + t.obtainTunnel(1).getInTunnel() + "|" + t.obtainTunnel(2).getInTunnel() + "|" + t.obtainTunnel(3).getInTunnel()       // Number of humans in each tunnel
-                            + "|" + rk.accessUnsafeArea(0).getHumansInside() + "|" + rk.accessUnsafeArea(1).getHumansInside() + "|" + rk.accessUnsafeArea(2).getHumansInside() + "|" + rk.accessUnsafeArea(3).getHumansInside() // Number of humans in each unsafe area
+                            + "|" + rk.accessUnsafeArea(0).getHumansInside().get() + "|" + rk.accessUnsafeArea(1).getHumansInside().get() + "|" + rk.accessUnsafeArea(2).getHumansInside().get() + "|" + rk.accessUnsafeArea(3).getHumansInside().get() // Number of humans in each unsafe area
                             + "|" + rk.accessUnsafeArea(0).getZombiesInside() + "|" + rk.accessUnsafeArea(1).getZombiesInside() + "|" + rk.accessUnsafeArea(2).getZombiesInside() + "|" + rk.accessUnsafeArea(3).getZombiesInside()   //Number of zombies in each unsafe area
                             + "|" + rk.obtainTopKillers();
                     
