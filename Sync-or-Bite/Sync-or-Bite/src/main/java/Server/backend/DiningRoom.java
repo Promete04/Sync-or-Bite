@@ -31,8 +31,9 @@ public class DiningRoom
         this.logger = logger;
     }
     
-    public void storeFood(Food f, Human h) throws InterruptedException  
+    public void storeFood(Food f, Human h, PauseManager pm) throws InterruptedException  
     {
+        pm.check();
         synchronized(foodList)
         {
             foodList.offer(f);
@@ -40,11 +41,13 @@ public class DiningRoom
             logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size() + ".");
             mapPage.setCounter("FC",String.valueOf(foodList.size()));
         } 
+        pm.check();
     }
     
     //Used semaphores to ensure fairness
-    public void eatFood(Human h) throws InterruptedException  
+    public void eatFood(Human h, PauseManager pm) throws InterruptedException  
     {   
+        pm.check();
         foodCount.acquire();
         synchronized(foodList)
         {  
@@ -52,15 +55,15 @@ public class DiningRoom
             logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
             mapPage.setCounter("FC",String.valueOf(foodList.size()));
         }
-        
         Thread.sleep(3000+(int) Math.random()*2000);
-        
+        pm.check();
     }
     
-    public void enter(Human h) throws InterruptedException
+    public void enter(Human h, PauseManager pm) throws InterruptedException
     {
         try
         {
+            pm.check();
             mutex.acquire();
             diningList.add(h);
             logger.log("Human " + h.getHumanId() + " entered the dining room.");
@@ -74,14 +77,16 @@ public class DiningRoom
         finally
         {
             mutex.release();
+            pm.check();
         }
         
     }
     
-    public void exit(Human h) throws InterruptedException
+    public void exit(Human h, PauseManager pm) throws InterruptedException
     {
         try 
         {
+            pm.check();
             mutex.acquire();
             diningList.remove(h);
             logger.log("Human " + h.getHumanId() + " left the dining room.");
@@ -91,6 +96,7 @@ public class DiningRoom
         finally 
         {
             mutex.release();
+            pm.check();
         }
     }
 }

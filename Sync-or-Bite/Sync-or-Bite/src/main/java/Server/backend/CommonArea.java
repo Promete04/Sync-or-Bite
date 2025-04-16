@@ -27,29 +27,36 @@ public class CommonArea
         this.logger = logger;
     }
     
-    public synchronized void enter(Human h) throws InterruptedException
+    public synchronized void enter(Human h, PauseManager pm) throws InterruptedException
     {
+        pm.check();
         commonList.add(h);
         logger.log("Human " + h.getHumanId() + " entered the common area.");
         mapPage.setCounter("HC", String.valueOf(commonList.size()));
         mapPage.addLabelToPanel("C", h.getHumanId());
+        pm.check();
     }
     
-    public synchronized void exit(Human h) throws InterruptedException
+    public synchronized void exit(Human h, PauseManager pm) throws InterruptedException
     {
+        pm.check();
         commonList.remove(h);
         logger.log("Human " + h.getHumanId() + " left the common area.");
         mapPage.setCounter("HC", String.valueOf(commonList.size()));
         mapPage.removeLabelFromPanel("C", h.getHumanId() );
+        pm.check();
     }
     
-    public void prepare(Human h) throws InterruptedException
+    public void prepare(Human h, PauseManager pm) throws InterruptedException
     {  
+        pm.check();
         logger.log("Human " + h.getHumanId() + " is getting prepared in the common area.");
         Thread.sleep((int) (1000 + Math.random() * 1000));
+        pm.check();
         int selectedTunnel = (int)(Math.random()*4);
         logger.log("Human " + h.getHumanId() + " chose tunnel " + selectedTunnel + " in the common area.");
         h.setSelectedTunnel(selectedTunnel);
+        pm.check();
     }
     
     // Methods for monitoring

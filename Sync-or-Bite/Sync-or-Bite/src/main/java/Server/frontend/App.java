@@ -39,7 +39,7 @@ public class App
         Logger logger = new Logger();
         RiskZone riskZone = new RiskZone(logger);
         Refuge refuge = new Refuge(logger);
-        Tunnels tunnels = new Tunnels(riskZone,logger);
+        Tunnels tunnels = new Tunnels(riskZone,logger, pm);
         ServerData server = new ServerData(pm, tunnels, refuge, riskZone);
   
         setupFrame();

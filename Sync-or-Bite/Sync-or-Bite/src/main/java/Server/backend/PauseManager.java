@@ -23,7 +23,7 @@ public class PauseManager
         lock.lock();
         try 
         {
-            while (paused) 
+            while(paused) 
             {
                 stop.await();
             }

@@ -20,7 +20,7 @@ public class Tunnel
 {
 
     private UnsafeArea unsafeArea;
-    
+    private PauseManager pm;
     
     // Barrier to wait for groups of 3 exiters.
     private CyclicBarrier groups;
@@ -51,8 +51,9 @@ public class Tunnel
     private int ID;
     
     // Constructor: associates Tunnel with a specific unsafe area.
-    public Tunnel(UnsafeArea unsafeArea, Logger logger,int pID)
+    public Tunnel(UnsafeArea unsafeArea, Logger logger,int pID, PauseManager pm)
     {
+        this.pm = pm;
         this.ID=pID;
         this.logger = logger;
         this.unsafeArea = unsafeArea;
@@ -74,6 +75,7 @@ public class Tunnel
     // Methods for Humans Exiting to the Risk Zone
     public void requestExit(Human h) throws InterruptedException 
     {
+        pm.check();
         // Add the human to the waiting-to-exit queue (using entryWaitingLock).
         exitWaitingLock.lock();
         try 
@@ -86,12 +88,14 @@ public class Tunnel
         finally 
         {
             exitWaitingLock.unlock();
+            pm.check();
         }
         
         // Wait at the barrier until a group of 3 is formed.
         try 
         {
             groups.await();
+            pm.check();
         } 
         catch (BrokenBarrierException e)
         {
@@ -105,55 +109,68 @@ public class Tunnel
     // Internal method for crossing to the risk zone.
     private void cross(Human h) throws InterruptedException
     {
+        pm.check();
         // Use the usingLock to ensure only one human is in the tunnel.
         usingLock.lock();
         try 
         {
+            pm.check();
             // While the tunnel is busy, or if any returners are waiting, the exiter must wait.
             while (tunnelBusy || hasReturnersWaiting()) 
             {
                 exitCondition.await();
             }
             
+            pm.check();
             //Remove form waiting as it is going to cross
             waitingToExitShelter.remove(h);
             mapPage.removeLabelFromPanel("TE"+String.valueOf(ID+1), h.getHumanId());
+            pm.check();
            
             // Reserve the tunnel.
             tunnelBusy = true;
             currentInside = h;
             mapPage.setCounter("C"+String.valueOf(ID+1), currentInside.getHumanId());
+            pm.check();
         } 
         finally 
         {
             usingLock.unlock();
+            pm.check();
         }
-        
+        pm.check();
         // Simulate the crossing (e.g., 1 second).
         logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea() + ".");
         Thread.sleep(1000);
+        pm.check();
         logger.log("Human " + h.getHumanId() + " has reached unsafe area " + unsafeArea.getArea() + ".");
+        pm.check();
         
         // Release the tunnel.
         usingLock.lock();
         try 
         {
+            pm.check();
             tunnelBusy = false;
             currentInside = null;
             mapPage.setCounter("C"+String.valueOf(ID+1), "-----");
+            pm.check();
             // Give priority to returners.
             if (hasReturnersWaiting()) 
             {
                 entryCondition.signal();
+                pm.check();
             } 
             else
             {
                 exitCondition.signal();
+                pm.check();
             }
         } 
         finally 
         {
             usingLock.unlock();
+            pm.check();
         }
     }
     
@@ -161,13 +178,16 @@ public class Tunnel
     
     public void requestReturn(Human h) throws InterruptedException 
     {
+        pm.check();
         // Add the human to the waiting-to-enter queue (using entryWaitingLock).
         entryWaitingLock.lock();
         try 
         {
             waitingToEnterShelter.add(h);
             logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea() + ".");
+            pm.check();
             mapPage.addLabelToPanel("TR"+String.valueOf(ID+1), h.getHumanId());
+            pm.check();
             if(h.isMarked())
             {
                 mapPage.setLabelColorInPanel("TR"+String.valueOf(ID+1), h.getHumanId(),utils.ColorManager.INJURED_COLOR );
@@ -176,22 +196,26 @@ public class Tunnel
         finally
         {
             entryWaitingLock.unlock();
+            pm.check();
         }
         
         // Acquire the tunnel using usingLock.
         usingLock.lock();
         try 
         {
+            pm.check();
             // Wait until the tunnel is free.
             while (tunnelBusy)
             {
                 entryCondition.await();
             }
+            pm.check();
             
             mapPage.removeLabelFromPanel("TR"+String.valueOf(ID+1), h.getHumanId());
             tunnelBusy = true;
             currentInside = h;
             mapPage.setCounter("C"+String.valueOf(ID+1), currentInside.getHumanId());
+            pm.check();
             // Remove this human from the waiting queue.
             entryWaitingLock.lock();
             try 
@@ -201,6 +225,7 @@ public class Tunnel
             finally 
             {
                 entryWaitingLock.unlock();
+                pm.check();
             }
         } 
         finally 
@@ -208,36 +233,44 @@ public class Tunnel
             usingLock.unlock();
         }
         
+        pm.check();
         // Simulate the crossing (e.g., 1 second).
         logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea() + ".");
         Thread.sleep(1000);
+        pm.check();
         logger.log("Human " + h.getHumanId() + " has reached the refuge from unsafe area " + unsafeArea.getArea() + ".");
         
         // Release the tunnel.
         usingLock.lock();
         try 
         {
+            pm.check();
             tunnelBusy = false;
             currentInside = null;
             mapPage.setCounter("C"+String.valueOf(ID+1), "-----");
+            pm.check();
             if (hasReturnersWaiting()) 
             {
                 entryCondition.signal();
+                pm.check();
             } 
             else
             {
                 exitCondition.signal();
+                pm.check();
             }
         } 
         finally 
         {
             usingLock.unlock();
+            pm.check();
         }
     }
     
     // Helper method to check if returners are waiting.
     private boolean hasReturnersWaiting() 
     {
+        pm.check();
         entryWaitingLock.lock();
         try
         {
@@ -246,6 +279,7 @@ public class Tunnel
         finally 
         {
             entryWaitingLock.unlock();
+            pm.check();
         }
     }
     

@@ -35,8 +35,9 @@ public class UnsafeArea
         this.logger = logger;
     }
     
-    public void wander(Zombie z) throws InterruptedException
+    public void wander(Zombie z, PauseManager pm) throws InterruptedException
     {
+        pm.check();
         Human attackedHuman = null;
         synchronized(humansInside)
         {
@@ -46,11 +47,13 @@ public class UnsafeArea
                 attackedHuman = humansInside.get(attackedHumanIndex);
             }
         }
+        pm.check();
         
         if(attackedHuman != null)
         {
             logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
             mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ATACKING_COLOR);
+            pm.check();
             synchronized(attacks)
             {
                 attacks.put(attackedHuman, z);
@@ -60,19 +63,23 @@ public class UnsafeArea
             {
                 humansInside.remove(attackedHuman);       // So it can't be attacked by other zombie.
             }
- 
+            pm.check();
             attackedHuman.interrupt();                    // Attack starts
+            pm.check();
             Thread.sleep(500 + (int) (Math.random()*1000));
+            pm.check();
             attackedHuman.interrupt();                    // Attack ends
-            
+            pm.check();
             mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
         }
-        
+        pm.check();
         Thread.sleep(2000 + (int) (Math.random()*1000));
+        pm.check();
     }
     
-    public void enter(Zombie z) throws InterruptedException
+    public void enter(Zombie z, PauseManager pm) throws InterruptedException
     {
+        pm.check();
         synchronized(zombiesInside)
         {
             zombiesInside.add(z);
@@ -81,10 +88,12 @@ public class UnsafeArea
             mapPage.addLabelToPanel("RZ"+String.valueOf(area+1), z.getZombieId());
             mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1), z.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
         }
+        pm.check();
     }
     
-    public void exit(Zombie z) throws InterruptedException
+    public void exit(Zombie z, PauseManager pm) throws InterruptedException
     {
+        pm.check();
         synchronized (zombiesInside) 
         {
             zombiesInside.remove(z);
@@ -92,10 +101,12 @@ public class UnsafeArea
             mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
             mapPage.removeLabelFromPanel("RZ"+String.valueOf(area+1), z.getZombieId());
         }
+        pm.check();
     }
     
-    public void enter(Human h) throws InterruptedException
+    public void enter(Human h, PauseManager pm) throws InterruptedException
     {
+        pm.check();
         synchronized (humansInside)
         {
             humansInside.add(h);
@@ -103,10 +114,12 @@ public class UnsafeArea
             mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
             mapPage.addLabelToPanel("RH"+String.valueOf(area+1), h.getHumanId());
         }
+        pm.check();
     }
     
-    public void exit(Human h) throws InterruptedException
+    public void exit(Human h, PauseManager pm) throws InterruptedException
     {
+        pm.check();
         synchronized (humansInside) 
         {
             humansInside.remove(h);
@@ -114,33 +127,42 @@ public class UnsafeArea
             mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.size()));
             mapPage.removeLabelFromPanel("RH"+String.valueOf(area+1), h.getHumanId());
         }
+        pm.check();
     }
     
     public void wander(Human h, PauseManager pm)
     {
+        pm.check();
         try
         {
             logger.log("Human " + h.getHumanId() + " is exploring unsafe area " + area + ".");
             Thread.sleep(3000 + (int) (Math.random() * 2000));
+            pm.check();
             h.collectFood(fgenerator.gatherFood());
+            pm.check();
             h.collectFood(fgenerator.gatherFood());
             logger.log("Human " + h.getHumanId() + " gathered 2 units of food in unsafe area " + area + ".");
+            pm.check();
         }
         catch(InterruptedException ie)
         {
             try
             {
+                pm.check();
                 Thread.sleep(10000);       //Under attack (time governed by the zombie, when the zombie ends it interrupts again)
             }
             catch(InterruptedException ie2)
             {
+                pm.check();
                 mapPage.setLabelColorInPanel("RH"+String.valueOf(area+1),h.getHumanId(),utils.ColorManager.ATACKED_COLOR);
                 int defense = (int) (Math.random() * 3);
+                pm.check();
                 if (defense < 2) 
                 {
                     logger.log("Human " + h.getHumanId() + " successfully defended itself from the attack.");
                     mapPage.setLabelColorInPanel("RH"+String.valueOf(area+1),h.getHumanId(),utils.ColorManager.INJURED_COLOR);
                     h.toggleMarked();
+                    pm.check();
                     synchronized (attacks) 
                     { 
                         attacks.remove(h);
@@ -150,6 +172,7 @@ public class UnsafeArea
                     {
                         humansInside.add(h);             //Add the human back 
                     }
+                    pm.check();
                 } 
                 else 
                 {
@@ -158,18 +181,20 @@ public class UnsafeArea
                     String zombieId = h.getHumanId().replaceFirst("H", "Z");
                     Zombie killer;
                     
+                    pm.check();
                     synchronized(attacks)
                     {  
                         killer = attacks.get(h);
                         attacks.remove(h);
                     }
-                    
+                    pm.check();
                     killer.increaseKillCount();
                     logger.log("Zombie " + killer.getZombieId() + " killed human " + h.getHumanId() + " (Kill count: " + killer.getKillCount() + ")");
                     riskZone.reportKill(killer);
+                    pm.check();
                     
                     Zombie killed = new Zombie(zombieId,this,logger,pm);
- 
+                    pm.check();
                     synchronized(zombiesInside)
                     {
                         zombiesInside.add(killed);
@@ -177,9 +202,10 @@ public class UnsafeArea
                         mapPage.addLabelToPanel("RZ"+String.valueOf(area+1), killed.getZombieId());
                         
                     }
+                    pm.check();
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");
                     killed.start();
-                    
+                    pm.check();
                     h.interrupt();
                 }
             }
