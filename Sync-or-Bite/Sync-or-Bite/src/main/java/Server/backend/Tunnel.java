@@ -102,12 +102,7 @@ public class Tunnel
         }
         // Now, cross the tunnel individually.
         mapPage.setLabelColorInPanel("TE"+String.valueOf(ID+1), h.getHumanId(), utils.ColorManager.BG_COLOR);
-        cross(h);
-    }
-    
-    // Internal method for crossing to the risk zone.
-    private void cross(Human h) throws InterruptedException
-    {
+       
         pm.check();
         // Use the usingLock to ensure only one human is in the tunnel.
         usingLock.lock();
@@ -295,35 +290,17 @@ public class Tunnel
     
     // --- Methods for Monitoring ---
     
-    public synchronized List<String> getWaitingToExitIds() 
+    public synchronized int getInTunnel() 
     {
-        List<String> ids = new ArrayList<>();
-        exitWaitingLock.lock();
-        try {
-            for (Human h : waitingToExitShelter)
-            {
-                ids.add(h.getHumanId ());
-            }
-        } finally {
-            exitWaitingLock.unlock();
+        int result;
+        if(tunnelBusy)
+        {
+            result=1+waitingToEnterShelter.size()+waitingToExitShelter.size();
         }
-  
-        return ids;
-    }
-    
-    public synchronized List<String> getWaitingToEnterIds() 
-    {
-        List<String> ids = new ArrayList<>();
-        entryWaitingLock.lock();
-        try {
-            for (Human h : waitingToEnterShelter)
-            {
-                ids.add(h.getHumanId());
-            }
-        } finally {
-            entryWaitingLock.unlock();
+        else
+        {
+             result=waitingToEnterShelter.size()+waitingToExitShelter.size();
         }
-       
-        return ids;
+        return result;
     }
 }
