@@ -41,11 +41,12 @@ public class MapPage extends javax.swing.JPanel
     
     public MapPage() 
     {
+        isStopped= false;
+        this.pm = App.getPM();
+        
         initComponents();
         confButtons();
         pauseResumeButton.setIcon(pauseIcon);
-        isStopped= false;
-        this.pm = App.getPM();
         setupCounters();
         setupPanels();
     }

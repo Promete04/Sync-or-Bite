@@ -40,7 +40,6 @@ public class LogPage extends javax.swing.JPanel
         mapButton.setIcon(new ImageIcon(getClass().getResource("/images/MapIcon.png")));
         mapButton.setBorder(null);
         this.isStopped = false;
-        this.pm = pm;
         
         // Load existing log file content
         loadLogs();
