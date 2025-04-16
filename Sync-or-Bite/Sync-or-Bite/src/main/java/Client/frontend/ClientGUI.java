@@ -38,18 +38,17 @@ public class ClientGUI extends javax.swing.JFrame
                 String[] data;
                 try 
                 {
-                    while (true) {
+                    while (true) 
+                    {
                         Future<String[]> future = automaticUpdater.submit(new AutomaticUpdaterTask());
                         data = future.get();
 
-                        // Imprimir todo en una línea
-                        for (int i = 0; i < data.length; i++) {
+                        
+                        for (int i = 0; i < data.length; i++) 
+                        {
                             System.out.print(data[i]);
-                            if (i < data.length - 1) {
-                                System.out.print(" "); // Agrega un espacio entre elementos
-                            }
                         }
-                        System.out.println(); // Salto de línea al final
+                        System.out.println(); 
 
                         Thread.sleep(1000);
                     }
