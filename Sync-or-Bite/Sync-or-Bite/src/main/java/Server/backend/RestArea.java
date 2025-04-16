@@ -53,7 +53,16 @@ public class RestArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " is resting in the rest area.");
-        Thread.sleep(2000 + (int) (Math.random()*2000));  
+        
+//        Thread.sleep(2000 + (int) (Math.random()*2000));     
+
+        Thread.sleep(500 + (int) (Math.random()*500));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*500));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*500));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*500));
         pm.check();
     }
     
@@ -62,8 +71,22 @@ public class RestArea
         pm.check();
         logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");
         mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.BG_COLOR);
-        Thread.sleep(3000 + (int) (Math.random()*2000));
+
+//        Thread.sleep(3000 + (int) (Math.random()*2000));
+
+        Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
+        Thread.sleep(500 + (int) (Math.random()*333));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*333));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*333));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*334));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*334));
+        pm.check();
+        
         h.toggleMarked();
         pm.check();
     }

@@ -55,7 +55,21 @@ public class DiningRoom
             logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
             mapPage.setCounter("FC",String.valueOf(foodList.size()));
         }
-        Thread.sleep(3000+(int) Math.random()*2000);
+        
+//        Thread.sleep(3000 + (int) (Math.random()*2000));
+
+        Thread.sleep(500 + (int) (Math.random() * 333));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random() * 333));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random() * 333));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random() * 333));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random() * 334));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random() * 334));
+
         pm.check();
     }
     

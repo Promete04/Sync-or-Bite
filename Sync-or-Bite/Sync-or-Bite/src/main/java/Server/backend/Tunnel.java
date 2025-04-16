@@ -141,8 +141,12 @@ public class Tunnel
         pm.check();
         // Simulate the crossing (e.g., 1 second).
         logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea() + ".");
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
+        Thread.sleep(500);
         pm.check();
+        Thread.sleep(500);
+        pm.check();
+        
         logger.log("Human " + h.getHumanId() + " has reached unsafe area " + unsafeArea.getArea() + ".");
         pm.check();
         
@@ -236,7 +240,10 @@ public class Tunnel
         pm.check();
         // Simulate the crossing (e.g., 1 second).
         logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea() + ".");
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
+        Thread.sleep(500);
+        pm.check();
+        Thread.sleep(500);
         pm.check();
         logger.log("Human " + h.getHumanId() + " has reached the refuge from unsafe area " + unsafeArea.getArea() + ".");
         

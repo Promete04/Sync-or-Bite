@@ -6,7 +6,6 @@ package Server.backend;
 
 import Server.frontend.App;
 import Server.frontend.MapPage;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,14 +65,24 @@ public class UnsafeArea
             pm.check();
             attackedHuman.interrupt();                    // Attack starts
             pm.check();
-            Thread.sleep(500 + (int) (Math.random()*1000));
+//            Thread.sleep(500 + (int) (Math.random()*1000));
+            Thread.sleep(250 + (int) (Math.random()*500));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random()*500));
             pm.check();
             attackedHuman.interrupt();                    // Attack ends
             pm.check();
             mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
         }
         pm.check();
-        Thread.sleep(2000 + (int) (Math.random()*1000));
+//        Thread.sleep(2000 + (int) (Math.random()*1000));
+        Thread.sleep(500 + (int) (Math.random()*250));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*250));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*250));
+        pm.check();
+        Thread.sleep(500 + (int) (Math.random()*250));
         pm.check();
     }
     
@@ -136,7 +145,19 @@ public class UnsafeArea
         try
         {
             logger.log("Human " + h.getHumanId() + " is exploring unsafe area " + area + ".");
-            Thread.sleep(3000 + (int) (Math.random() * 2000));
+//        Thread.sleep(3000 + (int) (Math.random()*2000));
+
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 334));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 334));
             pm.check();
             h.collectFood(fgenerator.gatherFood());
             pm.check();
