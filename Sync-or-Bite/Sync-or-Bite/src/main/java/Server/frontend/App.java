@@ -16,25 +16,25 @@ import java.awt.Dimension;
 public class App 
 {    
     
-   private static final CardLayout cardLayout = new CardLayout();
-   private static final JPanel cards = new JPanel(cardLayout);
-   public static JFrame frame = new JFrame("Sync-or-Bite");
-   private static final MapPage mapPage = new MapPage();
-   private static final LogPage logPage = new LogPage();
+    private static final CardLayout cardLayout = new CardLayout();
+    private static final JPanel cards = new JPanel(cardLayout);
+    public static JFrame frame = new JFrame("Sync-or-Bite");
+    private static final MapPage mapPage = new MapPage();
+    private static final LogPage logPage = new LogPage();
    
    
-   public static PauseManager  pm = new PauseManager();
+    public static PauseManager  pm = new PauseManager();
    
-   private static final Map<String, JPanel> pages = new HashMap<>()
-   {
+    private static final Map<String, JPanel> pages = new HashMap<>()
+    {
         {
         put("MAP",mapPage);
         put("LOG", logPage); 
         }
-   };
-   public static JPanel currentPanel = pages.get("MAP"); 
+    };
+    public static JPanel currentPanel = pages.get("MAP"); 
    
-   public static void main(String[] args)
+    public static void main(String[] args)
     {
         Logger logger = new Logger();
         RiskZone riskZone = new RiskZone(logger);
@@ -72,17 +72,18 @@ public class App
         server.start();
     }   
    
-   public static PauseManager getPM()
-   {
-         return pm;
-   }
-   public static MapPage getMapPage() 
-   {
+    public static PauseManager getPM()
+    {
+        return pm;
+    }
+    
+    public static MapPage getMapPage() 
+    {
     return mapPage;
     }
-           
-           
-   public static void redirect(String page){
+              
+   public static void redirect(String page)
+   {
         
         JPanel p = pages.get(page);
         cards.add(p, page);
@@ -94,13 +95,14 @@ public class App
         currentPanel = p;
     }
    
-   public static void setupFrame(){
+   public static void setupFrame()
+   {
         frame.setContentPane(cards);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1200, 810));
         frame.setMaximumSize(new Dimension(1920, 1080));
         frame.setVisible(true);
-    }  
+   }  
 }
 
 

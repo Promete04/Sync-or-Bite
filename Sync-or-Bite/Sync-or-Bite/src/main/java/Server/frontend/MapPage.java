@@ -21,7 +21,8 @@ import javax.swing.JPanel;
  *
  * @author guill
  */
-public class MapPage extends javax.swing.JPanel {
+public class MapPage extends javax.swing.JPanel 
+{
 
     /**
      * Creates new form map
@@ -98,79 +99,87 @@ public class MapPage extends javax.swing.JPanel {
         isStopped=!isStopped;
        ImageIcon current = isStopped ? resumeIcon : pauseIcon;
        pauseResumeButton.setIcon(current);
-       if(isStopped){pm.resume();} else{pm.pause();}
+       if(isStopped)
+       {
+           pm.resume();
+       } 
+       else
+       {
+           pm.pause();
+       }
     }
    
    public synchronized void addLabelToPanel(String panelKey, String labelText)
    {
-    JPanel targetPanel = Panels.get(panelKey);
+       
+        JPanel targetPanel = Panels.get(panelKey);
 
-    if (targetPanel == null) {
-        System.err.println("No panel found for key: " + panelKey);
-        return;
-    }
-
-    JLabel label = new JLabel(labelText);
-    label.setOpaque(true);
-    label.setBackground(utils.ColorManager.BG_COLOR); 
-    label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
-
-    targetPanel.add(label);
-    targetPanel.revalidate();
-    targetPanel.repaint();
-}
-  public synchronized void removeLabelFromPanel(String panelKey, String labelText) 
-  {
-    JPanel targetPanel = Panels.get(panelKey);
-    
-    if (targetPanel == null) 
-    {
-        System.err.println("No panel found for key: " + panelKey);
-        return;
-    }
-
-    Component[] components = targetPanel.getComponents();
-    for (Component comp : components) 
-    {
-        if (comp instanceof JLabel label && label.getText().equals(labelText)) 
-        {
-            targetPanel.remove(label);
-            targetPanel.revalidate();
-            targetPanel.repaint();
+        if (targetPanel == null) {
+            System.err.println("No panel found for key: " + panelKey);
             return;
         }
-    }
 
-    System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
-    }
-  public synchronized void setLabelColorInPanel(String panelKey, String labelText, Color color) 
-  {
-    JPanel targetPanel = Panels.get(panelKey);
-    
-    if (targetPanel == null)
-    {
-        System.err.println("No panel found for key: " + panelKey);
-        return;
-    }
+        JLabel label = new JLabel(labelText);
+        label.setOpaque(true);
+        label.setBackground(utils.ColorManager.BG_COLOR); 
+        label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
 
-    for (Component comp : targetPanel.getComponents()) 
+        targetPanel.add(label);
+        targetPanel.revalidate();
+        targetPanel.repaint();
+    }
+    public synchronized void removeLabelFromPanel(String panelKey, String labelText) 
     {
-        if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+        JPanel targetPanel = Panels.get(panelKey);
+
+        if (targetPanel == null) 
         {
-            label.setOpaque(true); // necesario para que el color de fondo se vea
-            label.setBackground(color);
-            targetPanel.repaint();
+            System.err.println("No panel found for key: " + panelKey);
             return;
         }
+
+        Component[] components = targetPanel.getComponents();
+        for (Component comp : components) 
+        {
+            if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+            {
+                targetPanel.remove(label);
+                targetPanel.revalidate();
+                targetPanel.repaint();
+                return;
+            }
+        }
+
+        System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
+    }
+    public synchronized void setLabelColorInPanel(String panelKey, String labelText, Color color) 
+    {
+        JPanel targetPanel = Panels.get(panelKey);
+
+        if (targetPanel == null)
+        {
+            System.err.println("No panel found for key: " + panelKey);
+            return;
+        }
+
+        for (Component comp : targetPanel.getComponents()) 
+        {
+            if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+            {
+                label.setOpaque(true); // necesario para que el color de fondo se vea
+                label.setBackground(color);
+                targetPanel.repaint();
+                return;
+            }
+        }
+
+        System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
     }
 
-    System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
-}
 
-
-   public synchronized void setCounter(String nameLabel, String value) 
-   {
-    Counters.get(nameLabel).setText(value);
+    public synchronized void setCounter(String nameLabel, String value) 
+    {
+        Counters.get(nameLabel).setText(value);
     }
 
     public final void confButtons()
