@@ -38,11 +38,20 @@ public class Toggler
             e.printStackTrace();
         }
     }
-
+    
     public boolean isPaused() 
     {
         return paused;
     }
     
+    //methods to allow synchronization
+    public void pause()
+    {
+        paused=false;
+    }
+    public void resume()
+    {
+        paused=true;
+    }
     
 }

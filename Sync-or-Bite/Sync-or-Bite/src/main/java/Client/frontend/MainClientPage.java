@@ -22,7 +22,7 @@ public class MainClientPage extends javax.swing.JPanel
     
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
-   
+    
     
 
     /**
@@ -34,11 +34,12 @@ public class MainClientPage extends javax.swing.JPanel
         
         Runnable pc = new Runnable()
         {
+            @Override
             public void run()
             {
                 while(true) 
                 {
-                    ImageIcon current = toggler.isPaused()? resumeIcon : pauseIcon;
+                    ImageIcon current = toggler.isPaused()? pauseIcon : resumeIcon;
                     pauseResumeButton.setIcon(current);
                 }
             }
@@ -63,6 +64,14 @@ public class MainClientPage extends javax.swing.JPanel
                         Future<String[]> future = automaticUpdater.submit(new AutomaticUpdaterTask());
                         data = future.get();
                         
+                        if(data[0].equals(String.valueOf(true)))
+                        {
+                            toggler.pause();
+                        }
+                        else
+                        {
+                            toggler.resume();
+                        }
                         
                         
                         for (int i = 0; i < data.length; i++) 
