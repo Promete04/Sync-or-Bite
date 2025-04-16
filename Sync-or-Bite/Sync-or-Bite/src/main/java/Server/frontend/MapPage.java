@@ -27,14 +27,14 @@ public class MapPage extends javax.swing.JPanel
     /**
      * Creates new form map
      */
-    boolean isStopped;
-    ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
-    ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
-    ImageIcon humanIcon= new ImageIcon(getClass().getResource( "/images/HumanIcon.png" ));
-    ImageIcon zombieIcon= new ImageIcon(getClass().getResource( "/images/ZombieIcon.png" ));
-    ImageIcon diningIcon= new ImageIcon(getClass().getResource( "/images/DiningRoomicon.png" ));
-    ImageIcon groupIcon= new ImageIcon(getClass().getResource( "/images/Groupicon.png" ));
-    PauseManager  pm;
+    private boolean isStopped;
+    private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
+    private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
+    private ImageIcon humanIcon= new ImageIcon(getClass().getResource( "/images/HumanIcon.png" ));
+    private ImageIcon zombieIcon= new ImageIcon(getClass().getResource( "/images/ZombieIcon.png" ));
+    private ImageIcon diningIcon= new ImageIcon(getClass().getResource( "/images/DiningRoomicon.png" ));
+    private ImageIcon groupIcon= new ImageIcon(getClass().getResource( "/images/Groupicon.png" ));
+    private PauseManager  pm;
     private final Map<String, JLabel> Counters = new HashMap<>();
     private final Map<String, JPanel> Panels = new HashMap<>();
     
