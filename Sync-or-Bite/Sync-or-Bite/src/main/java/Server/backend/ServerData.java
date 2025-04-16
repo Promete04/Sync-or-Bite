@@ -46,7 +46,7 @@ public class ServerData extends Thread
 
                 if(request.equals("get")) 
                 {
-                    String data =pm.isPaused()
+                    String data = pm.isPaused()
                             + "|" + r.getCount().get()                 // Number of humans in refuge
                             + "|" + t.obtainTunnel(0).getInTunnel() + "|" + t.obtainTunnel(1).getInTunnel() + "|" + t.obtainTunnel(2).getInTunnel() + "|" + t.obtainTunnel(3).getInTunnel()       // Number of humans in each tunnel
                             + "|" + rk.accessUnsafeArea(0).getHumansInside().get() + "|" + rk.accessUnsafeArea(1).getHumansInside().get() + "|" + rk.accessUnsafeArea(2).getHumansInside().get() + "|" + rk.accessUnsafeArea(3).getHumansInside().get() // Number of humans in each unsafe area

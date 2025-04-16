@@ -5,7 +5,6 @@
 package Client.frontend;
 
 import static Server.frontend.ServerApp.currentPanel;
-import static Server.frontend.ServerApp.frame;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.HashMap;

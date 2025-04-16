@@ -80,7 +80,7 @@ public class MainClientPage extends javax.swing.JPanel
                         }
                         System.out.println(); 
 
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     }
                 } 
                 catch (Exception e) 
