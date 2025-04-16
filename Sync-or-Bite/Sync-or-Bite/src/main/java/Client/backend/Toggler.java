@@ -10,11 +10,14 @@ import javax.crypto.SecretKey;
 import java.security.PublicKey;
 import utils.ClientCryptoUtils;
 
-public class Toggler {
+public class Toggler 
+{
     private boolean paused = false;
 
-    public void togglePause() {
-        try {
+    public void togglePause() 
+    {
+        try 
+        {
             // Step 1: Fetch server public key
             PublicKey serverKey = ClientCryptoUtils.fetchServerPublicKey();
 
@@ -39,12 +42,15 @@ public class Toggler {
 
             paused = !paused;
             socket.close();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
     }
 
-    public boolean isPaused() {
+    public boolean isPaused()
+    {
         return paused;
     }
 }

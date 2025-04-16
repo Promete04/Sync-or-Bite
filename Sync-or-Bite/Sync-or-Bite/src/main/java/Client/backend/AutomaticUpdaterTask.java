@@ -11,11 +11,14 @@ import javax.crypto.SecretKey;
 import java.security.PublicKey;
 import utils.ClientCryptoUtils;
 
-public class AutomaticUpdaterTask implements Callable<String[]> {
+public class AutomaticUpdaterTask implements Callable<String[]>
+{
     @Override
-    public String[] call() {
+    public String[] call() 
+    {
         String[] individualData = null;
-        try {
+        try 
+        {
             // Step 1: Fetch RSA public key from server
             PublicKey serverKey = ClientCryptoUtils.fetchServerPublicKey();
 
@@ -38,7 +41,9 @@ public class AutomaticUpdaterTask implements Callable<String[]> {
             individualData = response.split("\\|");
 
             socket.close();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
 

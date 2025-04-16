@@ -13,12 +13,14 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
 import java.util.Base64;
 
-public class ServerCryptoUtils {
+public class ServerCryptoUtils 
+{
     private final PrivateKey privateKey;
     private final PublicKey publicKey;
 
     // Generate RSA key pair at server startup
-    public ServerCryptoUtils() throws Exception {
+    public ServerCryptoUtils() throws Exception 
+    {
         KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
         generator.initialize(2048);
         KeyPair pair = generator.generateKeyPair();
@@ -27,12 +29,14 @@ public class ServerCryptoUtils {
     }
 
     // Get the Base64-encoded public RSA key to send to the client
-    public String getEncodedPublicKey() {
+    public String getEncodedPublicKey() 
+    {
         return Base64.getEncoder().encodeToString(publicKey.getEncoded());
     }
 
     // Decrypt AES key received from client using the private RSA key
-    public SecretKey decryptAESKey(String encryptedAESKey) throws Exception {
+    public SecretKey decryptAESKey(String encryptedAESKey) throws Exception 
+    {
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         byte[] aesKeyBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedAESKey));
@@ -40,7 +44,8 @@ public class ServerCryptoUtils {
     }
 
     // Decrypt an AES-encrypted message
-    public String decryptAESMessage(String encryptedMessage, SecretKey aesKey) throws Exception {
+    public String decryptAESMessage(String encryptedMessage, SecretKey aesKey) throws Exception
+    {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.DECRYPT_MODE, aesKey);
         byte[] decoded = Base64.getDecoder().decode(encryptedMessage);
@@ -48,7 +53,8 @@ public class ServerCryptoUtils {
     }
 
     // Encrypt a message with AES to send back to client
-    public String encryptAESMessage(String message, SecretKey aesKey) throws Exception {
+    public String encryptAESMessage(String message, SecretKey aesKey) throws Exception
+    {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, aesKey);
         byte[] encrypted = cipher.doFinal(message.getBytes());

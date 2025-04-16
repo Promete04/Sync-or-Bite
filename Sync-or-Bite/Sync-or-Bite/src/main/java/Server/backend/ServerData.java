@@ -9,27 +9,33 @@ import java.net.*;
 import javax.crypto.SecretKey;
 import utils.ServerCryptoUtils;
 
-public class ServerData extends Thread {
+public class ServerData extends Thread
+{
     private PauseManager pm;
     private Refuge r;
     private Tunnels t;
     private RiskZone rk;
     private ServerCryptoUtils crypto;
 
-    public ServerData(PauseManager pm, Tunnels t, Refuge r, RiskZone rk) {
+    public ServerData(PauseManager pm, Tunnels t, Refuge r, RiskZone rk) 
+    {
         this.pm = pm;
         this.t = t;
         this.r = r;
         this.rk = rk;
-        try {
+        try 
+        {
             this.crypto = new ServerCryptoUtils(); // Create RSA key pair once
-        } catch (Exception e) {
+        } 
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
     // Return the data snapshot to the client
-    private String getData() {
+    private String getData()
+    {
         return r.getCount().get()
                 + "|" + t.obtainTunnel(0).getInTunnel() + "|" + t.obtainTunnel(1).getInTunnel() + "|" + t.obtainTunnel(2).getInTunnel() + "|" + t.obtainTunnel(3).getInTunnel()
                 + "|" + rk.accessUnsafeArea(0).getHumansInside() + "|" + rk.accessUnsafeArea(1).getHumansInside() + "|" + rk.accessUnsafeArea(2).getHumansInside() + "|" + rk.accessUnsafeArea(3).getHumansInside()
@@ -37,10 +43,13 @@ public class ServerData extends Thread {
                 + "|" + rk.obtainTopKillers();
     }
 
-    public void run() {
-        try {
+    public void run() 
+    {
+        try 
+        {
             ServerSocket server = new ServerSocket(1);
-            while (true) {
+            while (true)
+            {
                 Socket connection = server.accept();
                 DataInputStream input = new DataInputStream(connection.getInputStream());
                 DataOutputStream output = new DataOutputStream(connection.getOutputStream());
@@ -48,9 +57,12 @@ public class ServerData extends Thread {
                 String request = input.readUTF();
 
                 // Step 1: Send public key to client
-                if (request.equals("public_key")) {
+                if (request.equals("public_key")) 
+                {
                     output.writeUTF(crypto.getEncodedPublicKey());
-                } else {
+                } 
+                else 
+                {
                     // Step 2: Decrypt AES key from client
                     SecretKey aesKey = crypto.decryptAESKey(request);
 
@@ -60,12 +72,17 @@ public class ServerData extends Thread {
 
                     // Step 4: Handle command and prepare response
                     String response;
-                    if (command.equals("get")) {
+                    if (command.equals("get")) 
+                    {
                         response = getData();
-                    } else if (command.equals("pause")) {
+                    }
+                    else if (command.equals("pause")) 
+                    {
                         pm.pause();
                         response = "Paused";
-                    } else {
+                    }
+                    else 
+                    {
                         pm.resume();
                         response = "Resumed";
                     }
@@ -76,7 +93,9 @@ public class ServerData extends Thread {
 
                 connection.close();
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
     }
