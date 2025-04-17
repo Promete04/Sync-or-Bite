@@ -73,13 +73,14 @@ public class MainClientPage extends javax.swing.JPanel
             public void run() 
             {
                 String[] data;
+                boolean isID= true;
                 try 
                 {
                     while (true) 
                     {
                         Future<String[]> future = automaticUpdater.submit(new AutomaticUpdaterTask());
                         data = future.get();
-                        boolean isID= true;
+                        
                         for (int i = 0; i < data.length; i++) 
                         {
                             if(i!=0 && i<14)
@@ -112,7 +113,14 @@ public class MainClientPage extends javax.swing.JPanel
                             }
                             System.out.print(data[i]+"|");
                         }
+                        try
+                        {
                         setTop3();
+                        }
+                        catch(Exception e)
+                        {
+                        }
+                        
                         System.out.println(); 
 
                         Thread.sleep(500);
@@ -128,7 +136,7 @@ public class MainClientPage extends javax.swing.JPanel
         Thread updater = new Thread(r);
         updater.start();
     }
-    public void setTop3() 
+    public void setTop3() throws Exception
     {
         Integer total=0;
         for(int i=0;i<3;i++)
@@ -523,7 +531,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel28.setLayout(new java.awt.BorderLayout());
 
         TOP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TOP1.setText("Z-----");
+        TOP1.setText("Z----");
         jPanel28.add(TOP1, java.awt.BorderLayout.CENTER);
 
         PTOP1.setBackground(utils.ColorManager.BG_COLOR);
@@ -538,10 +546,10 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel29.setLayout(new java.awt.BorderLayout());
 
         TOP3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TOP3.setText("Z-----");
+        TOP3.setText("Z----");
         jPanel29.add(TOP3, java.awt.BorderLayout.CENTER);
 
-        PTOP3.setBackground(utils.ColorManager.BG_COLOR);
+        PTOP3.setBackground(utils.ColorManager.ATACKING_COLOR);
         PTOP3.setForeground(utils.ColorManager.MAIN_COLOR);
         PTOP3.setOrientation(1);
         PTOP3.setValue(10);

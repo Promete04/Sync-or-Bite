@@ -122,7 +122,7 @@ public class RiskZone
             }
             else
             {
-                sb.append("Z-----"+"|"+"0"+"|");
+                sb.append("Z----"+"|"+"0"+"|");
             }
         }
         return sb.toString();
