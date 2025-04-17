@@ -34,8 +34,6 @@ public class MainClientPage extends javax.swing.JPanel
     private final Map<Integer, JLabel> Top3 = new HashMap<>();
     private final Map<Integer, JProgressBar> PTop3 = new HashMap<>();
     
-    private List<Integer> topZombiesKills = new ArrayList<>();  
-    private List<String> topZombiesIDs = new ArrayList<>();  
     
 
     /**
@@ -45,8 +43,6 @@ public class MainClientPage extends javax.swing.JPanel
     {
         initComponents();
         setupLabels();
-        setupTop3();
-        setupPTop3();
         
         Runnable pc = new Runnable()
         {
@@ -73,17 +69,17 @@ public class MainClientPage extends javax.swing.JPanel
             public void run() 
             {
                 String[] data;
-                boolean isID= true;
+
                 try 
                 {
                     while (true) 
                     {
                         Future<String[]> future = automaticUpdater.submit(new AutomaticUpdaterTask());
                         data = future.get();
-                        
+
                         for (int i = 0; i < data.length; i++) 
                         {
-                            if(i!=0 && i<14)
+                            if(i!=0 && i<=14 || i==16 || i==18)
                             {
                                 JLabel label = Labels.get(i);
                                 label.setText(data[i]);
@@ -101,25 +97,11 @@ public class MainClientPage extends javax.swing.JPanel
                             }
                             else
                             {
-                               if(isID)
-                                {
-                                   topZombiesIDs.add(data[i]);
-                                }
-                               else
-                                {
-                                   topZombiesKills.add(Integer.getInteger(data[i]));
-                                }
-                               isID=!isID;
+                               
                             }
                             System.out.print(data[i]+"|");
                         }
-                        try
-                        {
-                        setTop3();
-                        }
-                        catch(Exception e)
-                        {
-                        }
+                        
                         
                         System.out.println(); 
 
@@ -136,33 +118,6 @@ public class MainClientPage extends javax.swing.JPanel
         Thread updater = new Thread(r);
         updater.start();
     }
-    public void setTop3() throws Exception
-    {
-        Integer total=0;
-        for(int i=0;i<3;i++)
-        {
-            total=total+topZombiesKills.get(i);
-            JLabel current= Top3.get(i);
-            current.setText(topZombiesIDs.get(i));
-        }
-        for(int i=0;i<3;i++)
-        {
-            total=total+topZombiesKills.get(i);
-            JProgressBar current= PTop3.get(i);
-            current.setValue((topZombiesKills.get(i)/total)*100);
-        }
-        topZombiesIDs.clear();
-        topZombiesKills.clear();
-    }
-    public void clearTop3()
-    {
-        TOP1.setText("Z-----");
-        TOP2.setText("Z-----");
-        TOP3.setText("Z-----");
-        PTOP1.setValue(0);
-        PTOP2.setValue(0);
-        PTOP3.setValue(0);
-    }
     private void setupLabels() 
     {
          Labels.put(1,HR);
@@ -178,21 +133,10 @@ public class MainClientPage extends javax.swing.JPanel
          Labels.put(11, ZR2);
          Labels.put(12, ZR3);
          Labels.put(13, ZR4);
+         Labels.put(14,top1);
+         Labels.put(16, top2);
+         Labels.put(18,top3);
     }
-    private void setupTop3()
-    {
-        Top3.put(0,TOP1);
-        Top3.put(1,TOP2);
-        Top3.put(2,TOP3);
-    }
-    
-    private void setupPTop3()
-    {
-        PTop3.put(0,PTOP1);
-        PTop3.put(1,PTOP2);
-        PTop3.put(2,PTOP3);
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -253,14 +197,14 @@ public class MainClientPage extends javax.swing.JPanel
         jLabel2 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jPanel25 = new javax.swing.JPanel();
-        TOP2 = new javax.swing.JLabel();
-        PTOP2 = new javax.swing.JProgressBar();
+        top2 = new javax.swing.JLabel();
+        pTop2 = new javax.swing.JProgressBar();
         jPanel28 = new javax.swing.JPanel();
-        TOP1 = new javax.swing.JLabel();
-        PTOP1 = new javax.swing.JProgressBar();
+        top1 = new javax.swing.JLabel();
+        pTop1 = new javax.swing.JProgressBar();
         jPanel29 = new javax.swing.JPanel();
-        TOP3 = new javax.swing.JLabel();
-        PTOP3 = new javax.swing.JProgressBar();
+        top3 = new javax.swing.JLabel();
+        pTop3 = new javax.swing.JProgressBar();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -513,47 +457,44 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel25.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
         jPanel25.setLayout(new java.awt.BorderLayout());
 
-        TOP2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TOP2.setText("Z-----");
-        jPanel25.add(TOP2, java.awt.BorderLayout.CENTER);
+        top2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        top2.setText("Z-----");
+        jPanel25.add(top2, java.awt.BorderLayout.CENTER);
 
-        PTOP2.setBackground(utils.ColorManager.BG_COLOR);
-        PTOP2.setForeground(utils.ColorManager.MAIN_COLOR);
-        PTOP2.setOrientation(1);
-        PTOP2.setToolTipText("");
-        PTOP2.setValue(10);
-        PTOP2.setBorderPainted(false);
-        jPanel25.add(PTOP2, java.awt.BorderLayout.PAGE_END);
+        pTop2.setBackground(utils.ColorManager.BG_COLOR);
+        pTop2.setForeground(utils.ColorManager.MAIN_COLOR);
+        pTop2.setOrientation(1);
+        pTop2.setToolTipText("");
+        pTop2.setBorderPainted(false);
+        jPanel25.add(pTop2, java.awt.BorderLayout.PAGE_END);
 
         jPanel24.add(jPanel25);
 
         jPanel28.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
         jPanel28.setLayout(new java.awt.BorderLayout());
 
-        TOP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TOP1.setText("Z----");
-        jPanel28.add(TOP1, java.awt.BorderLayout.CENTER);
+        top1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        top1.setText("Z----");
+        jPanel28.add(top1, java.awt.BorderLayout.CENTER);
 
-        PTOP1.setBackground(utils.ColorManager.BG_COLOR);
-        PTOP1.setForeground(utils.ColorManager.MAIN_COLOR);
-        PTOP1.setOrientation(1);
-        PTOP1.setValue(10);
-        jPanel28.add(PTOP1, java.awt.BorderLayout.PAGE_END);
+        pTop1.setBackground(utils.ColorManager.BG_COLOR);
+        pTop1.setForeground(utils.ColorManager.MAIN_COLOR);
+        pTop1.setOrientation(1);
+        jPanel28.add(pTop1, java.awt.BorderLayout.PAGE_END);
 
         jPanel24.add(jPanel28);
 
         jPanel29.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
         jPanel29.setLayout(new java.awt.BorderLayout());
 
-        TOP3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TOP3.setText("Z----");
-        jPanel29.add(TOP3, java.awt.BorderLayout.CENTER);
+        top3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        top3.setText("Z----");
+        jPanel29.add(top3, java.awt.BorderLayout.CENTER);
 
-        PTOP3.setBackground(utils.ColorManager.ATACKING_COLOR);
-        PTOP3.setForeground(utils.ColorManager.MAIN_COLOR);
-        PTOP3.setOrientation(1);
-        PTOP3.setValue(10);
-        jPanel29.add(PTOP3, java.awt.BorderLayout.PAGE_END);
+        pTop3.setBackground(utils.ColorManager.ATACKING_COLOR);
+        pTop3.setForeground(utils.ColorManager.MAIN_COLOR);
+        pTop3.setOrientation(1);
+        jPanel29.add(pTop3, java.awt.BorderLayout.PAGE_END);
 
         jPanel24.add(jPanel29);
 
@@ -581,12 +522,6 @@ public class MainClientPage extends javax.swing.JPanel
     private javax.swing.JLabel HT2;
     private javax.swing.JLabel HT3;
     private javax.swing.JLabel HT4;
-    private javax.swing.JProgressBar PTOP1;
-    private javax.swing.JProgressBar PTOP2;
-    private javax.swing.JProgressBar PTOP3;
-    private javax.swing.JLabel TOP1;
-    private javax.swing.JLabel TOP2;
-    private javax.swing.JLabel TOP3;
     private javax.swing.JLabel ZR1;
     private javax.swing.JLabel ZR2;
     private javax.swing.JLabel ZR3;
@@ -630,6 +565,12 @@ public class MainClientPage extends javax.swing.JPanel
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JProgressBar pTop1;
+    private javax.swing.JProgressBar pTop2;
+    private javax.swing.JProgressBar pTop3;
     private javax.swing.JButton pauseResumeButton;
+    private javax.swing.JLabel top1;
+    private javax.swing.JLabel top2;
+    private javax.swing.JLabel top3;
     // End of variables declaration//GEN-END:variables
 }
