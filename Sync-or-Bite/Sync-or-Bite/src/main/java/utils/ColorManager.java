@@ -28,18 +28,20 @@ public class ColorManager {
     public static Color TEXT_COLOR =       new Color(0, 0, 0);
     
     // Input background color
-    public static Color INPUT_BG_COLOR =        new Color(225,225,225);
-    // Disabled background color
-    public static Color ATACKED_COLOR =        new Color(255,0,102);
+    public static Color BG_COLOR =        new Color(200,200,200,90);
+  
+   
     // Transparent color
     public static Color TRANSPARENT_COLOR =     new Color(0,0,0,0);
     
     // Human color
-    public static Color BG_COLOR =              new Color(204,255,204);
+    public static Color HUMAN_COLOR =              new Color(204,255,204);
     // Human waiting for group color
     public static Color WAITING4GROUP_COLOR =          new Color(153,204,0);
-    // Atacked human color
+    // Injured human color
     public static Color INJURED_COLOR =    new Color(255,80,80);
+    //Being atacked color
+     public static Color ATACKED_COLOR =        new Color(255,0,102);
     
     /**
      * Applies ZOMBIE_COLOR to the element when the mouse is hovering

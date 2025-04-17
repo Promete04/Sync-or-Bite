@@ -6,10 +6,17 @@ package Client.frontend;
 
 import Client.backend.AutomaticUpdaterTask;
 import Client.backend.Toggler;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JProgressBar;
+
 
 /**
  *
@@ -23,6 +30,12 @@ public class MainClientPage extends javax.swing.JPanel
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
     
+    private final Map<Integer, JLabel> Labels = new HashMap<>();
+    private final Map<Integer, JLabel> Top3 = new HashMap<>();
+    private final Map<Integer, JProgressBar> PTop3 = new HashMap<>();
+    
+    private List<Integer> topZombiesKills = new ArrayList<>();  
+    private List<String> topZombiesIDs = new ArrayList<>();  
     
 
     /**
@@ -31,6 +44,9 @@ public class MainClientPage extends javax.swing.JPanel
     public MainClientPage() 
     {
         initComponents();
+        setupLabels();
+        setupTop3();
+        setupPTop3();
         
         Runnable pc = new Runnable()
         {
@@ -48,8 +64,8 @@ public class MainClientPage extends javax.swing.JPanel
         pauseChecker.start();
         
         updateData();
+        
     }
-    
     public void updateData()
     {
         Runnable r = new Runnable() 
@@ -63,21 +79,40 @@ public class MainClientPage extends javax.swing.JPanel
                     {
                         Future<String[]> future = automaticUpdater.submit(new AutomaticUpdaterTask());
                         data = future.get();
-                        
-                        if(data[0].equals(String.valueOf(true)))
-                        {
-                            toggler.pause();
-                        }
-                        else
-                        {
-                            toggler.resume();
-                        }
-                        
-                        
+                        boolean isID= true;
                         for (int i = 0; i < data.length; i++) 
                         {
-                            System.out.print(data[i]);
+                            if(i!=0 && i<14)
+                            {
+                                JLabel label = Labels.get(i);
+                                label.setText(data[i]);
+                            }
+                            else if(i==0)
+                            {
+                                if(data[0].equals(String.valueOf(true)))
+                                    {
+                                        toggler.pause();
+                                    }
+                                else
+                                    {
+                                        toggler.resume();
+                                    }
+                            }
+                            else
+                            {
+                               if(isID)
+                                {
+                                   topZombiesIDs.add(data[i]);
+                                }
+                               else
+                                {
+                                   topZombiesKills.add(Integer.getInteger(data[i]));
+                                }
+                               isID=!isID;
+                            }
+                            System.out.print(data[i]+"|");
                         }
+                        setTop3();
                         System.out.println(); 
 
                         Thread.sleep(500);
@@ -93,7 +128,63 @@ public class MainClientPage extends javax.swing.JPanel
         Thread updater = new Thread(r);
         updater.start();
     }
-
+    public void setTop3() 
+    {
+        Integer total=0;
+        for(int i=0;i<3;i++)
+        {
+            total=total+topZombiesKills.get(i);
+            JLabel current= Top3.get(i);
+            current.setText(topZombiesIDs.get(i));
+        }
+        for(int i=0;i<3;i++)
+        {
+            total=total+topZombiesKills.get(i);
+            JProgressBar current= PTop3.get(i);
+            current.setValue((topZombiesKills.get(i)/total)*100);
+        }
+        topZombiesIDs.clear();
+        topZombiesKills.clear();
+    }
+    public void clearTop3()
+    {
+        TOP1.setText("Z-----");
+        TOP2.setText("Z-----");
+        TOP3.setText("Z-----");
+        PTOP1.setValue(0);
+        PTOP2.setValue(0);
+        PTOP3.setValue(0);
+    }
+    private void setupLabels() 
+    {
+         Labels.put(1,HR);
+         Labels.put(2, HT1);
+         Labels.put(3, HT2);
+         Labels.put(4, HT3);
+         Labels.put(5, HT4);
+         Labels.put(6, HR1);
+         Labels.put(7, HR2);
+         Labels.put(8, HR3);
+         Labels.put(9, HR4);
+         Labels.put(10, ZR1);
+         Labels.put(11, ZR2);
+         Labels.put(12, ZR3);
+         Labels.put(13, ZR4);
+    }
+    private void setupTop3()
+    {
+        Top3.put(0,TOP1);
+        Top3.put(1,TOP2);
+        Top3.put(2,TOP3);
+    }
+    
+    private void setupPTop3()
+    {
+        PTop3.put(0,PTOP1);
+        PTop3.put(1,PTOP2);
+        PTop3.put(2,PTOP3);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,7 +193,6 @@ public class MainClientPage extends javax.swing.JPanel
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         pauseResumeButton = new javax.swing.JButton();
@@ -113,45 +203,56 @@ public class MainClientPage extends javax.swing.JPanel
         jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        ZR1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        ZR2 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        ZR3 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        ZR4 = new javax.swing.JLabel();
         jPanel52 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        HR1 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        HR2 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        HR3 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        HR4 = new javax.swing.JLabel();
         jPanel53 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
+        HT1 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        HT2 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        HT3 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
+        HT4 = new javax.swing.JLabel();
         jPanel55 = new javax.swing.JPanel();
         jPanel30 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jPanel34 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
+        HR = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel24 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        TOP2 = new javax.swing.JLabel();
+        PTOP2 = new javax.swing.JProgressBar();
+        jPanel28 = new javax.swing.JPanel();
+        TOP1 = new javax.swing.JLabel();
+        PTOP1 = new javax.swing.JProgressBar();
+        jPanel29 = new javax.swing.JPanel();
+        TOP3 = new javax.swing.JLabel();
+        PTOP3 = new javax.swing.JProgressBar();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -193,40 +294,40 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel7.setForeground(utils.ColorManager.BG_COLOR);
         jPanel7.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setFont(utils.FontManager.regularFont);
-        jLabel2.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel2.setText("jLabel2");
-        jPanel7.add(jLabel2, java.awt.BorderLayout.CENTER);
+        ZR1.setFont(utils.FontManager.regularFont);
+        ZR1.setForeground(utils.ColorManager.TEXT_COLOR);
+        ZR1.setText("0");
+        jPanel7.add(ZR1, java.awt.BorderLayout.CENTER);
 
         jPanel6.add(jPanel7);
 
         jPanel8.setForeground(utils.ColorManager.BG_COLOR);
         jPanel8.setLayout(new java.awt.BorderLayout());
 
-        jLabel3.setFont(utils.FontManager.regularFont);
-        jLabel3.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel3.setText("jLabel2");
-        jPanel8.add(jLabel3, java.awt.BorderLayout.CENTER);
+        ZR2.setFont(utils.FontManager.regularFont);
+        ZR2.setForeground(utils.ColorManager.TEXT_COLOR);
+        ZR2.setText("0");
+        jPanel8.add(ZR2, java.awt.BorderLayout.CENTER);
 
         jPanel6.add(jPanel8);
 
         jPanel9.setForeground(utils.ColorManager.BG_COLOR);
         jPanel9.setLayout(new java.awt.BorderLayout());
 
-        jLabel4.setFont(utils.FontManager.regularFont);
-        jLabel4.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel4.setText("jLabel2");
-        jPanel9.add(jLabel4, java.awt.BorderLayout.CENTER);
+        ZR3.setFont(utils.FontManager.regularFont);
+        ZR3.setForeground(utils.ColorManager.TEXT_COLOR);
+        ZR3.setText("0");
+        jPanel9.add(ZR3, java.awt.BorderLayout.CENTER);
 
         jPanel6.add(jPanel9);
 
         jPanel10.setForeground(utils.ColorManager.BG_COLOR);
         jPanel10.setLayout(new java.awt.BorderLayout());
 
-        jLabel5.setFont(utils.FontManager.regularFont);
-        jLabel5.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel5.setText("jLabel2");
-        jPanel10.add(jLabel5, java.awt.BorderLayout.CENTER);
+        ZR4.setFont(utils.FontManager.regularFont);
+        ZR4.setForeground(utils.ColorManager.TEXT_COLOR);
+        ZR4.setText("0");
+        jPanel10.add(ZR4, java.awt.BorderLayout.CENTER);
 
         jPanel6.add(jPanel10);
 
@@ -254,40 +355,40 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel14.setForeground(utils.ColorManager.BG_COLOR);
         jPanel14.setLayout(new java.awt.BorderLayout());
 
-        jLabel7.setFont(utils.FontManager.regularFont);
-        jLabel7.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel7.setText("jLabel2");
-        jPanel14.add(jLabel7, java.awt.BorderLayout.CENTER);
+        HR1.setFont(utils.FontManager.regularFont);
+        HR1.setForeground(utils.ColorManager.TEXT_COLOR);
+        HR1.setText("0");
+        jPanel14.add(HR1, java.awt.BorderLayout.CENTER);
 
         jPanel13.add(jPanel14);
 
         jPanel15.setForeground(utils.ColorManager.BG_COLOR);
         jPanel15.setLayout(new java.awt.BorderLayout());
 
-        jLabel8.setFont(utils.FontManager.regularFont);
-        jLabel8.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel8.setText("jLabel2");
-        jPanel15.add(jLabel8, java.awt.BorderLayout.CENTER);
+        HR2.setFont(utils.FontManager.regularFont);
+        HR2.setForeground(utils.ColorManager.TEXT_COLOR);
+        HR2.setText("0");
+        jPanel15.add(HR2, java.awt.BorderLayout.CENTER);
 
         jPanel13.add(jPanel15);
 
         jPanel16.setForeground(utils.ColorManager.BG_COLOR);
         jPanel16.setLayout(new java.awt.BorderLayout());
 
-        jLabel9.setFont(utils.FontManager.regularFont);
-        jLabel9.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel9.setText("jLabel2");
-        jPanel16.add(jLabel9, java.awt.BorderLayout.CENTER);
+        HR3.setFont(utils.FontManager.regularFont);
+        HR3.setForeground(utils.ColorManager.TEXT_COLOR);
+        HR3.setText("0");
+        jPanel16.add(HR3, java.awt.BorderLayout.CENTER);
 
         jPanel13.add(jPanel16);
 
         jPanel17.setForeground(utils.ColorManager.BG_COLOR);
         jPanel17.setLayout(new java.awt.BorderLayout());
 
-        jLabel10.setFont(utils.FontManager.regularFont);
-        jLabel10.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel10.setText("jLabel2");
-        jPanel17.add(jLabel10, java.awt.BorderLayout.CENTER);
+        HR4.setFont(utils.FontManager.regularFont);
+        HR4.setForeground(utils.ColorManager.TEXT_COLOR);
+        HR4.setText("0");
+        jPanel17.add(HR4, java.awt.BorderLayout.CENTER);
 
         jPanel13.add(jPanel17);
 
@@ -303,7 +404,7 @@ public class MainClientPage extends javax.swing.JPanel
 
         jLabel11.setFont(utils.FontManager.boldFont);
         jLabel11.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel11.setText("Nº Humans in tunnelsㅤ");
+        jLabel11.setText("Nº Humans in tunnels");
         jLabel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
         jPanel18.add(jLabel11);
 
@@ -315,40 +416,40 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel20.setForeground(utils.ColorManager.BG_COLOR);
         jPanel20.setLayout(new java.awt.BorderLayout());
 
-        jLabel12.setFont(utils.FontManager.regularFont);
-        jLabel12.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel12.setText("jLabel2");
-        jPanel20.add(jLabel12, java.awt.BorderLayout.CENTER);
+        HT1.setFont(utils.FontManager.regularFont);
+        HT1.setForeground(utils.ColorManager.TEXT_COLOR);
+        HT1.setText("0");
+        jPanel20.add(HT1, java.awt.BorderLayout.CENTER);
 
         jPanel19.add(jPanel20);
 
         jPanel21.setForeground(utils.ColorManager.BG_COLOR);
         jPanel21.setLayout(new java.awt.BorderLayout());
 
-        jLabel13.setFont(utils.FontManager.regularFont);
-        jLabel13.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel13.setText("jLabel2");
-        jPanel21.add(jLabel13, java.awt.BorderLayout.CENTER);
+        HT2.setFont(utils.FontManager.regularFont);
+        HT2.setForeground(utils.ColorManager.TEXT_COLOR);
+        HT2.setText("0");
+        jPanel21.add(HT2, java.awt.BorderLayout.CENTER);
 
         jPanel19.add(jPanel21);
 
         jPanel22.setForeground(utils.ColorManager.BG_COLOR);
         jPanel22.setLayout(new java.awt.BorderLayout());
 
-        jLabel14.setFont(utils.FontManager.regularFont);
-        jLabel14.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel14.setText("jLabel2");
-        jPanel22.add(jLabel14, java.awt.BorderLayout.CENTER);
+        HT3.setFont(utils.FontManager.regularFont);
+        HT3.setForeground(utils.ColorManager.TEXT_COLOR);
+        HT3.setText("0");
+        jPanel22.add(HT3, java.awt.BorderLayout.CENTER);
 
         jPanel19.add(jPanel22);
 
         jPanel23.setForeground(utils.ColorManager.BG_COLOR);
         jPanel23.setLayout(new java.awt.BorderLayout());
 
-        jLabel15.setFont(utils.FontManager.regularFont);
-        jLabel15.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel15.setText("jLabel2");
-        jPanel23.add(jLabel15, java.awt.BorderLayout.CENTER);
+        HT4.setFont(utils.FontManager.regularFont);
+        HT4.setForeground(utils.ColorManager.TEXT_COLOR);
+        HT4.setText("0");
+        jPanel23.add(HT4, java.awt.BorderLayout.CENTER);
 
         jPanel19.add(jPanel23);
 
@@ -375,10 +476,10 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel34.setForeground(utils.ColorManager.BG_COLOR);
         jPanel34.setLayout(new java.awt.BorderLayout());
 
-        jLabel24.setFont(utils.FontManager.regularFont);
-        jLabel24.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel24.setText("jLabel2");
-        jPanel34.add(jLabel24, java.awt.BorderLayout.CENTER);
+        HR.setFont(utils.FontManager.regularFont);
+        HR.setForeground(utils.ColorManager.TEXT_COLOR);
+        HR.setText("0");
+        jPanel34.add(HR, java.awt.BorderLayout.CENTER);
 
         jPanel31.add(jPanel34);
 
@@ -388,20 +489,67 @@ public class MainClientPage extends javax.swing.JPanel
 
         jPanel2.add(jPanel3);
 
-        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel4.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 591, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 195, Short.MAX_VALUE)
-        );
+        jLabel2.setFont(utils.FontManager.titleFont);
+        jLabel2.setForeground(utils.ColorManager.TEXT_COLOR);
+        jLabel2.setText("TOP 3 ZOMBIES");
+        jPanel12.add(jLabel2);
 
-        jPanel4.add(jPanel12);
+        jPanel4.add(jPanel12, java.awt.BorderLayout.NORTH);
+
+        jPanel24.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        jPanel24.setForeground(utils.ColorManager.MAIN_COLOR);
+        jPanel24.setLayout(new javax.swing.BoxLayout(jPanel24, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel25.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        jPanel25.setLayout(new java.awt.BorderLayout());
+
+        TOP2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TOP2.setText("Z-----");
+        jPanel25.add(TOP2, java.awt.BorderLayout.CENTER);
+
+        PTOP2.setBackground(utils.ColorManager.BG_COLOR);
+        PTOP2.setForeground(utils.ColorManager.MAIN_COLOR);
+        PTOP2.setOrientation(1);
+        PTOP2.setToolTipText("");
+        PTOP2.setValue(10);
+        PTOP2.setBorderPainted(false);
+        jPanel25.add(PTOP2, java.awt.BorderLayout.PAGE_END);
+
+        jPanel24.add(jPanel25);
+
+        jPanel28.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        jPanel28.setLayout(new java.awt.BorderLayout());
+
+        TOP1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TOP1.setText("Z-----");
+        jPanel28.add(TOP1, java.awt.BorderLayout.CENTER);
+
+        PTOP1.setBackground(utils.ColorManager.BG_COLOR);
+        PTOP1.setForeground(utils.ColorManager.MAIN_COLOR);
+        PTOP1.setOrientation(1);
+        PTOP1.setValue(10);
+        jPanel28.add(PTOP1, java.awt.BorderLayout.PAGE_END);
+
+        jPanel24.add(jPanel28);
+
+        jPanel29.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        jPanel29.setLayout(new java.awt.BorderLayout());
+
+        TOP3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TOP3.setText("Z-----");
+        jPanel29.add(TOP3, java.awt.BorderLayout.CENTER);
+
+        PTOP3.setBackground(utils.ColorManager.BG_COLOR);
+        PTOP3.setForeground(utils.ColorManager.MAIN_COLOR);
+        PTOP3.setOrientation(1);
+        PTOP3.setValue(10);
+        jPanel29.add(PTOP3, java.awt.BorderLayout.PAGE_END);
+
+        jPanel24.add(jPanel29);
+
+        jPanel4.add(jPanel24, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(jPanel4);
 
@@ -416,23 +564,30 @@ public class MainClientPage extends javax.swing.JPanel
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel HR;
+    private javax.swing.JLabel HR1;
+    private javax.swing.JLabel HR2;
+    private javax.swing.JLabel HR3;
+    private javax.swing.JLabel HR4;
+    private javax.swing.JLabel HT1;
+    private javax.swing.JLabel HT2;
+    private javax.swing.JLabel HT3;
+    private javax.swing.JLabel HT4;
+    private javax.swing.JProgressBar PTOP1;
+    private javax.swing.JProgressBar PTOP2;
+    private javax.swing.JProgressBar PTOP3;
+    private javax.swing.JLabel TOP1;
+    private javax.swing.JLabel TOP2;
+    private javax.swing.JLabel TOP3;
+    private javax.swing.JLabel ZR1;
+    private javax.swing.JLabel ZR2;
+    private javax.swing.JLabel ZR3;
+    private javax.swing.JLabel ZR4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -449,6 +604,10 @@ public class MainClientPage extends javax.swing.JPanel
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;

@@ -127,7 +127,7 @@ public class MapPage extends javax.swing.JPanel
 
         JLabel label = new JLabel(labelText);
         label.setOpaque(true);
-        label.setBackground(utils.ColorManager.BG_COLOR); 
+        label.setBackground(utils.ColorManager.HUMAN_COLOR); 
         label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
 
         targetPanel.add(label);
@@ -362,7 +362,7 @@ public class MapPage extends javax.swing.JPanel
         refugeIcon = new javax.swing.JButton();
         refugeCounter = new javax.swing.JLabel();
 
-        setBackground(utils.ColorManager.INPUT_BG_COLOR);
+        setBackground(utils.ColorManager.BG_COLOR);
         setForeground(utils.ColorManager.BG_COLOR);
         setLayout(new java.awt.BorderLayout());
 
@@ -432,7 +432,7 @@ public class MapPage extends javax.swing.JPanel
         jPanel1.setForeground(utils.ColorManager.BG_COLOR);
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        riskZonePanel1.setForeground(utils.ColorManager.INPUT_BG_COLOR);
+        riskZonePanel1.setForeground(utils.ColorManager.BG_COLOR);
         riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         RiskHuman1.setLayout(new javax.swing.BoxLayout(RiskHuman1, javax.swing.BoxLayout.Y_AXIS));
@@ -739,7 +739,7 @@ public class MapPage extends javax.swing.JPanel
 
         commonAreaPanel1.add(commonAreaPanel, java.awt.BorderLayout.CENTER);
 
-        commonAreainfo.setForeground(utils.ColorManager.INPUT_BG_COLOR);
+        commonAreainfo.setForeground(utils.ColorManager.BG_COLOR);
 
         commonHumanIcon.setText("jButton1");
         commonHumanIcon.setEnabled(false);
@@ -770,7 +770,7 @@ public class MapPage extends javax.swing.JPanel
 
         diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
 
-        diningRoomInfo.setForeground(utils.ColorManager.INPUT_BG_COLOR);
+        diningRoomInfo.setForeground(utils.ColorManager.BG_COLOR);
 
         diningHumanIcon.setText("jButton4");
         diningHumanIcon.setEnabled(false);
@@ -806,7 +806,7 @@ public class MapPage extends javax.swing.JPanel
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);
 
-        restAreaInfo.setForeground(utils.ColorManager.INPUT_BG_COLOR);
+        restAreaInfo.setForeground(utils.ColorManager.BG_COLOR);
 
         restHumanIcon.setText("jButton5");
         restHumanIcon.setEnabled(false);

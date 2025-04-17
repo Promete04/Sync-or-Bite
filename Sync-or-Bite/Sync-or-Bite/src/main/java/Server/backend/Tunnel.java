@@ -101,7 +101,7 @@ public class Tunnel
             logger.log("Barrier broken for human " + h.getHumanId() + ": " + e.getMessage());
         }
         // Now, cross the tunnel individually.
-        mapPage.setLabelColorInPanel("TE"+String.valueOf(ID+1), h.getHumanId(), utils.ColorManager.BG_COLOR);
+        mapPage.setLabelColorInPanel("TE"+String.valueOf(ID+1), h.getHumanId(), utils.ColorManager.HUMAN_COLOR);
        
         pm.check();
         // Use the usingLock to ensure only one human is in the tunnel.

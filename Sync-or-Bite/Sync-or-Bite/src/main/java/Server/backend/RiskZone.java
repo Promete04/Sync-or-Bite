@@ -120,6 +120,10 @@ public class RiskZone
             {
                 sb.append(topKillers[i].getZombieId()).append("|").append(topKillers[i].getKillCount()).append("|");
             }
+            else
+            {
+                sb.append("Z-----"+"|"+"0"+"|");
+            }
         }
         return sb.toString();
     }
