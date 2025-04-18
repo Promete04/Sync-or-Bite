@@ -13,10 +13,17 @@ import java.net.*;
  */
 public class Toggler 
 {
+    private Runnable pauseStateListener;
+    
     private boolean paused = false;
     
     public Toggler()
     {
+    }
+    
+     public void setPauseStateListener(Runnable listener) 
+    {
+    this.pauseStateListener = listener;
     }
     
     public void togglePause() 
@@ -31,6 +38,7 @@ public class Toggler
             output.writeUTF("togglePause");
 
             paused = !paused;
+            pauseStateListener.run();
             socket.close();
         } 
         catch (IOException e) 
@@ -43,15 +51,23 @@ public class Toggler
     {
         return paused;
     }
-    
+
     //methods to allow synchronization
     public void pause()
     {
-        paused=false;
+        if(!paused)
+        {
+        paused=true;
+        pauseStateListener.run();
+        }
     }
     public void resume()
     {
-        paused=true;
+        if(paused)
+        {
+        paused=false;
+        pauseStateListener.run();
+        }
     }
     
 }

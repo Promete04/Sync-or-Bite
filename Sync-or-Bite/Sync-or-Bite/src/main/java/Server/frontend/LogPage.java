@@ -42,19 +42,12 @@ public class LogPage extends javax.swing.JPanel
         mapButton.setIcon(new ImageIcon(getClass().getResource("/images/MapIcon.png")));
         mapButton.setBorder(null);
         
-        Runnable pc = new Runnable()
-        {
-            public void run()
-            {
-                while(true) 
-                {
-                    ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
-                    pauseResumeButton.setIcon(current);
-                }
-            }
-        }; 
-        Thread pauseChecker = new Thread(pc);
-        pauseChecker.start();
+        ImageIcon initialState = pm.isPaused() ?  resumeIcon : pauseIcon;
+        
+        pm.setPauseStateListener(() -> {
+            ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
+            pauseResumeButton.setIcon(current);
+        });
        
         // Load existing log file content
         loadLogs();
@@ -104,13 +97,6 @@ public class LogPage extends javax.swing.JPanel
     public void onNewLog(String logEntry)
     {
         logsArea.append(logEntry + "\n");  
-    }
-
-    public void pauseResume()
-    {
-       pm.togglePause();
-       ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
-       pauseResumeButton.setIcon(current);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,7 +167,7 @@ public class LogPage extends javax.swing.JPanel
     }//GEN-LAST:event_mapButtonActionPerformed
 
     private void pauseResumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseResumeButtonActionPerformed
-        pauseResume();
+        pm.togglePause();
     }//GEN-LAST:event_pauseResumeButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

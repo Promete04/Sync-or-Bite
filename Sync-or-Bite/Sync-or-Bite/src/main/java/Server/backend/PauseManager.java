@@ -15,6 +15,9 @@ import java.util.concurrent.locks.ReentrantLock;
 public class PauseManager 
 {
     private boolean paused = false;
+    
+    private Runnable pauseStateListener;
+    
     private final Lock lock = new ReentrantLock();
     private final Condition stop = lock.newCondition();
 
@@ -44,6 +47,7 @@ public class PauseManager
         try 
         {
             paused = !paused;
+            pauseStateListener.run();
             if(!paused)
             {
                 stop.signalAll();
@@ -56,6 +60,11 @@ public class PauseManager
     }
 
  
+    public void setPauseStateListener(Runnable listener) 
+    {
+    this.pauseStateListener = listener;
+    }
+    
     public boolean isPaused()
     {
         return paused;

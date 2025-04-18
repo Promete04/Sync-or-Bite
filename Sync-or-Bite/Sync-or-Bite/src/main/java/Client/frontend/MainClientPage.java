@@ -44,20 +44,10 @@ public class MainClientPage extends javax.swing.JPanel
         initComponents();
         setupLabels();
         
-        Runnable pc = new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                while(true) 
-                {
-                    ImageIcon current = toggler.isPaused()? pauseIcon : resumeIcon;
-                    pauseResumeButton.setIcon(current);
-                }
-            }
-        }; 
-        Thread pauseChecker = new Thread(pc);
-        pauseChecker.start();
+        toggler.setPauseStateListener(() -> {
+            ImageIcon current = toggler.isPaused() ? pauseIcon : resumeIcon;
+            pauseResumeButton.setIcon(current);
+        });
         
         updateData();
         
@@ -88,11 +78,11 @@ public class MainClientPage extends javax.swing.JPanel
                             {
                                 if(data[0].equals(String.valueOf(true)))
                                     {
-                                        toggler.pause();
+                                        toggler.resume();
                                     }
                                 else
                                     {
-                                        toggler.resume();
+                                        toggler.pause();
                                     }
                             }
                             else
@@ -507,8 +497,6 @@ public class MainClientPage extends javax.swing.JPanel
 
     private void pauseResumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseResumeButtonActionPerformed
         toggler.togglePause();
-        ImageIcon current= toggler.isPaused() ? resumeIcon : resumeIcon;
-        pauseResumeButton.setIcon(current);
     }//GEN-LAST:event_pauseResumeButtonActionPerformed
 
 

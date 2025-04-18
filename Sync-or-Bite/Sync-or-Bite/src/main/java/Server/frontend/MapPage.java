@@ -43,25 +43,17 @@ public class MapPage extends javax.swing.JPanel
         this.pm = ServerApp.getPM();
         
         initComponents();
+        
         confButtons();
-        ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
-        pauseResumeButton.setIcon(current);
         setupCounters();
         setupPanels();
         
-        Runnable pc = new Runnable()
-        {
-            public void run()
-            {
-                while(true) 
-                {
-                    ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
-                    pauseResumeButton.setIcon(current);
-                }
-            }
-        }; 
-        Thread pauseChecker = new Thread(pc);
-        pauseChecker.start();
+        pauseResumeButton.setIcon(pauseIcon);
+
+        pm.setPauseStateListener(() -> {
+            ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
+            pauseResumeButton.setIcon(current);
+        });
     }
     private void setupPanels() 
     {
