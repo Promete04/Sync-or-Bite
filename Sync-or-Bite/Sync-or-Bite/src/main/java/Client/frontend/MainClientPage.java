@@ -97,6 +97,10 @@ public class MainClientPage extends javax.swing.JPanel
                                         int val2 = Integer.parseInt(data[17]);
                                         int val3 = Integer.parseInt(data[19]);
                                         
+                                        kill1.setText(data[15]);
+                                        kill2.setText(data[17]);
+                                        kill3.setText(data[19]);
+                                        
                                         pTop1.setValue((val1 * 100) / finalTotalKills);
                                         pTop2.setValue((val2 * 100) / finalTotalKills);
                                         pTop3.setValue((val3 * 100) / finalTotalKills);
@@ -214,12 +218,15 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel25 = new javax.swing.JPanel();
         top2 = new javax.swing.JLabel();
         pTop2 = new javax.swing.JProgressBar();
+        kill2 = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
         top1 = new javax.swing.JLabel();
         pTop1 = new javax.swing.JProgressBar();
+        kill1 = new javax.swing.JLabel();
         jPanel29 = new javax.swing.JPanel();
         top3 = new javax.swing.JLabel();
         pTop3 = new javax.swing.JProgressBar();
+        kill3 = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -469,7 +476,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel24.setForeground(utils.ColorManager.MAIN_COLOR);
         jPanel24.setLayout(new javax.swing.BoxLayout(jPanel24, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel25.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        jPanel25.setBorder(javax.swing.BorderFactory.createEmptyBorder(-2, 5, 1, 5));
         jPanel25.setLayout(new java.awt.BorderLayout());
 
         top2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -483,9 +490,12 @@ public class MainClientPage extends javax.swing.JPanel
         pTop2.setBorderPainted(false);
         jPanel25.add(pTop2, java.awt.BorderLayout.PAGE_END);
 
+        kill2.setText("0");
+        jPanel25.add(kill2, java.awt.BorderLayout.LINE_END);
+
         jPanel24.add(jPanel25);
 
-        jPanel28.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        jPanel28.setBorder(javax.swing.BorderFactory.createEmptyBorder(-2, 5, 1, 5));
         jPanel28.setLayout(new java.awt.BorderLayout());
 
         top1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -498,9 +508,12 @@ public class MainClientPage extends javax.swing.JPanel
         pTop1.setBorderPainted(false);
         jPanel28.add(pTop1, java.awt.BorderLayout.PAGE_END);
 
+        kill1.setText("0");
+        jPanel28.add(kill1, java.awt.BorderLayout.LINE_END);
+
         jPanel24.add(jPanel28);
 
-        jPanel29.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        jPanel29.setBorder(javax.swing.BorderFactory.createEmptyBorder(-2, 5, 1, 5));
         jPanel29.setLayout(new java.awt.BorderLayout());
 
         top3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -512,6 +525,9 @@ public class MainClientPage extends javax.swing.JPanel
         pTop3.setOrientation(1);
         pTop3.setBorderPainted(false);
         jPanel29.add(pTop3, java.awt.BorderLayout.PAGE_END);
+
+        kill3.setText("0");
+        jPanel29.add(kill3, java.awt.BorderLayout.LINE_END);
 
         jPanel24.add(jPanel29);
 
@@ -580,6 +596,9 @@ public class MainClientPage extends javax.swing.JPanel
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel kill1;
+    private javax.swing.JLabel kill2;
+    private javax.swing.JLabel kill3;
     private javax.swing.JProgressBar pTop1;
     private javax.swing.JProgressBar pTop2;
     private javax.swing.JProgressBar pTop3;
