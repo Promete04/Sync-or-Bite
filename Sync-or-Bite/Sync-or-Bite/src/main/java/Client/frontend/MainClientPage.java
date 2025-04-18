@@ -96,20 +96,21 @@ public class MainClientPage extends javax.swing.JPanel
                                         int val1 = Integer.parseInt(data[15]);
                                         int val2 = Integer.parseInt(data[17]);
                                         int val3 = Integer.parseInt(data[19]);
+                                        
+                                        pTop1.setValue((val1 * 100) / finalTotalKills);
+                                        pTop2.setValue((val2 * 100) / finalTotalKills);
+                                        pTop3.setValue((val3 * 100) / finalTotalKills);
+                                        
 
-                                        SwingUtilities.invokeLater(() -> 
-                                        {
-                                            pTop1.setValue((val1 * 100) / finalTotalKills);
-                                            pTop2.setValue((val2 * 100) / finalTotalKills);
-                                            pTop3.setValue((val3 * 100) / finalTotalKills);
+                                        //method to avoid conflicts and corruption of the gui
+                                        pTop1.getParent().revalidate();
+                                        pTop1.getParent().repaint();
+                                        pTop2.getParent().revalidate();
+                                        pTop2.getParent().repaint();
+                                        pTop3.getParent().revalidate();
+                                        pTop3.getParent().repaint();
 
-                                            pTop1.getParent().revalidate();
-                                            pTop1.getParent().repaint();
-                                            pTop2.getParent().revalidate();
-                                            pTop2.getParent().repaint();
-                                            pTop3.getParent().revalidate();
-                                            pTop3.getParent().repaint();
-                                        });
+
                                     }
                             }
 
@@ -507,7 +508,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel29.add(top3, java.awt.BorderLayout.CENTER);
 
         pTop3.setBackground(utils.ColorManager.BG_COLOR);
-        pTop3.setForeground(utils.ColorManager.ATACKING_COLOR);
+        pTop3.setForeground(utils.ColorManager.MAIN_COLOR);
         pTop3.setOrientation(1);
         pTop3.setBorderPainted(false);
         jPanel29.add(pTop3, java.awt.BorderLayout.PAGE_END);
