@@ -13,9 +13,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -31,9 +30,7 @@ public class MainClientPage extends javax.swing.JPanel
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
     
     private final Map<Integer, JLabel> Labels = new HashMap<>();
-    private final Map<Integer, JLabel> Top3 = new HashMap<>();
-    private final Map<Integer, JProgressBar> PTop3 = new HashMap<>();
-    
+    private final Map<Integer, JProgressBar> Progress = new HashMap<>();
     
 
     /**
@@ -43,6 +40,10 @@ public class MainClientPage extends javax.swing.JPanel
     {
         initComponents();
         setupLabels();
+        
+        pTop1.setStringPainted(false);
+        pTop2.setStringPainted(false);
+        pTop3.setStringPainted(false);
         
         toggler.setPauseStateListener(() -> {
             ImageIcon current = toggler.isPaused() ? pauseIcon : resumeIcon;
@@ -64,9 +65,10 @@ public class MainClientPage extends javax.swing.JPanel
                 {
                     while (true) 
                     {
+                        int totalKills=0;
                         Future<String[]> future = automaticUpdater.submit(new AutomaticUpdaterTask());
                         data = future.get();
-
+                        
                         for (int i = 0; i < data.length; i++) 
                         {
                             if(i!=0 && i<=14 || i==16 || i==18)
@@ -87,8 +89,30 @@ public class MainClientPage extends javax.swing.JPanel
                             }
                             else
                             {
-                               
+                               totalKills=totalKills+Integer.parseInt(data[i]);
+                               if (totalKills != 0) 
+                                     {
+                                        int finalTotalKills = totalKills;
+                                        int val1 = Integer.parseInt(data[15]);
+                                        int val2 = Integer.parseInt(data[17]);
+                                        int val3 = Integer.parseInt(data[19]);
+
+                                        SwingUtilities.invokeLater(() -> 
+                                        {
+                                            pTop1.setValue((val1 * 100) / finalTotalKills);
+                                            pTop2.setValue((val2 * 100) / finalTotalKills);
+                                            pTop3.setValue((val3 * 100) / finalTotalKills);
+
+                                            pTop1.getParent().revalidate();
+                                            pTop1.getParent().repaint();
+                                            pTop2.getParent().revalidate();
+                                            pTop2.getParent().repaint();
+                                            pTop3.getParent().revalidate();
+                                            pTop3.getParent().repaint();
+                                        });
+                                    }
                             }
+
                             System.out.print(data[i]+"|");
                         }
                         
@@ -470,6 +494,7 @@ public class MainClientPage extends javax.swing.JPanel
         pTop1.setBackground(utils.ColorManager.BG_COLOR);
         pTop1.setForeground(utils.ColorManager.MAIN_COLOR);
         pTop1.setOrientation(1);
+        pTop1.setBorderPainted(false);
         jPanel28.add(pTop1, java.awt.BorderLayout.PAGE_END);
 
         jPanel24.add(jPanel28);
@@ -481,9 +506,10 @@ public class MainClientPage extends javax.swing.JPanel
         top3.setText("Z----");
         jPanel29.add(top3, java.awt.BorderLayout.CENTER);
 
-        pTop3.setBackground(utils.ColorManager.ATACKING_COLOR);
-        pTop3.setForeground(utils.ColorManager.MAIN_COLOR);
+        pTop3.setBackground(utils.ColorManager.BG_COLOR);
+        pTop3.setForeground(utils.ColorManager.ATACKING_COLOR);
         pTop3.setOrientation(1);
+        pTop3.setBorderPainted(false);
         jPanel29.add(pTop3, java.awt.BorderLayout.PAGE_END);
 
         jPanel24.add(jPanel29);

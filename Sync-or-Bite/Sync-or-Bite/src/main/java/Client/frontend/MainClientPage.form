@@ -737,6 +737,7 @@
                           <Connection code="utils.ColorManager.MAIN_COLOR" type="code"/>
                         </Property>
                         <Property name="orientation" type="int" value="1"/>
+                        <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -771,12 +772,13 @@
                     <Component class="javax.swing.JProgressBar" name="pTop3">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="utils.ColorManager.ATACKING_COLOR" type="code"/>
+                          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
                         </Property>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="utils.ColorManager.MAIN_COLOR" type="code"/>
+                          <Connection code="utils.ColorManager.ATACKING_COLOR" type="code"/>
                         </Property>
                         <Property name="orientation" type="int" value="1"/>
+                        <Property name="borderPainted" type="boolean" value="false"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
