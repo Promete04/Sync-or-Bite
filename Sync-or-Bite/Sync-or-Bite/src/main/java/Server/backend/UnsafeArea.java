@@ -170,17 +170,15 @@ public class UnsafeArea
             pm.underAttackCheck();
             
             h.collectFood(fgenerator.gatherFood());
-            pm.underAttackCheck();
             h.collectFood(fgenerator.gatherFood());
             logger.log("Human " + h.getHumanId() + " gathered 2 units of food in unsafe area " + area + ".");
-            pm.underAttackCheck();
         }
         catch(InterruptedException ie)
         {
             try
             {
                 pm.underAttackCheck();
-                Thread.sleep(10000);       //Under attack (time governed by the zombie, when the zombie ends it interrupts again)
+                Thread.sleep(10000);       // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
             }
             catch(InterruptedException ie2)
             {
