@@ -44,7 +44,7 @@ public class MapPage extends javax.swing.JPanel
         
         initComponents();
         
-        confButtons();
+//        confButtons();
         setupCounters();
         setupPanels();
         
@@ -184,59 +184,58 @@ public class MapPage extends javax.swing.JPanel
         counters.get(nameLabel).setText(value);
     }
 
-    public final void confButtons()
-    {
-
-        List<JButton> buttonList = new ArrayList<>(); //to simplify mass modification
-        List<JButton> humanList = new ArrayList<>(); //to simplify mass modification
-        List<JButton> zombieList = new ArrayList<>(); //to simplify mass modification
-        buttonList.add(HumanIcon1);
-        humanList.add(HumanIcon1);
-        buttonList.add(HumanIcon2);
-        humanList.add(HumanIcon2);
-        buttonList.add(HumanIcon3);
-        humanList.add(HumanIcon3);
-        buttonList.add(HumanIcon4);
-        humanList.add(HumanIcon4);
-        buttonList.add(ZombieIcon1);
-        zombieList.add(ZombieIcon1);
-        buttonList.add(ZombieIcon2);
-        zombieList.add(ZombieIcon2);
-        buttonList.add(ZombieIcon3);
-        zombieList.add(ZombieIcon3);
-        buttonList.add(ZombieIcon4);
-        zombieList.add(ZombieIcon4);
-        buttonList.add(commonHumanIcon);
-        humanList.add(commonHumanIcon);
-        buttonList.add(diningHumanIcon);
-        humanList.add(diningHumanIcon);
-        buttonList.add(foodIcon);
-        buttonList.add(logsButton);
-        buttonList.add(pauseResumeButton);
-        buttonList.add(refugeIcon);
-        buttonList.add(restHumanIcon);
-        humanList.add(restHumanIcon);
-        
-        for(JButton button:buttonList)
-        {
-            button.setBorder(null);
-            //button.setBackground(utils.ColorManager.TRANSPARENT_COLOR);
-            button.setForeground(utils.ColorManager.TRANSPARENT_COLOR);
-            button.setLabel("");
-        }
-        for(JButton button:humanList)
-        {
-            button.setIcon(humanIcon);
-        }
-        
-        for(JButton button:zombieList)
-        {
-            button.setIcon(zombieIcon);
-        }
-        
-        foodIcon.setIcon(diningIcon);
-        refugeIcon.setIcon(groupIcon);
-    }
+//    public final void confButtons() 
+//    {
+//
+//        List<JButton> buttonList = new ArrayList<>(); //to simplify mass modification
+//        List<JButton> humanList = new ArrayList<>(); //to simplify mass modification
+//        List<JButton> zombieList = new ArrayList<>(); //to simplify mass modification
+//        buttonList.add(HumanIcon1);
+//        humanList.add(HumanIcon1);
+//        buttonList.add(HumanIcon2);
+//        humanList.add(HumanIcon2);
+//        buttonList.add(HumanIcon3);
+//        humanList.add(HumanIcon3);
+//        buttonList.add(HumanIcon4);
+//        humanList.add(HumanIcon4);
+//        buttonList.add(ZombieIcon1);
+//        zombieList.add(ZombieIcon1);
+//        buttonList.add(ZombieIcon2);
+//        zombieList.add(ZombieIcon2);
+//        buttonList.add(ZombieIcon3);
+//        zombieList.add(ZombieIcon3);
+//        buttonList.add(ZombieIcon4);
+//        zombieList.add(ZombieIcon4);
+//        buttonList.add(commonHumanIcon);
+//        humanList.add(commonHumanIcon);
+//        buttonList.add(diningHumanIcon);
+//        humanList.add(diningHumanIcon);
+//        buttonList.add(foodIcon);
+//        buttonList.add(logsButton);
+//        buttonList.add(pauseResumeButton);
+//        buttonList.add(refugeIcon);
+//        buttonList.add(restHumanIcon);
+//        humanList.add(restHumanIcon);
+//        
+//        for(JButton button:buttonList)
+//        {
+//            button.setBorder(null);
+//            button.setForeground(utils.ColorManager.TRANSPARENT_COLOR);
+//            button.setLabel("");
+//        }
+//        for(JButton button:humanList)
+//        {
+//            button.setIcon(humanIcon);
+//        }
+//        
+//        for(JButton button:zombieList)
+//        {
+//            button.setIcon(zombieIcon);
+//        }
+//        
+//        foodIcon.setIcon(diningIcon);
+//        refugeIcon.setIcon(groupIcon);
+//    }
     /**
      * 
      * 
@@ -257,7 +256,7 @@ public class MapPage extends javax.swing.JPanel
         riskZonesPanel = new javax.swing.JPanel();
         Risk1 = new javax.swing.JPanel();
         riskZoneInfo1 = new javax.swing.JPanel();
-        HumanIcon1 = new javax.swing.JButton();
+        commonHumanIcon3 = new javax.swing.JButton();
         HumanCounter1 = new javax.swing.JLabel();
         ZombieIcon1 = new javax.swing.JButton();
         ZombieCounter1 = new javax.swing.JLabel();
@@ -269,9 +268,9 @@ public class MapPage extends javax.swing.JPanel
         jSeparator1 = new javax.swing.JSeparator();
         Risk2 = new javax.swing.JPanel();
         riskZoneInfo2 = new javax.swing.JPanel();
-        HumanIcon2 = new javax.swing.JButton();
+        commonHumanIcon4 = new javax.swing.JButton();
         HumanCounter2 = new javax.swing.JLabel();
-        ZombieIcon2 = new javax.swing.JButton();
+        ZombieIcon5 = new javax.swing.JButton();
         ZombieCounter2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         riskZonePanel4 = new javax.swing.JScrollPane();
@@ -281,9 +280,9 @@ public class MapPage extends javax.swing.JPanel
         jSeparator2 = new javax.swing.JSeparator();
         Risk3 = new javax.swing.JPanel();
         riskZoneInfo3 = new javax.swing.JPanel();
-        HumanIcon3 = new javax.swing.JButton();
+        commonHumanIcon5 = new javax.swing.JButton();
         HumanCounter3 = new javax.swing.JLabel();
-        ZombieIcon3 = new javax.swing.JButton();
+        ZombieIcon6 = new javax.swing.JButton();
         ZombieCounter3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         riskZonePanel8 = new javax.swing.JScrollPane();
@@ -293,9 +292,9 @@ public class MapPage extends javax.swing.JPanel
         jSeparator3 = new javax.swing.JSeparator();
         Risk4 = new javax.swing.JPanel();
         riskZoneInfo4 = new javax.swing.JPanel();
-        HumanIcon4 = new javax.swing.JButton();
+        commonHumanIcon6 = new javax.swing.JButton();
         HumanCounter4 = new javax.swing.JLabel();
-        ZombieIcon4 = new javax.swing.JButton();
+        ZombieIcon7 = new javax.swing.JButton();
         ZombieCounter4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         riskZonePanel10 = new javax.swing.JScrollPane();
@@ -342,7 +341,7 @@ public class MapPage extends javax.swing.JPanel
         diningRoomPanel = new javax.swing.JScrollPane();
         DiningList = new javax.swing.JPanel();
         diningRoomInfo = new javax.swing.JPanel();
-        diningHumanIcon = new javax.swing.JButton();
+        commonHumanIcon1 = new javax.swing.JButton();
         humanDiningCounter = new javax.swing.JLabel();
         foodIcon = new javax.swing.JButton();
         foodCounter = new javax.swing.JLabel();
@@ -350,7 +349,7 @@ public class MapPage extends javax.swing.JPanel
         restAreaPanel = new javax.swing.JScrollPane();
         RestList = new javax.swing.JPanel();
         restAreaInfo = new javax.swing.JPanel();
-        restHumanIcon = new javax.swing.JButton();
+        commonHumanIcon2 = new javax.swing.JButton();
         restHumanCounter = new javax.swing.JLabel();
         refugeInfo = new javax.swing.JPanel();
         refugeName = new javax.swing.JLabel();
@@ -403,20 +402,34 @@ public class MapPage extends javax.swing.JPanel
 
         riskZoneInfo1.setForeground(utils.ColorManager.BG_COLOR);
 
-        HumanIcon1.setText("jButton1");
-        HumanIcon1.setEnabled(false);
-        HumanIcon1.setFocusPainted(false);
-        HumanIcon1.setFocusable(false);
-        riskZoneInfo1.add(HumanIcon1);
+        commonHumanIcon3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
+        commonHumanIcon3.setBorderPainted(false);
+        commonHumanIcon3.setContentAreaFilled(false);
+        commonHumanIcon3.setEnabled(false);
+        commonHumanIcon3.setFocusPainted(false);
+        commonHumanIcon3.setFocusable(false);
+        commonHumanIcon3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commonHumanIcon3ActionPerformed(evt);
+            }
+        });
+        riskZoneInfo1.add(commonHumanIcon3);
 
         HumanCounter1.setFont(utils.FontManager.regularFont);
         HumanCounter1.setText("0");
         riskZoneInfo1.add(HumanCounter1);
 
-        ZombieIcon1.setText("jButton4");
+        ZombieIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ZombieIcon.png"))); // NOI18N
+        ZombieIcon1.setBorderPainted(false);
+        ZombieIcon1.setContentAreaFilled(false);
         ZombieIcon1.setEnabled(false);
         ZombieIcon1.setFocusPainted(false);
         ZombieIcon1.setFocusable(false);
+        ZombieIcon1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ZombieIcon1ActionPerformed(evt);
+            }
+        });
         riskZoneInfo1.add(ZombieIcon1);
 
         ZombieCounter1.setFont(utils.FontManager.regularFont);
@@ -431,14 +444,14 @@ public class MapPage extends javax.swing.JPanel
         riskZonePanel1.setForeground(utils.ColorManager.BG_COLOR);
         riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskHuman1.setLayout(new java.awt.GridLayout(0, 4));
+        RiskHuman1.setLayout(new javax.swing.BoxLayout(RiskHuman1, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel1.setViewportView(RiskHuman1);
 
         jPanel1.add(riskZonePanel1);
 
         riskZonePanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskZombie1.setLayout(new java.awt.GridLayout(0, 4));
+        RiskZombie1.setLayout(new javax.swing.BoxLayout(RiskZombie1, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel3.setViewportView(RiskZombie1);
 
         jPanel1.add(riskZonePanel3);
@@ -455,26 +468,35 @@ public class MapPage extends javax.swing.JPanel
 
         riskZoneInfo2.setForeground(utils.ColorManager.BG_COLOR);
 
-        HumanIcon2.setText("jButton1");
-        HumanIcon2.setEnabled(false);
-        HumanIcon2.setFocusPainted(false);
-        HumanIcon2.setFocusable(false);
-        HumanIcon2.addActionListener(new java.awt.event.ActionListener() {
+        commonHumanIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
+        commonHumanIcon4.setBorderPainted(false);
+        commonHumanIcon4.setContentAreaFilled(false);
+        commonHumanIcon4.setEnabled(false);
+        commonHumanIcon4.setFocusPainted(false);
+        commonHumanIcon4.setFocusable(false);
+        commonHumanIcon4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HumanIcon2ActionPerformed(evt);
+                commonHumanIcon4ActionPerformed(evt);
             }
         });
-        riskZoneInfo2.add(HumanIcon2);
+        riskZoneInfo2.add(commonHumanIcon4);
 
         HumanCounter2.setFont(utils.FontManager.regularFont);
         HumanCounter2.setText("0");
         riskZoneInfo2.add(HumanCounter2);
 
-        ZombieIcon2.setText("jButton4");
-        ZombieIcon2.setEnabled(false);
-        ZombieIcon2.setFocusPainted(false);
-        ZombieIcon2.setFocusable(false);
-        riskZoneInfo2.add(ZombieIcon2);
+        ZombieIcon5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ZombieIcon.png"))); // NOI18N
+        ZombieIcon5.setBorderPainted(false);
+        ZombieIcon5.setContentAreaFilled(false);
+        ZombieIcon5.setEnabled(false);
+        ZombieIcon5.setFocusPainted(false);
+        ZombieIcon5.setFocusable(false);
+        ZombieIcon5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ZombieIcon5ActionPerformed(evt);
+            }
+        });
+        riskZoneInfo2.add(ZombieIcon5);
 
         ZombieCounter2.setFont(utils.FontManager.regularFont);
         ZombieCounter2.setText("0");
@@ -511,21 +533,35 @@ public class MapPage extends javax.swing.JPanel
 
         riskZoneInfo3.setForeground(utils.ColorManager.BG_COLOR);
 
-        HumanIcon3.setText("jButton1");
-        HumanIcon3.setEnabled(false);
-        HumanIcon3.setFocusPainted(false);
-        HumanIcon3.setFocusable(false);
-        riskZoneInfo3.add(HumanIcon3);
+        commonHumanIcon5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
+        commonHumanIcon5.setBorderPainted(false);
+        commonHumanIcon5.setContentAreaFilled(false);
+        commonHumanIcon5.setEnabled(false);
+        commonHumanIcon5.setFocusPainted(false);
+        commonHumanIcon5.setFocusable(false);
+        commonHumanIcon5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commonHumanIcon5ActionPerformed(evt);
+            }
+        });
+        riskZoneInfo3.add(commonHumanIcon5);
 
         HumanCounter3.setFont(utils.FontManager.regularFont);
         HumanCounter3.setText("0");
         riskZoneInfo3.add(HumanCounter3);
 
-        ZombieIcon3.setText("jButton4");
-        ZombieIcon3.setEnabled(false);
-        ZombieIcon3.setFocusPainted(false);
-        ZombieIcon3.setFocusable(false);
-        riskZoneInfo3.add(ZombieIcon3);
+        ZombieIcon6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ZombieIcon.png"))); // NOI18N
+        ZombieIcon6.setBorderPainted(false);
+        ZombieIcon6.setContentAreaFilled(false);
+        ZombieIcon6.setEnabled(false);
+        ZombieIcon6.setFocusPainted(false);
+        ZombieIcon6.setFocusable(false);
+        ZombieIcon6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ZombieIcon6ActionPerformed(evt);
+            }
+        });
+        riskZoneInfo3.add(ZombieIcon6);
 
         ZombieCounter3.setFont(utils.FontManager.regularFont);
         ZombieCounter3.setText("0");
@@ -562,21 +598,35 @@ public class MapPage extends javax.swing.JPanel
 
         riskZoneInfo4.setForeground(utils.ColorManager.BG_COLOR);
 
-        HumanIcon4.setText("jButton1");
-        HumanIcon4.setEnabled(false);
-        HumanIcon4.setFocusPainted(false);
-        HumanIcon4.setFocusable(false);
-        riskZoneInfo4.add(HumanIcon4);
+        commonHumanIcon6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
+        commonHumanIcon6.setBorderPainted(false);
+        commonHumanIcon6.setContentAreaFilled(false);
+        commonHumanIcon6.setEnabled(false);
+        commonHumanIcon6.setFocusPainted(false);
+        commonHumanIcon6.setFocusable(false);
+        commonHumanIcon6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commonHumanIcon6ActionPerformed(evt);
+            }
+        });
+        riskZoneInfo4.add(commonHumanIcon6);
 
         HumanCounter4.setFont(utils.FontManager.regularFont);
         HumanCounter4.setText("0");
         riskZoneInfo4.add(HumanCounter4);
 
-        ZombieIcon4.setText("jButton4");
-        ZombieIcon4.setEnabled(false);
-        ZombieIcon4.setFocusPainted(false);
-        ZombieIcon4.setFocusable(false);
-        riskZoneInfo4.add(ZombieIcon4);
+        ZombieIcon7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ZombieIcon.png"))); // NOI18N
+        ZombieIcon7.setBorderPainted(false);
+        ZombieIcon7.setContentAreaFilled(false);
+        ZombieIcon7.setEnabled(false);
+        ZombieIcon7.setFocusPainted(false);
+        ZombieIcon7.setFocusable(false);
+        ZombieIcon7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ZombieIcon7ActionPerformed(evt);
+            }
+        });
+        riskZoneInfo4.add(ZombieIcon7);
 
         ZombieCounter4.setFont(utils.FontManager.regularFont);
         ZombieCounter4.setText("0");
@@ -731,15 +781,15 @@ public class MapPage extends javax.swing.JPanel
         commonAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         commonAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Common Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
         commonAreaPanel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-
-        CommonList.setLayout(new java.awt.GridLayout(0, 5));
         commonAreaPanel.setViewportView(CommonList);
 
         commonAreaPanel1.add(commonAreaPanel, java.awt.BorderLayout.CENTER);
 
         commonAreainfo.setForeground(utils.ColorManager.BG_COLOR);
 
-        commonHumanIcon.setText("jButton1");
+        commonHumanIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
+        commonHumanIcon.setBorderPainted(false);
+        commonHumanIcon.setContentAreaFilled(false);
         commonHumanIcon.setEnabled(false);
         commonHumanIcon.setFocusPainted(false);
         commonHumanIcon.setFocusable(false);
@@ -764,28 +814,40 @@ public class MapPage extends javax.swing.JPanel
 
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         diningRoomPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dining Room", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
-
-        DiningList.setLayout(new java.awt.GridLayout(0, 5));
         diningRoomPanel.setViewportView(DiningList);
 
         diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
 
         diningRoomInfo.setForeground(utils.ColorManager.BG_COLOR);
 
-        diningHumanIcon.setText("jButton4");
-        diningHumanIcon.setEnabled(false);
-        diningHumanIcon.setFocusPainted(false);
-        diningHumanIcon.setFocusable(false);
-        diningRoomInfo.add(diningHumanIcon);
+        commonHumanIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
+        commonHumanIcon1.setBorderPainted(false);
+        commonHumanIcon1.setContentAreaFilled(false);
+        commonHumanIcon1.setEnabled(false);
+        commonHumanIcon1.setFocusPainted(false);
+        commonHumanIcon1.setFocusable(false);
+        commonHumanIcon1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commonHumanIcon1ActionPerformed(evt);
+            }
+        });
+        diningRoomInfo.add(commonHumanIcon1);
 
         humanDiningCounter.setFont(utils.FontManager.regularFont);
         humanDiningCounter.setText("0");
         diningRoomInfo.add(humanDiningCounter);
 
-        foodIcon.setText("jButton6");
+        foodIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiningRoomIcon.png"))); // NOI18N
+        foodIcon.setBorderPainted(false);
+        foodIcon.setContentAreaFilled(false);
         foodIcon.setEnabled(false);
         foodIcon.setFocusPainted(false);
         foodIcon.setFocusable(false);
+        foodIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                foodIconActionPerformed(evt);
+            }
+        });
         diningRoomInfo.add(foodIcon);
 
         foodCounter.setFont(utils.FontManager.regularFont);
@@ -802,19 +864,24 @@ public class MapPage extends javax.swing.JPanel
 
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
-
-        RestList.setLayout(new java.awt.GridLayout(0, 5));
         restAreaPanel.setViewportView(RestList);
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);
 
         restAreaInfo.setForeground(utils.ColorManager.BG_COLOR);
 
-        restHumanIcon.setText("jButton5");
-        restHumanIcon.setEnabled(false);
-        restHumanIcon.setFocusPainted(false);
-        restHumanIcon.setFocusable(false);
-        restAreaInfo.add(restHumanIcon);
+        commonHumanIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
+        commonHumanIcon2.setBorderPainted(false);
+        commonHumanIcon2.setContentAreaFilled(false);
+        commonHumanIcon2.setEnabled(false);
+        commonHumanIcon2.setFocusPainted(false);
+        commonHumanIcon2.setFocusable(false);
+        commonHumanIcon2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commonHumanIcon2ActionPerformed(evt);
+            }
+        });
+        restAreaInfo.add(commonHumanIcon2);
 
         restHumanCounter.setFont(utils.FontManager.regularFont);
         restHumanCounter.setText("0");
@@ -870,9 +937,49 @@ public class MapPage extends javax.swing.JPanel
         // TODO add your handling code here:
     }//GEN-LAST:event_commonHumanIconActionPerformed
 
-    private void HumanIcon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HumanIcon2ActionPerformed
+    private void commonHumanIcon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonHumanIcon1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_HumanIcon2ActionPerformed
+    }//GEN-LAST:event_commonHumanIcon1ActionPerformed
+
+    private void foodIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodIconActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_foodIconActionPerformed
+
+    private void commonHumanIcon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonHumanIcon2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_commonHumanIcon2ActionPerformed
+
+    private void commonHumanIcon3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonHumanIcon3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_commonHumanIcon3ActionPerformed
+
+    private void commonHumanIcon4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonHumanIcon4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_commonHumanIcon4ActionPerformed
+
+    private void commonHumanIcon5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonHumanIcon5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_commonHumanIcon5ActionPerformed
+
+    private void commonHumanIcon6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commonHumanIcon6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_commonHumanIcon6ActionPerformed
+
+    private void ZombieIcon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZombieIcon1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ZombieIcon1ActionPerformed
+
+    private void ZombieIcon5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZombieIcon5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ZombieIcon5ActionPerformed
+
+    private void ZombieIcon6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZombieIcon6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ZombieIcon6ActionPerformed
+
+    private void ZombieIcon7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZombieIcon7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ZombieIcon7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -882,10 +989,6 @@ public class MapPage extends javax.swing.JPanel
     private javax.swing.JLabel HumanCounter2;
     private javax.swing.JLabel HumanCounter3;
     private javax.swing.JLabel HumanCounter4;
-    private javax.swing.JButton HumanIcon1;
-    private javax.swing.JButton HumanIcon2;
-    private javax.swing.JButton HumanIcon3;
-    private javax.swing.JButton HumanIcon4;
     private javax.swing.JPanel RestList;
     private javax.swing.JPanel Risk1;
     private javax.swing.JPanel Risk2;
@@ -912,20 +1015,25 @@ public class MapPage extends javax.swing.JPanel
     private javax.swing.JLabel ZombieCounter3;
     private javax.swing.JLabel ZombieCounter4;
     private javax.swing.JButton ZombieIcon1;
-    private javax.swing.JButton ZombieIcon2;
-    private javax.swing.JButton ZombieIcon3;
-    private javax.swing.JButton ZombieIcon4;
+    private javax.swing.JButton ZombieIcon5;
+    private javax.swing.JButton ZombieIcon6;
+    private javax.swing.JButton ZombieIcon7;
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JScrollPane commonAreaPanel;
     private javax.swing.JPanel commonAreaPanel1;
     private javax.swing.JPanel commonAreainfo;
     private javax.swing.JLabel commonHumanCounter;
     private javax.swing.JButton commonHumanIcon;
+    private javax.swing.JButton commonHumanIcon1;
+    private javax.swing.JButton commonHumanIcon2;
+    private javax.swing.JButton commonHumanIcon3;
+    private javax.swing.JButton commonHumanIcon4;
+    private javax.swing.JButton commonHumanIcon5;
+    private javax.swing.JButton commonHumanIcon6;
     private javax.swing.JLabel currentCrossing1;
     private javax.swing.JLabel currentCrossing2;
     private javax.swing.JLabel currentCrossing3;
     private javax.swing.JLabel currentCrossing4;
-    private javax.swing.JButton diningHumanIcon;
     private javax.swing.JPanel diningRoomInfo;
     private javax.swing.JScrollPane diningRoomPanel;
     private javax.swing.JPanel diningRoomPanel1;
@@ -960,7 +1068,6 @@ public class MapPage extends javax.swing.JPanel
     private javax.swing.JScrollPane restAreaPanel;
     private javax.swing.JPanel restAreaPanel1;
     private javax.swing.JLabel restHumanCounter;
-    private javax.swing.JButton restHumanIcon;
     private javax.swing.JPanel riskZoneInfo1;
     private javax.swing.JPanel riskZoneInfo2;
     private javax.swing.JPanel riskZoneInfo3;
