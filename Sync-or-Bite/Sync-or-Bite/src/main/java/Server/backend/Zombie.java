@@ -41,11 +41,9 @@ public class Zombie extends Thread
             int unsafeArea;
             while(true)
             {
-                pm.check();
                 if(areaWhereReborned != -1)
                 {
                     riskZone.accessUnsafeArea(areaWhereReborned).wander(this, pm);
-                    pm.check();
                     riskZone.accessUnsafeArea(areaWhereReborned).exit(this, pm);
                     areaWhereReborned = -1;
                 }
@@ -53,9 +51,7 @@ public class Zombie extends Thread
                 {
                     unsafeArea = (int) (Math.random() * 4);
                     riskZone.accessUnsafeArea(unsafeArea).enter(this, pm);
-                    pm.check();
                     riskZone.accessUnsafeArea(unsafeArea).wander(this, pm);
-                    pm.check();
                     riskZone.accessUnsafeArea(unsafeArea).exit(this, pm);
                 } 
             }

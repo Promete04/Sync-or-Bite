@@ -155,31 +155,31 @@ public class UnsafeArea
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 
             Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
+            pm.underAttackCheck();
             Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
+            pm.underAttackCheck();
             Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
+            pm.underAttackCheck();
             Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
+            pm.underAttackCheck();
             Thread.sleep(500 + (int) (Math.random() * 334));
-            pm.check();
+            pm.underAttackCheck();
             Thread.sleep(250 + (int) (Math.random() * 167));
-            pm.check();
+            pm.underAttackCheck();
             Thread.sleep(250 + (int) (Math.random() * 167));
-            pm.check();
+            pm.underAttackCheck();
             
             h.collectFood(fgenerator.gatherFood());
-            pm.check();
+            pm.underAttackCheck();
             h.collectFood(fgenerator.gatherFood());
             logger.log("Human " + h.getHumanId() + " gathered 2 units of food in unsafe area " + area + ".");
-            pm.check();
+            pm.underAttackCheck();
         }
         catch(InterruptedException ie)
         {
             try
             {
-                pm.check();
+                pm.underAttackCheck();
                 Thread.sleep(10000);       //Under attack (time governed by the zombie, when the zombie ends it interrupts again)
             }
             catch(InterruptedException ie2)

@@ -40,47 +40,33 @@ public class Human extends Thread
             
             while(true)
             {
-                pm.check();
                 refuge.accessCommonArea(this,pm);
-                pm.check();
                 refuge.leave(this,pm);
-                pm.check();
                 tunnels.obtainTunnel(selectedTunnel).requestExit(this);
-                pm.check();
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().enter(this, pm);
-                pm.check();
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this, pm);
-                pm.check();
                 sleep(1);         //Sleep just to trigger the interrupt in case it was interrupted (killed).
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().exit(this, pm);
-                pm.check();
                 tunnels.obtainTunnel(selectedTunnel).requestReturn(this); 
-                pm.check();
                 refuge.access(this,pm);
-                pm.check();
                 if(!marked)
                 {
                     refuge.depositFoodInDiningRoom(depositFood(), this, pm);
-                    pm.check();
                     refuge.depositFoodInDiningRoom(depositFood(), this, pm);
-                    pm.check();
                 }
                 
                 refuge.restInRestArea(this, pm);
-                pm.check();
                 refuge.accessDiningRoom(this, pm);
-                pm.check();
                 
                 if(marked)
                 {
                     refuge.fullRecoverInRestArea(this, pm);
-                    pm.check();
                 }
             }
         }
         catch(InterruptedException ie)
         {
-            pm.check();
+            // Human died
         }
     }
     

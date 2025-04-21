@@ -3,9 +3,7 @@ package Server.backend;
 
 import Server.frontend.ServerApp;
 import Server.frontend.MapPage;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
@@ -41,9 +39,6 @@ public class Tunnel
     private final Queue<Human> waitingToExitShelter = new LinkedList<>();  // Exit queue.
     private final Queue<Human> waitingToEnterShelter = new LinkedList<>();   // Return queue.
     
-    // Variable use to easily control the number neede to launch an raid
-    private static final int GROUP_SIZE = 3;
-    
     private Logger logger;
     
     private MapPage mapPage = ServerApp.getMapPage();
@@ -56,12 +51,12 @@ public class Tunnel
         this.ID=pID;
         this.logger = logger;
         this.unsafeArea = unsafeArea;
-        groups = new CyclicBarrier(GROUP_SIZE, new Runnable() 
+        groups = new CyclicBarrier(3, new Runnable() 
         {
             @Override
             public void run() 
             {
-                logger.log("A group of " + GROUP_SIZE + " has been formed for exiting to unsafe area " + unsafeArea.getArea() + ".");
+                logger.log("A group of " + 3 + " has been formed for exiting to unsafe area " + unsafeArea.getArea() + ".");
             }
         });
     }
@@ -116,7 +111,7 @@ public class Tunnel
             }
             
             pm.check();
-            //Remove form waiting as it is going to cross
+            // Remove form waiting as it is going to cross
             waitingToExitShelter.remove(h);
             mapPage.removeLabelFromPanel("TE"+String.valueOf(ID+1), h.getHumanId());
             pm.check();

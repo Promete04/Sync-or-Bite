@@ -40,6 +40,23 @@ public class PauseManager
             lock.unlock();
         }
     }
+    
+    public void underAttackCheck() throws InterruptedException
+    {
+        lock.lock();
+        try 
+        {
+            while (paused) 
+            {
+                stop.await();
+            }
+        
+        } 
+        finally 
+        {
+            lock.unlock();
+        }
+    }
 
     public void togglePause() 
     {
@@ -62,7 +79,7 @@ public class PauseManager
  
     public void setPauseStateListener(Runnable listener) 
     {
-    this.pauseStateListener = listener;
+        this.pauseStateListener = listener;
     }
     
     public boolean isPaused()

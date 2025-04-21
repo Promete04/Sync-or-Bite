@@ -44,15 +44,17 @@ public class LogPage extends javax.swing.JPanel
         
         ImageIcon initialState = pm.isPaused() ?  resumeIcon : pauseIcon;
         
-        pm.setPauseStateListener(() -> {
-            ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
-            pauseResumeButton.setIcon(current);
+        pm.setPauseStateListener(new Runnable() 
+        {
+            public void run() 
+            {
+                ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
+                pauseResumeButton.setIcon(current);
+            }
         });
-       
+
         // Load existing log file content
         loadLogs();
-        
-        
     }
     
   
