@@ -69,7 +69,6 @@ public class UnsafeArea
             Thread.sleep(125 + (int) (Math.random()*250));
             pm.check();
             Thread.sleep(125 + (int) (Math.random()*250));
-            pm.check();
             
             attackedHuman.interrupt();                    // Attack ends
 
@@ -174,12 +173,10 @@ public class UnsafeArea
         {
             try
             {
-                pm.underAttackCheck();
                 Thread.sleep(10000);       // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
             }
             catch(InterruptedException ie2)
             {
-                pm.check();
                 mapPage.setLabelColorInPanel("RH"+String.valueOf(area+1),h.getHumanId(),utils.ColorManager.ATACKED_COLOR);
                 int defense = (int) (Math.random() * 3);
                 pm.check();
