@@ -122,7 +122,8 @@ public class MapPage extends javax.swing.JPanel
 
         JLabel label = new JLabel(labelText);
         label.setOpaque(true);
-        label.setBackground(utils.ColorManager.HUMAN_COLOR); 
+        Color background = labelText.startsWith("H")? utils.ColorManager.HUMAN_COLOR : utils.ColorManager.ZOMBIE_COLOR;
+        label.setBackground(background); 
         label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
 
         targetPanel.add(label);
@@ -430,14 +431,14 @@ public class MapPage extends javax.swing.JPanel
         riskZonePanel1.setForeground(utils.ColorManager.BG_COLOR);
         riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskHuman1.setLayout(new javax.swing.BoxLayout(RiskHuman1, javax.swing.BoxLayout.Y_AXIS));
+        RiskHuman1.setLayout(new java.awt.GridLayout(0, 4));
         riskZonePanel1.setViewportView(RiskHuman1);
 
         jPanel1.add(riskZonePanel1);
 
         riskZonePanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        RiskZombie1.setLayout(new javax.swing.BoxLayout(RiskZombie1, javax.swing.BoxLayout.Y_AXIS));
+        RiskZombie1.setLayout(new java.awt.GridLayout(0, 4));
         riskZonePanel3.setViewportView(RiskZombie1);
 
         jPanel1.add(riskZonePanel3);
@@ -730,6 +731,8 @@ public class MapPage extends javax.swing.JPanel
         commonAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         commonAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Common Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
         commonAreaPanel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+
+        CommonList.setLayout(new java.awt.GridLayout(0, 5));
         commonAreaPanel.setViewportView(CommonList);
 
         commonAreaPanel1.add(commonAreaPanel, java.awt.BorderLayout.CENTER);
@@ -761,6 +764,8 @@ public class MapPage extends javax.swing.JPanel
 
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         diningRoomPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dining Room", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
+
+        DiningList.setLayout(new java.awt.GridLayout(0, 5));
         diningRoomPanel.setViewportView(DiningList);
 
         diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
@@ -797,6 +802,8 @@ public class MapPage extends javax.swing.JPanel
 
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
+
+        RestList.setLayout(new java.awt.GridLayout(0, 5));
         restAreaPanel.setViewportView(RestList);
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);
