@@ -4,11 +4,8 @@
  */
 package Server.frontend;
 
-import Server.backend.Human;
 import Server.backend.Logger;
 import Server.backend.PauseManager;
-import static Server.frontend.ServerApp.logger;
-import static Server.frontend.ServerApp.pm;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

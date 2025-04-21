@@ -189,7 +189,7 @@ public class UnsafeArea
                     mapPage.setLabelColorInPanel("RH"+String.valueOf(area+1),h.getHumanId(),utils.ColorManager.INJURED_COLOR);
                     h.toggleMarked();
                     pm.check();
-                    synchronized (attacks) 
+                    synchronized(attacks) 
                     { 
                         attacks.remove(h);
                     }
@@ -210,6 +210,7 @@ public class UnsafeArea
                         attacks.remove(h);
                     }
                     pm.check(); 
+                    
                     killer.increaseKillCount();
                     logger.log("Zombie " + killer.getZombieId() + " killed human " + h.getHumanId() + " (Kill count: " + killer.getKillCount() + ")");
                     riskZone.reportKill(killer);
@@ -222,7 +223,6 @@ public class UnsafeArea
                         zombiesInside.add(killed);
                         mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
                         mapPage.addLabelToPanel("RZ"+String.valueOf(area+1), killed.getZombieId());
-                        
                     }
                     pm.check();
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");

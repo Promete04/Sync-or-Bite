@@ -34,8 +34,8 @@ public class MapPage extends javax.swing.JPanel
     private ImageIcon diningIcon= new ImageIcon(getClass().getResource( "/images/DiningRoomicon.png" ));
     private ImageIcon groupIcon= new ImageIcon(getClass().getResource( "/images/Groupicon.png" ));
     private PauseManager  pm;
-    private final Map<String, JLabel> Counters = new HashMap<>();
-    private final Map<String, JPanel> Panels = new HashMap<>();
+    private final Map<String, JLabel> counters = new HashMap<>();
+    private final Map<String, JPanel> panels = new HashMap<>();
     
     
     public MapPage() 
@@ -49,55 +49,58 @@ public class MapPage extends javax.swing.JPanel
         setupPanels();
         
         pauseResumeButton.setIcon(pauseIcon);
-
-        pm.setPauseStateListener(() -> {
-            ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
-            pauseResumeButton.setIcon(current);
+        
+        pm.setPauseStateListener(new Runnable() 
+        {
+            public void run() 
+            {
+                ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
+                pauseResumeButton.setIcon(current);
+            }
         });
     }
     private void setupPanels() 
     {
-         Panels.put("RH1", RiskHuman1);
-         Panels.put("RH2", RiskHuman2);
-         Panels.put("RH3", RiskHuman3);   
-         Panels.put("RH4", RiskHuman4);
-         Panels.put("RZ1", RiskZombie1);
-         Panels.put("RZ2", RiskZombie2);
-         Panels.put("RZ3", RiskZombie3);
-         Panels.put("RZ4", RiskZombie4);
-         Panels.put("TR1", TunnelReturning1);
-         Panels.put("TR2", TunnelReturning2);
-         Panels.put("TR3", TunnelReturning3);
-         Panels.put("TR4", TunnelReturning4);
-         Panels.put("TE1", TunnelExiting1);
-         Panels.put("TE2", TunnelExiting2);
-         Panels.put("TE3", TunnelExiting3);
-         Panels.put("TE4", TunnelExiting4);
-         Panels.put("C", CommonList);
-         Panels.put("D", DiningList);
-         Panels.put("R", RestList);
+         panels.put("RH1", RiskHuman1);
+         panels.put("RH2", RiskHuman2);
+         panels.put("RH3", RiskHuman3);   
+         panels.put("RH4", RiskHuman4);
+         panels.put("RZ1", RiskZombie1);
+         panels.put("RZ2", RiskZombie2);
+         panels.put("RZ3", RiskZombie3);
+         panels.put("RZ4", RiskZombie4);
+         panels.put("TR1", TunnelReturning1);
+         panels.put("TR2", TunnelReturning2);
+         panels.put("TR3", TunnelReturning3);
+         panels.put("TR4", TunnelReturning4);
+         panels.put("TE1", TunnelExiting1);
+         panels.put("TE2", TunnelExiting2);
+         panels.put("TE3", TunnelExiting3);
+         panels.put("TE4", TunnelExiting4);
+         panels.put("C", CommonList);
+         panels.put("D", DiningList);
+         panels.put("R", RestList);
     }
    
     private void setupCounters() 
     {
-        Counters.put("H1", HumanCounter1);
-        Counters.put("H2", HumanCounter2); 
-        Counters.put("H3", HumanCounter3); 
-        Counters.put("H4", HumanCounter4); 
-        Counters.put("HC", commonHumanCounter);
-        Counters.put("HD", humanDiningCounter);
-        Counters.put("HR", restHumanCounter);
-        Counters.put("Z1", ZombieCounter1);
-        Counters.put("Z2", ZombieCounter2); 
-        Counters.put("Z3", ZombieCounter3); 
-        Counters.put("Z4", ZombieCounter4); 
-        Counters.put("C1", currentCrossing1);
-        Counters.put("C2", currentCrossing2); 
-        Counters.put("C3", currentCrossing3); 
-        Counters.put("C4", currentCrossing4); 
-        Counters.put("FC",foodCounter);
-        Counters.put("RC",refugeCounter);
-        
+        counters.put("H1", HumanCounter1);
+        counters.put("H2", HumanCounter2); 
+        counters.put("H3", HumanCounter3); 
+        counters.put("H4", HumanCounter4); 
+        counters.put("HC", commonHumanCounter);
+        counters.put("HD", humanDiningCounter);
+        counters.put("HR", restHumanCounter);
+        counters.put("Z1", ZombieCounter1);
+        counters.put("Z2", ZombieCounter2); 
+        counters.put("Z3", ZombieCounter3); 
+        counters.put("Z4", ZombieCounter4); 
+        counters.put("C1", currentCrossing1);
+        counters.put("C2", currentCrossing2); 
+        counters.put("C3", currentCrossing3); 
+        counters.put("C4", currentCrossing4); 
+        counters.put("FC",foodCounter);
+        counters.put("RC",refugeCounter);
     }
     
    public void pauseResume()
@@ -110,7 +113,7 @@ public class MapPage extends javax.swing.JPanel
    public synchronized void addLabelToPanel(String panelKey, String labelText)
    {
        
-        JPanel targetPanel = Panels.get(panelKey);
+        JPanel targetPanel = panels.get(panelKey);
 
         if (targetPanel == null) {
             System.err.println("No panel found for key: " + panelKey);
@@ -128,7 +131,7 @@ public class MapPage extends javax.swing.JPanel
     }
     public synchronized void removeLabelFromPanel(String panelKey, String labelText) 
     {
-        JPanel targetPanel = Panels.get(panelKey);
+        JPanel targetPanel = panels.get(panelKey);
 
         if (targetPanel == null) 
         {
@@ -152,7 +155,7 @@ public class MapPage extends javax.swing.JPanel
     }
     public synchronized void setLabelColorInPanel(String panelKey, String labelText, Color color) 
     {
-        JPanel targetPanel = Panels.get(panelKey);
+        JPanel targetPanel = panels.get(panelKey);
 
         if (targetPanel == null)
         {
@@ -164,7 +167,7 @@ public class MapPage extends javax.swing.JPanel
         {
             if (comp instanceof JLabel label && label.getText().equals(labelText)) 
             {
-                label.setOpaque(true); // necesario para que el color de fondo se vea
+                label.setOpaque(true); 
                 label.setBackground(color);
                 targetPanel.repaint();
                 return;
@@ -177,7 +180,7 @@ public class MapPage extends javax.swing.JPanel
 
     public synchronized void setCounter(String nameLabel, String value) 
     {
-        Counters.get(nameLabel).setText(value);
+        counters.get(nameLabel).setText(value);
     }
 
     public final void confButtons()

@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Client.frontend;
-
-import static Server.frontend.ServerApp.currentPanel;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.HashMap;
@@ -16,7 +14,8 @@ import javax.swing.JPanel;
  *
  * @author guill
  */
-public class ClientApp {
+public class ClientApp 
+{
     
     private static final CardLayout cardLayout = new CardLayout();
     private static final JPanel cards = new JPanel(cardLayout);
@@ -24,6 +23,7 @@ public class ClientApp {
     
     private static Map<String, JPanel> pages;
     private static MainClientPage mainPage;
+    private static JPanel currentPanel;
 
     public static void main(String[] args)
     {
@@ -49,7 +49,8 @@ public class ClientApp {
         cards.add(p, page);
         
         cardLayout.show(cards, page);
-        if(currentPanel != p){
+        if(currentPanel != p)
+        {
             cards.remove(currentPanel);
         }
         currentPanel = p;

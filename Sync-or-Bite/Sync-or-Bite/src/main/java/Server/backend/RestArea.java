@@ -72,7 +72,7 @@ public class RestArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");
-        mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.HUMAN_COLOR);
+        
 
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 
@@ -82,6 +82,7 @@ public class RestArea
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
+        mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.HUMAN_COLOR);
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*334));

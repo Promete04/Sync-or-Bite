@@ -107,6 +107,5 @@ public class Human extends Thread
     {
         this.selectedTunnel = selectedTunnel;
     }
-    
-    
+ 
 }

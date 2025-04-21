@@ -18,13 +18,13 @@ public class ServerApp
     
     private static final CardLayout cardLayout = new CardLayout();
     private static final JPanel cards = new JPanel(cardLayout);
-    public static JFrame frame = new JFrame("Sync-or-Bite");
+    private static JFrame frame = new JFrame("Sync-or-Bite");
     private static MapPage mapPage;
-    public static Logger logger=new Logger();
+    private static Logger logger=new Logger();
     private static LogPage logPage;
-    public static PauseManager pm = new PauseManager();  
+    private static PauseManager pm = new PauseManager();  
     private static Map<String, JPanel> pages;
-    public static JPanel currentPanel; 
+    private static JPanel currentPanel; 
    
     public static void main(String[] args)
     {
@@ -90,8 +90,12 @@ public class ServerApp
     {
         return mapPage;
     }
+
+    public static JPanel getCurrentPanel() 
+    {
+        return currentPanel;
+    }
     
- 
    public static void redirect(String page)
    {
         

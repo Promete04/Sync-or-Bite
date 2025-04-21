@@ -13,7 +13,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JProgressBar;
 
 
 /**
@@ -28,8 +27,7 @@ public class MainClientPage extends javax.swing.JPanel
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
     
-    private final Map<Integer, JLabel> Labels = new HashMap<>();
-    private final Map<Integer, JProgressBar> Progress = new HashMap<>();
+    private final Map<Integer, JLabel> labels = new HashMap<>();
     
 
     /**
@@ -44,9 +42,13 @@ public class MainClientPage extends javax.swing.JPanel
         pTop2.setStringPainted(false);
         pTop3.setStringPainted(false);
         
-        toggler.setPauseStateListener(() -> {
-            ImageIcon current = toggler.isPaused() ? pauseIcon : resumeIcon;
-            pauseResumeButton.setIcon(current);
+        toggler.setPauseStateListener(new Runnable() 
+        {
+            public void run() 
+            {
+                ImageIcon current = toggler.isPaused() ? resumeIcon : pauseIcon;
+                pauseResumeButton.setIcon(current);
+            }
         });
         
         updateData();
@@ -72,7 +74,7 @@ public class MainClientPage extends javax.swing.JPanel
                         {
                             if(i!=0 && i<=14 || i==16 || i==18)
                             {
-                                JLabel label = Labels.get(i);
+                                JLabel label = labels.get(i);
                                 label.setText(data[i]);
                             }
                             else if(i==0)
@@ -138,22 +140,22 @@ public class MainClientPage extends javax.swing.JPanel
     }
     private void setupLabels() 
     {
-         Labels.put(1,HR);
-         Labels.put(2, HT1);
-         Labels.put(3, HT2);
-         Labels.put(4, HT3);
-         Labels.put(5, HT4);
-         Labels.put(6, HR1);
-         Labels.put(7, HR2);
-         Labels.put(8, HR3);
-         Labels.put(9, HR4);
-         Labels.put(10, ZR1);
-         Labels.put(11, ZR2);
-         Labels.put(12, ZR3);
-         Labels.put(13, ZR4);
-         Labels.put(14,top1);
-         Labels.put(16, top2);
-         Labels.put(18,top3);
+         labels.put(1,HR);
+         labels.put(2, HT1);
+         labels.put(3, HT2);
+         labels.put(4, HT3);
+         labels.put(5, HT4);
+         labels.put(6, HR1);
+         labels.put(7, HR2);
+         labels.put(8, HR3);
+         labels.put(9, HR4);
+         labels.put(10, ZR1);
+         labels.put(11, ZR2);
+         labels.put(12, ZR3);
+         labels.put(13, ZR4);
+         labels.put(14,top1);
+         labels.put(16, top2);
+         labels.put(18,top3);
     }
     /**
      * This method is called from within the constructor to initialize the form.

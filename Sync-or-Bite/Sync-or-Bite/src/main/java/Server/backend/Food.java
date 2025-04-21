@@ -10,14 +10,14 @@ package Server.backend;
  */
 public class Food 
 {
-    private int ID;
+    private int id;
     
-    public Food(int ID)
+    public Food(int id)
     {
-        this.ID=ID;
+        this.id=id;
     }
     public int getFoodID()
     {
-        return ID;
+        return id;
     }
 }
