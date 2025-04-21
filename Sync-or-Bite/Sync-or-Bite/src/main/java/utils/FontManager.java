@@ -15,13 +15,13 @@ import java.io.InputStream;
 public class FontManager {
 
 
-    public static final Font lightFont = loadFont("/fonts/UniSpaceIt.ttf", 14);
-    public static final Font regularFont = loadFont("/fonts/UniSpaceRg.ttf", 14);
-    public static final Font boldFont = loadFont("/fonts/UniSpaceBd.ttf", 14);
+    public static final Font lightFont = loadFont("/fonts/UniSpaceIt.ttf", 16);
+    public static final Font regularFont = loadFont("/fonts/UniSpaceRg.ttf", 16);
+    public static final Font boldFont = loadFont("/fonts/UniSpaceBd.ttf", 16);
 
-    public static final Font titleFont = boldFont.deriveFont(36f);
-    public static final Font subtitleFont = boldFont.deriveFont(20f);
-    public static final Font subText = lightFont.deriveFont(12f);
+    public static final Font titleFont = boldFont.deriveFont(50f);
+    public static final Font subtitleFont = boldFont.deriveFont(35f);
+    public static final Font subText = lightFont.deriveFont(24f);
 
     /**
      * useFont() adds a new custom text font to the proyect.

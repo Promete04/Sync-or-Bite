@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
       <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
@@ -617,12 +617,20 @@
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="tunnelPanel1">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                    </Property>
                     <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelReturning1">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                        </Property>
+                      </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
@@ -640,12 +648,20 @@
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="tunnelPanel6">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                    </Property>
                     <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelExiting1">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                        </Property>
+                      </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
@@ -672,12 +688,20 @@
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="tunnelPanel2">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                    </Property>
                     <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelReturning2">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                        </Property>
+                      </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
@@ -694,12 +718,20 @@
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="tunnelPanel16">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                    </Property>
                     <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelExiting2">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                        </Property>
+                      </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
@@ -726,12 +758,20 @@
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="tunnelPanel3">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                    </Property>
                     <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelReturning3">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                        </Property>
+                      </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
@@ -748,12 +788,20 @@
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="tunnelPanel17">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                    </Property>
                     <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelExiting3">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                        </Property>
+                      </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
@@ -780,12 +828,20 @@
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="tunnelPanel4">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                    </Property>
                     <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelReturning4">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                        </Property>
+                      </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
@@ -802,12 +858,20 @@
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="tunnelPanel18">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                    </Property>
                     <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelExiting4">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
+                        </Property>
+                      </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
@@ -861,6 +925,7 @@
                           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                             <TitledBorder title="Common Area">
                               <Connection PropertyName="font" code="utils.FontManager.boldFont" type="code"/>
+                              <Connection PropertyName="color" code="utils.ColorManager.TEXT_COLOR" type="code"/>
                             </TitledBorder>
                           </Border>
                         </Property>
@@ -942,10 +1007,14 @@
                           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                             <TitledBorder title="Dining Room">
                               <Connection PropertyName="font" code="utils.FontManager.boldFont" type="code"/>
+                              <Connection PropertyName="color" code="utils.ColorManager.TEXT_COLOR" type="code"/>
                             </TitledBorder>
                           </Border>
                         </Property>
                       </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="diningRoomPanel.setViewportView(DiningList);"/>
+                      </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                           <BorderConstraints direction="Center"/>
@@ -1043,6 +1112,7 @@
                           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                             <TitledBorder title="Rest Area">
                               <Connection PropertyName="font" code="utils.FontManager.boldFont" type="code"/>
+                              <Connection PropertyName="color" code="utils.ColorManager.TEXT_COLOR" type="code"/>
                             </TitledBorder>
                           </Border>
                         </Property>
@@ -1148,7 +1218,10 @@
                     </Constraint>
                   </Constraints>
 
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                    <Property name="columns" type="int" value="2"/>
+                    <Property name="rows" type="int" value="1"/>
+                  </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="refugeIcon">
                       <Properties>
@@ -1160,12 +1233,21 @@
                         <Property name="enabled" type="boolean" value="false"/>
                         <Property name="focusable" type="boolean" value="false"/>
                         <Property name="horizontalTextPosition" type="int" value="0"/>
+                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                          <Insets value="[0, 0, 0, 0]"/>
+                        </Property>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[100, 100]"/>
+                        </Property>
+                        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[30, 30]"/>
+                        </Property>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="refugeCounter">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="utils.FontManager.regularFont" type="code"/>
+                          <Connection code="utils.FontManager.titleFont" type="code"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="text" type="java.lang.String" value="0"/>

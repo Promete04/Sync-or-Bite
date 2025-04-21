@@ -108,6 +108,9 @@ public class ServerApp
             cards.remove(currentPanel);
         }
         currentPanel = p;
+        frame.repaint();
+        frame.revalidate();
+        
     }
    
    public static void setupFrame()

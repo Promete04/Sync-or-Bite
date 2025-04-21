@@ -113,6 +113,7 @@ public class LogPage extends javax.swing.JPanel
         jScrollPane1 = new javax.swing.JScrollPane();
         logsArea = new javax.swing.JTextArea();
 
+        setForeground(utils.ColorManager.BG_COLOR);
         setLayout(new java.awt.BorderLayout());
 
         jPanel2.setForeground(utils.ColorManager.BG_COLOR);
@@ -145,6 +146,7 @@ public class LogPage extends javax.swing.JPanel
 
         add(jPanel2, java.awt.BorderLayout.NORTH);
 
+        jPanel1.setForeground(utils.ColorManager.BG_COLOR);
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jScrollPane1.setForeground(utils.ColorManager.BG_COLOR);

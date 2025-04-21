@@ -8,6 +8,7 @@ import Server.backend.PauseManager;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
@@ -81,7 +82,7 @@ public class MapPage extends javax.swing.JPanel
 
                 Dimension size = panel.getPreferredSize();
                 panel.setMaximumSize(new Dimension(maxWidth, size.height));
-                panel.setPreferredSize(new Dimension(maxWidth, size.height));
+                panel.setPreferredSize(new Dimension(maxWidth,size.height));
                 panel.revalidate();
             }
 
@@ -136,15 +137,15 @@ public class MapPage extends javax.swing.JPanel
         counters.put("RC",refugeCounter);
     }
     
-   public void pauseResume()
+    public void pauseResume()
     {
         pm.togglePause();
         ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
         pauseResumeButton.setIcon(current);
     }
    
-   public synchronized void addLabelToPanel(String panelKey, String labelText)
-   {
+    public synchronized void addLabelToPanel(String panelKey, String labelText)
+    {
        
         JPanel targetPanel = panels.get(panelKey);
 
@@ -160,6 +161,7 @@ public class MapPage extends javax.swing.JPanel
         label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
 
         targetPanel.add(label);
+        updatePanelPreferredHeight(targetPanel);
         targetPanel.revalidate();
         targetPanel.repaint();
     }
@@ -179,6 +181,7 @@ public class MapPage extends javax.swing.JPanel
             if (comp instanceof JLabel label && label.getText().equals(labelText)) 
             {
                 targetPanel.remove(label);
+                updatePanelPreferredHeight(targetPanel);
                 targetPanel.revalidate();
                 targetPanel.repaint();
                 return;
@@ -211,11 +214,49 @@ public class MapPage extends javax.swing.JPanel
         System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
     }
 
+    private void updatePanelPreferredHeight(JPanel panel) 
+    {
+    int rowCount = getFlowLayoutRowCount(panel);
+    int labelHeight = 30; // approximate height per row
+    int padding = 10;
+
+    Dimension currentSize = panel.getPreferredSize();
+    panel.setPreferredSize(new Dimension(currentSize.width, rowCount * (labelHeight + padding/2)));
+    panel.revalidate();
+    }
+
 
     public synchronized void setCounter(String nameLabel, String value) 
     {
         counters.get(nameLabel).setText(value);
     }
+    
+    private int getFlowLayoutRowCount(JPanel panel) 
+    {
+    int panelWidth = panel.getWidth();
+    if (panelWidth == 0) 
+    {
+        panelWidth = panel.getPreferredSize().width;
+    }
+
+    int x = 0;
+    int rows = 1; // At least one row if there's any content
+    int hgap = ((FlowLayout) panel.getLayout()).getHgap();
+
+    for (Component comp : panel.getComponents()) 
+    {
+        Dimension d = comp.getPreferredSize();
+        if (x + d.width > panelWidth) 
+        {
+            rows++;
+            x = 0;
+        }
+        x += d.width + hgap;
+    }
+
+    return rows;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -624,7 +665,10 @@ public class MapPage extends javax.swing.JPanel
         jPanel5.setForeground(utils.ColorManager.BG_COLOR);
         jPanel5.setLayout(new java.awt.GridLayout(3, 0));
 
+        tunnelPanel1.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        TunnelReturning1.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel1.setViewportView(TunnelReturning1);
 
         jPanel5.add(tunnelPanel1);
@@ -635,7 +679,10 @@ public class MapPage extends javax.swing.JPanel
         currentCrossing1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel5.add(currentCrossing1);
 
+        tunnelPanel6.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        TunnelExiting1.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel6.setViewportView(TunnelExiting1);
 
         jPanel5.add(tunnelPanel6);
@@ -648,7 +695,10 @@ public class MapPage extends javax.swing.JPanel
         jPanel9.setForeground(utils.ColorManager.BG_COLOR);
         jPanel9.setLayout(new java.awt.GridLayout(3, 0));
 
+        tunnelPanel2.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        TunnelReturning2.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel2.setViewportView(TunnelReturning2);
 
         jPanel9.add(tunnelPanel2);
@@ -658,7 +708,10 @@ public class MapPage extends javax.swing.JPanel
         currentCrossing2.setText("-----");
         jPanel9.add(currentCrossing2);
 
+        tunnelPanel16.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel16.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        TunnelExiting2.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel16.setViewportView(TunnelExiting2);
 
         jPanel9.add(tunnelPanel16);
@@ -671,7 +724,10 @@ public class MapPage extends javax.swing.JPanel
         jPanel10.setForeground(utils.ColorManager.BG_COLOR);
         jPanel10.setLayout(new java.awt.GridLayout(3, 0));
 
+        tunnelPanel3.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        TunnelReturning3.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel3.setViewportView(TunnelReturning3);
 
         jPanel10.add(tunnelPanel3);
@@ -681,7 +737,10 @@ public class MapPage extends javax.swing.JPanel
         currentCrossing3.setText("-----");
         jPanel10.add(currentCrossing3);
 
+        tunnelPanel17.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel17.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        TunnelExiting3.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel17.setViewportView(TunnelExiting3);
 
         jPanel10.add(tunnelPanel17);
@@ -694,7 +753,10 @@ public class MapPage extends javax.swing.JPanel
         jPanel11.setForeground(utils.ColorManager.BG_COLOR);
         jPanel11.setLayout(new java.awt.GridLayout(3, 0));
 
+        tunnelPanel4.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        TunnelReturning4.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel4.setViewportView(TunnelReturning4);
 
         jPanel11.add(tunnelPanel4);
@@ -704,7 +766,10 @@ public class MapPage extends javax.swing.JPanel
         currentCrossing4.setText("-----");
         jPanel11.add(currentCrossing4);
 
+        tunnelPanel18.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        TunnelExiting4.setForeground(utils.ColorManager.BG_COLOR);
         tunnelPanel18.setViewportView(TunnelExiting4);
 
         jPanel11.add(tunnelPanel18);
@@ -724,7 +789,7 @@ public class MapPage extends javax.swing.JPanel
         commonAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         commonAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        commonAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Common Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
+        commonAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Common Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont, utils.ColorManager.TEXT_COLOR));
         commonAreaPanel.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         commonAreaPanel.setViewportView(CommonList);
 
@@ -758,10 +823,11 @@ public class MapPage extends javax.swing.JPanel
         diningRoomPanel1.setLayout(new java.awt.BorderLayout());
 
         diningRoomPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        diningRoomPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dining Room", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
+        diningRoomPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dining Room", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont, utils.ColorManager.TEXT_COLOR));
         diningRoomPanel.setViewportView(DiningList);
 
         diningRoomPanel1.add(diningRoomPanel, java.awt.BorderLayout.CENTER);
+        diningRoomPanel.setViewportView(DiningList);
 
         diningRoomInfo.setForeground(utils.ColorManager.BG_COLOR);
 
@@ -808,7 +874,7 @@ public class MapPage extends javax.swing.JPanel
         restAreaPanel1.setLayout(new java.awt.BorderLayout());
 
         restAreaPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont));
+        restAreaPanel.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rest Area", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, utils.FontManager.boldFont, utils.ColorManager.TEXT_COLOR));
         restAreaPanel.setViewportView(RestList);
 
         restAreaPanel1.add(restAreaPanel, java.awt.BorderLayout.CENTER);
@@ -847,6 +913,7 @@ public class MapPage extends javax.swing.JPanel
         refugeInfo.add(refugeName, java.awt.BorderLayout.WEST);
 
         refugeCounters.setForeground(utils.ColorManager.BG_COLOR);
+        refugeCounters.setLayout(new java.awt.GridLayout(1, 2));
 
         refugeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GroupIcon.png"))); // NOI18N
         refugeIcon.setBorderPainted(false);
@@ -854,9 +921,12 @@ public class MapPage extends javax.swing.JPanel
         refugeIcon.setEnabled(false);
         refugeIcon.setFocusable(false);
         refugeIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        refugeIcon.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        refugeIcon.setMaximumSize(new java.awt.Dimension(100, 100));
+        refugeIcon.setMinimumSize(new java.awt.Dimension(30, 30));
         refugeCounters.add(refugeIcon);
 
-        refugeCounter.setFont(utils.FontManager.regularFont);
+        refugeCounter.setFont(utils.FontManager.titleFont);
         refugeCounter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         refugeCounter.setText("0");
         refugeCounter.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
