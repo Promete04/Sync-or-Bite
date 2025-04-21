@@ -30,7 +30,7 @@ public class RiskZone
         return unsafeAreas;
     }
     
-    public UnsafeArea accessUnsafeArea(int area)
+    public UnsafeArea obtainUnsafeArea(int area)
     {
         return unsafeAreas[area];
     }

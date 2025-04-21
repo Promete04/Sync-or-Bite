@@ -17,6 +17,7 @@ public class Zombie extends Thread
     private int areaWhereReborned = -1;
     private final Logger logger;
 
+    // Patient zero constructor
     public Zombie(RiskZone riskZone, Logger logger, PauseManager pm) 
     {
         this.zombieId = "Z0000";
@@ -43,16 +44,16 @@ public class Zombie extends Thread
             {
                 if(areaWhereReborned != -1)
                 {
-                    riskZone.accessUnsafeArea(areaWhereReborned).wander(this, pm);
-                    riskZone.accessUnsafeArea(areaWhereReborned).exit(this, pm);
+                    riskZone.obtainUnsafeArea(areaWhereReborned).wander(this, pm);
+                    riskZone.obtainUnsafeArea(areaWhereReborned).exit(this, pm);
                     areaWhereReborned = -1;
                 }
                 else
                 {
                     unsafeArea = (int) (Math.random() * 4);
-                    riskZone.accessUnsafeArea(unsafeArea).enter(this, pm);
-                    riskZone.accessUnsafeArea(unsafeArea).wander(this, pm);
-                    riskZone.accessUnsafeArea(unsafeArea).exit(this, pm);
+                    riskZone.obtainUnsafeArea(unsafeArea).enter(this, pm);
+                    riskZone.obtainUnsafeArea(unsafeArea).wander(this, pm);
+                    riskZone.obtainUnsafeArea(unsafeArea).exit(this, pm);
                 } 
             }
         }

@@ -46,6 +46,7 @@ public class UnsafeArea
             {
                 int attackedHumanIndex = (int) (Math.random()*possibleTargets.size());
                 attackedHuman = possibleTargets.get(attackedHumanIndex);
+                possibleTargets.remove(attackedHuman);       // So it can't be attacked by other zombie.
             }
         }
         pm.check();
@@ -54,19 +55,14 @@ public class UnsafeArea
         {
             logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
             mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ATACKING_COLOR);
-            pm.check();
+            
             synchronized(attacks)
             {
                 attacks.put(attackedHuman, z);
             }
-            
-            synchronized(possibleTargets)
-            {
-                possibleTargets.remove(attackedHuman);       // So it can't be attacked by other zombie.
-            } 
-            pm.check();
+
             attackedHuman.interrupt();                    // Attack starts
-            pm.check();
+
 //            Thread.sleep(500 + (int) (Math.random()*1000));
             Thread.sleep(250 + (int) (Math.random()*500));
             pm.check();
@@ -76,9 +72,10 @@ public class UnsafeArea
             pm.check();
             
             attackedHuman.interrupt();                    // Attack ends
-            pm.check();
+
             mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
         }
+        
         pm.check();
 //        Thread.sleep(2000 + (int) (Math.random()*1000));
         Thread.sleep(500 + (int) (Math.random()*250));
@@ -110,7 +107,7 @@ public class UnsafeArea
     public void exit(Zombie z, PauseManager pm) throws InterruptedException
     {
         pm.check();
-        synchronized (zombiesInside) 
+        synchronized(zombiesInside) 
         {
             zombiesInside.remove(z);
             logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
@@ -124,7 +121,7 @@ public class UnsafeArea
     {
         pm.check();
         synchronized (possibleTargets)
-        {;
+        {
             possibleTargets.add(h);
             logger.log("Human " + h.getHumanId() + " entered unsafe area " + area + ".");
             mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.incrementAndGet()));

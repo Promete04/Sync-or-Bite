@@ -42,13 +42,13 @@ public class Tunnel
     private Logger logger;
     
     private MapPage mapPage = ServerApp.getMapPage();
-    private int ID;
+    private int id;
     
     // Constructor: associates Tunnel with a specific unsafe area.
-    public Tunnel(UnsafeArea unsafeArea, Logger logger,int pID, PauseManager pm)
+    public Tunnel(UnsafeArea unsafeArea, Logger logger,int id, PauseManager pm)
     {
         this.pm = pm;
-        this.ID=pID;
+        this.id=id;
         this.logger = logger;
         this.unsafeArea = unsafeArea;
         groups = new CyclicBarrier(3, new Runnable() 
@@ -76,8 +76,8 @@ public class Tunnel
         {
             waitingToExitShelter.add(h);
             logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea() + ".");
-            mapPage.addLabelToPanel("TE"+String.valueOf(ID+1), h.getHumanId());
-            mapPage.setLabelColorInPanel("TE"+String.valueOf(ID+1), h.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
+            mapPage.addLabelToPanel("TE"+String.valueOf(id+1), h.getHumanId());
+            mapPage.setLabelColorInPanel("TE"+String.valueOf(id+1), h.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
         } 
         finally 
         {
@@ -96,7 +96,7 @@ public class Tunnel
             logger.log("Barrier broken for human " + h.getHumanId() + ": " + e.getMessage());
         }
         // Now, cross the tunnel individually.
-        mapPage.setLabelColorInPanel("TE"+String.valueOf(ID+1), h.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+        mapPage.setLabelColorInPanel("TE"+String.valueOf(id+1), h.getHumanId(), utils.ColorManager.HUMAN_COLOR);
        
         pm.check();
         // Use the usingLock to ensure only one human is in the tunnel.
@@ -113,13 +113,13 @@ public class Tunnel
             pm.check();
             // Remove form waiting as it is going to cross
             waitingToExitShelter.remove(h);
-            mapPage.removeLabelFromPanel("TE"+String.valueOf(ID+1), h.getHumanId());
+            mapPage.removeLabelFromPanel("TE"+String.valueOf(id+1), h.getHumanId());
             pm.check();
            
             // Reserve the tunnel.
             tunnelBusy = true;
             currentInside = h;
-            mapPage.setCounter("C"+String.valueOf(ID+1), currentInside.getHumanId());
+            mapPage.setCounter("C"+String.valueOf(id+1), currentInside.getHumanId());
             pm.check();
         } 
         finally 
@@ -128,7 +128,7 @@ public class Tunnel
             pm.check();
         }
         pm.check();
-        // Simulate the crossing (e.g., 1 second).
+        // Crossing.
         logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea() + ".");
 //        Thread.sleep(1000);
         Thread.sleep(500);
@@ -148,7 +148,7 @@ public class Tunnel
             pm.check();
             tunnelBusy = false;
             currentInside = null;
-            mapPage.setCounter("C"+String.valueOf(ID+1), "-----");
+            mapPage.setCounter("C"+String.valueOf(id+1), "-----");
             pm.check();
             // Give priority to returners.
             if (hasReturnersWaiting()) 
@@ -181,11 +181,11 @@ public class Tunnel
             waitingToEnterShelter.add(h);
             logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea() + ".");
             pm.check();
-            mapPage.addLabelToPanel("TR"+String.valueOf(ID+1), h.getHumanId());
+            mapPage.addLabelToPanel("TR"+String.valueOf(id+1), h.getHumanId());
             pm.check();
             if(h.isMarked())
             {
-                mapPage.setLabelColorInPanel("TR"+String.valueOf(ID+1), h.getHumanId(),utils.ColorManager.INJURED_COLOR );
+                mapPage.setLabelColorInPanel("TR"+String.valueOf(id+1), h.getHumanId(),utils.ColorManager.INJURED_COLOR );
             }
         } 
         finally
@@ -206,10 +206,10 @@ public class Tunnel
             }
             pm.check();
             
-            mapPage.removeLabelFromPanel("TR"+String.valueOf(ID+1), h.getHumanId());
+            mapPage.removeLabelFromPanel("TR"+String.valueOf(id+1), h.getHumanId());
             tunnelBusy = true;
             currentInside = h;
-            mapPage.setCounter("C"+String.valueOf(ID+1), currentInside.getHumanId());
+            mapPage.setCounter("C"+String.valueOf(id+1), currentInside.getHumanId());
             pm.check();
             // Remove this human from the waiting queue.
             entryWaitingLock.lock();
@@ -229,7 +229,7 @@ public class Tunnel
         }
         
         pm.check();
-        // Simulate the crossing (e.g., 1 second).
+        // Crossing.
         logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea() + ".");
 //        Thread.sleep(1000);
         Thread.sleep(500);
@@ -247,7 +247,7 @@ public class Tunnel
             pm.check();
             tunnelBusy = false;
             currentInside = null;
-            mapPage.setCounter("C"+String.valueOf(ID+1), "-----");
+            mapPage.setCounter("C"+String.valueOf(id+1), "-----");
             pm.check();
             if (hasReturnersWaiting()) 
             {
