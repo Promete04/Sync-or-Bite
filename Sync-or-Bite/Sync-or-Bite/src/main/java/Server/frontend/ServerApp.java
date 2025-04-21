@@ -29,6 +29,7 @@ public class ServerApp
     public static void main(String[] args)
     {
         mapPage = new MapPage();
+        mapPage.enableAutoResize();
         logPage= new LogPage();
         
         RiskZone riskZone = new RiskZone(logger);

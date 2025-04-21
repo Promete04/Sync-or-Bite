@@ -211,9 +211,7 @@
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="RiskHuman1">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -226,9 +224,7 @@
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="RiskZombie1">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -335,9 +331,7 @@
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="RiskHuman2">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -350,9 +344,7 @@
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="RiskZombie2">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -459,9 +451,7 @@
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="RiskHuman3">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -474,9 +464,7 @@
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="RiskZombie3">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -583,9 +571,7 @@
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="RiskHuman4">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -598,9 +584,7 @@
                       <SubComponents>
                         <Container class="javax.swing.JPanel" name="RiskZombie4">
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                            <Property name="axis" type="int" value="1"/>
-                          </Layout>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
                       </SubComponents>
                     </Container>
@@ -640,7 +624,7 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelReturning1">
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -663,9 +647,7 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelExiting1">
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-                        <Property name="axis" type="int" value="0"/>
-                      </Layout>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -697,7 +679,7 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelReturning2">
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -719,7 +701,7 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelExiting2">
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -751,7 +733,7 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelReturning3">
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -773,7 +755,7 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelExiting3">
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -805,7 +787,7 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelReturning4">
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -827,7 +809,7 @@
                   <SubComponents>
                     <Container class="javax.swing.JPanel" name="TunnelExiting4">
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -1170,7 +1152,11 @@
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="refugeIcon">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="jButton1"/>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/images/GroupIcon.png"/>
+                        </Property>
+                        <Property name="borderPainted" type="boolean" value="false"/>
+                        <Property name="contentAreaFilled" type="boolean" value="false"/>
                         <Property name="enabled" type="boolean" value="false"/>
                         <Property name="focusable" type="boolean" value="false"/>
                         <Property name="horizontalTextPosition" type="int" value="0"/>

@@ -7,6 +7,9 @@ package Server.frontend;
 import Server.backend.PauseManager;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,10 +32,6 @@ public class MapPage extends javax.swing.JPanel
      */
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
-    private ImageIcon humanIcon= new ImageIcon(getClass().getResource( "/images/HumanIcon.png" ));
-    private ImageIcon zombieIcon= new ImageIcon(getClass().getResource( "/images/ZombieIcon.png" ));
-    private ImageIcon diningIcon= new ImageIcon(getClass().getResource( "/images/DiningRoomicon.png" ));
-    private ImageIcon groupIcon= new ImageIcon(getClass().getResource( "/images/Groupicon.png" ));
     private PauseManager  pm;
     private final Map<String, JLabel> counters = new HashMap<>();
     private final Map<String, JPanel> panels = new HashMap<>();
@@ -43,8 +42,6 @@ public class MapPage extends javax.swing.JPanel
         this.pm = ServerApp.getPM();
         
         initComponents();
-        
-//        confButtons();
         setupCounters();
         setupPanels();
         
@@ -59,6 +56,42 @@ public class MapPage extends javax.swing.JPanel
             }
         });
     }
+    
+    public void enableAutoResize() {
+    this.addComponentListener(new ComponentAdapter() {
+        @Override
+        public void componentResized(ComponentEvent e) {
+            int totalWidth = getWidth(); // Ancho visible de MapPage
+
+            for (Map.Entry<String, JPanel> entry : panels.entrySet()) {
+                String key = entry.getKey();
+                JPanel panel = entry.getValue();
+
+                int maxWidth;
+
+                if (key.startsWith("RH") || key.startsWith("RZ")) {
+                    maxWidth = totalWidth / 8;
+                } else if (key.startsWith("TR") || key.startsWith("TE")) {
+                    maxWidth = totalWidth / 4;
+                } else if (key.equals("C") || key.equals("D") || key.equals("R")) {
+                    maxWidth = totalWidth / 3;
+                } else {
+                    continue;
+                }
+
+                Dimension size = panel.getPreferredSize();
+                panel.setMaximumSize(new Dimension(maxWidth, size.height));
+                panel.setPreferredSize(new Dimension(maxWidth, size.height));
+                panel.revalidate();
+            }
+
+            revalidate();
+            repaint();
+        }
+    });
+}
+
+    
     private void setupPanels() 
     {
          panels.put("RH1", RiskHuman1);
@@ -184,62 +217,6 @@ public class MapPage extends javax.swing.JPanel
         counters.get(nameLabel).setText(value);
     }
 
-//    public final void confButtons() 
-//    {
-//
-//        List<JButton> buttonList = new ArrayList<>(); //to simplify mass modification
-//        List<JButton> humanList = new ArrayList<>(); //to simplify mass modification
-//        List<JButton> zombieList = new ArrayList<>(); //to simplify mass modification
-//        buttonList.add(HumanIcon1);
-//        humanList.add(HumanIcon1);
-//        buttonList.add(HumanIcon2);
-//        humanList.add(HumanIcon2);
-//        buttonList.add(HumanIcon3);
-//        humanList.add(HumanIcon3);
-//        buttonList.add(HumanIcon4);
-//        humanList.add(HumanIcon4);
-//        buttonList.add(ZombieIcon1);
-//        zombieList.add(ZombieIcon1);
-//        buttonList.add(ZombieIcon2);
-//        zombieList.add(ZombieIcon2);
-//        buttonList.add(ZombieIcon3);
-//        zombieList.add(ZombieIcon3);
-//        buttonList.add(ZombieIcon4);
-//        zombieList.add(ZombieIcon4);
-//        buttonList.add(commonHumanIcon);
-//        humanList.add(commonHumanIcon);
-//        buttonList.add(diningHumanIcon);
-//        humanList.add(diningHumanIcon);
-//        buttonList.add(foodIcon);
-//        buttonList.add(logsButton);
-//        buttonList.add(pauseResumeButton);
-//        buttonList.add(refugeIcon);
-//        buttonList.add(restHumanIcon);
-//        humanList.add(restHumanIcon);
-//        
-//        for(JButton button:buttonList)
-//        {
-//            button.setBorder(null);
-//            button.setForeground(utils.ColorManager.TRANSPARENT_COLOR);
-//            button.setLabel("");
-//        }
-//        for(JButton button:humanList)
-//        {
-//            button.setIcon(humanIcon);
-//        }
-//        
-//        for(JButton button:zombieList)
-//        {
-//            button.setIcon(zombieIcon);
-//        }
-//        
-//        foodIcon.setIcon(diningIcon);
-//        refugeIcon.setIcon(groupIcon);
-//    }
-    /**
-     * 
-     * 
-     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -443,15 +420,11 @@ public class MapPage extends javax.swing.JPanel
 
         riskZonePanel1.setForeground(utils.ColorManager.BG_COLOR);
         riskZonePanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        RiskHuman1.setLayout(new javax.swing.BoxLayout(RiskHuman1, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel1.setViewportView(RiskHuman1);
 
         jPanel1.add(riskZonePanel1);
 
         riskZonePanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        RiskZombie1.setLayout(new javax.swing.BoxLayout(RiskZombie1, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel3.setViewportView(RiskZombie1);
 
         jPanel1.add(riskZonePanel3);
@@ -508,15 +481,11 @@ public class MapPage extends javax.swing.JPanel
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        RiskHuman2.setLayout(new javax.swing.BoxLayout(RiskHuman2, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel4.setViewportView(RiskHuman2);
 
         jPanel2.add(riskZonePanel4);
 
         riskZonePanel7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        RiskZombie2.setLayout(new javax.swing.BoxLayout(RiskZombie2, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel7.setViewportView(RiskZombie2);
 
         jPanel2.add(riskZonePanel7);
@@ -573,15 +542,11 @@ public class MapPage extends javax.swing.JPanel
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        RiskHuman3.setLayout(new javax.swing.BoxLayout(RiskHuman3, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel8.setViewportView(RiskHuman3);
 
         jPanel3.add(riskZonePanel8);
 
         riskZonePanel9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        RiskZombie3.setLayout(new javax.swing.BoxLayout(RiskZombie3, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel9.setViewportView(RiskZombie3);
 
         jPanel3.add(riskZonePanel9);
@@ -638,15 +603,11 @@ public class MapPage extends javax.swing.JPanel
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
 
         riskZonePanel10.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        RiskHuman4.setLayout(new javax.swing.BoxLayout(RiskHuman4, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel10.setViewportView(RiskHuman4);
 
         jPanel4.add(riskZonePanel10);
 
         riskZonePanel11.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        RiskZombie4.setLayout(new javax.swing.BoxLayout(RiskZombie4, javax.swing.BoxLayout.Y_AXIS));
         riskZonePanel11.setViewportView(RiskZombie4);
 
         jPanel4.add(riskZonePanel11);
@@ -664,8 +625,6 @@ public class MapPage extends javax.swing.JPanel
         jPanel5.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        TunnelReturning1.setLayout(new javax.swing.BoxLayout(TunnelReturning1, javax.swing.BoxLayout.LINE_AXIS));
         tunnelPanel1.setViewportView(TunnelReturning1);
 
         jPanel5.add(tunnelPanel1);
@@ -677,8 +636,6 @@ public class MapPage extends javax.swing.JPanel
         jPanel5.add(currentCrossing1);
 
         tunnelPanel6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        TunnelExiting1.setLayout(new javax.swing.BoxLayout(TunnelExiting1, javax.swing.BoxLayout.X_AXIS));
         tunnelPanel6.setViewportView(TunnelExiting1);
 
         jPanel5.add(tunnelPanel6);
@@ -692,8 +649,6 @@ public class MapPage extends javax.swing.JPanel
         jPanel9.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        TunnelReturning2.setLayout(new javax.swing.BoxLayout(TunnelReturning2, javax.swing.BoxLayout.LINE_AXIS));
         tunnelPanel2.setViewportView(TunnelReturning2);
 
         jPanel9.add(tunnelPanel2);
@@ -704,8 +659,6 @@ public class MapPage extends javax.swing.JPanel
         jPanel9.add(currentCrossing2);
 
         tunnelPanel16.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        TunnelExiting2.setLayout(new javax.swing.BoxLayout(TunnelExiting2, javax.swing.BoxLayout.LINE_AXIS));
         tunnelPanel16.setViewportView(TunnelExiting2);
 
         jPanel9.add(tunnelPanel16);
@@ -719,8 +672,6 @@ public class MapPage extends javax.swing.JPanel
         jPanel10.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        TunnelReturning3.setLayout(new javax.swing.BoxLayout(TunnelReturning3, javax.swing.BoxLayout.LINE_AXIS));
         tunnelPanel3.setViewportView(TunnelReturning3);
 
         jPanel10.add(tunnelPanel3);
@@ -731,8 +682,6 @@ public class MapPage extends javax.swing.JPanel
         jPanel10.add(currentCrossing3);
 
         tunnelPanel17.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        TunnelExiting3.setLayout(new javax.swing.BoxLayout(TunnelExiting3, javax.swing.BoxLayout.LINE_AXIS));
         tunnelPanel17.setViewportView(TunnelExiting3);
 
         jPanel10.add(tunnelPanel17);
@@ -746,8 +695,6 @@ public class MapPage extends javax.swing.JPanel
         jPanel11.setLayout(new java.awt.GridLayout(3, 0));
 
         tunnelPanel4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        TunnelReturning4.setLayout(new javax.swing.BoxLayout(TunnelReturning4, javax.swing.BoxLayout.LINE_AXIS));
         tunnelPanel4.setViewportView(TunnelReturning4);
 
         jPanel11.add(tunnelPanel4);
@@ -758,8 +705,6 @@ public class MapPage extends javax.swing.JPanel
         jPanel11.add(currentCrossing4);
 
         tunnelPanel18.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        TunnelExiting4.setLayout(new javax.swing.BoxLayout(TunnelExiting4, javax.swing.BoxLayout.LINE_AXIS));
         tunnelPanel18.setViewportView(TunnelExiting4);
 
         jPanel11.add(tunnelPanel18);
@@ -903,7 +848,9 @@ public class MapPage extends javax.swing.JPanel
 
         refugeCounters.setForeground(utils.ColorManager.BG_COLOR);
 
-        refugeIcon.setText("jButton1");
+        refugeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GroupIcon.png"))); // NOI18N
+        refugeIcon.setBorderPainted(false);
+        refugeIcon.setContentAreaFilled(false);
         refugeIcon.setEnabled(false);
         refugeIcon.setFocusable(false);
         refugeIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
