@@ -5,15 +5,21 @@
 package Server.backend;
 
 /**
- *
- * @author Lopex
+ * Manages the 4 tunnels that connect the refuge to the unsafe areas.
  */
 public class Tunnels 
 {
-    private Tunnel[] tunnels;
+    private Tunnel[] tunnels;  // The array of tunnels
     private RiskZone riskZone;
     
-    
+    /**
+     * Constructs and initializes the tunnel system.
+     * Each tunnel is linked to a specific UnsafeArea from the RiskZone.
+     *
+     * @param riskZone Shared RiskZone containing the UnsafeAreas.
+     * @param logger the logger
+     * @param pm the pause manager
+     */
     public Tunnels(RiskZone riskZone, Logger logger, PauseManager pm)
     {
         this.riskZone = riskZone;
@@ -24,6 +30,12 @@ public class Tunnels
         }
     }
     
+    /**
+     * Returns a specific tunnel by index.
+     *
+     * @param tunnel Index from 0 to 3 representing the tunnel ID.
+     * @return Tunnel object associated with the given index.
+     */
     public Tunnel obtainTunnel(int tunnel) 
     {
         return tunnels[tunnel];
