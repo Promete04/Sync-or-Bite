@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/*
+/**
  * Represents an unsafe area within a RiskZone where zombies and humans interact.
  */
 public class UnsafeArea 
