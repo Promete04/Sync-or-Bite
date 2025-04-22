@@ -42,8 +42,8 @@ public class ClientApp
          
     }   
     
-     public static void redirect(String page)
-   {
+    public static void redirect(String page)
+    {
         
         JPanel p = pages.get(page);
         cards.add(p, page);
