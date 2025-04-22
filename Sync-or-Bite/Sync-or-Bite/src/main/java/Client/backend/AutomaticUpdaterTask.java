@@ -23,7 +23,9 @@ public class AutomaticUpdaterTask implements Callable<String[]>
      * and receiving the response data.
      *
      * @return An array of strings containing the data returned from the server,
-     * or null if an exception occurs
+     *         or null if an exception occurs. 
+     * 
+     * If an IOException is thrown, the method shows an error dialog and exits the program.
      */
     public String[] call()
     {
@@ -47,12 +49,10 @@ public class AutomaticUpdaterTask implements Callable<String[]>
         } 
         catch (IOException e) 
         {
-            e.printStackTrace();
+            // Show error dialog to the user and terminate the application
             JOptionPane.showMessageDialog(null,"Connection lost.","Connection Error",JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
-        
         return individualData;
-        
     }
 }
