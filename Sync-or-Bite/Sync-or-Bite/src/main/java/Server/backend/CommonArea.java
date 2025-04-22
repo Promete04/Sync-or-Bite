@@ -4,8 +4,10 @@
  */
 package Server.backend;
 
-import Server.frontend.ServerApp;
-import Server.frontend.MapPage;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  * Represents the common area where humans temporarily gather before choosing a tunnel.
@@ -19,11 +21,13 @@ public class CommonArea
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
     private int humansInside = 0;
+    private List<Human> humansIdsInside = new LinkedList<>();
     private Logger logger;
-    // GUI controller
-    private MapPage mapPage = ServerApp.getMapPage();
     // The pause manager used to pause/resume
     private PauseManager pm;
+    
+    // Observer list
+    private final List<ChangeListener> listeners = new ArrayList<>();
     
     /**
      * Constructs a CommonArea object.
@@ -37,6 +41,23 @@ public class CommonArea
         this.pm = pm;
     }
     
+    public void addChangeListener(ChangeListener l) 
+    {
+        listeners.add(l);
+    }
+    public void removeChangeListener(ChangeListener l) 
+    {
+        listeners.remove(l);
+    }
+    
+    private void notifyChange() 
+    {
+        for (ChangeListener l : listeners) 
+        {
+            l.onChange(this);
+        }
+    }
+    
     /**
      * Called when a human enters the common area.
      * Updates internal list, GUI, and shows the action in the log file.
@@ -48,8 +69,9 @@ public class CommonArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the common area.");
-        mapPage.setCounter("HC", String.valueOf(++humansInside));
-        mapPage.addLabelToPanel("C", h.getHumanId());
+        humansInside=humansInside+1;
+        humansIdsInside.add(h);
+        notifyChange();
         pm.check();
     }
     
@@ -64,8 +86,9 @@ public class CommonArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the common area.");
-        mapPage.setCounter("HC", String.valueOf(--humansInside));
-        mapPage.removeLabelFromPanel("C", h.getHumanId() );
+        humansIdsInside.remove(h);
+        humansInside=humansInside-1;
+        notifyChange();
         pm.check();
     }
     
@@ -95,5 +118,19 @@ public class CommonArea
         logger.log("Human " + h.getHumanId() + " chose tunnel " + selectedTunnel + " in the common area.");
         h.setSelectedTunnel(selectedTunnel);
         pm.check();
+    }
+    
+    /** 
+     * Exposed so UI can query the current count 
+     * @return 
+     */
+    public int getHumansInside() 
+    {
+        return humansInside;
+    }
+    
+    public synchronized List<Human> getHumansIdsInside() 
+    {
+        return humansIdsInside;
     }
 }

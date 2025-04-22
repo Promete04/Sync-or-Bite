@@ -30,17 +30,25 @@ public class ServerApp
     
     private static Map<String, JPanel> pages;
     private static JPanel currentPanel; 
+    
+    private static RiskZone riskZone;
+    private static Refuge refuge;
+    private static Tunnels tunnels;
    
+    /**
+     * 
+     * @param args
+     */
     public static void main(String[] args)
     {
+        riskZone = new RiskZone(logger,pm);
+        refuge = new Refuge(logger,pm);
+        tunnels = new Tunnels(riskZone,logger, pm);
+        
         logPage= new LogPage();
         mapPage = new MapPage();
         mapPage.enableAutoResize();
         
-        
-        RiskZone riskZone = new RiskZone(logger,pm);
-        Refuge refuge = new Refuge(logger,pm);
-        Tunnels tunnels = new Tunnels(riskZone,logger, pm);
         ServerData server = new ServerData(pm, tunnels, refuge, riskZone);
         
         pages = new HashMap<>() 
@@ -81,29 +89,55 @@ public class ServerApp
         server.start();
     }   
     
-   
+    /**
+     *
+     * @return
+     */
     public static PauseManager getPM()
     {
         return pm;
     }
+    
+    public static Refuge getR()
+    {
+        return refuge;
+    }
+    
+    public static CommonArea getCA()
+    {
+        return refuge.getCA();
+    }
+    
+    public static RestArea getRA()
+    {
+        return refuge.getRA();
+    }
+    
+    public static DiningRoom getDR()
+    {
+        return refuge.getDR();
+    }
+    
+    public static RiskZone getRZ()
+    {
+        return riskZone;
+    }
+    
+    public static Tunnels getT()
+    {
+        return tunnels;
+    }
+     public static Logger getL()
+     {
+         return logger;
+     }
      
-    public static Logger getLogger()
-    {
-        return logger;
-    }
-    
-    
-    public static MapPage getMapPage() 
-    {
-        return mapPage;
-    }
-
-    public static JPanel getCurrentPanel() 
-    {
-        return currentPanel;
-    }
-    
-   public static void redirect(String page)
+    /**
+     * Pages are inside a CardLayout. Inside the page's procedure, they can
+     * call the App.redirect() method to change the view.
+     * @param page A string with the page name.
+     */
+    public static void redirect(String page)
    {
         
         JPanel p = pages.get(page);
@@ -119,7 +153,10 @@ public class ServerApp
         
     }
    
-   public static void setupFrame()
+    /**
+     *
+     */
+    public static void setupFrame()
    {
         frame.setContentPane(cards);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

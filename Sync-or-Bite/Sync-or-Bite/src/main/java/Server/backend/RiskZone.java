@@ -173,4 +173,13 @@ public class RiskZone
         }
         return sb.toString();
     }
+
+    public int getIndexOfUnsafeArea(UnsafeArea area) 
+    {
+    for (int i = 0; i < unsafeAreas.length; i++) 
+    {
+        if (unsafeAreas[i] == area) return i;
+    }
+    return -1;
+}
 }

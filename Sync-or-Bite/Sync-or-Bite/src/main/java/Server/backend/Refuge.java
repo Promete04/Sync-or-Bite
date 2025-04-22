@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Server.backend;
-import Server.frontend.ServerApp;
-import Server.frontend.MapPage;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -22,7 +23,10 @@ public class Refuge
     private DiningRoom diningRoom;
     private AtomicInteger count;  // Number of humans in the refuge
     private Logger logger;
-    private MapPage mapPage = ServerApp.getMapPage();
+    
+    // Observer list
+    private final List<ChangeListener> listeners = new ArrayList<>();
+    
     
     /**
      * Constructs the Refuge and initializes all internal areas.
@@ -39,6 +43,37 @@ public class Refuge
         diningRoom = new DiningRoom(logger, pm);
         this.logger = logger;
     }
+    public RestArea getRA()
+    {
+        return restArea;
+    }
+    
+    public CommonArea getCA()
+    {
+        return commonArea;
+    }
+    
+    public DiningRoom getDR()
+    {
+        return diningRoom;
+    }
+    
+    public void addChangeListener(ChangeListener l) 
+    {
+        listeners.add(l);
+    }
+    public void removeChangeListener(ChangeListener l) 
+    {
+        listeners.remove(l);
+    }
+    
+    private void notifyChange() 
+    {
+        for (ChangeListener l : listeners) 
+        {
+            l.onChange(this);
+        }
+    }
     
     /**
      * Registers the entrance of a human into the refuge.
@@ -47,7 +82,8 @@ public class Refuge
      */
     public void access(Human h)
     {
-        mapPage.setCounter("RC", String.valueOf(count.incrementAndGet()));  // Increment the counter
+        count.incrementAndGet();
+        notifyChange();  
         logger.log("Human " + h.getHumanId() + " entered the refuge.");
     }
     
@@ -58,7 +94,8 @@ public class Refuge
      */
     public void leave(Human h)
     {
-        mapPage.setCounter("RC", String.valueOf(count.decrementAndGet()));  // Decrement the counter
+        count.decrementAndGet();
+        notifyChange(); 
         logger.log("Human " + h.getHumanId() + " left the refuge.");
     }
     

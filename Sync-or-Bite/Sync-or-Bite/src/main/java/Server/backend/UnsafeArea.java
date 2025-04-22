@@ -4,8 +4,6 @@
  */
 package Server.backend;
 
-import Server.frontend.ServerApp;
-import Server.frontend.MapPage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +20,8 @@ public class UnsafeArea
     // List of humans that can be targeted by zombies
     private List<Human> possibleTargets = new ArrayList<>();  
     // Thread safe counter for the number of humans inside
-    private AtomicInteger humansInside = new AtomicInteger(0);
+    private AtomicInteger humansInsideCount = new AtomicInteger(0);
+    private List<Human> humansInside = new ArrayList<>();  
     // Records attacked humans and the zombies attacking them
     private Map<Human,Zombie> attacks = new HashMap<>();
     private RiskZone riskZone;
@@ -30,10 +29,10 @@ public class UnsafeArea
     // Food generator for humans wandering inside
     private FoodGenerator fgenerator;
     private Logger logger;
-    // Reference to the GUI page that visualizes the map
-    private MapPage mapPage = ServerApp.getMapPage();
     // The pause manager used to pause/resume
     private PauseManager pm;
+    // Observer list
+    private final List<ChangeListener> listeners = new ArrayList<>();
     
     /**
      * Constructor for UnsafeArea.
@@ -45,6 +44,23 @@ public class UnsafeArea
         this.fgenerator = fgenerator;
         this.area = area;
         this.logger = logger;
+    }
+    
+    public void addChangeListener(ChangeListener l) 
+    {
+        listeners.add(l);
+    }
+    public void removeChangeListener(ChangeListener l) 
+    {
+        listeners.remove(l);
+    }
+    
+    private void notifyChange() 
+    {
+        for (ChangeListener l : listeners) 
+        {
+            l.onChange(this);
+        }
     }
     
     /**
@@ -62,6 +78,7 @@ public class UnsafeArea
         {
             if(!possibleTargets.isEmpty())
             {
+                
                 int attackedHumanIndex = (int) (Math.random()*possibleTargets.size());
                 attackedHuman = possibleTargets.get(attackedHumanIndex);
                 possibleTargets.remove(attackedHuman);       // Remove so it can't be attacked by other zombies
@@ -72,8 +89,9 @@ public class UnsafeArea
         // If the zombie successfully picked a human to attack
         if(attackedHuman != null)
         {
+            z.toggleAtacking();
             logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
-            mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ATACKING_COLOR);
+            notifyChange();
             
             // Record the target and itself in the attacks hashmap (using it's monitor).
             synchronized(attacks)
@@ -92,9 +110,10 @@ public class UnsafeArea
             pm.check();
             Thread.sleep(125 + (int) (Math.random()*250));
             
-            attackedHuman.interrupt();                    // End of attack using another interrupt
+            attackedHuman.interrupt();      // End of attack using another interrupt
+            z.toggleAtacking();
 
-            mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1),z.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
+            notifyChange();
         }
         
         // Simulate wandering time with periodic pause checks
@@ -126,9 +145,7 @@ public class UnsafeArea
             zombiesInside.add(z);
             logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
             // Update GUI
-            mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
-            mapPage.addLabelToPanel("RZ"+String.valueOf(area+1), z.getZombieId());
-            mapPage.setLabelColorInPanel("RZ"+String.valueOf(area+1), z.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
+            notifyChange();
         }
         pm.check();
     }
@@ -147,8 +164,7 @@ public class UnsafeArea
             zombiesInside.remove(z);
             logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
             // Update GUI
-            mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
-            mapPage.removeLabelFromPanel("RZ"+String.valueOf(area+1), z.getZombieId());
+            notifyChange();
         }
         pm.check();
     }
@@ -165,10 +181,11 @@ public class UnsafeArea
         synchronized(possibleTargets) // Uses the list's monitor for synchronization
         {
             possibleTargets.add(h);
+            humansInside.add(h);
             logger.log("Human " + h.getHumanId() + " entered unsafe area " + area + ".");
+            humansInsideCount.incrementAndGet();
             // Update GUI
-            mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.incrementAndGet()));
-            mapPage.addLabelToPanel("RH"+String.valueOf(area+1), h.getHumanId());
+            notifyChange();
         }
         pm.check();
     }
@@ -185,10 +202,11 @@ public class UnsafeArea
         synchronized (possibleTargets)  // Uses the list's monitor for synchronization
         {
             possibleTargets.remove(h);
+            humansInside.remove(h);
             logger.log("Human " + h.getHumanId() + " left unsafe area " + area + ".");
+            humansInsideCount.decrementAndGet();
             // Update GUI
-            mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.decrementAndGet()));
-            mapPage.removeLabelFromPanel("RH"+String.valueOf(area+1), h.getHumanId());
+            notifyChange();
         }
         pm.check();
     }
@@ -237,13 +255,14 @@ public class UnsafeArea
             }
             catch(InterruptedException ie2)
             {
-                mapPage.setLabelColorInPanel("RH"+String.valueOf(area+1),h.getHumanId(),utils.ColorManager.ATACKED_COLOR);
+                h.toggleAtacked();
+                notifyChange();
                 int defense = (int) (Math.random() * 3);  // 2/3 chance to survive
                 pm.check();
                 if (defense < 2) 
                 {
                     logger.log("Human " + h.getHumanId() + " successfully defended itself from the attack.");
-                    mapPage.setLabelColorInPanel("RH"+String.valueOf(area+1),h.getHumanId(),utils.ColorManager.INJURED_COLOR);
+                    notifyChange();
                     
                     // If survived it's marked
                     h.toggleMarked();
@@ -253,14 +272,14 @@ public class UnsafeArea
                     synchronized(attacks) 
                     { 
                         attacks.remove(h);
+                        h.toggleAtacked();
                     }
                     pm.check();
                 } 
                 else 
                 {
                     logger.log("Human " + h.getHumanId() + " failed to defend itself from the attack.");
-                    mapPage.removeLabelFromPanel("RH"+String.valueOf(area+1), h.getHumanId()); 
-                    mapPage.setCounter("H"+String.valueOf(area+1),String.valueOf(humansInside.decrementAndGet()));
+                    notifyChange();
                     String zombieId = h.getHumanId().replaceFirst("H", "Z");
                     Zombie killer;
                     
@@ -270,6 +289,10 @@ public class UnsafeArea
                     {  
                         killer = attacks.get(h);
                         attacks.remove(h);
+                        humansInside.remove(h);
+                        humansInsideCount.decrementAndGet();
+                        notifyChange();
+                        
                     }
                     pm.check(); 
                     
@@ -287,8 +310,7 @@ public class UnsafeArea
                     synchronized(zombiesInside) // Add the new zombie to zombiesInside list using its monitor for synchronization
                     {
                         zombiesInside.add(killed);
-                        mapPage.setCounter("Z"+String.valueOf(area+1),String.valueOf(zombiesInside.size()));
-                        mapPage.addLabelToPanel("RZ"+String.valueOf(area+1), killed.getZombieId());
+                        notifyChange();
                     }
                     pm.check();
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");
@@ -319,23 +341,40 @@ public class UnsafeArea
     /**
      * @return atomic counter tracking humans inside
      */
-    public AtomicInteger getHumansInside()
+    public AtomicInteger getHumansInsideCount()
     {
-        return humansInside;
+        return humansInsideCount;
     }
+    
+    public List<Human> getHumansInside()
+    {
+        synchronized(humansInside)
+        {
+            return humansInside;
+        }
+    }
+   
     
     /**
      * Gets the current number of zombies in this area.
      * 
      * @return number of zombies protected by the list's monitor
      */
-    public int getZombiesInside()
+    public int getZombiesInsideCount()
     {
         int count;
         synchronized(zombiesInside)
         {
             count = zombiesInside.size();
             return count;
+        }
+    }
+    
+    public List<Zombie> getZombiesInside()
+    {
+        synchronized(zombiesInside)
+        {
+            return zombiesInside;
         }
     }
 }

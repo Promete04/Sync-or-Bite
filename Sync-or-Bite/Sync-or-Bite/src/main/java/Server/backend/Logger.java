@@ -4,12 +4,13 @@
  */
 package Server.backend;
 
-import Server.frontend.LogPage;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides thread safe (uses the monitor) logging functionality to both GUI and file output.
@@ -19,11 +20,15 @@ import java.time.format.DateTimeFormatter;
  */
 public class Logger 
 {
-    private LogPage logPage;
     private String file = null;
     private DateTimeFormatter filenameFormatter;
     private DateTimeFormatter lineFormatter;
+    private String lastLogEntry;
 
+    
+    // Observer list
+    private final List<ChangeListener> listeners = new ArrayList<>();
+    
     /**
      * Constructs a Logger instance and initializes a timestamped output file.
      */
@@ -32,6 +37,23 @@ public class Logger
         filenameFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         String timestamp = LocalDateTime.now().format(filenameFormatter);
         this.file = "apocalypse_" + timestamp + ".txt"; 
+    }
+    
+    public void addChangeListener(ChangeListener l) 
+    {
+        listeners.add(l);
+    }
+    public void removeChangeListener(ChangeListener l) 
+    {
+        listeners.remove(l);
+    }
+    
+    private void notifyChange() 
+    {
+        for (ChangeListener l : listeners) 
+        {
+            l.onChange(this);
+        }
     }
     
     /**
@@ -57,7 +79,8 @@ public class Logger
             String logEntry = "[" + timestamp + "] " + event;
             
             pw.println(logEntry);  // Write log line to file
-            logPage.onNewLog(logEntry);  // Notify GUI about the new log
+            this.lastLogEntry = event;
+            notifyChange();  // Notify GUI about the new log
         } 
         catch (IOException e) 
         {
@@ -84,6 +107,11 @@ public class Logger
         }
     }
     
+    public String getLastLogEntry() 
+    {
+        return lastLogEntry;
+    }
+    
     /**
      * Returns the name of the log file currently being written.
      *
@@ -93,15 +121,4 @@ public class Logger
     {
         return file;
     }
-
-    /**
-     * Sets the log panel GUI component to forward log messages to.
-     *
-     * @param logPage the GUI panel that displays log messages
-     */
-    public void setLogPage(LogPage logPage) 
-    {
-        this.logPage = logPage;
-    }
-
 }

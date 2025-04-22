@@ -40,4 +40,13 @@ public class Tunnels
     {
         return tunnels[tunnel];
     }
+
+    public int getIndexOfTunnel(Tunnel tunnel) 
+    {
+        for (int i = 0; i < tunnels.length; i++) 
+        {
+            if (tunnels[i] == tunnel) return i;
+        }
+        return -1;
+    }
 }

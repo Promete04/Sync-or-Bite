@@ -4,6 +4,7 @@
  */
 package Server.frontend;
 
+import Server.backend.ChangeListener;
 import Server.backend.Logger;
 import Server.backend.PauseManager;
 import java.io.BufferedReader;
@@ -33,18 +34,25 @@ public class LogPage extends javax.swing.JPanel
     {
         initComponents();
         
-        this.logger = ServerApp.getLogger();
         this.pm = ServerApp.getPM();
-        logger.setLogPage(this);
-        
-        
-        
+        this.logger= ServerApp.getL();
+                
         pm.setPauseStateListener(new Runnable() 
         {
             public void run() 
             {
                 ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
                 pauseResumeButton.setIcon(current);
+            }
+        });
+        
+        logger.addChangeListener(new ChangeListener() 
+        {
+            @Override
+            public void onChange(Object source) 
+            {
+                String lastLogEntry = logger.getLastLogEntry(); 
+                logsArea.append(lastLogEntry + "\n");
             }
         });
 
@@ -54,15 +62,12 @@ public class LogPage extends javax.swing.JPanel
     
   
     
-    private void loadLogs() 
-    {
-        BufferedReader br = null;
+    private void loadLogs() {
         File file = new File(logger.getFileName());
-        if(file.exists())
+        if (file.exists()) 
         {
-            try 
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) 
             {
-                br = new BufferedReader(new FileReader(file));
                 String line;
                 while ((line = br.readLine()) != null) 
                 {
@@ -72,24 +77,9 @@ public class LogPage extends javax.swing.JPanel
             catch (IOException e) 
             {
                 e.printStackTrace();
-            } 
-            finally 
-            {
-                if (br != null) 
-                {
-                    try 
-                    {
-                        br.close();
-                    } 
-                    catch (IOException e) 
-                    {
-                        e.printStackTrace();
-                    }
-                }
             }
-        }    
+        }
     }
-    
 
     public void onNewLog(String logEntry)
     {

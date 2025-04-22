@@ -4,9 +4,12 @@
  */
 package Server.backend;
 
-import Server.frontend.ServerApp;
-import Server.frontend.MapPage;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 
@@ -22,16 +25,23 @@ public class DiningRoom
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in mutual exclusion)
     private int humansInside = 0;
+    private List<Human> humansIdsInside = new LinkedList<>();
+    
     // Concurrent non-blocking queue for storing food units
     private Queue<Food> foodList = new ConcurrentLinkedQueue<>();
     // Fair Semaphore for mutual exclusion
     private Semaphore mutex = new Semaphore(1,true);
     // Fair Semaphore used to track the number of food units available (if there are no units a queue will be formed in order of arrival)
     private Semaphore foodCount = new Semaphore(0,true);
-    private MapPage mapPage = ServerApp.getMapPage();
+    // The logger class to record changes
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
+    
+    // Observer list
+    private final List<ChangeListener> listeners = new ArrayList<>();
+    
+    
     
     /**
      * Constructor for DiningRoom.
@@ -43,6 +53,23 @@ public class DiningRoom
     {
         this.logger = logger;
         this.pm = pm;
+    }
+    
+    public void addChangeListener(ChangeListener l) 
+    {
+        listeners.add(l);
+    }
+    public void removeChangeListener(ChangeListener l) 
+    {
+        listeners.remove(l);
+    }
+    
+    private void notifyChange() 
+    {
+        for (ChangeListener l : listeners) 
+        {
+            l.onChange(this);
+        }
     }
     
     /**
@@ -62,7 +89,7 @@ public class DiningRoom
             foodList.offer(f);
             foodCount.release();    // One food available, so add one permit or unblock a waiting thread (in FIFO order)
             logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size() + ".");
-            mapPage.setCounter("FC",String.valueOf(foodList.size()));
+            notifyChange(); 
         } 
         pm.check();
     }
@@ -82,7 +109,7 @@ public class DiningRoom
         {  
             foodList.poll();
             logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
-            mapPage.setCounter("FC",String.valueOf(foodList.size()));
+            notifyChange(); 
         }
         
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
@@ -119,14 +146,9 @@ public class DiningRoom
             pm.check();
             mutex.acquire(); // Mutual exclusion, critical section starts
             logger.log("Human " + h.getHumanId() + " entered the dining room.");
-            mapPage.setCounter("HD",String.valueOf(++humansInside));
-            mapPage.addLabelToPanel("D", h.getHumanId());
-            
-            // To enhance GUI
-            if(h.isMarked())
-            {
-                mapPage.setLabelColorInPanel("D", h.getHumanId(),utils.ColorManager.INJURED_COLOR);
-            }
+            humansInside=humansInside+1;
+            humansIdsInside.add(h);
+            notifyChange(); 
         }
         finally
         {
@@ -151,13 +173,37 @@ public class DiningRoom
             pm.check();
             mutex.acquire();  // Mutual exclusion, critical section starts
             logger.log("Human " + h.getHumanId() + " left the dining room.");
-            mapPage.setCounter("HD", String.valueOf(--humansInside));
-            mapPage.removeLabelFromPanel("D", h.getHumanId() );
+            humansInside=humansInside-1;
+            humansIdsInside.remove(h);
+            notifyChange(); 
         } 
         finally 
         {
             mutex.release();  // Mutual exclusion, critical section ends
             pm.check();
         }
+    }
+    
+    /** 
+     * Exposed so UI can query the current count
+     * @return  
+     */
+    public int getHumansInside() 
+    {
+        return humansInside;
+    }
+    
+    public synchronized List<Human> getHumansIdsInside() 
+    {
+        return humansIdsInside;
+    }
+
+    /** 
+     * Exposed so UI can query current food stock
+     * @return 
+     */
+    public int getFoodCount() 
+    {
+        return foodList.size();
     }
 }

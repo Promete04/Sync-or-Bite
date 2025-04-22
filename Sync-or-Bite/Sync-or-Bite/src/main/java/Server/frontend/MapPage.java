@@ -4,7 +4,18 @@
  */
 package Server.frontend;
 
+import Server.backend.ChangeListener;
+import Server.backend.CommonArea;
+import Server.backend.DiningRoom;
+import Server.backend.Human;
 import Server.backend.PauseManager;
+import Server.backend.Refuge;
+import Server.backend.RestArea;
+import Server.backend.RiskZone;
+import Server.backend.Tunnel;
+import Server.backend.Tunnels;
+import Server.backend.UnsafeArea;
+import Server.backend.Zombie;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -12,11 +23,16 @@ import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -33,6 +49,14 @@ public class MapPage extends javax.swing.JPanel
     private PauseManager  pm;
     private final Map<String, JLabel> counters = new HashMap<>();
     private final Map<String, JPanel> panels = new HashMap<>();
+    private final Map<String, Set<String>> currentPanelState = new HashMap<>();
+    
+    private Refuge r = ServerApp.getR();
+    private CommonArea ca = ServerApp.getCA();
+    private RestArea ra = ServerApp.getRA();
+    private DiningRoom dr = ServerApp.getDR();
+    private RiskZone rz = ServerApp.getRZ();
+    private Tunnels t = ServerApp.getT();
     
     
     public MapPage() 
@@ -45,49 +69,266 @@ public class MapPage extends javax.swing.JPanel
         
         pm.setPauseStateListener(new Runnable() 
         {
+            @Override
             public void run() 
             {
                 ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
                 pauseResumeButton.setIcon(current);
             }
         });
+        
+        setupListeners();        
     }
     
-    public void enableAutoResize() {
-    this.addComponentListener(new ComponentAdapter() {
-        @Override
-        public void componentResized(ComponentEvent e) {
-            int totalWidth = getWidth(); // Ancho visible de MapPage
+    public void enableAutoResize() 
+    {
+        this.addComponentListener(new ComponentAdapter() 
+        {
+            @Override
+            public void componentResized(ComponentEvent e) 
+            {
+                int totalWidth = getWidth(); // Ancho visible de MapPage
 
-            for (Map.Entry<String, JPanel> entry : panels.entrySet()) {
-                String key = entry.getKey();
-                JPanel panel = entry.getValue();
+                for (Map.Entry<String, JPanel> entry : panels.entrySet()) 
+                {
+                    String key = entry.getKey();
+                    JPanel panel = entry.getValue();
 
-                int maxWidth;
+                    int maxWidth;
 
-                if (key.startsWith("RH") || key.startsWith("RZ")) {
-                    maxWidth = totalWidth / 8;
-                } else if (key.startsWith("TR") || key.startsWith("TE")) {
-                    maxWidth = totalWidth / 4;
-                } else if (key.equals("C") || key.equals("D") || key.equals("R")) {
-                    maxWidth = totalWidth / 3;
-                } else {
-                    continue;
+                    if (key.startsWith("RH") || key.startsWith("RZ")) 
+                    {
+                        maxWidth = totalWidth / 8;
+                    } 
+                    else if (key.startsWith("TR") || key.startsWith("TE")) 
+                    {
+                        maxWidth = totalWidth / 4;
+                    } 
+                    else if (key.equals("C") || key.equals("D") || key.equals("R")) 
+                    {
+                        maxWidth = totalWidth / 3;
+                    } else 
+                    {
+                        continue;
+                    }
+
+                    Dimension size = panel.getPreferredSize();
+                    panel.setMaximumSize(new Dimension(maxWidth, size.height));
+                    panel.setPreferredSize(new Dimension(maxWidth,size.height));
+                    panel.revalidate();
                 }
 
-                Dimension size = panel.getPreferredSize();
-                panel.setMaximumSize(new Dimension(maxWidth, size.height));
-                panel.setPreferredSize(new Dimension(maxWidth,size.height));
-                panel.revalidate();
+                revalidate();
+                repaint();
             }
-
-            revalidate();
-            repaint();
-        }
-    });
-}
+        });
+    }
 
     
+    private void setupListeners() 
+    {
+        ChangeListener masterChangeListener = new ChangeListener() 
+        {
+            @Override
+            public void onChange(Object source) 
+            {
+                switch (source) 
+                {
+                    case CommonArea ca -> 
+                    {
+                        updatePanel("C", ca.getHumansIdsInside().stream()
+                            .map(Human::getHumanId)
+                            .toList());
+                        
+                        for (Human human : ca.getHumansIdsInside()) 
+                        {
+                            if (human.isBeingAtacked()) 
+                            {
+                                setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
+                            } 
+                            else if (human.isMarked())
+                            {
+                                setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
+                            }
+                            else
+                            {
+                                setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                            }
+                        }
+                        
+                        setCounter("HC", String.valueOf(ca.getHumansInside()));
+                        setCounter("RC", String.valueOf(r.getCount()));
+                    }
+
+                    case RestArea ra -> 
+                    {
+                        updatePanel("R", ra.getHumansIdsInside().stream()
+                            .map(Human::getHumanId)
+                            .toList());
+                        
+                        for (Human human : ra.getHumansIdsInside()) 
+                        {
+                            if (human.isBeingAtacked()) 
+                            {
+                                setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
+                            } 
+                            else if (human.isMarked())
+                            {
+                                setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
+                            }
+                            else
+                            {
+                                setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                            }
+                        }
+                        
+                        setCounter("HR", String.valueOf(ra.getHumansInside()));
+                        setCounter("RC", String.valueOf(r.getCount()));
+                    }
+
+                    case DiningRoom dr -> 
+                    {
+                        updatePanel("D", dr.getHumansIdsInside().stream()
+                            .map(Human::getHumanId)
+                            .toList());
+                        
+                        for (Human human : dr.getHumansIdsInside()) 
+                        {
+                            if (human.isBeingAtacked()) 
+                            {
+                                setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
+                            } 
+                            else if (human.isMarked())
+                            {
+                                setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
+                            }
+                            else
+                            {
+                                setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                            }
+                        }    
+                        
+                        setCounter("HD", String.valueOf(dr.getHumansInside()));
+                        setCounter("FC", String.valueOf(dr.getFoodCount()));
+                        setCounter("RC", String.valueOf(r.getCount()));
+                    }
+
+                    case UnsafeArea area -> 
+                    {
+                        int index = rz.getIndexOfUnsafeArea(area);
+                        String humansPanelId = "RH" + String.valueOf(index + 1);
+                        String zombiesPanelId = "RZ" + String.valueOf(index + 1);
+
+                        updatePanel(humansPanelId, area.getHumansInside().stream()
+                            .map(Human::getHumanId)
+                            .toList());
+                        
+                        for (Human human : area.getHumansInside()) 
+                        {
+                            if (human.isBeingAtacked()) 
+                            {
+                                setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
+                            } 
+                            else if (human.isMarked())
+                            {
+                                setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
+                            }
+                            else
+                            {
+                                setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                            }
+                        }
+
+                        updatePanel(zombiesPanelId, area.getZombiesInside().stream()
+                            .map(Zombie::getZombieId)
+                            .toList());
+                        
+                        for (Zombie zombie : area.getZombiesInside()) 
+                        {
+                            if (zombie.isAtacking()) 
+                            {
+                                setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ATACKING_COLOR);  
+                            } 
+                            else 
+                            {
+                                setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);  
+                            }
+                        }
+
+                        setCounter("H" + String.valueOf(index + 1), String.valueOf(area.getHumansInsideCount()));
+                        setCounter("Z" + String.valueOf(index + 1), String.valueOf(area.getZombiesInsideCount()));
+
+                    }
+
+                    case Tunnel tunnel -> 
+                    {
+                        int index = t.getIndexOfTunnel(tunnel);
+                        String entryPanel = "TR" + String.valueOf(index + 1);
+                        String exitPanel = "TE" + String.valueOf(index + 1);
+
+                        updatePanel(entryPanel, tunnel.getEntering().stream()
+                            .map(Human::getHumanId)
+                            .toList());
+                        
+                        for (Human human : tunnel.getEntering()) 
+                        {
+                            if (human.isMarked()) 
+                            {
+                                setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
+                            } 
+                            else
+                            {
+                                setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                            }
+                        }
+
+                        updatePanel(exitPanel, tunnel.getExiting().stream()
+                            .map(Human::getHumanId)
+                            .toList());
+                        
+                        for (Human human : tunnel.getExiting()) 
+                        {
+                            if (human.isWaiting()) 
+                            {
+                                setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
+                            } 
+                            else
+                            {
+                                setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                            }
+                        }
+
+                        String crossing = tunnel.getInTunnel();
+                        switch (index + 1) {
+                            case 1 -> currentCrossing1.setText(crossing);
+                            case 2 -> currentCrossing2.setText(crossing);
+                            case 3 -> currentCrossing3.setText(crossing);
+                            case 4 -> currentCrossing4.setText(crossing);
+                        }
+                        setCounter("RC", String.valueOf(r.getCount()));
+                    }
+
+                    default -> 
+                    {
+                        System.err.println("Unknown source for change: " + source);
+                    }
+                }
+            }
+
+        };
+        
+        ca.addChangeListener(masterChangeListener);
+        dr.addChangeListener(masterChangeListener);
+        ra.addChangeListener(masterChangeListener);
+
+        for (int i = 0; i < 4; i++) 
+        {
+            rz.obtainUnsafeArea(i).addChangeListener(masterChangeListener);
+            t.obtainTunnel(i).addChangeListener(masterChangeListener);
+        }
+
+    }
+
     private void setupPanels() 
     {
          panels.put("RH1", RiskHuman1);
@@ -131,6 +372,35 @@ public class MapPage extends javax.swing.JPanel
         counters.put("FC",foodCounter);
         counters.put("RC",refugeCounter);
     }
+    
+    private synchronized void updatePanel(String panelId, List<String> newIds) 
+    {
+        Set<String> currentIds = currentPanelState.getOrDefault(panelId, new HashSet<>());
+        Set<String> updatedIds = new HashSet<>(newIds);
+
+        // Delete what is no longer there
+        for (String id : new HashSet<>(currentIds)) 
+        {
+            if (!updatedIds.contains(id)) 
+            {
+                removeLabelFromPanel(panelId, id);
+                currentIds.remove(id);
+            }
+        }
+
+        // Add new
+        for (String id : updatedIds) 
+        {
+            if (!currentIds.contains(id)) 
+            {
+                addLabelToPanel(panelId, id);
+                currentIds.add(id);
+            }
+        }
+
+        currentPanelState.put(panelId, currentIds);
+    }
+
     
     public void pauseResume()
     {
@@ -201,7 +471,7 @@ public class MapPage extends javax.swing.JPanel
             {
                 label.setOpaque(true); 
                 label.setBackground(color);
-                targetPanel.repaint();
+                label.repaint();
                 return;
             }
         }
@@ -240,13 +510,16 @@ public class MapPage extends javax.swing.JPanel
 
     for (Component comp : panel.getComponents()) 
     {
-        Dimension d = comp.getPreferredSize();
-        if (x + d.width > panelWidth) 
-        {
-            rows++;
-            x = 0;
+        if (comp != null) 
+        {  
+            Dimension d = comp.getPreferredSize();
+            if (x + d.width > panelWidth) 
+            {
+                rows++;
+                x = 0;
+            }
+            x += d.width + hgap;
         }
-        x += d.width + hgap;
     }
 
     return rows;

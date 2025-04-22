@@ -4,8 +4,11 @@
  */
 package Server.backend;
 
-import Server.frontend.ServerApp;
-import Server.frontend.MapPage;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+
 
 /**
  * Represents a rest area where humans can enter, rest, and get fully recovered.
@@ -18,10 +21,14 @@ public class RestArea
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
     private int humansInside = 0;
+    private List<Human> humansIdsInside = new LinkedList<>();
+    
     private Logger logger;
-    private MapPage mapPage = ServerApp.getMapPage();
     // The pause manager used to pause/resume
     private PauseManager pm;
+    
+    // Observer list
+    private final List<ChangeListener> listeners = new ArrayList<>();
     
     /**
      * Constructs a RestArea with a shared logger.
@@ -35,6 +42,23 @@ public class RestArea
         this.pm = pm;
     }
     
+    public void addChangeListener(ChangeListener l) 
+    {
+        listeners.add(l);
+    }
+    public void removeChangeListener(ChangeListener l) 
+    {
+        listeners.remove(l);
+    }
+    
+    private void notifyChange() 
+    {
+        for (ChangeListener l : listeners) 
+        {
+            l.onChange(this);
+        }
+    }
+    
     /**
      * Called when a human enter the rest area.
      * Updates internal list, GUI, and shows the action in the log file.
@@ -46,13 +70,9 @@ public class RestArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
-        mapPage.setCounter("HR", String.valueOf(++humansInside));
-        mapPage.addLabelToPanel("R", h.getHumanId());
-        //To enhance GUI
-        if(h.isMarked())
-        {
-            mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.INJURED_COLOR);
-        }
+        humansIdsInside.add(h);
+        humansInside=humansInside+1;
+        notifyChange();
         pm.check();
         
     }
@@ -68,8 +88,9 @@ public class RestArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the rest area.");
-        mapPage.setCounter("HR",String.valueOf(--humansInside));
-        mapPage.removeLabelFromPanel("R", h.getHumanId());
+        humansIdsInside.remove(h);
+        humansInside=humansInside-1;
+        notifyChange();
         pm.check();
     }
     
@@ -120,8 +141,7 @@ public class RestArea
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
-        // To enhance GUI
-        mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.HUMAN_COLOR);
+        notifyChange();
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*334));
@@ -134,5 +154,15 @@ public class RestArea
         // Unmark the human after full recovery
         h.toggleMarked();
         pm.check();
+    }
+    
+    public synchronized List<Human> getHumansIdsInside() 
+    {
+        return humansIdsInside;
+    }
+    
+    public synchronized int getHumansInside()
+    {
+        return humansInside;
     }
 }
