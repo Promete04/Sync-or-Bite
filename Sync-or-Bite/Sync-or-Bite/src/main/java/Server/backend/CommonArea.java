@@ -18,7 +18,7 @@ import Server.frontend.MapPage;
 public class CommonArea 
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
-    private int humansInside;
+    private int humansInside = 0;
     private Logger logger;
     // GUI controller
     private MapPage mapPage = ServerApp.getMapPage();
