@@ -18,8 +18,8 @@ public class PauseManager
 {
     private boolean paused = false;
 
-    
-    private List<Runnable> pauseStateListener = new ArrayList<>();
+    // ArrayList of listeners to allow multiple pauseResume buttons being sync
+    private List<Runnable> pauseStateListener = new ArrayList<>(); 
 
     /**
      * Blocks the calling thread if the system is paused.
