@@ -6,31 +6,46 @@ package Server.backend;
 
 import Server.frontend.ServerApp;
 import Server.frontend.MapPage;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- *
- * @author guill
+ * Represents a rest area where humans can enter, rest, and get fully recovered.
+ * 
+ * Synchronization is handled using the monitor for coordinated access.
+ * 
+ * Each human that enters will be visualized in the GUI and logged.
  */
 public class RestArea 
 {
-    private List<Human> restList = new ArrayList<Human>();
+    // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
+    private int humansInside = 0;
     private Logger logger;
     private MapPage mapPage = ServerApp.getMapPage();
     
+    /**
+     * Constructs a RestArea with a shared logger.
+     *
+     * @param logger the logger 
+     */
     public RestArea(Logger logger)
     {
         this.logger = logger;
     }
     
+    /**
+     * Called when a human enter the rest area.
+     * Updates internal list, GUI, and shows the action in the log file.
+     *
+     * @param h  the human entering the rest area
+     * @param pm the PauseManager used to handle paused execution
+     * @throws InterruptedException if the thread is interrupted during a pause check
+     */
     public synchronized void enter(Human h, PauseManager pm) throws InterruptedException
     {
         pm.check();
-        restList.add(h);
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
-        mapPage.setCounter("HR", String.valueOf(restList.size()));
+        mapPage.setCounter("HR", String.valueOf(++humansInside));
         mapPage.addLabelToPanel("R", h.getHumanId());
+        //To enhance GUI
         if(h.isMarked())
         {
             mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.INJURED_COLOR);
@@ -39,16 +54,30 @@ public class RestArea
         
     }
     
+    /**
+     * Called when a human exits the rest area.
+     * Updates internal list, GUI, and shows the action in the log file.
+     *
+     * @param h  the human exiting the rest area
+     * @param pm the PauseManager
+     * @throws InterruptedException if the thread is interrupted 
+     */
     public synchronized void exit(Human h, PauseManager pm) throws InterruptedException
     {
         pm.check();
-        restList.remove(h);
         logger.log("Human " + h.getHumanId() + " left the rest area.");
-        mapPage.setCounter("HR",String.valueOf(restList.size()));
+        mapPage.setCounter("HR",String.valueOf(--humansInside));
         mapPage.removeLabelFromPanel("R", h.getHumanId());
         pm.check();
     }
     
+    /**
+     * Called when the human has to rest in the rest area.
+     *
+     * @param h  the human who is resting
+     * @param pm the PauseManager
+     * @throws InterruptedException if the thread is interrupted 
+     */
     public void rest(Human h, PauseManager pm) throws InterruptedException
     {
         pm.check();
@@ -56,6 +85,7 @@ public class RestArea
         
 //        Thread.sleep(2000 + (int) (Math.random()*2000));     
 
+        // Simulate resting time with periodic pause checks
         Thread.sleep(500 + (int) (Math.random()*500));
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*500));
@@ -68,6 +98,13 @@ public class RestArea
         pm.check();
     }
     
+    /**
+     * Called when a human has to get fully recovered.
+     *
+     * @param h  the human recovering
+     * @param pm the PauseManager 
+     * @throws InterruptedException if the thread is interrupted
+     */
     public void fullRecover(Human h, PauseManager pm) throws InterruptedException
     {
         pm.check();
@@ -76,12 +113,14 @@ public class RestArea
 
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 
+        // Simulate recovering time with periodic pause checks
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
+        // To enhance GUI
         mapPage.setLabelColorInPanel("R", h.getHumanId(),utils.ColorManager.HUMAN_COLOR);
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
@@ -92,6 +131,7 @@ public class RestArea
         Thread.sleep(250 + (int) (Math.random()*167));
         pm.check();
         
+        // Unmark the human after full recovery
         h.toggleMarked();
         pm.check();
     }

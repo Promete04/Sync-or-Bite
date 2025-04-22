@@ -46,7 +46,7 @@ public class MainClientPage extends javax.swing.JPanel
         {
             public void run() 
             {
-                ImageIcon current = toggler.isPaused() ? resumeIcon : pauseIcon;
+                ImageIcon current = toggler.isPaused() ? pauseIcon : resumeIcon;
                 pauseResumeButton.setIcon(current);
             }
         });
