@@ -4,6 +4,9 @@
  */
 package Server.backend;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Lopex
@@ -13,7 +16,8 @@ public class PauseManager
 {
     private boolean paused = false;
     
-    private Runnable pauseStateListener;
+    private List<Runnable> pauseStateListener = new ArrayList<>();
+
 
     public synchronized void check() 
     {
@@ -44,7 +48,12 @@ public class PauseManager
     {
 
         paused = !paused;
-        pauseStateListener.run();
+        
+        for(Runnable runnable: pauseStateListener)
+        {
+            runnable.run();
+        }
+        
         if(!paused)
         {
             notifyAll();
@@ -55,7 +64,7 @@ public class PauseManager
  
     public void setPauseStateListener(Runnable listener) 
     {
-        this.pauseStateListener = listener;
+        pauseStateListener.add(listener);
     }
     
     public boolean isPaused()

@@ -15,22 +15,28 @@ import java.awt.Dimension;
  */
 public class ServerApp 
 {    
-    
+    // Frame where every page (jpanel) will appear
     private static final CardLayout cardLayout = new CardLayout();
     private static final JPanel cards = new JPanel(cardLayout);
     private static JFrame frame = new JFrame("Sync-or-Bite");
+    
+    // Declared 
     private static MapPage mapPage;
-    private static Logger logger=new Logger();
     private static LogPage logPage;
+    
+    
+    private static Logger logger=new Logger();
     private static PauseManager pm = new PauseManager();  
+    
     private static Map<String, JPanel> pages;
     private static JPanel currentPanel; 
    
     public static void main(String[] args)
     {
+        logPage= new LogPage();
         mapPage = new MapPage();
         mapPage.enableAutoResize();
-        logPage= new LogPage();
+        
         
         RiskZone riskZone = new RiskZone(logger);
         Refuge refuge = new Refuge(logger);

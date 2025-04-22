@@ -31,15 +31,13 @@ public class LogPage extends javax.swing.JPanel
     
     public LogPage() 
     {
+        initComponents();
+        
         this.logger = ServerApp.getLogger();
         this.pm = ServerApp.getPM();
         logger.setLogPage(this);
         
-        initComponents();
-        mapButton.setIcon(new ImageIcon(getClass().getResource("/images/MapIcon.png")));
-        mapButton.setBorder(null);
         
-        ImageIcon initialState = pm.isPaused() ?  resumeIcon : pauseIcon;
         
         pm.setPauseStateListener(new Runnable() 
         {

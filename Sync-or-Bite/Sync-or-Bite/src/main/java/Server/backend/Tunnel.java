@@ -19,7 +19,7 @@ public class Tunnel
     private UnsafeArea unsafeArea;
     private PauseManager pm;
     
-    // Barrier to wait for groups of 3 exiters.
+    // Barrier to wait for groups of 3 humans.
     private CyclicBarrier groups;
     
     // Lock and conditions for controlling tunnel crossing.
