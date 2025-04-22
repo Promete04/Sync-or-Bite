@@ -22,7 +22,6 @@ public class Human extends Thread
     private int selectedTunnel = -1;
     // Whether this human was attacked by a zombie
     private boolean marked = false;
-    private final Logger logger;
     // Represents the food it collected from the unsafe area
     private final List<Food> foodList = new ArrayList<>();
     
@@ -33,14 +32,12 @@ public class Human extends Thread
      * @param id the human identifier 
      * @param refuge the refuge with the different areas
      * @param tunnels the tunnels leading to unsafe areas
-     * @param logger the logger
      */
-    public Human(int id, Refuge refuge, Tunnels tunnels, Logger logger)
+    public Human(int id, Refuge refuge, Tunnels tunnels)
     {
         this.humanId = String.format("H%04d", id);
         this.refuge = refuge;
         this.tunnels = tunnels;
-        this.logger = logger;
     }
     
     /**

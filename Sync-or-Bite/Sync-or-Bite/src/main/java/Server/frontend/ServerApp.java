@@ -48,7 +48,7 @@ public class ServerApp
         setupFrame();
         redirect("MAP");
              
-        new Zombie(riskZone, logger).start();  // Patient zero
+        new Zombie(riskZone).start();  // Patient zero
         
         Runnable hr = new Runnable()
         {
@@ -58,7 +58,7 @@ public class ServerApp
                 {
                     for (int i = 1; i < 10001; i++) 
                     {
-                        new Human(i, refuge, tunnels, logger).start();
+                        new Human(i, refuge, tunnels).start();
                         Thread.sleep(500 + (int) (Math.random() * 1500));
                         pm.check();
                     }

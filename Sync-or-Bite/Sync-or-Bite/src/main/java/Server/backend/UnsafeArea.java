@@ -282,7 +282,7 @@ public class UnsafeArea
                     pm.check();
                     
                     // The human converted to zombie
-                    Zombie killed = new Zombie(zombieId,this,logger);
+                    Zombie killed = new Zombie(zombieId,this);
                     pm.check();
                     synchronized(zombiesInside) // Add the new zombie to zombiesInside list using its monitor for synchronization
                     {

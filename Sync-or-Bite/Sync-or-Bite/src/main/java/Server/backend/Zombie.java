@@ -16,20 +16,17 @@ public class Zombie extends Thread
     private int killCount = 0;
     private final RiskZone riskZone;
     private int areaWhereReborn = -1; // Specific area if reborn
-    private final Logger logger;
 
     /**
      * Constructs patient zero zombie.
      * This zombie always starts without a predefined reborn area.
      * 
      * @param riskZone the risk zone where the zombie will operate in
-     * @param logger the logger
      */
-    public Zombie(RiskZone riskZone, Logger logger) 
+    public Zombie(RiskZone riskZone) 
     {
         this.zombieId = "Z0000";
         this.riskZone = riskZone; 
-        this.logger = logger;
     }
     
     /**
@@ -37,13 +34,11 @@ public class Zombie extends Thread
      * 
      * @param zombieId the unique ID assigned to the zombie (e.g., Z0001)
      * @param unsafeArea the unsafe area where the zombie was reborn
-     * @param logger the logger
      */
-    public Zombie(String zombieId, UnsafeArea unsafeArea, Logger logger)
+    public Zombie(String zombieId, UnsafeArea unsafeArea)
     {
         this.zombieId = zombieId;
         this.riskZone = unsafeArea.getRiskZone();
-        this.logger = logger;
         this.areaWhereReborn = unsafeArea.getArea();
     }
     
