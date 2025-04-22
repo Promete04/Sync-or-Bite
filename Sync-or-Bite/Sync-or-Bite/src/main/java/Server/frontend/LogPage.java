@@ -22,7 +22,7 @@ public class LogPage extends javax.swing.JPanel
     /**
      * Creates new form LogPage
      */
-    private PauseManager  pm;
+    private PauseManager pm;
     private Logger logger;
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
