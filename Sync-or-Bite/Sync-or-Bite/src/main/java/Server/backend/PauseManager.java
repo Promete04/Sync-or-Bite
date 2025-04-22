@@ -8,24 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Lopex
+ * Controls the pause/resume functionality.
+ * Blocks threads when the simulation is paused, and resumes them when unpaused.
+ * Notifies a listener on state change for GUI updates.
+ * 
+ * Methods are synchronized using the monitor to allow thread safe access.
  */
-
 public class PauseManager 
 {
     private boolean paused = false;
+
     
     private List<Runnable> pauseStateListener = new ArrayList<>();
 
-
+    /**
+     * Blocks the calling thread if the system is paused.
+     */
     public synchronized void check() 
     {
         try 
         {
-            while (paused) 
+            while(paused) 
             {
-                wait();
+                wait();  // Wait using the monitor
             }
         } 
         catch (InterruptedException e) 
@@ -34,39 +39,53 @@ public class PauseManager
         } 
     }
     
+    /**
+     * Same as check(), but declares InterruptedException explicitly.
+     * Meant to be used when the human is under attack, to ensure that the zombie attack (interrupt) works correctly
+     *
+     * @throws InterruptedException if the waiting thread is interrupted
+     */
     public synchronized void underAttackCheck() throws InterruptedException
     {
-
-        while (paused) 
+        while(paused) 
         {
-            wait();
+            wait();  // Wait using the monitor
         }
-
     }
-
+    
+    /**
+     * Toggles the simulation pause state and notifies waiting threads if resuming.
+     * Also triggers the listener for GUI updates
+     */
     public synchronized void togglePause() 
     {
-
         paused = !paused;
         
         for(Runnable runnable: pauseStateListener)
         {
             runnable.run();
         }
-        
         if(!paused)
         {
-            notifyAll();
+            notifyAll(); // Notify all threads using monitor
         }
-
     }
 
- 
+    /**
+     * Registers the listener to be triggered every time pause state changes.
+     *
+     * @param listener a Runnable to be executed when pause is toggled
+     */
     public void setPauseStateListener(Runnable listener) 
     {
         pauseStateListener.add(listener);
     }
     
+    /**
+     * Returns whether the system is currently paused.
+     *
+     * @return true if paused, false otherwise
+     */
     public boolean isPaused()
     {
         return paused;

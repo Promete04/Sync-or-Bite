@@ -38,8 +38,8 @@ public class ServerApp
         mapPage.enableAutoResize();
         
         
-        RiskZone riskZone = new RiskZone(logger);
-        Refuge refuge = new Refuge(logger);
+        RiskZone riskZone = new RiskZone(logger,pm);
+        Refuge refuge = new Refuge(logger,pm);
         Tunnels tunnels = new Tunnels(riskZone,logger, pm);
         ServerData server = new ServerData(pm, tunnels, refuge, riskZone);
         
@@ -54,7 +54,7 @@ public class ServerApp
         setupFrame();
         redirect("MAP");
              
-        new Zombie(riskZone, logger, pm).start();  // Patient zero
+        new Zombie(riskZone).start();  // Patient zero
         
         Runnable hr = new Runnable()
         {
@@ -64,7 +64,7 @@ public class ServerApp
                 {
                     for (int i = 1; i < 10001; i++) 
                     {
-                        new Human(i, refuge, tunnels, logger, pm).start();
+                        new Human(i, refuge, tunnels).start();
                         Thread.sleep(500 + (int) (Math.random() * 1500));
                         pm.check();
                     }
