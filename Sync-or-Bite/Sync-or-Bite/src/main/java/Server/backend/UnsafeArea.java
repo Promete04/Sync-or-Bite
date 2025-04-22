@@ -32,12 +32,15 @@ public class UnsafeArea
     private Logger logger;
     // Reference to the GUI page that visualizes the map
     private MapPage mapPage = ServerApp.getMapPage();
+    // The pause manager used to pause/resume
+    private PauseManager pm;
     
     /**
      * Constructor for UnsafeArea.
      */
-    public UnsafeArea(int area, Logger logger, FoodGenerator fgenerator, RiskZone riskZone)
+    public UnsafeArea(int area, Logger logger, FoodGenerator fgenerator, RiskZone riskZone, PauseManager pm)
     {
+        this.pm = pm;
         this.riskZone = riskZone;
         this.fgenerator = fgenerator;
         this.area = area;
@@ -48,10 +51,9 @@ public class UnsafeArea
      * Called by a zombie to perform its wandering behavior. If a human
      * is inside the area, it attacks that human.
      * @param z the Zombie that is wandering.
-     * @param pm the PauseManager used to pause/resume
      * @throws InterruptedException if the thread is interrupted
      */
-    public void wander(Zombie z, PauseManager pm) throws InterruptedException
+    public void wander(Zombie z) throws InterruptedException
     {
         pm.check();                     // Check if system is paused 
         Human attackedHuman = null;
@@ -114,10 +116,9 @@ public class UnsafeArea
      * Registers a zombie entering the unsafe area.
      *
      * @param z the zombie entering
-     * @param pm the PauseManager used to pause/resume
      * @throws InterruptedException if interrupted
      */
-    public void enter(Zombie z, PauseManager pm) throws InterruptedException
+    public void enter(Zombie z) throws InterruptedException
     {
         pm.check();
         synchronized(zombiesInside)  // Uses the list's monitor for synchronization
@@ -136,10 +137,9 @@ public class UnsafeArea
      * Registers a zombie leaving the unsafe area.
      * 
      * @param z the zombie leaving
-     * @param pm the PauseManager used to pause/resume
      * @throws InterruptedException if interrupted
      */
-    public void exit(Zombie z, PauseManager pm) throws InterruptedException
+    public void exit(Zombie z) throws InterruptedException
     {
         pm.check();
         synchronized(zombiesInside) // Uses the list's monitor for synchronization
@@ -157,10 +157,9 @@ public class UnsafeArea
      * Registers a human entering the unsafe area.
      * 
      * @param h the human entering
-     * @param pm the PauseManager used to pause/resume
      * @throws InterruptedException if interrupted
      */
-    public void enter(Human h, PauseManager pm) throws InterruptedException
+    public void enter(Human h) throws InterruptedException
     {
         pm.check();
         synchronized(possibleTargets) // Uses the list's monitor for synchronization
@@ -178,10 +177,9 @@ public class UnsafeArea
      * Registers a human leaving the unsafe area.
      * 
      * @param h the human leaving
-     * @param pm the PauseManager used to pause/resume
      * @throws InterruptedException if interrupted
      */
-    public void exit(Human h, PauseManager pm) throws InterruptedException
+    public void exit(Human h) throws InterruptedException
     {
         pm.check();
         synchronized (possibleTargets)  // Uses the list's monitor for synchronization
@@ -200,9 +198,8 @@ public class UnsafeArea
      * If attacked, may defend or be turned into a zombie.
      * 
      * @param h the human
-     * @param pm the PauseManager used to pause/resume
      */
-    public void wander(Human h, PauseManager pm)
+    public void wander(Human h)
     {
         pm.check();
         try
@@ -285,7 +282,7 @@ public class UnsafeArea
                     pm.check();
                     
                     // The human converted to zombie
-                    Zombie killed = new Zombie(zombieId,this,logger,pm);
+                    Zombie killed = new Zombie(zombieId,this,logger);
                     pm.check();
                     synchronized(zombiesInside) // Add the new zombie to zombiesInside list using its monitor for synchronization
                     {

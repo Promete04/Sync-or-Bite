@@ -30,28 +30,31 @@ public class DiningRoom
     private Semaphore foodCount = new Semaphore(0,true);
     private MapPage mapPage = ServerApp.getMapPage();
     private Logger logger;
+    // The pause manager used to pause/resume
+    private PauseManager pm;
     
     /**
      * Constructor for DiningRoom.
      * 
      * @param logger the logger
+     * @param pm the pause manager
      */
-    public DiningRoom(Logger logger)
+    public DiningRoom(Logger logger, PauseManager pm)
     {
         this.logger = logger;
+        this.pm = pm;
     }
     
     /**
      * Allows a human to deposit one unit of food into the dining room.
      * Access to foodList protected by the ConcurrentLinkedQueue but we use its monitor
-     * to ensure that the logs, the semaphore and the gui are updated together
+     * to ensure that the logs, the semaphore and the GUI are updated together
      * 
      * @param f  The food unit being deposited.
      * @param h  The human who is depositing the food.
-     * @param pm The PauseManager instance to handle pauses in execution.
      * @throws InterruptedException if the thread is interrupted while waiting.
      */
-    public void storeFood(Food f, Human h, PauseManager pm) throws InterruptedException  
+    public void storeFood(Food f, Human h) throws InterruptedException  
     {
         pm.check();
         synchronized(foodList)
@@ -69,10 +72,9 @@ public class DiningRoom
      * A semaphore ensures that food cannot be eaten unless available, FIFO queue formed in case there are no food units.
      * 
      * @param h  The human who is eating.
-     * @param pm The PauseManager 
      * @throws InterruptedException if the thread is interrupted 
      */
-    public void eatFood(Human h, PauseManager pm) throws InterruptedException  
+    public void eatFood(Human h) throws InterruptedException  
     {   
         pm.check();
         foodCount.acquire();  // Wait until food is available
@@ -108,10 +110,9 @@ public class DiningRoom
      * Updates internal list, GUI, and shows the action in the log file.
      * 
      * @param h  The human entering the room.
-     * @param pm The PauseManager
      * @throws InterruptedException if the thread is interrupted
      */
-    public void enter(Human h, PauseManager pm) throws InterruptedException
+    public void enter(Human h) throws InterruptedException
     {
         try
         {
@@ -141,10 +142,9 @@ public class DiningRoom
      * Updates internal list, GUI, and shows the action in the log file.
      * 
      * @param h  The human leaving the room.
-     * @param pm The PauseManager
      * @throws InterruptedException if the thread is interrupted 
      */
-    public void exit(Human h, PauseManager pm) throws InterruptedException
+    public void exit(Human h) throws InterruptedException
     {
         try 
         {

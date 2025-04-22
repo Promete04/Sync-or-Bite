@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class Human extends Thread
 {
-    private PauseManager pm;
     private final String humanId;
     private final Refuge refuge;
     private final Tunnels tunnels;
@@ -35,11 +34,9 @@ public class Human extends Thread
      * @param refuge the refuge with the different areas
      * @param tunnels the tunnels leading to unsafe areas
      * @param logger the logger
-     * @param pm the pause manager
      */
-    public Human(int id, Refuge refuge, Tunnels tunnels, Logger logger, PauseManager pm)
+    public Human(int id, Refuge refuge, Tunnels tunnels, Logger logger)
     {
-        this.pm = pm;
         this.humanId = String.format("H%04d", id);
         this.refuge = refuge;
         this.tunnels = tunnels;
@@ -54,47 +51,47 @@ public class Human extends Thread
         try
         {
             // The human behaviour starts in the refuge
-            refuge.access(this,pm);
+            refuge.access(this);
             
             while(true)
             {
                 // Access common area for choosing the tunnel
-                refuge.accessCommonArea(this,pm);
+                refuge.accessCommonArea(this);
                 // Leave the refuge to go to the tunnels
-                refuge.leave(this,pm);
+                refuge.leave(this);
                 
                 // Go to the unsafe area connected to the tunnel selected
                 tunnels.obtainTunnel(selectedTunnel).requestExit(this);
-                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().enter(this, pm);
-                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this, pm);
+                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().enter(this);
+                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this);
                 sleep(10);         //Sleep just to trigger the interrupt in case it was interrupted (killed).
                 
                 // Leave the unsafe area through the tunnel
-                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().exit(this, pm);
+                tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().exit(this);
                 tunnels.obtainTunnel(selectedTunnel).requestReturn(this); 
                 
                 // Return to the refuge
-                refuge.access(this,pm);
+                refuge.access(this);
                 
                 // If the human wasn't attacked
                 if(!marked)
                 {
                     // Deposits food
-                    refuge.depositFoodInDiningRoom(depositFood(), this, pm);
-                    refuge.depositFoodInDiningRoom(depositFood(), this, pm);
+                    refuge.depositFoodInDiningRoom(depositFood(), this);
+                    refuge.depositFoodInDiningRoom(depositFood(), this);
                 }
                 
                 // Rest in the rest area
-                refuge.restInRestArea(this, pm);
+                refuge.restInRestArea(this);
                 
                 // Eat 1 unit of food in the dining room
-                refuge.accessDiningRoom(this, pm);
+                refuge.accessDiningRoom(this);
                 
                 // If the human was attacked
                 if(marked)
                 {
                     // Returns to the rest area to get fully recovered
-                    refuge.fullRecoverInRestArea(this, pm);
+                    refuge.fullRecoverInRestArea(this);
                 }
             }
         }

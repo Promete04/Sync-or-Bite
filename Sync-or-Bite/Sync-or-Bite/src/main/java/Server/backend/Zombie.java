@@ -12,7 +12,6 @@ package Server.backend;
  */
 public class Zombie extends Thread
 {
-    private PauseManager pm;
     private final String zombieId;
     private int killCount = 0;
     private final RiskZone riskZone;
@@ -25,14 +24,12 @@ public class Zombie extends Thread
      * 
      * @param riskZone the risk zone where the zombie will operate in
      * @param logger the logger
-     * @param pm the pause manager
      */
-    public Zombie(RiskZone riskZone, Logger logger, PauseManager pm) 
+    public Zombie(RiskZone riskZone, Logger logger) 
     {
         this.zombieId = "Z0000";
         this.riskZone = riskZone; 
         this.logger = logger;
-        this.pm = pm;
     }
     
     /**
@@ -41,11 +38,9 @@ public class Zombie extends Thread
      * @param zombieId the unique ID assigned to the zombie (e.g., Z0001)
      * @param unsafeArea the unsafe area where the zombie was reborn
      * @param logger the logger
-     * @param pm the pause manager
      */
-    public Zombie(String zombieId, UnsafeArea unsafeArea, Logger logger, PauseManager pm)
+    public Zombie(String zombieId, UnsafeArea unsafeArea, Logger logger)
     {
-        this.pm = pm;
         this.zombieId = zombieId;
         this.riskZone = unsafeArea.getRiskZone();
         this.logger = logger;
@@ -66,8 +61,8 @@ public class Zombie extends Thread
                 if(areaWhereReborn != -1)
                 {
                     // Zombie starts in a specific area
-                    riskZone.obtainUnsafeArea(areaWhereReborn).wander(this, pm);
-                    riskZone.obtainUnsafeArea(areaWhereReborn).exit(this, pm);
+                    riskZone.obtainUnsafeArea(areaWhereReborn).wander(this);
+                    riskZone.obtainUnsafeArea(areaWhereReborn).exit(this);
                     // Reset to behave like normal zombies next iteration
                     areaWhereReborn = -1;
                 }
@@ -75,9 +70,9 @@ public class Zombie extends Thread
                 {
                     // Random roaming logic (chooses an unsafe area from 0 to 3)
                     unsafeArea = (int) (Math.random() * 4);
-                    riskZone.obtainUnsafeArea(unsafeArea).enter(this, pm);
-                    riskZone.obtainUnsafeArea(unsafeArea).wander(this, pm);
-                    riskZone.obtainUnsafeArea(unsafeArea).exit(this, pm);
+                    riskZone.obtainUnsafeArea(unsafeArea).enter(this);
+                    riskZone.obtainUnsafeArea(unsafeArea).wander(this);
+                    riskZone.obtainUnsafeArea(unsafeArea).exit(this);
                 } 
             }
         }

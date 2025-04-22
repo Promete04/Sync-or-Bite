@@ -23,13 +23,13 @@ public class RiskZone
      *
      * @param logger It is used for the logs.
      */
-    public RiskZone(Logger logger)
+    public RiskZone(Logger logger, PauseManager pm)
     {
         this.logger = logger;
         unsafeAreas = new UnsafeArea[4];
         for(int i=0; i<4; i++)
         {
-            unsafeAreas[i] = new UnsafeArea(i, logger, fgenerator, this);
+            unsafeAreas[i] = new UnsafeArea(i, logger, fgenerator, this, pm);
         }
     }
     

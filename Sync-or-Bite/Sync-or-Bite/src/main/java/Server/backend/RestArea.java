@@ -20,15 +20,19 @@ public class RestArea
     private int humansInside = 0;
     private Logger logger;
     private MapPage mapPage = ServerApp.getMapPage();
+    // The pause manager used to pause/resume
+    private PauseManager pm;
     
     /**
      * Constructs a RestArea with a shared logger.
      *
      * @param logger the logger 
+     * @param pm the pause manager
      */
-    public RestArea(Logger logger)
+    public RestArea(Logger logger, PauseManager pm)
     {
         this.logger = logger;
+        this.pm = pm;
     }
     
     /**
@@ -36,10 +40,9 @@ public class RestArea
      * Updates internal list, GUI, and shows the action in the log file.
      *
      * @param h  the human entering the rest area
-     * @param pm the PauseManager used to handle paused execution
      * @throws InterruptedException if the thread is interrupted during a pause check
      */
-    public synchronized void enter(Human h, PauseManager pm) throws InterruptedException
+    public synchronized void enter(Human h) throws InterruptedException
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
@@ -59,10 +62,9 @@ public class RestArea
      * Updates internal list, GUI, and shows the action in the log file.
      *
      * @param h  the human exiting the rest area
-     * @param pm the PauseManager
      * @throws InterruptedException if the thread is interrupted 
      */
-    public synchronized void exit(Human h, PauseManager pm) throws InterruptedException
+    public synchronized void exit(Human h) throws InterruptedException
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the rest area.");
@@ -75,10 +77,9 @@ public class RestArea
      * Called when the human has to rest in the rest area.
      *
      * @param h  the human who is resting
-     * @param pm the PauseManager
      * @throws InterruptedException if the thread is interrupted 
      */
-    public void rest(Human h, PauseManager pm) throws InterruptedException
+    public void rest(Human h) throws InterruptedException
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " is resting in the rest area.");
@@ -102,10 +103,9 @@ public class RestArea
      * Called when a human has to get fully recovered.
      *
      * @param h  the human recovering
-     * @param pm the PauseManager 
      * @throws InterruptedException if the thread is interrupted
      */
-    public void fullRecover(Human h, PauseManager pm) throws InterruptedException
+    public void fullRecover(Human h) throws InterruptedException
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");

@@ -22,15 +22,19 @@ public class CommonArea
     private Logger logger;
     // GUI controller
     private MapPage mapPage = ServerApp.getMapPage();
+    // The pause manager used to pause/resume
+    private PauseManager pm;
     
     /**
      * Constructs a CommonArea object.
      * 
      * @param logger the logger
+     * @param pm the pause manager
      */
-    public CommonArea(Logger logger)
+    public CommonArea(Logger logger, PauseManager pm)
     {
         this.logger = logger;
+        this.pm = pm;
     }
     
     /**
@@ -38,10 +42,9 @@ public class CommonArea
      * Updates internal list, GUI, and shows the action in the log file.
      * 
      * @param h the human entering the area
-     * @param pm the pause manager
      * @throws InterruptedException if the thread is interrupted 
      */
-    public synchronized void enter(Human h, PauseManager pm) throws InterruptedException
+    public synchronized void enter(Human h) throws InterruptedException
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the common area.");
@@ -55,10 +58,9 @@ public class CommonArea
      * Updates internal list, GUI, and shows the action in the log file.
      * 
      * @param h the human leaving the area
-     * @param pm the pause manager
      * @throws InterruptedException if the thread is interrupted 
      */
-    public synchronized void exit(Human h, PauseManager pm) throws InterruptedException
+    public synchronized void exit(Human h) throws InterruptedException
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the common area.");
@@ -71,10 +73,9 @@ public class CommonArea
      * Human gets prepared and choses a tunnel.
      * 
      * @param h the human preparing in the common area
-     * @param pm the pause manager 
      * @throws InterruptedException if the thread is interrupted 
      */
-    public void prepare(Human h, PauseManager pm) throws InterruptedException
+    public void prepare(Human h) throws InterruptedException
     {  
         pm.check();
         logger.log("Human " + h.getHumanId() + " is getting prepared in the common area.");
