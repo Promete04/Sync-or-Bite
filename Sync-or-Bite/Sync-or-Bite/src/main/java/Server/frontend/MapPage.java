@@ -129,6 +129,7 @@ public class MapPage extends javax.swing.JPanel
     {
         ChangeListener masterChangeListener = new ChangeListener() 
         {
+            @Override
             public void onChange(Object source) 
             {
                 switch (source) 
