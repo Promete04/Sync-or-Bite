@@ -138,8 +138,6 @@ public class RestArea
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
-        h.toggleMarked();
-        notifyChange();
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*334));
@@ -151,6 +149,7 @@ public class RestArea
         
         // Unmark the human after full recovery
         h.toggleMarked();
+        notifyChange();
         pm.check();
     }
     

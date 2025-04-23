@@ -87,8 +87,8 @@ public class DiningRoom
             foodList.offer(f);
             foodCount.release();    // One food available, so add one permit or unblock a waiting thread (in FIFO order)
             logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size() + ".");
-            notifyChange(); 
         } 
+        notifyChange(); 
         pm.check();
     }
     
@@ -107,8 +107,8 @@ public class DiningRoom
         {  
             foodList.poll();
             logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
-            notifyChange(); 
         }
+        notifyChange(); 
         
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 

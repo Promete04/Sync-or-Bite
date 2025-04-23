@@ -250,37 +250,37 @@ public class UnsafeArea
         {
             try
             {
+                h.toggleAttacked();
+                h.looseAllFood();
+                notifyChange();
                 // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
                 Thread.sleep(10000);       
             }
             catch(InterruptedException ie2)
             {
-                h.toggleAttacked();
-                h.looseAllFood();
-                notifyChange();
                 int defense = (int) (Math.random() * 3);  // 2/3 chance to survive
                 pm.check();
                 if (defense < 2) 
                 {
                     logger.log("Human " + h.getHumanId() + " successfully defended itself from the attack.");
-                    notifyChange();
                     
                     // If survived it's marked
                     h.toggleMarked();
                     pm.check();
+                    notifyChange();
                     
                     // Remove the attack from the hashmap using its monitor for synchronization
                     synchronized(attacks) 
                     { 
                         attacks.remove(h);
-                        h.toggleAttacked();
                     }
+                    
+                    h.toggleAttacked();
                     pm.check();
                 } 
                 else 
                 {
                     logger.log("Human " + h.getHumanId() + " failed to defend itself from the attack.");
-                    notifyChange();
                     String zombieId = h.getHumanId().replaceFirst("H", "Z");
                     Zombie killer;
                     
@@ -292,9 +292,8 @@ public class UnsafeArea
                         attacks.remove(h);
                         humansInside.remove(h);
                         humansInsideCount.decrementAndGet();
-                        notifyChange();
-                        
                     }
+                    notifyChange();
                     pm.check(); 
                     
                     // Increase the killer's killcount
@@ -311,8 +310,9 @@ public class UnsafeArea
                     synchronized(zombiesInside) // Add the new zombie to zombiesInside list using its monitor for synchronization
                     {
                         zombiesInside.add(killed);
-                        notifyChange();
                     }
+                    
+                    notifyChange();
                     pm.check();
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");
                     killed.start();   // Begin zombie behaviour

@@ -56,7 +56,6 @@ public class ServerData extends Thread
             {
                 // Accept incoming client connection
                 Socket connection = server.accept();
-                System.out.println("Connection from: " + connection.getInetAddress().getHostName());
 
                 // Create the input and output streams used for the connection
                 DataInputStream input = new DataInputStream(connection.getInputStream());  // Receives client request

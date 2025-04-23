@@ -254,7 +254,6 @@ public class Tunnel
             pm.check();
             
             // Tunnel free, reserve it
-            notifyChange();
             tunnelBusy = true;
             currentInside = h;
             notifyChange();
@@ -264,6 +263,7 @@ public class Tunnel
             try 
             {
                 waitingToEnterShelter.remove(h);
+                notifyChange();
             } 
             finally 
             {
@@ -358,14 +358,12 @@ public class Tunnel
     
     public synchronized String getInTunnel()
     {
+        String inside = "-----";
         if(tunnelBusy)
         {
-            return currentInside.getHumanId();
+            inside = currentInside.getHumanId();
         }
-        else
-        {
-            return ("-----");
-        }
+        return inside;
     }
     
     public synchronized Queue<Human> getEntering()

@@ -90,41 +90,33 @@ public class MainClientPage extends javax.swing.JPanel
                             }
                             else
                             {
-                               totalKills=totalKills+Integer.parseInt(data[i]);
-                               if (totalKills != 0) 
-                                     {
-                                        int finalTotalKills = totalKills;
-                                        int val1 = Integer.parseInt(data[15]);
-                                        int val2 = Integer.parseInt(data[17]);
-                                        int val3 = Integer.parseInt(data[19]);
-                                        
-                                        kill1.setText(data[15]);
-                                        kill2.setText(data[17]);
-                                        kill3.setText(data[19]);
-                                        
-                                        pTop1.setValue((val1 * 100) / finalTotalKills);
-                                        pTop2.setValue((val2 * 100) / finalTotalKills);
-                                        pTop3.setValue((val3 * 100) / finalTotalKills);
-                                        
+                                totalKills=totalKills+Integer.parseInt(data[i]);
+                                if (totalKills != 0) 
+                                {
+                                    int finalTotalKills = totalKills;
+                                    int val1 = Integer.parseInt(data[15]);
+                                    int val2 = Integer.parseInt(data[17]);
+                                    int val3 = Integer.parseInt(data[19]);
 
-                                        //method to avoid conflicts and corruption of the gui
-                                        pTop1.getParent().revalidate();
-                                        pTop1.getParent().repaint();
-                                        pTop2.getParent().revalidate();
-                                        pTop2.getParent().repaint();
-                                        pTop3.getParent().revalidate();
-                                        pTop3.getParent().repaint();
+                                    kill1.setText(data[15]);
+                                    kill2.setText(data[17]);
+                                    kill3.setText(data[19]);
+
+                                    pTop1.setValue((val1 * 100) / finalTotalKills);
+                                    pTop2.setValue((val2 * 100) / finalTotalKills);
+                                    pTop3.setValue((val3 * 100) / finalTotalKills);
 
 
-                                    }
+                                    //method to avoid conflicts and corruption of the gui
+                                    pTop1.getParent().revalidate();
+                                    pTop1.getParent().repaint();
+                                    pTop2.getParent().revalidate();
+                                    pTop2.getParent().repaint();
+                                    pTop3.getParent().revalidate();
+                                    pTop3.getParent().repaint();
+                                }
                             }
-
-                            System.out.print(data[i]+"|");
                         }
-                        
-                        
-                        System.out.println(); 
-
                         Thread.sleep(500);
                     }
                 } 

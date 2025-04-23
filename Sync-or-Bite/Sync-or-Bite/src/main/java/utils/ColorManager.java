@@ -16,7 +16,8 @@ import java.awt.event.MouseEvent;
  *
  * @author guill
  */
-public class ColorManager {
+public class ColorManager 
+{
     
     // Main color, made for bigger visual impact
     public static Color MAIN_COLOR =            new Color(255,61,61);
@@ -41,7 +42,7 @@ public class ColorManager {
     // Injured human color
     public static Color INJURED_COLOR =    new Color(255,80,80);
     //Being atacked color
-     public static Color ATTACKED_COLOR =        new Color(255,0,102);
+     public static Color ATTACKED_COLOR = new Color(153,47,86);
     
     /**
      * Applies ZOMBIE_COLOR to the element when the mouse is hovering

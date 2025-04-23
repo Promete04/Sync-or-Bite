@@ -73,7 +73,6 @@ public class Human extends Thread
                 
                 // Return to the refuge
                 refuge.access(this);
-                
                 // If the human wasn't attacked
                 if(!marked)
                 {
@@ -158,7 +157,7 @@ public class Human extends Thread
     public void collectFood(Food f)
     {
         
-        foodList.addFirst(f);
+        foodList.add(f);
     }
     
     /**
