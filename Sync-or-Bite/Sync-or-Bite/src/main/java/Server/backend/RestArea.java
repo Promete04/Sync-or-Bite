@@ -138,6 +138,7 @@ public class RestArea
         pm.check();
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
+        h.toggleMarked();
         notifyChange();
         Thread.sleep(500 + (int) (Math.random()*333));
         pm.check();
