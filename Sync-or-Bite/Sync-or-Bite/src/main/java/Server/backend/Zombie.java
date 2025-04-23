@@ -17,7 +17,7 @@ public class Zombie extends Thread
     private final RiskZone riskZone;
     private int areaWhereReborn = -1; // Specific area if reborn
     
-    private boolean atacking = false;
+    private boolean attacking = false;
 
     /**
      * Constructs patient zero zombie.
@@ -107,13 +107,13 @@ public class Zombie extends Thread
         killCount++;
     }
     
-    public void toggleAtacking()
+    public void toggleAttacking()
     {
-        atacking=!atacking;
+        attacking=!attacking;
     }
     
-    public boolean isAtacking()
+    public boolean isAttacking()
     {
-        return atacking;
+        return attacking;
     }
 }

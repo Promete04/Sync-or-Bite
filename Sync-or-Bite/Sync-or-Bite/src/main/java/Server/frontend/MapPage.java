@@ -141,7 +141,7 @@ public class MapPage extends javax.swing.JPanel
                         
                         for (Human human : ca.getHumansIdsInside()) 
                         {
-                            if (human.isBeingAtacked()) 
+                            if (human.isBeingAttacked()) 
                             {
                                 setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
                             } 
@@ -167,7 +167,7 @@ public class MapPage extends javax.swing.JPanel
                         
                         for (Human human : ra.getHumansIdsInside()) 
                         {
-                            if (human.isBeingAtacked()) 
+                            if (human.isBeingAttacked()) 
                             {
                                 setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
                             } 
@@ -193,7 +193,7 @@ public class MapPage extends javax.swing.JPanel
                         
                         for (Human human : dr.getHumansIdsInside()) 
                         {
-                            if (human.isBeingAtacked()) 
+                            if (human.isBeingAttacked()) 
                             {
                                 setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
                             } 
@@ -224,7 +224,7 @@ public class MapPage extends javax.swing.JPanel
                         
                         for (Human human : area.getHumansInside()) 
                         {
-                            if (human.isBeingAtacked()) 
+                            if (human.isBeingAttacked()) 
                             {
                                 setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
                             } 
@@ -244,7 +244,7 @@ public class MapPage extends javax.swing.JPanel
                         
                         for (Zombie zombie : area.getZombiesInside()) 
                         {
-                            if (zombie.isAtacking()) 
+                            if (zombie.isAttacking()) 
                             {
                                 setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ATACKING_COLOR);  
                             } 

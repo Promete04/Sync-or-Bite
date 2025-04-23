@@ -89,7 +89,7 @@ public class UnsafeArea
         // If the zombie successfully picked a human to attack
         if(attackedHuman != null)
         {
-            z.toggleAtacking();
+            z.toggleAttacking();
             logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
             notifyChange();
             
@@ -111,7 +111,7 @@ public class UnsafeArea
             Thread.sleep(125 + (int) (Math.random()*250));
             
             attackedHuman.interrupt();      // End of attack using another interrupt
-            z.toggleAtacking();
+            z.toggleAttacking();
 
             notifyChange();
         }
@@ -255,7 +255,7 @@ public class UnsafeArea
             }
             catch(InterruptedException ie2)
             {
-                h.toggleAtacked();
+                h.toggleAttacked();
                 notifyChange();
                 int defense = (int) (Math.random() * 3);  // 2/3 chance to survive
                 pm.check();
@@ -272,7 +272,7 @@ public class UnsafeArea
                     synchronized(attacks) 
                     { 
                         attacks.remove(h);
-                        h.toggleAtacked();
+                        h.toggleAttacked();
                     }
                     pm.check();
                 } 

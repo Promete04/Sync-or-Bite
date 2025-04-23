@@ -20,10 +20,10 @@ public class Human extends Thread
     private final Tunnels tunnels;
     // Tunnel selected by this human
     private int selectedTunnel = -1;
-    //Whetjer is waiting for a group
+    // Whetjer is waiting for a group
     private boolean waitGroup = false;
-    //Whether is being currently atacked
-    private boolean beingAtacked = false;
+    // Whether is being currently attacked
+    private boolean beingAttacked = false;
     // Whether this human was attacked by a zombie
     private boolean marked = false;
     // Represents the food it collected from the unsafe area
@@ -130,14 +130,14 @@ public class Human extends Thread
         return marked;
     }
     
-    public void toggleAtacked()
+    public void toggleAttacked()
     {
-        beingAtacked=!beingAtacked;
+        beingAttacked=!beingAttacked;
     }
     
-    public boolean isBeingAtacked()
+    public boolean isBeingAttacked()
     {
-        return beingAtacked;
+        return beingAttacked;
     }
     
     public void toggleWaitGroup()
