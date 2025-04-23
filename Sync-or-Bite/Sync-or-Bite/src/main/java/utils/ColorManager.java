@@ -23,7 +23,7 @@ public class ColorManager {
     //Standar zombie color
     public static Color ZOMBIE_COLOR =       new Color(153, 78, 255);
     //Atacking zombie color
-    public static Color ATACKING_COLOR =       new Color(204, 0, 204);
+    public static Color ATTACKING_COLOR =       new Color(204, 0, 204);
     
     public static Color TEXT_COLOR =       new Color(0, 0, 0);
     
@@ -41,7 +41,7 @@ public class ColorManager {
     // Injured human color
     public static Color INJURED_COLOR =    new Color(255,80,80);
     //Being atacked color
-     public static Color ATACKED_COLOR =        new Color(255,0,102);
+     public static Color ATTACKED_COLOR =        new Color(255,0,102);
     
     /**
      * Applies ZOMBIE_COLOR to the element when the mouse is hovering
@@ -94,12 +94,12 @@ public class ColorManager {
     }
     
     /**
-     * Disables the element and applies the ATACKED_COLOR
+     * Disables the element and applies the ATTACKED_COLOR
      * @param component the component to disable
      */
     public static void disable(JComponent component){
         component.setEnabled(false);
-        component.setBackground(ATACKED_COLOR);
+        component.setBackground(ATTACKED_COLOR);
     }
     
     public static void enable(JComponent component){

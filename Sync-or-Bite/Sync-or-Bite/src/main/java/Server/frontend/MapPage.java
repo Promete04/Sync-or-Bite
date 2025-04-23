@@ -143,7 +143,7 @@ public class MapPage extends javax.swing.JPanel
                         {
                             if (human.isBeingAttacked()) 
                             {
-                                setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
+                                setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
                             } 
                             else if (human.isMarked())
                             {
@@ -169,7 +169,7 @@ public class MapPage extends javax.swing.JPanel
                         {
                             if (human.isBeingAttacked()) 
                             {
-                                setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
+                                setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
                             } 
                             else if (human.isMarked())
                             {
@@ -195,7 +195,7 @@ public class MapPage extends javax.swing.JPanel
                         {
                             if (human.isBeingAttacked()) 
                             {
-                                setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
+                                setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
                             } 
                             else if (human.isMarked())
                             {
@@ -226,7 +226,7 @@ public class MapPage extends javax.swing.JPanel
                         {
                             if (human.isBeingAttacked()) 
                             {
-                                setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.ATACKED_COLOR);
+                                setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
                             } 
                             else if (human.isMarked())
                             {
@@ -246,7 +246,7 @@ public class MapPage extends javax.swing.JPanel
                         {
                             if (zombie.isAttacking()) 
                             {
-                                setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ATACKING_COLOR);  
+                                setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ATTACKING_COLOR);  
                             } 
                             else 
                             {
