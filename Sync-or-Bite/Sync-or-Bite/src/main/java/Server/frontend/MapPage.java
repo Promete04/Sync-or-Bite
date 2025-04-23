@@ -135,11 +135,11 @@ public class MapPage extends javax.swing.JPanel
                 {
                     case CommonArea ca -> 
                     {
-                        updatePanel("C", ca.getHumansIdsInside().stream()
+                        updatePanel("C", ca.getHumansObjInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
-                        for (Human human : ca.getHumansIdsInside()) 
+                        for (Human human : ca.getHumansObjInside()) 
                         {
                             if (human.isBeingAttacked()) 
                             {
@@ -161,11 +161,11 @@ public class MapPage extends javax.swing.JPanel
 
                     case RestArea ra -> 
                     {
-                        updatePanel("R", ra.getHumansIdsInside().stream()
+                        updatePanel("R", ra.getHumansObjInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
-                        for (Human human : ra.getHumansIdsInside()) 
+                        for (Human human : ra.getHumansObjInside()) 
                         {
                             if (human.isBeingAttacked()) 
                             {
@@ -187,11 +187,11 @@ public class MapPage extends javax.swing.JPanel
 
                     case DiningRoom dr -> 
                     {
-                        updatePanel("D", dr.getHumansIdsInside().stream()
+                        updatePanel("D", dr.getHumansObjInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
-                        for (Human human : dr.getHumansIdsInside()) 
+                        for (Human human : dr.getHumansObjInside()) 
                         {
                             if (human.isBeingAttacked()) 
                             {

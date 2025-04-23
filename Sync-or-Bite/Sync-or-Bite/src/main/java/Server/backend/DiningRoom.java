@@ -23,7 +23,7 @@ public class DiningRoom
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in mutual exclusion)
     private int humansInside = 0;
-    private List<Human> humansIdsInside = new ArrayList<>();
+    private List<Human> humansObjInside = new ArrayList<>();
     
     // Concurrent non-blocking queue for storing food units
     private Queue<Food> foodList = new ConcurrentLinkedQueue<>();
@@ -145,7 +145,7 @@ public class DiningRoom
             mutex.acquire(); // Mutual exclusion, critical section starts
             logger.log("Human " + h.getHumanId() + " entered the dining room.");
             humansInside=humansInside+1;
-            humansIdsInside.add(h);
+            humansObjInside.add(h);
             notifyChange(); 
         }
         finally
@@ -172,7 +172,7 @@ public class DiningRoom
             mutex.acquire();  // Mutual exclusion, critical section starts
             logger.log("Human " + h.getHumanId() + " left the dining room.");
             humansInside=humansInside-1;
-            humansIdsInside.remove(h);
+            humansObjInside.remove(h);
             notifyChange(); 
         } 
         finally 
@@ -191,9 +191,9 @@ public class DiningRoom
         return humansInside;
     }
     
-    public synchronized List<Human> getHumansIdsInside() 
+    public synchronized List<Human> getHumansObjInside() 
     {
-        return humansIdsInside;
+        return humansObjInside;
     }
 
     /** 

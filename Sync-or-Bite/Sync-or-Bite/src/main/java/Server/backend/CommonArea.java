@@ -21,7 +21,7 @@ public class CommonArea
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
     private int humansInside = 0;
-    private List<Human> humansIdsInside = new ArrayList<>();
+    private List<Human> humansObjInside = new ArrayList<>();
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
@@ -70,7 +70,7 @@ public class CommonArea
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the common area.");
         humansInside=humansInside+1;
-        humansIdsInside.add(h);
+        humansObjInside.add(h);
         notifyChange();
         pm.check();
     }
@@ -86,7 +86,7 @@ public class CommonArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the common area.");
-        humansIdsInside.remove(h);
+        humansObjInside.remove(h);
         humansInside=humansInside-1;
         notifyChange();
         pm.check();
@@ -129,8 +129,8 @@ public class CommonArea
         return humansInside;
     }
     
-    public synchronized List<Human> getHumansIdsInside() 
+    public synchronized List<Human> getHumansObjInside() 
     {
-        return humansIdsInside;
+        return humansObjInside;
     }
 }

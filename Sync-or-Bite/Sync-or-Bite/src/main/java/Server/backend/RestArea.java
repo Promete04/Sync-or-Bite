@@ -18,7 +18,7 @@ public class RestArea
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
     private int humansInside = 0;
-    private List<Human> humansIdsInside = new ArrayList<>();
+    private List<Human> humansObjInside = new ArrayList<>();
     
     private Logger logger;
     // The pause manager used to pause/resume
@@ -67,7 +67,7 @@ public class RestArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
-        humansIdsInside.add(h);
+        humansObjInside.add(h);
         humansInside=humansInside+1;
         notifyChange();
         pm.check();
@@ -85,7 +85,7 @@ public class RestArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the rest area.");
-        humansIdsInside.remove(h);
+        humansObjInside.remove(h);
         humansInside=humansInside-1;
         notifyChange();
         pm.check();
@@ -153,9 +153,9 @@ public class RestArea
         pm.check();
     }
     
-    public synchronized List<Human> getHumansIdsInside() 
+    public synchronized List<Human> getHumansObjInside() 
     {
-        return humansIdsInside;
+        return humansObjInside;
     }
     
     public synchronized int getHumansInside()
