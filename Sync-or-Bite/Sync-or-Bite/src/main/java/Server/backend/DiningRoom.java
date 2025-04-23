@@ -6,10 +6,8 @@ package Server.backend;
 
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 
@@ -25,7 +23,7 @@ public class DiningRoom
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in mutual exclusion)
     private int humansInside = 0;
-    private List<Human> humansIdsInside = new LinkedList<>();
+    private List<Human> humansIdsInside = new ArrayList<>();
     
     // Concurrent non-blocking queue for storing food units
     private Queue<Food> foodList = new ConcurrentLinkedQueue<>();

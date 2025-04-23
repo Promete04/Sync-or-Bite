@@ -35,9 +35,9 @@ import java.util.EventListener;
  * 
  * Note: This design supports multiple listeners per source.
  * 
- * @author guille
  */
-public interface ChangeListener extends EventListener {
+public interface ChangeListener extends EventListener 
+{
     /**
      * Called when the observed source’s state changes.
      *

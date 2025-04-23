@@ -129,7 +129,6 @@ public class MapPage extends javax.swing.JPanel
     {
         ChangeListener masterChangeListener = new ChangeListener() 
         {
-            @Override
             public void onChange(Object source) 
             {
                 switch (source) 
@@ -430,6 +429,7 @@ public class MapPage extends javax.swing.JPanel
         targetPanel.revalidate();
         targetPanel.repaint();
     }
+    
     public synchronized void removeLabelFromPanel(String panelKey, String labelText) 
     {
         JPanel targetPanel = panels.get(panelKey);

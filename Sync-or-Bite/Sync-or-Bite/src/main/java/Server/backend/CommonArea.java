@@ -21,7 +21,7 @@ public class CommonArea
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
     private int humansInside = 0;
-    private List<Human> humansIdsInside = new LinkedList<>();
+    private List<Human> humansIdsInside = new ArrayList<>();
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;

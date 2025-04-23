@@ -5,10 +5,7 @@
 package Server.backend;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
-
 
 /**
  * Represents a rest area where humans can enter, rest, and get fully recovered.
@@ -21,7 +18,7 @@ public class RestArea
 {
     // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
     private int humansInside = 0;
-    private List<Human> humansIdsInside = new LinkedList<>();
+    private List<Human> humansIdsInside = new ArrayList<>();
     
     private Logger logger;
     // The pause manager used to pause/resume
