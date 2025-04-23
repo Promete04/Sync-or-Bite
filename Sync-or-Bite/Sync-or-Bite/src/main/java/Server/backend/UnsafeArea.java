@@ -256,6 +256,7 @@ public class UnsafeArea
             catch(InterruptedException ie2)
             {
                 h.toggleAttacked();
+                h.looseAllFood();
                 notifyChange();
                 int defense = (int) (Math.random() * 3);  // 2/3 chance to survive
                 pm.check();

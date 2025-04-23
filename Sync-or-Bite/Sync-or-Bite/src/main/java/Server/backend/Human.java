@@ -158,7 +158,7 @@ public class Human extends Thread
     public void collectFood(Food f)
     {
         
-        foodList.add(f);
+        foodList.addFirst(f);
     }
     
     /**
@@ -169,6 +169,11 @@ public class Human extends Thread
     public Food depositFood()
     {
         return foodList.removeFirst();
+    }
+    
+    public void looseAllFood()
+    {
+        foodList.clear();
     }
 
     /**
