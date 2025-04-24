@@ -265,12 +265,14 @@ public class MapPage extends javax.swing.JPanel
                         int index = t.getIndexOfTunnel(tunnel);
                         String entryPanel = "TR" + String.valueOf(index + 1);
                         String exitPanel = "TE" + String.valueOf(index + 1);
+                        Queue<Human> entering = tunnel.getEntering();
+                        Queue<Human> exiting = tunnel.getExiting();
 
-                        updatePanel(entryPanel, tunnel.getEntering().stream()
+                        updatePanel(entryPanel, entering.stream()
                             .map(Human::getHumanId)
                             .toList());
                         
-                        for (Human human : tunnel.getEntering()) 
+                        for (Human human : entering) 
                         {
                             if (human.isMarked()) 
                             {
@@ -282,11 +284,11 @@ public class MapPage extends javax.swing.JPanel
                             }
                         }
 
-                        updatePanel(exitPanel, tunnel.getExiting().stream()
+                        updatePanel(exitPanel, exiting.stream()
                             .map(Human::getHumanId)
                             .toList());
                         
-                        for (Human human : tunnel.getExiting()) 
+                        for (Human human : exiting) 
                         {
                             if (human.isWaiting()) 
                             {
@@ -427,6 +429,7 @@ public class MapPage extends javax.swing.JPanel
 
         targetPanel.add(label);
         updatePanelPreferredHeight(targetPanel);
+        
         targetPanel.revalidate();
         targetPanel.repaint();
     }
@@ -490,7 +493,6 @@ public class MapPage extends javax.swing.JPanel
     panel.setPreferredSize(new Dimension(currentSize.width, rowCount * (labelHeight + padding/2)));
     panel.revalidate();
     }
-
 
     public synchronized void setCounter(String nameLabel, String value) 
     {
