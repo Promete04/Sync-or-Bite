@@ -1,0 +1,421 @@
+[2025-04-23 18:34:51.820] Zombie Z0000 entered unsafe area 2.
+[2025-04-23 18:34:51.824] Human H0001 entered the refuge.
+[2025-04-23 18:34:51.826] Human H0001 entered the common area.
+[2025-04-23 18:34:51.867] Human H0001 is getting prepared in the common area.
+[2025-04-23 18:34:53.181] Human H0001 chose tunnel 3 in the common area.
+[2025-04-23 18:34:53.182] Human H0001 left the common area.
+[2025-04-23 18:34:53.183] Human H0001 left the refuge.
+[2025-04-23 18:34:53.184] Human H0001 is waiting to form a group to exit to unsafe area 3.
+[2025-04-23 18:34:53.410] Human H0002 entered the refuge.
+[2025-04-23 18:34:53.411] Human H0002 entered the common area.
+[2025-04-23 18:34:53.412] Human H0002 is getting prepared in the common area.
+[2025-04-23 18:34:54.341] Zombie Z0000 left unsafe area 2.
+[2025-04-23 18:34:54.342] Zombie Z0000 entered unsafe area 3.
+[2025-04-23 18:34:55.073] Human H0002 chose tunnel 1 in the common area.
+[2025-04-23 18:34:55.076] Human H0002 left the common area.
+[2025-04-23 18:34:55.078] Human H0002 left the refuge.
+[2025-04-23 18:34:55.080] Human H0002 is waiting to form a group to exit to unsafe area 1.
+[2025-04-23 18:34:55.122] Human H0003 entered the refuge.
+[2025-04-23 18:34:55.123] Human H0003 entered the common area.
+[2025-04-23 18:34:55.124] Human H0003 is getting prepared in the common area.
+[2025-04-23 18:34:56.250] Human H0004 entered the refuge.
+[2025-04-23 18:34:56.251] Human H0004 entered the common area.
+[2025-04-23 18:34:56.252] Human H0004 is getting prepared in the common area.
+[2025-04-23 18:34:56.637] Human H0003 chose tunnel 3 in the common area.
+[2025-04-23 18:34:56.637] Human H0003 left the common area.
+[2025-04-23 18:34:56.638] Human H0003 left the refuge.
+[2025-04-23 18:34:56.639] Human H0003 is waiting to form a group to exit to unsafe area 3.
+[2025-04-23 18:34:56.737] Zombie Z0000 left unsafe area 3.
+[2025-04-23 18:34:56.738] Zombie Z0000 entered unsafe area 1.
+[2025-04-23 18:34:57.640] Human H0005 entered the refuge.
+[2025-04-23 18:34:57.641] Human H0005 entered the common area.
+[2025-04-23 18:34:57.642] Human H0005 is getting prepared in the common area.
+[2025-04-23 18:34:57.884] Human H0004 chose tunnel 0 in the common area.
+[2025-04-23 18:34:57.885] Human H0004 left the common area.
+[2025-04-23 18:34:57.886] Human H0004 left the refuge.
+[2025-04-23 18:34:57.887] Human H0004 is waiting to form a group to exit to unsafe area 0.
+[2025-04-23 18:34:58.797] Human H0005 chose tunnel 1 in the common area.
+[2025-04-23 18:34:58.797] Human H0005 left the common area.
+[2025-04-23 18:34:58.798] Human H0005 left the refuge.
+[2025-04-23 18:34:58.799] Human H0005 is waiting to form a group to exit to unsafe area 1.
+[2025-04-23 18:34:59.134] Human H0006 entered the refuge.
+[2025-04-23 18:34:59.136] Human H0006 entered the common area.
+[2025-04-23 18:34:59.141] Human H0006 is getting prepared in the common area.
+[2025-04-23 18:34:59.280] Zombie Z0000 left unsafe area 1.
+[2025-04-23 18:34:59.283] Zombie Z0000 entered unsafe area 1.
+[2025-04-23 18:35:00.426] Human H0006 chose tunnel 3 in the common area.
+[2025-04-23 18:35:00.427] Human H0006 left the common area.
+[2025-04-23 18:35:00.428] Human H0006 left the refuge.
+[2025-04-23 18:35:00.428] Human H0006 is waiting to form a group to exit to unsafe area 3.
+[2025-04-23 18:35:00.430] A group of 3 has been formed for exiting to unsafe area 3.
+[2025-04-23 18:35:00.432] Human H0006 is crossing to unsafe area 3.
+[2025-04-23 18:35:01.038] Human H0007 entered the refuge.
+[2025-04-23 18:35:01.040] Human H0007 entered the common area.
+[2025-04-23 18:35:01.043] Human H0007 is getting prepared in the common area.
+[2025-04-23 18:35:01.435] Human H0006 has reached unsafe area 3.
+[2025-04-23 18:35:01.438] Human H0006 entered unsafe area 3.
+[2025-04-23 18:35:01.440] Human H0003 is crossing to unsafe area 3.
+[2025-04-23 18:35:01.441] Human H0006 is exploring unsafe area 3.
+[2025-04-23 18:35:01.691] Human H0008 entered the refuge.
+[2025-04-23 18:35:01.692] Human H0008 entered the common area.
+[2025-04-23 18:35:01.694] Human H0008 is getting prepared in the common area.
+[2025-04-23 18:35:01.730] Zombie Z0000 left unsafe area 1.
+[2025-04-23 18:35:01.731] Zombie Z0000 entered unsafe area 1.
+[2025-04-23 18:35:02.354] Human H0009 entered the refuge.
+[2025-04-23 18:35:02.356] Human H0009 entered the common area.
+[2025-04-23 18:35:02.361] Human H0009 is getting prepared in the common area.
+[2025-04-23 18:35:02.441] Human H0003 has reached unsafe area 3.
+[2025-04-23 18:35:02.442] Human H0003 entered unsafe area 3.
+[2025-04-23 18:35:02.442] Human H0001 is crossing to unsafe area 3.
+[2025-04-23 18:35:02.443] Human H0003 is exploring unsafe area 3.
+[2025-04-23 18:35:02.822] Human H0007 chose tunnel 3 in the common area.
+[2025-04-23 18:35:02.824] Human H0007 left the common area.
+[2025-04-23 18:35:02.827] Human H0007 left the refuge.
+[2025-04-23 18:35:02.827] Human H0007 is waiting to form a group to exit to unsafe area 3.
+[2025-04-23 18:35:03.237] Human H0008 chose tunnel 2 in the common area.
+[2025-04-23 18:35:03.239] Human H0008 left the common area.
+[2025-04-23 18:35:03.242] Human H0008 left the refuge.
+[2025-04-23 18:35:03.243] Human H0008 is waiting to form a group to exit to unsafe area 2.
+[2025-04-23 18:35:03.295] Human H0010 entered the refuge.
+[2025-04-23 18:35:03.296] Human H0010 entered the common area.
+[2025-04-23 18:35:03.296] Human H0010 is getting prepared in the common area.
+[2025-04-23 18:35:03.445] Human H0001 has reached unsafe area 3.
+[2025-04-23 18:35:03.446] Human H0001 entered unsafe area 3.
+[2025-04-23 18:35:03.447] Human H0001 is exploring unsafe area 3.
+[2025-04-23 18:35:03.552] Human H0009 chose tunnel 3 in the common area.
+[2025-04-23 18:35:03.553] Human H0009 left the common area.
+[2025-04-23 18:35:03.554] Human H0009 left the refuge.
+[2025-04-23 18:35:03.555] Human H0009 is waiting to form a group to exit to unsafe area 3.
+[2025-04-23 18:35:04.074] Human H0011 entered the refuge.
+[2025-04-23 18:35:04.075] Human H0011 entered the common area.
+[2025-04-23 18:35:04.076] Human H0011 is getting prepared in the common area.
+[2025-04-23 18:35:04.393] Zombie Z0000 left unsafe area 1.
+[2025-04-23 18:35:04.396] Zombie Z0000 entered unsafe area 0.
+[2025-04-23 18:35:04.880] Human H0010 chose tunnel 2 in the common area.
+[2025-04-23 18:35:04.882] Human H0010 left the common area.
+[2025-04-23 18:35:04.884] Human H0010 left the refuge.
+[2025-04-23 18:35:04.886] Human H0010 is waiting to form a group to exit to unsafe area 2.
+[2025-04-23 18:35:05.422] Human H0012 entered the refuge.
+[2025-04-23 18:35:05.423] Human H0012 entered the common area.
+[2025-04-23 18:35:05.424] Human H0012 is getting prepared in the common area.
+[2025-04-23 18:35:05.561] Human H0011 chose tunnel 3 in the common area.
+[2025-04-23 18:35:05.563] Human H0011 left the common area.
+[2025-04-23 18:35:05.565] Human H0011 left the refuge.
+[2025-04-23 18:35:05.565] Human H0011 is waiting to form a group to exit to unsafe area 3.
+[2025-04-23 18:35:05.573] A group of 3 has been formed for exiting to unsafe area 3.
+[2025-04-23 18:35:05.574] Human H0011 is crossing to unsafe area 3.
+[2025-04-23 18:35:05.606] Human H0006 gathered 2 units of food in unsafe area 3.
+[2025-04-23 18:35:05.617] Human H0006 left unsafe area 3.
+[2025-04-23 18:35:05.618] Human H0006 queued to return via tunnel from unsafe area 3.
+[2025-04-23 18:35:06.539] Human H0013 entered the refuge.
+[2025-04-23 18:35:06.541] Human H0013 entered the common area.
+[2025-04-23 18:35:06.543] Human H0013 is getting prepared in the common area.
+[2025-04-23 18:35:06.578] Human H0011 has reached unsafe area 3.
+[2025-04-23 18:35:06.579] Human H0011 entered unsafe area 3.
+[2025-04-23 18:35:06.579] Human H0006 is crossing to refuge from unsafe area 3.
+[2025-04-23 18:35:06.580] Human H0011 is exploring unsafe area 3.
+[2025-04-23 18:35:06.666] Human H0003 gathered 2 units of food in unsafe area 3.
+[2025-04-23 18:35:06.678] Human H0003 left unsafe area 3.
+[2025-04-23 18:35:06.678] Human H0003 queued to return via tunnel from unsafe area 3.
+[2025-04-23 18:35:06.992] Zombie Z0000 left unsafe area 0.
+[2025-04-23 18:35:06.993] Zombie Z0000 entered unsafe area 3.
+[2025-04-23 18:35:06.997] Zombie Z0000 in unsafe area 3 attacks human H0011
+[2025-04-23 18:35:07.193] Human H0012 chose tunnel 0 in the common area.
+[2025-04-23 18:35:07.193] Human H0012 left the common area.
+[2025-04-23 18:35:07.194] Human H0012 left the refuge.
+[2025-04-23 18:35:07.194] Human H0012 is waiting to form a group to exit to unsafe area 0.
+[2025-04-23 18:35:07.522] Human H0001 gathered 2 units of food in unsafe area 3.
+[2025-04-23 18:35:07.535] Human H0001 left unsafe area 3.
+[2025-04-23 18:35:07.561] Human H0001 queued to return via tunnel from unsafe area 3.
+[2025-04-23 18:35:07.580] Human H0006 has reached the refuge from unsafe area 3.
+[2025-04-23 18:35:07.581] Human H0006 entered the refuge.
+[2025-04-23 18:35:07.581] Human H0006 has deposited 1 unit of food. Total current food: 1.
+[2025-04-23 18:35:07.584] Human H0003 is crossing to refuge from unsafe area 3.
+[2025-04-23 18:35:07.584] Human H0006 has deposited 1 unit of food. Total current food: 2.
+[2025-04-23 18:35:07.585] Human H0006 entered the rest area.
+[2025-04-23 18:35:07.587] Human H0006 is resting in the rest area.
+[2025-04-23 18:35:07.895] Human H0011 successfully defended itself from the attack.
+[2025-04-23 18:35:07.908] Human H0011 left unsafe area 3.
+[2025-04-23 18:35:07.909] Human H0011 queued to return via tunnel from unsafe area 3.
+[2025-04-23 18:35:08.090] Human H0013 chose tunnel 1 in the common area.
+[2025-04-23 18:35:08.090] Human H0013 left the common area.
+[2025-04-23 18:35:08.091] Human H0013 left the refuge.
+[2025-04-23 18:35:08.091] Human H0013 is waiting to form a group to exit to unsafe area 1.
+[2025-04-23 18:35:08.092] A group of 3 has been formed for exiting to unsafe area 1.
+[2025-04-23 18:35:08.092] Human H0013 is crossing to unsafe area 1.
+[2025-04-23 18:35:08.243] Human H0014 entered the refuge.
+[2025-04-23 18:35:08.244] Human H0014 entered the common area.
+[2025-04-23 18:35:08.247] Human H0014 is getting prepared in the common area.
+[2025-04-23 18:35:08.586] Human H0003 has reached the refuge from unsafe area 3.
+[2025-04-23 18:35:08.587] Human H0003 entered the refuge.
+[2025-04-23 18:35:08.588] Human H0003 has deposited 1 unit of food. Total current food: 3.
+[2025-04-23 18:35:08.589] Human H0001 is crossing to refuge from unsafe area 3.
+[2025-04-23 18:35:08.590] Human H0003 has deposited 1 unit of food. Total current food: 4.
+[2025-04-23 18:35:08.591] Human H0003 entered the rest area.
+[2025-04-23 18:35:08.592] Human H0003 is resting in the rest area.
+[2025-04-23 18:35:09.095] Human H0013 has reached unsafe area 1.
+[2025-04-23 18:35:09.096] Human H0013 entered unsafe area 1.
+[2025-04-23 18:35:09.096] Human H0002 is crossing to unsafe area 1.
+[2025-04-23 18:35:09.097] Human H0013 is exploring unsafe area 1.
+[2025-04-23 18:35:09.593] Human H0001 has reached the refuge from unsafe area 3.
+[2025-04-23 18:35:09.594] Human H0001 entered the refuge.
+[2025-04-23 18:35:09.594] Human H0011 is crossing to refuge from unsafe area 3.
+[2025-04-23 18:35:09.594] Human H0001 has deposited 1 unit of food. Total current food: 5.
+[2025-04-23 18:35:09.595] Human H0001 has deposited 1 unit of food. Total current food: 6.
+[2025-04-23 18:35:09.595] Human H0001 entered the rest area.
+[2025-04-23 18:35:09.596] Human H0001 is resting in the rest area.
+[2025-04-23 18:35:09.660] Human H0014 chose tunnel 2 in the common area.
+[2025-04-23 18:35:09.660] Human H0014 left the common area.
+[2025-04-23 18:35:09.661] Human H0014 left the refuge.
+[2025-04-23 18:35:09.661] Human H0014 is waiting to form a group to exit to unsafe area 2.
+[2025-04-23 18:35:09.662] A group of 3 has been formed for exiting to unsafe area 2.
+[2025-04-23 18:35:09.663] Human H0008 is crossing to unsafe area 2.
+[2025-04-23 18:35:09.985] Human H0015 entered the refuge.
+[2025-04-23 18:35:09.986] Human H0015 entered the common area.
+[2025-04-23 18:35:09.988] Human H0015 is getting prepared in the common area.
+[2025-04-23 18:35:10.097] Human H0002 has reached unsafe area 1.
+[2025-04-23 18:35:10.097] Human H0002 entered unsafe area 1.
+[2025-04-23 18:35:10.098] Human H0005 is crossing to unsafe area 1.
+[2025-04-23 18:35:10.098] Human H0002 is exploring unsafe area 1.
+[2025-04-23 18:35:10.378] Human H0006 left the rest area.
+[2025-04-23 18:35:10.381] Human H0006 entered the dining room.
+[2025-04-23 18:35:10.382] Human H0006 is eating 1 unit of food. Total current food: 5.
+[2025-04-23 18:35:10.410] Zombie Z0000 left unsafe area 3.
+[2025-04-23 18:35:10.411] Zombie Z0000 entered unsafe area 1.
+[2025-04-23 18:35:10.411] Zombie Z0000 in unsafe area 1 attacks human H0013
+[2025-04-23 18:35:10.595] Human H0011 has reached the refuge from unsafe area 3.
+[2025-04-23 18:35:10.596] Human H0011 entered the refuge.
+[2025-04-23 18:35:10.596] Human H0007 is crossing to unsafe area 3.
+[2025-04-23 18:35:10.597] Human H0011 entered the rest area.
+[2025-04-23 18:35:10.598] Human H0011 is resting in the rest area.
+[2025-04-23 18:35:10.666] Human H0008 has reached unsafe area 2.
+[2025-04-23 18:35:10.667] Human H0008 entered unsafe area 2.
+[2025-04-23 18:35:10.668] Human H0008 is exploring unsafe area 2.
+[2025-04-23 18:35:10.668] Human H0014 is crossing to unsafe area 2.
+[2025-04-23 18:35:10.696] Human H0016 entered the refuge.
+[2025-04-23 18:35:10.697] Human H0016 entered the common area.
+[2025-04-23 18:35:10.697] Human H0016 is getting prepared in the common area.
+[2025-04-23 18:35:11.101] Human H0005 has reached unsafe area 1.
+[2025-04-23 18:35:11.103] Human H0005 entered unsafe area 1.
+[2025-04-23 18:35:11.119] Human H0005 is exploring unsafe area 1.
+[2025-04-23 18:35:11.158] Human H0013 successfully defended itself from the attack.
+[2025-04-23 18:35:11.169] Human H0013 left unsafe area 1.
+[2025-04-23 18:35:11.170] Human H0013 queued to return via tunnel from unsafe area 1.
+[2025-04-23 18:35:11.170] Human H0013 is crossing to refuge from unsafe area 1.
+[2025-04-23 18:35:11.476] Human H0015 chose tunnel 1 in the common area.
+[2025-04-23 18:35:11.477] Human H0015 left the common area.
+[2025-04-23 18:35:11.478] Human H0015 left the refuge.
+[2025-04-23 18:35:11.479] Human H0015 is waiting to form a group to exit to unsafe area 1.
+[2025-04-23 18:35:11.599] Human H0007 has reached unsafe area 3.
+[2025-04-23 18:35:11.601] Human H0007 entered unsafe area 3.
+[2025-04-23 18:35:11.603] Human H0009 is crossing to unsafe area 3.
+[2025-04-23 18:35:11.604] Human H0007 is exploring unsafe area 3.
+[2025-04-23 18:35:11.625] Human H0003 left the rest area.
+[2025-04-23 18:35:11.625] Human H0003 entered the dining room.
+[2025-04-23 18:35:11.626] Human H0003 is eating 1 unit of food. Total current food: 4.
+[2025-04-23 18:35:11.670] Human H0014 has reached unsafe area 2.
+[2025-04-23 18:35:11.670] Human H0014 entered unsafe area 2.
+[2025-04-23 18:35:11.671] Human H0010 is crossing to unsafe area 2.
+[2025-04-23 18:35:11.671] Human H0014 is exploring unsafe area 2.
+[2025-04-23 18:35:12.172] Human H0013 has reached the refuge from unsafe area 1.
+[2025-04-23 18:35:12.173] Human H0013 entered the refuge.
+[2025-04-23 18:35:12.173] Human H0013 entered the rest area.
+[2025-04-23 18:35:12.174] Human H0013 is resting in the rest area.
+[2025-04-23 18:35:12.189] Human H0016 chose tunnel 2 in the common area.
+[2025-04-23 18:35:12.190] Human H0016 left the common area.
+[2025-04-23 18:35:12.191] Human H0016 left the refuge.
+[2025-04-23 18:35:12.191] Human H0016 is waiting to form a group to exit to unsafe area 2.
+[2025-04-23 18:35:12.420] Human H0017 entered the refuge.
+[2025-04-23 18:35:12.421] Human H0017 entered the common area.
+[2025-04-23 18:35:12.421] Human H0017 is getting prepared in the common area.
+[2025-04-23 18:35:12.605] Human H0009 has reached unsafe area 3.
+[2025-04-23 18:35:12.607] Human H0009 entered unsafe area 3.
+[2025-04-23 18:35:12.610] Human H0009 is exploring unsafe area 3.
+[2025-04-23 18:35:12.673] Human H0010 has reached unsafe area 2.
+[2025-04-23 18:35:12.674] Human H0010 entered unsafe area 2.
+[2025-04-23 18:35:12.674] Human H0010 is exploring unsafe area 2.
+[2025-04-23 18:35:12.928] Human H0001 left the rest area.
+[2025-04-23 18:35:12.930] Human H0001 entered the dining room.
+[2025-04-23 18:35:12.932] Human H0001 is eating 1 unit of food. Total current food: 3.
+[2025-04-23 18:35:13.257] Human H0011 left the rest area.
+[2025-04-23 18:35:13.257] Human H0011 entered the dining room.
+[2025-04-23 18:35:13.258] Human H0011 is eating 1 unit of food. Total current food: 2.
+[2025-04-23 18:35:13.729] Zombie Z0000 left unsafe area 1.
+[2025-04-23 18:35:13.729] Zombie Z0000 entered unsafe area 1.
+[2025-04-23 18:35:13.730] Zombie Z0000 in unsafe area 1 attacks human H0002
+[2025-04-23 18:35:14.035] Human H0006 left the dining room.
+[2025-04-23 18:35:14.036] Human H0006 entered the common area.
+[2025-04-23 18:35:14.037] Human H0006 is getting prepared in the common area.
+[2025-04-23 18:35:14.094] Human H0017 chose tunnel 2 in the common area.
+[2025-04-23 18:35:14.094] Human H0017 left the common area.
+[2025-04-23 18:35:14.095] Human H0017 left the refuge.
+[2025-04-23 18:35:14.095] Human H0017 is waiting to form a group to exit to unsafe area 2.
+[2025-04-23 18:35:14.387] Human H0018 entered the refuge.
+[2025-04-23 18:35:14.388] Human H0018 entered the common area.
+[2025-04-23 18:35:14.389] Human H0018 is getting prepared in the common area.
+[2025-04-23 18:35:14.562] Human H0008 gathered 2 units of food in unsafe area 2.
+[2025-04-23 18:35:14.573] Human H0008 left unsafe area 2.
+[2025-04-23 18:35:14.573] Human H0008 queued to return via tunnel from unsafe area 2.
+[2025-04-23 18:35:14.574] Human H0008 is crossing to refuge from unsafe area 2.
+[2025-04-23 18:35:14.644] Human H0002 failed to defend itself from the attack.
+[2025-04-23 18:35:14.648] Zombie Z0000 killed human H0002 (Kill count: 1)
+[2025-04-23 18:35:14.648] Top 3 Zombies:
+                                             1. Z0000:  1
+
+[2025-04-23 18:35:14.649] Human H0002 was reborn as Zombie Z0002 in area 1.
+[2025-04-23 18:35:14.650] Zombie Z0002 in unsafe area 1 attacks human H0005
+[2025-04-23 18:35:15.268] Human H0013 left the rest area.
+[2025-04-23 18:35:15.269] Human H0013 entered the dining room.
+[2025-04-23 18:35:15.270] Human H0013 is eating 1 unit of food. Total current food: 1.
+[2025-04-23 18:35:15.494] Human H0005 successfully defended itself from the attack.
+[2025-04-23 18:35:15.506] Human H0005 left unsafe area 1.
+[2025-04-23 18:35:15.507] Human H0005 queued to return via tunnel from unsafe area 1.
+[2025-04-23 18:35:15.508] Human H0005 is crossing to refuge from unsafe area 1.
+[2025-04-23 18:35:15.578] Human H0008 has reached the refuge from unsafe area 2.
+[2025-04-23 18:35:15.578] Human H0008 entered the refuge.
+[2025-04-23 18:35:15.579] Human H0008 has deposited 1 unit of food. Total current food: 2.
+[2025-04-23 18:35:15.579] Human H0008 has deposited 1 unit of food. Total current food: 3.
+[2025-04-23 18:35:15.579] Human H0008 entered the rest area.
+[2025-04-23 18:35:15.580] Human H0008 is resting in the rest area.
+[2025-04-23 18:35:15.613] Human H0019 entered the refuge.
+[2025-04-23 18:35:15.614] Human H0019 entered the common area.
+[2025-04-23 18:35:15.615] Human H0019 is getting prepared in the common area.
+[2025-04-23 18:35:15.627] Human H0003 left the dining room.
+[2025-04-23 18:35:15.628] Human H0003 entered the common area.
+[2025-04-23 18:35:15.628] Human H0003 is getting prepared in the common area.
+[2025-04-23 18:35:15.673] Human H0014 gathered 2 units of food in unsafe area 2.
+[2025-04-23 18:35:15.684] Human H0014 left unsafe area 2.
+[2025-04-23 18:35:15.684] Human H0014 queued to return via tunnel from unsafe area 2.
+[2025-04-23 18:35:15.685] Human H0014 is crossing to refuge from unsafe area 2.
+[2025-04-23 18:35:15.722] Human H0018 chose tunnel 2 in the common area.
+[2025-04-23 18:35:15.722] Human H0018 left the common area.
+[2025-04-23 18:35:15.723] Human H0018 left the refuge.
+[2025-04-23 18:35:15.723] Human H0018 is waiting to form a group to exit to unsafe area 2.
+[2025-04-23 18:35:15.724] A group of 3 has been formed for exiting to unsafe area 2.
+[2025-04-23 18:35:15.751] Human H0006 chose tunnel 0 in the common area.
+[2025-04-23 18:35:15.751] Human H0006 left the common area.
+[2025-04-23 18:35:15.752] Human H0006 left the refuge.
+[2025-04-23 18:35:15.752] Human H0006 is waiting to form a group to exit to unsafe area 0.
+[2025-04-23 18:35:15.753] A group of 3 has been formed for exiting to unsafe area 0.
+[2025-04-23 18:35:15.754] Human H0012 is crossing to unsafe area 0.
+[2025-04-23 18:35:16.080] Human H0007 gathered 2 units of food in unsafe area 3.
+[2025-04-23 18:35:16.091] Human H0007 left unsafe area 3.
+[2025-04-23 18:35:16.093] Human H0007 queued to return via tunnel from unsafe area 3.
+[2025-04-23 18:35:16.095] Human H0007 is crossing to refuge from unsafe area 3.
+[2025-04-23 18:35:16.510] Human H0005 has reached the refuge from unsafe area 1.
+[2025-04-23 18:35:16.510] Human H0005 entered the refuge.
+[2025-04-23 18:35:16.511] Human H0005 entered the rest area.
+[2025-04-23 18:35:16.511] Human H0005 is resting in the rest area.
+[2025-04-23 18:35:16.531] Human H0020 entered the refuge.
+[2025-04-23 18:35:16.532] Human H0020 entered the common area.
+[2025-04-23 18:35:16.532] Human H0020 is getting prepared in the common area.
+[2025-04-23 18:35:16.645] Human H0010 gathered 2 units of food in unsafe area 2.
+[2025-04-23 18:35:16.656] Human H0010 left unsafe area 2.
+[2025-04-23 18:35:16.656] Human H0010 queued to return via tunnel from unsafe area 2.
+[2025-04-23 18:35:16.687] Human H0014 has reached the refuge from unsafe area 2.
+[2025-04-23 18:35:16.687] Human H0014 entered the refuge.
+[2025-04-23 18:35:16.688] Human H0010 is crossing to refuge from unsafe area 2.
+[2025-04-23 18:35:16.688] Human H0014 has deposited 1 unit of food. Total current food: 4.
+[2025-04-23 18:35:16.688] Human H0014 has deposited 1 unit of food. Total current food: 5.
+[2025-04-23 18:35:16.689] Human H0014 entered the rest area.
+[2025-04-23 18:35:16.689] Human H0014 is resting in the rest area.
+[2025-04-23 18:35:16.756] Human H0012 has reached unsafe area 0.
+[2025-04-23 18:35:16.756] Human H0012 entered unsafe area 0.
+[2025-04-23 18:35:16.757] Human H0004 is crossing to unsafe area 0.
+[2025-04-23 18:35:16.757] Human H0012 is exploring unsafe area 0.
+[2025-04-23 18:35:16.826] Human H0001 left the dining room.
+[2025-04-23 18:35:16.826] Human H0001 entered the common area.
+[2025-04-23 18:35:16.827] Human H0001 is getting prepared in the common area.
+[2025-04-23 18:35:16.894] Human H0009 gathered 2 units of food in unsafe area 3.
+[2025-04-23 18:35:16.905] Human H0009 left unsafe area 3.
+[2025-04-23 18:35:16.907] Human H0009 queued to return via tunnel from unsafe area 3.
+[2025-04-23 18:35:16.932] Zombie Z0000 left unsafe area 1.
+[2025-04-23 18:35:16.935] Zombie Z0000 entered unsafe area 2.
+[2025-04-23 18:35:17.100] Human H0007 has reached the refuge from unsafe area 3.
+[2025-04-23 18:35:17.100] Human H0007 entered the refuge.
+[2025-04-23 18:35:17.101] Human H0009 is crossing to refuge from unsafe area 3.
+[2025-04-23 18:35:17.101] Human H0007 has deposited 1 unit of food. Total current food: 6.
+[2025-04-23 18:35:17.102] Human H0007 has deposited 1 unit of food. Total current food: 7.
+[2025-04-23 18:35:17.102] Human H0007 entered the rest area.
+[2025-04-23 18:35:17.103] Human H0007 is resting in the rest area.
+[2025-04-23 18:35:17.113] Human H0021 entered the refuge.
+[2025-04-23 18:35:17.114] Human H0021 entered the common area.
+[2025-04-23 18:35:17.116] Human H0021 is getting prepared in the common area.
+[2025-04-23 18:35:17.252] Human H0019 chose tunnel 0 in the common area.
+[2025-04-23 18:35:17.252] Human H0019 left the common area.
+[2025-04-23 18:35:17.253] Human H0019 left the refuge.
+[2025-04-23 18:35:17.253] Human H0019 is waiting to form a group to exit to unsafe area 0.
+[2025-04-23 18:35:17.406] Human H0003 chose tunnel 2 in the common area.
+[2025-04-23 18:35:17.406] Human H0003 left the common area.
+[2025-04-23 18:35:17.407] Human H0003 left the refuge.
+[2025-04-23 18:35:17.407] Human H0003 is waiting to form a group to exit to unsafe area 2.
+[2025-04-23 18:35:17.446] Human H0011 left the dining room.
+[2025-04-23 18:35:17.451] Human H0011 entered the rest area.
+[2025-04-23 18:35:17.452] Human H0011 is being fully recovered in the rest area.
+[2025-04-23 18:35:17.688] Human H0010 has reached the refuge from unsafe area 2.
+[2025-04-23 18:35:17.688] Human H0010 entered the refuge.
+[2025-04-23 18:35:17.689] Human H0017 is crossing to unsafe area 2.
+[2025-04-23 18:35:17.689] Human H0010 has deposited 1 unit of food. Total current food: 8.
+[2025-04-23 18:35:17.690] Human H0010 has deposited 1 unit of food. Total current food: 9.
+[2025-04-23 18:35:17.690] Human H0010 entered the rest area.
+[2025-04-23 18:35:17.696] Human H0010 is resting in the rest area.
+[2025-04-23 18:35:17.758] Human H0004 has reached unsafe area 0.
+[2025-04-23 18:35:17.759] Human H0004 entered unsafe area 0.
+[2025-04-23 18:35:17.759] Human H0006 is crossing to unsafe area 0.
+[2025-04-23 18:35:17.760] Human H0004 is exploring unsafe area 0.
+[2025-04-23 18:35:17.917] Zombie Z0002 left unsafe area 1.
+[2025-04-23 18:35:17.917] Zombie Z0002 entered unsafe area 3.
+[2025-04-23 18:35:18.103] Human H0009 has reached the refuge from unsafe area 3.
+[2025-04-23 18:35:18.103] Human H0009 entered the refuge.
+[2025-04-23 18:35:18.104] Human H0009 has deposited 1 unit of food. Total current food: 10.
+[2025-04-23 18:35:18.104] Human H0009 has deposited 1 unit of food. Total current food: 11.
+[2025-04-23 18:35:18.105] Human H0009 entered the rest area.
+[2025-04-23 18:35:18.106] Human H0009 is resting in the rest area.
+[2025-04-23 18:35:18.155] Human H0020 chose tunnel 2 in the common area.
+[2025-04-23 18:35:18.155] Human H0020 left the common area.
+[2025-04-23 18:35:18.156] Human H0020 left the refuge.
+[2025-04-23 18:35:18.156] Human H0020 is waiting to form a group to exit to unsafe area 2.
+[2025-04-23 18:35:18.408] Human H0022 entered the refuge.
+[2025-04-23 18:35:18.409] Human H0022 entered the common area.
+[2025-04-23 18:35:18.409] Human H0022 is getting prepared in the common area.
+[2025-04-23 18:35:18.410] Human H0001 chose tunnel 3 in the common area.
+[2025-04-23 18:35:18.410] Human H0001 left the common area.
+[2025-04-23 18:35:18.411] Human H0001 left the refuge.
+[2025-04-23 18:35:18.411] Human H0001 is waiting to form a group to exit to unsafe area 3.
+[2025-04-23 18:35:18.543] Human H0008 left the rest area.
+[2025-04-23 18:35:18.543] Human H0008 entered the dining room.
+[2025-04-23 18:35:18.544] Human H0008 is eating 1 unit of food. Total current food: 10.
+[2025-04-23 18:35:18.555] Human H0021 chose tunnel 3 in the common area.
+[2025-04-23 18:35:18.555] Human H0021 left the common area.
+[2025-04-23 18:35:18.559] Human H0021 left the refuge.
+[2025-04-23 18:35:18.560] Human H0021 is waiting to form a group to exit to unsafe area 3.
+[2025-04-23 18:35:18.693] Human H0017 has reached unsafe area 2.
+[2025-04-23 18:35:18.693] Human H0017 entered unsafe area 2.
+[2025-04-23 18:35:18.694] Human H0018 is crossing to unsafe area 2.
+[2025-04-23 18:35:18.694] Human H0017 is exploring unsafe area 2.
+[2025-04-23 18:35:18.764] Human H0006 has reached unsafe area 0.
+[2025-04-23 18:35:18.764] Human H0006 entered unsafe area 0.
+[2025-04-23 18:35:18.765] Human H0006 is exploring unsafe area 0.
+[2025-04-23 18:35:19.442] Human H0005 left the rest area.
+[2025-04-23 18:35:19.442] Human H0005 entered the dining room.
+[2025-04-23 18:35:19.443] Human H0005 is eating 1 unit of food. Total current food: 9.
+[2025-04-23 18:35:19.637] Human H0013 left the dining room.
+[2025-04-23 18:35:19.638] Human H0013 entered the rest area.
+[2025-04-23 18:35:19.638] Human H0013 is being fully recovered in the rest area.
+[2025-04-23 18:35:19.672] Zombie Z0000 left unsafe area 2.
+[2025-04-23 18:35:19.675] Zombie Z0000 entered unsafe area 3.
+[2025-04-23 18:35:19.695] Human H0018 has reached unsafe area 2.
+[2025-04-23 18:35:19.695] Human H0018 entered unsafe area 2.
+[2025-04-23 18:35:19.702] Human H0018 is exploring unsafe area 2.
+[2025-04-23 18:35:19.702] Human H0016 is crossing to unsafe area 2.
+[2025-04-23 18:35:19.823] Human H0022 chose tunnel 2 in the common area.
+[2025-04-23 18:35:19.823] Human H0022 left the common area.
+[2025-04-23 18:35:19.826] Human H0022 left the refuge.
+[2025-04-23 18:35:19.827] Human H0022 is waiting to form a group to exit to unsafe area 2.
+[2025-04-23 18:35:19.827] A group of 3 has been formed for exiting to unsafe area 2.
+[2025-04-23 18:35:19.882] Human H0014 left the rest area.
+[2025-04-23 18:35:19.883] Human H0014 entered the dining room.
+[2025-04-23 18:35:19.883] Human H0014 is eating 1 unit of food. Total current food: 8.
+[2025-04-23 18:35:19.894] Human H0023 entered the refuge.
+[2025-04-23 18:35:19.894] Human H0023 entered the common area.
+[2025-04-23 18:35:19.894] Human H0023 is getting prepared in the common area.
