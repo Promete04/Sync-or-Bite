@@ -550,6 +550,13 @@ public class MapPage extends javax.swing.JPanel
         System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
     }
     
+    /**
+     * Updates a label's background color based on human/zombie status.
+     * 
+     * @param panelKey The key of the panel where the label should be added.
+     * @param labelText The text of the label to modify.
+     * @param color The color to change to.
+     */
     public synchronized void setLabelColorInPanel(String panelKey, String labelText, Color color) 
     {
         JPanel targetPanel = panels.get(panelKey);
@@ -575,6 +582,11 @@ public class MapPage extends javax.swing.JPanel
         System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
     }
 
+    /**
+     * Adjust a panel's height based on its content
+     * 
+     * @param panel The panel to modify.
+     */
     private void updatePanelPreferredHeight(JPanel panel) 
     {
     int rowCount = getFlowLayoutRowCount(panel);
@@ -586,11 +598,23 @@ public class MapPage extends javax.swing.JPanel
     panel.revalidate();
     }
 
+    /**
+     * Updates the text of a specific counter label
+     * 
+     * @param nameLabel The key of the label to modify.
+     * @param value Value to set the label's text to.
+     */
     public synchronized void setCounter(String nameLabel, String value) 
     {
         counters.get(nameLabel).setText(value);
     }
     
+    /**
+     * Returns the number of rows required in a flow layout for the current panel's compotents.
+     * 
+     * @param panel The panel to check.
+     * @return 
+     */
     private int getFlowLayoutRowCount(JPanel panel) 
     {
     int panelWidth = panel.getWidth();
