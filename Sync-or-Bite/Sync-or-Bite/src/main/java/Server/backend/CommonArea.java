@@ -13,23 +13,25 @@ import java.util.List;
  * 
  * Synchronization is handled using the monitor for coordinated access.
  * 
- * Each human that enters will be visualized in the GUI, logged, and will eventually
- * choose a tunnel after a preparation delay.
+ * Each human that enters will be visualized in the GUI and logged.
+ * 
+ * The pause manager is periodically checked for pausing/resuming the system.
+ * 
+ * Observers are registered to receive updates when the state changes (for the GUI).
  */
 public class CommonArea 
 {
-    // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
-    private int humansInside = 0;
-    private List<Human> humansObjInside = new ArrayList<>();
+    // List of humans inside
+    private List<Human> humansInside = new ArrayList<>();
+    // The logger to log events
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
-    
-    // Observer list
+    // List of listeners observing state changes in this component (used for GUI updates)
     private final List<ChangeListener> listeners = new ArrayList<>();
     
     /**
-     * Constructs a CommonArea object.
+     * Constructor for CommonArea.
      * 
      * @param logger the logger
      * @param pm the pause manager
@@ -40,15 +42,19 @@ public class CommonArea
         this.pm = pm;
     }
     
+    /**
+     * Registers a new change listener to be notified when state update occurs.
+     *
+     * @param l the listener to register
+     */
     public void addChangeListener(ChangeListener l) 
     {
         listeners.add(l);
     }
-    public void removeChangeListener(ChangeListener l) 
-    {
-        listeners.remove(l);
-    }
     
+    /**
+     * Notifies all registered listeners about a change in the state.
+     */
     private void notifyChange() 
     {
         for (ChangeListener l : listeners) 
@@ -59,7 +65,8 @@ public class CommonArea
     
     /**
      * Called when a human enters the common area.
-     * Updates internal list, GUI, and shows the action in the log file.
+     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Protected using the monitor.
      * 
      * @param h the human entering the area
      * @throws InterruptedException if the thread is interrupted 
@@ -68,15 +75,15 @@ public class CommonArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the common area.");
-        humansInside=humansInside+1;
-        humansObjInside.add(h);
+        humansInside.add(h);
         notifyChange();
         pm.check();
     }
     
     /**
      * Called when a human leaves the common area.
-     * Updates internal list, GUI, and shows the action in the log file.
+     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Protected using the monitor.
      * 
      * @param h the human leaving the area
      * @throws InterruptedException if the thread is interrupted 
@@ -85,8 +92,7 @@ public class CommonArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the common area.");
-        humansObjInside.remove(h);
-        humansInside=humansInside-1;
+        humansInside.remove(h);
         notifyChange();
         pm.check();
     }
@@ -119,17 +125,27 @@ public class CommonArea
         pm.check();
     }
     
-    /** 
-     * Exposed so UI can query the current count 
-     * @return 
+    /**
+     * Gets the current number of humans in the common area.
+     * No explicit synchronization is required since this method is used
+     * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
+     * 
+     * @return the number of humans currently inside
      */
-    public int getHumansInside() 
+    public int getHumansInsideCounter() 
     {
-        return humansInside;
+        return humansInside.size();
     }
     
-    public synchronized List<Human> getHumansObjInside() 
+    /**
+     * Gets the list of humans currently inside the common area.
+     * No explicit synchronization is required since this method is used
+     * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
+     *
+     * @return the list of humans inside the area
+     */
+    public List<Human> getHumansInside() 
     {
-        return humansObjInside;
+        return humansInside;
     }
 }

@@ -169,12 +169,12 @@ public class MapPage extends javax.swing.JPanel
                     case CommonArea ca -> 
                     {
                         // Handle changes in the CommonArea
-                        updatePanel("C", ca.getHumansObjInside().stream()
+                        updatePanel("C", ca.getHumansInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
                         // Update label colors based on human states
-                        for (Human human : ca.getHumansObjInside()) 
+                        for (Human human : ca.getHumansInside()) 
                         {
                             if (human.isBeingAttacked()) 
                             {
@@ -191,19 +191,19 @@ public class MapPage extends javax.swing.JPanel
                         }
                         
                         // Update counters for the CommonArea
-                        setCounter("HC", String.valueOf(ca.getHumansInside()));
+                        setCounter("HC", String.valueOf(ca.getHumansInsideCounter()));
                         setCounter("RC", String.valueOf(r.getCount()));
                     }
 
                     case RestArea ra -> 
                     {
                         // Handle changes in the RestArea
-                        updatePanel("R", ra.getHumansObjInside().stream()
+                        updatePanel("R", ra.getHumansInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
                         // Update label colors based on human states
-                        for (Human human : ra.getHumansObjInside()) 
+                        for (Human human : ra.getHumansInside()) 
                         {
                             if (human.isBeingAttacked()) 
                             {
@@ -220,19 +220,19 @@ public class MapPage extends javax.swing.JPanel
                         }
                         
                         // Update counters for the RestArea
-                        setCounter("HR", String.valueOf(ra.getHumansInside()));
+                        setCounter("HR", String.valueOf(ra.getHumansInsideCounter()));
                         setCounter("RC", String.valueOf(r.getCount()));
                     }
 
                     case DiningRoom dr -> 
                     {
                         // Handle changes in the DiningRoom
-                        updatePanel("D", dr.getHumansObjInside().stream()
+                        updatePanel("D", dr.getHumansInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
                         // Update label colors based on human states
-                        for (Human human : dr.getHumansObjInside()) 
+                        for (Human human : dr.getHumansInside()) 
                         {
                             if (human.isBeingAttacked()) 
                             {
@@ -249,7 +249,7 @@ public class MapPage extends javax.swing.JPanel
                         }    
                         
                         // Update counters for the DiningRoom
-                        setCounter("HD", String.valueOf(dr.getHumansInside()));
+                        setCounter("HD", String.valueOf(dr.getHumansInsideCounter()));
                         setCounter("FC", String.valueOf(dr.getFoodCount()));
                         setCounter("RC", String.valueOf(r.getCount()));
                     }

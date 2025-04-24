@@ -79,7 +79,7 @@ public class Logger
             String logEntry = "[" + timestamp + "] " + event;
             
             pw.println(logEntry);  // Write log line to file
-            this.lastLogEntry = event;
+            this.lastLogEntry = logEntry;
             notifyChange();  // Notify GUI about the new log
         } 
         catch (IOException e) 

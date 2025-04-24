@@ -13,22 +13,24 @@ import java.util.List;
  * Synchronization is handled using the monitor for coordinated access.
  * 
  * Each human that enters will be visualized in the GUI and logged.
+ * 
+ * The pause manager is periodically checked for pausing/resuming the system.
+ * 
+ * Observers are registered to receive updates when the state changes (for the GUI).
  */
 public class RestArea 
 {
-    // Counter for humans inside (no need of Atomic variable since the update is done in synchronized method)
-    private int humansInside = 0;
-    private List<Human> humansObjInside = new ArrayList<>();
-    
+    // List of humans inside
+    private List<Human> humansInside = new ArrayList<>();
+    // The logger to log events
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
-    
     // Observer list
     private final List<ChangeListener> listeners = new ArrayList<>();
     
     /**
-     * Constructs a RestArea with a shared logger.
+     * Constructor for RestArea.
      *
      * @param logger the logger 
      * @param pm the pause manager
@@ -39,15 +41,19 @@ public class RestArea
         this.pm = pm;
     }
     
+    /**
+     * Registers a new change listener to be notified when state update occurs.
+     *
+     * @param l the listener to add
+     */
     public void addChangeListener(ChangeListener l) 
     {
         listeners.add(l);
     }
-    public void removeChangeListener(ChangeListener l) 
-    {
-        listeners.remove(l);
-    }
     
+    /**
+     * Notifies all registered listeners about a change in the state.
+     */
     private void notifyChange() 
     {
         for (ChangeListener l : listeners) 
@@ -58,7 +64,8 @@ public class RestArea
     
     /**
      * Called when a human enter the rest area.
-     * Updates internal list, GUI, and shows the action in the log file.
+     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Protected using the monitor.
      *
      * @param h  the human entering the rest area
      * @throws InterruptedException if the thread is interrupted during a pause check
@@ -67,8 +74,7 @@ public class RestArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
-        humansObjInside.add(h);
-        humansInside=humansInside+1;
+        humansInside.add(h);
         notifyChange();
         pm.check();
         
@@ -76,7 +82,8 @@ public class RestArea
     
     /**
      * Called when a human exits the rest area.
-     * Updates internal list, GUI, and shows the action in the log file.
+     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Protected using the monitor.
      *
      * @param h  the human exiting the rest area
      * @throws InterruptedException if the thread is interrupted 
@@ -85,8 +92,7 @@ public class RestArea
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the rest area.");
-        humansObjInside.remove(h);
-        humansInside=humansInside-1;
+        humansInside.remove(h);
         notifyChange();
         pm.check();
     }
@@ -149,17 +155,32 @@ public class RestArea
         
         // Unmark the human after full recovery
         h.toggleMarked();
-        notifyChange();
         pm.check();
     }
     
-    public synchronized List<Human> getHumansObjInside() 
+    /**
+     * Gets the current number of humans in the rest area.
+     * No explicit synchronization is required since this method is used
+     * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
+     * 
+     * @return the number of humans currently inside
+     */
+    public int getHumansInsideCounter()
     {
-        return humansObjInside;
+        return humansInside.size();
     }
     
-    public synchronized int getHumansInside()
+    /**
+     * Gets the list of humans currently inside the rest area.
+     * No explicit synchronization is required since this method is used
+     * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
+     *
+     * @return the list of humans inside the area
+     */
+    public List<Human> getHumansInside() 
     {
         return humansInside;
     }
+    
+    
 }
