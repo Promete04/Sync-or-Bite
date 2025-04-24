@@ -34,18 +34,14 @@ public class Tunnel
     private final ReentrantLock usingLock = new ReentrantLock(true);  
     private final Condition entryCondition = usingLock.newCondition(); // For humans returning
     private final Condition exitCondition = usingLock.newCondition();  // For humans exiting
-    
-    // Fair locks to protect waiting queues
-    private final ReentrantLock entryWaitingLock = new ReentrantLock(true);
-    private final ReentrantLock exitWaitingLock = new ReentrantLock(true);
-    
+   
     // State tracking variables for tunnel crossing
     private boolean tunnelBusy = false;  // True if someone is crossing
     private Human currentInside = null;  // The human currently inside the tunnel
     
     // Waiting queues
-    private final Queue<Human> waitingToExitShelter = new LinkedList<>();  // Exit queue
-    private final Queue<Human> waitingToEnterShelter = new LinkedList<>();   // Return queue
+    private final Queue<Human> waitingToExitQueue = new LinkedList<>();  // Exit queue
+    private final Queue<Human> waitingToReturnQueue = new LinkedList<>();   // Return queue
     
     private Logger logger;
     
@@ -114,20 +110,15 @@ public class Tunnel
      */
     public void requestExit(Human h) throws InterruptedException 
     {
-        // Enqueue the human to the exit waiting list
-        exitWaitingLock.lock();
-        try 
+        pm.check();
+        synchronized(waitingToExitQueue)
         {
             h.toggleWaitGroup();
-            waitingToExitShelter.add(h);
+            waitingToExitQueue.add(h);
             logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea() + ".");
-            notifyChange();
-        } 
-        finally 
-        {
-            exitWaitingLock.unlock();
-            pm.check();
         }
+        notifyChange();
+        pm.check();
         
         // Wait for a group of 3 to form
         try 
@@ -154,12 +145,16 @@ public class Tunnel
             }
             pm.check();
             // Remove from waiting as it is going to cross
-            waitingToExitShelter.remove(h);
+            synchronized(waitingToExitQueue)
+            {
+                waitingToExitQueue.remove(h);
+            }
 
             // Reserve the tunnel
             tunnelBusy = true;
             currentInside = h;
             notifyChange();
+            pm.check();
         } 
         finally 
         {
@@ -219,48 +214,41 @@ public class Tunnel
     {
         pm.check();
         // Enqueue the human to the exit waiting list
-        entryWaitingLock.lock();
-        try 
+        synchronized(waitingToReturnQueue)
         {
-            waitingToEnterShelter.add(h);
+            waitingToReturnQueue.add(h);
             logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea() + ".");
-            notifyChange();
-            pm.check();
-        } 
-        finally
-        {
-            entryWaitingLock.unlock();
-            pm.check();
         }
-        
+        notifyChange();
+        pm.check();
+
         // Acquire the tunnel using usingLock
         usingLock.lock();
         try 
         {
             // Wait until the tunnel is free
-            while (tunnelBusy)
+            while(tunnelBusy)
             {
                 entryCondition.await();
             }            
+            pm.check();
+            // Remove this human from the waiting queue as it is going to cross
+            synchronized(waitingToReturnQueue)
+            {
+                waitingToReturnQueue.remove(h);
+            }
+            
             // Tunnel free, reserve it
             tunnelBusy = true;
             currentInside = h;
-            // Remove this human from the waiting queue as it is going to cross
-            entryWaitingLock.lock();
-            try 
-            {
-                waitingToEnterShelter.remove(h);
-                notifyChange();
-            } 
-            finally 
-            {
-                entryWaitingLock.unlock();
-                pm.check();
-            }
+            notifyChange();
+            pm.check();
+            
         } 
         finally 
         {
             usingLock.unlock();
+            pm.check();
         }
         
         pm.check();
@@ -281,6 +269,7 @@ public class Tunnel
         {
             tunnelBusy = false;
             currentInside = null;
+            notifyChange();
             
             // Give priority to returners
             if (hasReturnersWaiting()) 
@@ -296,7 +285,6 @@ public class Tunnel
         {
             usingLock.unlock();
             pm.check();
-            notifyChange();
         }
     }
     
@@ -308,16 +296,9 @@ public class Tunnel
      */
     private boolean hasReturnersWaiting() 
     {
-        pm.check();
-        entryWaitingLock.lock();
-        try
+        synchronized(waitingToReturnQueue)
         {
-            return !waitingToEnterShelter.isEmpty();
-        } 
-        finally 
-        {
-            entryWaitingLock.unlock();
-            pm.check();
+            return !waitingToReturnQueue.isEmpty();
         }
     }
     
@@ -331,11 +312,11 @@ public class Tunnel
         int result;
         if(tunnelBusy)
         {
-            result=1+waitingToEnterShelter.size()+waitingToExitShelter.size();
+            result=1+waitingToReturnQueue.size()+waitingToExitQueue.size();
         }
         else
         {
-             result=waitingToEnterShelter.size()+waitingToExitShelter.size();
+             result=waitingToReturnQueue.size()+waitingToExitQueue.size();
         }
         return result;
     }
@@ -361,29 +342,18 @@ public class Tunnel
     
     public Queue<Human> getEntering() throws InterruptedException
     {
-        entryWaitingLock.lock();
-        try
+        synchronized(waitingToReturnQueue)
         {
-            return new LinkedList<>(waitingToEnterShelter);
-        }
-        finally
-        {
-            entryWaitingLock.unlock();
+            return new LinkedList<>(waitingToReturnQueue);
         }
     }
     
     public Queue<Human> getExiting() throws InterruptedException
     {
-        exitWaitingLock.lock();
-        try
+        synchronized(waitingToExitQueue)
         {
-            return new LinkedList<>(waitingToExitShelter);
-        }
-        finally
-        {
-            exitWaitingLock.unlock();
+            return new LinkedList<>(waitingToExitQueue);
         }
     }
-    
-    
+
 }
