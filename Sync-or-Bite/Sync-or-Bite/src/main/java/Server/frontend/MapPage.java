@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -260,18 +261,21 @@ public class MapPage extends javax.swing.JPanel
 
                     case UnsafeArea area -> 
                     {
+                        
                         // Handle changes in UnsafeArea
                         int index = area.getArea();
+                        ArrayList<Human> unsafeHumans = area.getHumansInside();
+                        ArrayList<Zombie> unsafeZombies = area.getZombiesInside();
                         String humansPanelId = "RH" + String.valueOf(index + 1);
                         String zombiesPanelId = "RZ" + String.valueOf(index + 1);
 
                         // Update humans in the UnsafeArea
-                        updatePanel(humansPanelId, area.getHumansInside().stream()
+                        updatePanel(humansPanelId, unsafeHumans.stream()
                             .map(Human::getHumanId)
                             .toList());
                         
                         // Update label colors based on human states
-                        for (Human human : area.getHumansInside()) 
+                        for (Human human : unsafeHumans) 
                         {
                             if (human.isBeingAttacked()) 
                             {
@@ -288,12 +292,12 @@ public class MapPage extends javax.swing.JPanel
                         }
 
                         // Update zombies in the UnsafeArea
-                        updatePanel(zombiesPanelId, area.getZombiesInside().stream()
+                        updatePanel(zombiesPanelId, unsafeZombies.stream()
                             .map(Zombie::getZombieId)
                             .toList());
                         
                         // Update label colors based on zombie states
-                        for (Zombie zombie : area.getZombiesInside()) 
+                        for (Zombie zombie : unsafeZombies) 
                         {
                             if (zombie.isAttacking()) 
                             {

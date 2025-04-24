@@ -347,7 +347,7 @@ public class UnsafeArea
         return humansInsideCount;
     }
     
-    public List<Human> getHumansInside()
+    public ArrayList<Human> getHumansInside()
     {
         synchronized(humansInside)
         {
@@ -371,7 +371,7 @@ public class UnsafeArea
         }
     }
     
-    public List<Zombie> getZombiesInside()
+    public ArrayList<Zombie> getZombiesInside()
     {
         synchronized(zombiesInside)
         {
