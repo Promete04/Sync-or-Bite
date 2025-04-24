@@ -114,7 +114,6 @@ public class Tunnel
      */
     public void requestExit(Human h) throws InterruptedException 
     {
-        pm.check();
         // Enqueue the human to the exit waiting list
         exitWaitingLock.lock();
         try 
@@ -134,7 +133,6 @@ public class Tunnel
         try 
         {
             groups.await();
-            pm.check();
         } 
         catch (BrokenBarrierException e)
         {
@@ -149,24 +147,19 @@ public class Tunnel
         usingLock.lock();
         try 
         {
-            pm.check();
             // While the tunnel is busy, or if any returners are waiting, the exiter must wait
             while (tunnelBusy || hasReturnersWaiting()) 
             {
                 exitCondition.await();
             }
-            
             pm.check();
             // Remove from waiting as it is going to cross
             waitingToExitShelter.remove(h);
-            notifyChange();
-            pm.check();
-           
+
             // Reserve the tunnel
             tunnelBusy = true;
             currentInside = h;
             notifyChange();
-            pm.check();
         } 
         finally 
         {
@@ -231,7 +224,6 @@ public class Tunnel
         {
             waitingToEnterShelter.add(h);
             logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea() + ".");
-            pm.check();
             notifyChange();
             pm.check();
         } 
@@ -245,19 +237,14 @@ public class Tunnel
         usingLock.lock();
         try 
         {
-            pm.check();
             // Wait until the tunnel is free
             while (tunnelBusy)
             {
                 entryCondition.await();
-            }
-            pm.check();
-            
+            }            
             // Tunnel free, reserve it
             tunnelBusy = true;
             currentInside = h;
-            notifyChange();
-            pm.check();
             // Remove this human from the waiting queue as it is going to cross
             entryWaitingLock.lock();
             try 
@@ -292,27 +279,24 @@ public class Tunnel
         usingLock.lock();
         try 
         {
-            pm.check();
             tunnelBusy = false;
             currentInside = null;
-            notifyChange();
-            pm.check();
+            
             // Give priority to returners
             if (hasReturnersWaiting()) 
             {
                 entryCondition.signal();
-                pm.check();
             } 
             else
             {
                 exitCondition.signal();
-                pm.check();
             }
         } 
         finally 
         {
             usingLock.unlock();
             pm.check();
+            notifyChange();
         }
     }
     
@@ -356,24 +340,49 @@ public class Tunnel
         return result;
     }
     
-    public synchronized String getInTunnel()
+    public String getInTunnel()
     {
         String inside = "-----";
-        if(tunnelBusy)
+        usingLock.lock();
+        try
         {
-            inside = currentInside.getHumanId();
+            if(tunnelBusy)
+            {
+                inside = currentInside.getHumanId();
+            }
         }
+        finally
+        {
+         usingLock.unlock();
+        }
+         
         return inside;
     }
     
-    public synchronized Queue<Human> getEntering()
+    public Queue<Human> getEntering() throws InterruptedException
     {
-        return new LinkedList<>(waitingToEnterShelter);
+        entryWaitingLock.lock();
+        try
+        {
+            return new LinkedList<>(waitingToEnterShelter);
+        }
+        finally
+        {
+            entryWaitingLock.unlock();
+        }
     }
     
-    public synchronized Queue<Human> getExiting()
+    public Queue<Human> getExiting() throws InterruptedException
     {
-        return new LinkedList<>(waitingToExitShelter);
+        exitWaitingLock.lock();
+        try
+        {
+            return new LinkedList<>(waitingToExitShelter);
+        }
+        finally
+        {
+            exitWaitingLock.unlock();
+        }
     }
     
     

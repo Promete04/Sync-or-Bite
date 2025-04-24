@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -265,47 +267,56 @@ public class MapPage extends javax.swing.JPanel
                         int index = t.getIndexOfTunnel(tunnel);
                         String entryPanel = "TR" + String.valueOf(index + 1);
                         String exitPanel = "TE" + String.valueOf(index + 1);
-                        Queue<Human> entering = tunnel.getEntering();
-                        Queue<Human> exiting = tunnel.getExiting();
-
-                        updatePanel(entryPanel, entering.stream()
-                            .map(Human::getHumanId)
-                            .toList());
                         
-                        for (Human human : entering) 
+                        try
                         {
-                            if (human.isMarked()) 
-                            {
-                                setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
-                            } 
-                        }
+                            Queue<Human> entering = tunnel.getEntering();
+                            Queue<Human> exiting  = tunnel.getExiting();
+                            String crossing = tunnel.getInTunnel();
 
-                        updatePanel(exitPanel, exiting.stream()
-                            .map(Human::getHumanId)
-                            .toList());
-                        
-                        for (Human human : exiting) 
-                        {
-                            if (human.isWaiting()) 
+                            updatePanel(entryPanel, entering.stream()
+                           .map(Human::getHumanId)
+                           .toList());
+
+                            for (Human human : entering) 
                             {
-                                setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
-                            } 
-                            else
-                            {
-                                setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                                if (human.isMarked()) 
+                                {
+                                    setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
+                                } 
                             }
-                        }
 
-                        String crossing = tunnel.getInTunnel();
-                        switch (index + 1) {
-                            case 1 -> currentCrossing1.setText(crossing);
-                            case 2 -> currentCrossing2.setText(crossing);
-                            case 3 -> currentCrossing3.setText(crossing);
-                            case 4 -> currentCrossing4.setText(crossing);
+                            updatePanel(exitPanel, exiting.stream()
+                                .map(Human::getHumanId)
+                                .toList());
+
+                            for (Human human : exiting) 
+                            {
+                                if (human.isWaiting()) 
+                                {
+                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
+                                } 
+                                else
+                                {
+                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                                }
+                            }
+                            
+                            switch (index + 1) 
+                            {
+                                case 1 -> currentCrossing1.setText(crossing);
+                                case 2 -> currentCrossing2.setText(crossing);
+                                case 3 -> currentCrossing3.setText(crossing);
+                                case 4 -> currentCrossing4.setText(crossing);
+                            }
+                            
+                            setCounter("RC", String.valueOf(r.getCount()));
+                        } 
+                        catch (InterruptedException ex) 
+                        {
+                            Logger.getLogger(MapPage.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        setCounter("RC", String.valueOf(r.getCount()));
                     }
-
                     default -> 
                     {
                         System.err.println("Unknown source for change: " + source);
