@@ -31,7 +31,8 @@ public class Tunnel
     private CyclicBarrier groups;
     
     // Fair lock and conditions for controlling tunnel crossing.
-    private final ReentrantLock usingLock = new ReentrantLock(true);  
+    // Since it's fair if more than one group of 3 is made the groups will go through the tunnel in order of arrival.
+    private final ReentrantLock usingLock = new ReentrantLock(true); 
     private final Condition entryCondition = usingLock.newCondition(); // For humans returning
     private final Condition exitCondition = usingLock.newCondition();  // For humans exiting
    
@@ -356,4 +357,8 @@ public class Tunnel
         }
     }
 
+    public int getId() 
+    {
+        return id;
+    }
 }

@@ -257,7 +257,7 @@ public class MapPage extends javax.swing.JPanel
                     case UnsafeArea area -> 
                     {
                         // Handle changes in UnsafeArea
-                        int index = rz.getIndexOfUnsafeArea(area);
+                        int index = area.getArea();
                         String humansPanelId = "RH" + String.valueOf(index + 1);
                         String zombiesPanelId = "RZ" + String.valueOf(index + 1);
 
@@ -310,7 +310,7 @@ public class MapPage extends javax.swing.JPanel
                     case Tunnel tunnel -> 
                     {
                         // Handle changes in Tunnel
-                        int index = t.getIndexOfTunnel(tunnel);
+                        int index = tunnel.getId();
                         String entryPanel = "TR" + String.valueOf(index + 1);
                         String exitPanel = "TE" + String.valueOf(index + 1);
                         

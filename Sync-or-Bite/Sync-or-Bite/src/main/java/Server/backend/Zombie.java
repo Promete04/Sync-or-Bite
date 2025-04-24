@@ -21,7 +21,7 @@ public class Zombie extends Thread
 
     /**
      * Constructs patient zero zombie.
-     * This zombie always starts without a predefined reborn area.
+     * This zombie starts without a predefined reborn area.
      * 
      * @param riskZone the risk zone where the zombie will operate in
      */
@@ -107,11 +107,19 @@ public class Zombie extends Thread
         killCount++;
     }
     
+    /**
+     * Toggles the attacking status of the zombie.
+     */
     public void toggleAttacking()
     {
         attacking=!attacking;
     }
     
+    /**
+     * Checks whether the zombie is currently attacking.
+     * 
+     * @return true if the zombie is attacking, false otherwise
+     */
     public boolean isAttacking()
     {
         return attacking;

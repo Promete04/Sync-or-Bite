@@ -20,7 +20,7 @@ public class Human extends Thread
     private final Tunnels tunnels;
     // Tunnel selected by this human
     private int selectedTunnel = -1;
-    // Whetjer is waiting for a group
+    // Whether is waiting for a group
     private boolean waitGroup = false;
     // Whether is being currently attacked
     private boolean beingAttacked = false;
@@ -129,21 +129,37 @@ public class Human extends Thread
         return marked;
     }
     
+    /**
+     * Toggles the attacked status of the human.
+     */
     public void toggleAttacked()
     {
         beingAttacked=!beingAttacked;
     }
     
+    /**
+     * Checks whether this human is currently being attacked.
+     *
+     * @return true if being attacked, false otherwise
+     */
     public boolean isBeingAttacked()
     {
         return beingAttacked;
     }
     
+    /**
+     * Toggles the group waiting status.
+     */
     public void toggleWaitGroup()
     {
         waitGroup=!waitGroup;
     }
     
+    /**
+     * Checks if the human is currently waiting for a group.
+     *
+     * @return true if waiting, false otherwise
+     */
     public boolean isWaiting()
     {
         return waitGroup;
@@ -170,7 +186,10 @@ public class Human extends Thread
         return foodList.removeFirst();
     }
     
-    public void looseAllFood()
+    /**
+     * Clears all collected food.
+     */
+    public void loseAllFood()
     {
         foodList.clear();
     }

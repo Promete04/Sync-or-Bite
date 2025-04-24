@@ -39,15 +39,19 @@ public class Logger
         this.file = "apocalypse_" + timestamp + ".txt"; 
     }
     
+    /**
+     * Adds a new change listener to be notified when a log entry is made.
+     *
+     * @param l the change listener to be added
+     */
     public void addChangeListener(ChangeListener l) 
     {
         listeners.add(l);
     }
-    public void removeChangeListener(ChangeListener l) 
-    {
-        listeners.remove(l);
-    }
     
+    /**
+     * Notifies all registered listeners that a change has occurred.
+     */
     private void notifyChange() 
     {
         for (ChangeListener l : listeners) 
@@ -107,6 +111,11 @@ public class Logger
         }
     }
     
+    /**
+     * Retrieves the most recent log entry.
+     *
+     * @return the last log entry string
+     */
     public String getLastLogEntry() 
     {
         return lastLogEntry;

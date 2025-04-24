@@ -43,30 +43,44 @@ public class Refuge
         diningRoom = new DiningRoom(logger, pm);
         this.logger = logger;
     }
+    
+    /**
+     * @return the RestArea instance
+     */
     public RestArea getRA()
     {
         return restArea;
     }
     
+    /**
+     * @return the CommonArea instance
+     */
     public CommonArea getCA()
     {
         return commonArea;
     }
     
+    /**
+     * @return the DiningRoom instance
+     */
     public DiningRoom getDR()
     {
         return diningRoom;
     }
     
+    /**
+     * Adds a listener that will be notified when the refuge state changes.
+     *
+     * @param l the listener to add
+     */
     public void addChangeListener(ChangeListener l) 
     {
         listeners.add(l);
     }
-    public void removeChangeListener(ChangeListener l) 
-    {
-        listeners.remove(l);
-    }
     
+    /**
+     * Notifies all registered listeners about a state change.
+     */
     private void notifyChange() 
     {
         for (ChangeListener l : listeners) 
@@ -76,7 +90,7 @@ public class Refuge
     }
     
     /**
-     * Registers the entrance of a human into the refuge.
+     * Registers the entrance of a human into the refuge and updates the counter.
      *
      * @param h  the human entering the refuge
      */
@@ -88,7 +102,7 @@ public class Refuge
     }
     
     /**
-     * Registers the exit of a human from the refuge.
+     * Registers the exit of a human from the refuge and updates the counter.
      *
      * @param h  the human leaving the refuge
      */

@@ -11,7 +11,6 @@ package Server.backend;
 public class RiskZone 
 {
     private UnsafeArea[] unsafeAreas;
-    
     // Shared FoodGenerator used by all unsafe areas.
     private FoodGenerator fgenerator = new FoodGenerator();
     private Zombie[] topKillers = new Zombie[3];
@@ -19,9 +18,10 @@ public class RiskZone
     
     /**
      * Constructor for RiskZone. Initializes 4 UnsafeArea objects and assigns a number
-     * from 0 to 3,the shared Logger, the FoodGenerator and the RiskZone.
+     * from 0 to 3, the Logger, the FoodGenerator, the RiskZone and the PauseManager.
      *
-     * @param logger It is used for the logs.
+     * @param logger the logger
+     * @param pm the pause manager
      */
     public RiskZone(Logger logger, PauseManager pm)
     {
@@ -173,13 +173,4 @@ public class RiskZone
         }
         return sb.toString();
     }
-
-    public int getIndexOfUnsafeArea(UnsafeArea area) 
-    {
-    for (int i = 0; i < unsafeAreas.length; i++) 
-    {
-        if (unsafeAreas[i] == area) return i;
-    }
-    return -1;
-}
 }

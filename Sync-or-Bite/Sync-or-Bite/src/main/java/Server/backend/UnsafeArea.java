@@ -251,7 +251,7 @@ public class UnsafeArea
             try
             {
                 h.toggleAttacked();
-                h.looseAllFood();
+                h.loseAllFood();
                 notifyChange();
                 // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
                 Thread.sleep(10000);       
