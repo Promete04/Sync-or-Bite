@@ -80,7 +80,7 @@ public class ServerApp
         redirect("MAP");
         
         //Resize to trigger MAP component resizing
-        frame.setSize(1920, 1080);
+        frame.setSize(1200, 810);
         
         // Start the first zombie (patient zero)
         new Zombie(riskZone).start(); 
