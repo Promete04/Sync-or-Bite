@@ -351,7 +351,7 @@ public class UnsafeArea
     {
         synchronized(humansInside)
         {
-            return humansInside;
+            return new ArrayList<Human> (humansInside);
         }
     }
    
@@ -375,7 +375,7 @@ public class UnsafeArea
     {
         synchronized(zombiesInside)
         {
-            return zombiesInside;
+            return new ArrayList<Zombie> (zombiesInside);
         }
     }
 }

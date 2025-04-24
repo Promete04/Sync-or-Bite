@@ -278,10 +278,6 @@ public class MapPage extends javax.swing.JPanel
                             {
                                 setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
                             } 
-                            else
-                            {
-                                setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                            }
                         }
 
                         updatePanel(exitPanel, exiting.stream()
@@ -475,7 +471,8 @@ public class MapPage extends javax.swing.JPanel
             {
                 label.setOpaque(true); 
                 label.setBackground(color);
-                label.repaint();
+                targetPanel.revalidate();
+                targetPanel.repaint();
                 return;
             }
         }
