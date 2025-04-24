@@ -44,7 +44,7 @@ public class ServerApp
     /**
      * 
      * Main entry point for the application.
-     * Initializes all components, sets up the GUI, and starts the game logic.
+     * Initializes all components, sets up the GUI, and starts the simulation logic.
      * 
      * @param args
      */
