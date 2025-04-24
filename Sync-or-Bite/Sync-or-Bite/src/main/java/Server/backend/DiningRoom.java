@@ -6,6 +6,7 @@ package Server.backend;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -215,8 +216,8 @@ public class DiningRoom
      *
      * @return the list of humans inside the area
      */
-    public List<Human> getHumansInside() 
+    public ArrayList<Human> getHumansInside() 
     {
-        return humansInside;
+        return new ArrayList<>(humansInside);
     }
 }

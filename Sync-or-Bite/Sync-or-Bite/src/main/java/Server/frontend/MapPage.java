@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -168,13 +169,14 @@ public class MapPage extends javax.swing.JPanel
                 {
                     case CommonArea ca -> 
                     {
+                        ArrayList<Human> commonHumans = ca.getHumansInside();
                         // Handle changes in the CommonArea
-                        updatePanel("C", ca.getHumansInside().stream()
+                        updatePanel("C", commonHumans.stream()
                             .map(Human::getHumanId)
                             .toList());
                         
                         // Update label colors based on human states
-                        for (Human human : ca.getHumansInside()) 
+                        for (Human human : commonHumans) 
                         {
                             if (human.isBeingAttacked()) 
                             {
@@ -197,13 +199,14 @@ public class MapPage extends javax.swing.JPanel
 
                     case RestArea ra -> 
                     {
+                        ArrayList<Human> restHumans = ra.getHumansInside();
                         // Handle changes in the RestArea
-                        updatePanel("R", ra.getHumansInside().stream()
+                        updatePanel("R", restHumans.stream()
                             .map(Human::getHumanId)
                             .toList());
                         
                         // Update label colors based on human states
-                        for (Human human : ra.getHumansInside()) 
+                        for (Human human : restHumans) 
                         {
                             if (human.isBeingAttacked()) 
                             {
@@ -226,13 +229,14 @@ public class MapPage extends javax.swing.JPanel
 
                     case DiningRoom dr -> 
                     {
+                        ArrayList<Human> dinningHumans = dr.getHumansInside();
                         // Handle changes in the DiningRoom
-                        updatePanel("D", dr.getHumansInside().stream()
+                        updatePanel("D", dinningHumans.stream()
                             .map(Human::getHumanId)
                             .toList());
                         
                         // Update label colors based on human states
-                        for (Human human : dr.getHumansInside()) 
+                        for (Human human : dinningHumans) 
                         {
                             if (human.isBeingAttacked()) 
                             {

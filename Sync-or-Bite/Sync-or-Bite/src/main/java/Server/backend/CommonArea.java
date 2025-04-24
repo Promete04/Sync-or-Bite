@@ -5,6 +5,7 @@
 package Server.backend;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -144,8 +145,8 @@ public class CommonArea
      *
      * @return the list of humans inside the area
      */
-    public List<Human> getHumansInside() 
+    public ArrayList<Human> getHumansInside() 
     {
-        return humansInside;
+        return new ArrayList<>(humansInside);
     }
 }
