@@ -5,7 +5,6 @@
 package Server.backend;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -139,11 +138,11 @@ public class CommonArea
     }
     
     /**
-     * Gets the list of humans currently inside the common area.
+     * Returns a copy of the list of humans currently inside the common area.
      * No explicit synchronization is required since this method is used
      * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
      *
-     * @return the list of humans inside the area
+     * @return a copy of the list of humans inside the area
      */
     public ArrayList<Human> getHumansInside() 
     {
