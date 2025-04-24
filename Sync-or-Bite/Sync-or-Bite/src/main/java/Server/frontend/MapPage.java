@@ -34,25 +34,37 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /**
- *
+ * MapPage is a JPanel that visually represents the state of the game.
+ * It displays the current state of various areas (Risk Zones, Refuge, Tunnels, etc.)
+ * and dynamically updates the UI based on changes in the game state.
+ * 
+ * Features:
+ * - Displays humans and zombies in different areas.
+ * - Dynamically updates counters and panels when the game state changes.
+ * - Supports resizing to adjust the layout of the panels.
+ * - Provides controls to pause/resume the game and navigate to the log page.
+ * 
  * @author guill
  */
 public class MapPage extends javax.swing.JPanel 
 {
 
-    /**
-     * Creates new form map
-     */
+    // Icons for pause and resume button states
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
+    
+    // PauseManager instance to manage pause/resume state
     private PauseManager  pm;
+    
+    // Maps to store UI components and their states
     private final Map<String, JLabel> counters = new HashMap<>();
     private final Map<String, JPanel> panels = new HashMap<>();
     private final Map<String, Set<String>> currentPanelState = new HashMap<>();
     
+    
+    // Backend components for different areas of the system
     private Refuge r = ServerApp.getR();
     private CommonArea ca = ServerApp.getCA();
     private RestArea ra = ServerApp.getRA();
@@ -60,15 +72,23 @@ public class MapPage extends javax.swing.JPanel
     private RiskZone rz = ServerApp.getRZ();
     private Tunnels t = ServerApp.getT();
     
-    
+    /**
+     * Constructor for MapPage.
+     * Initializes the UI components, sets up listeners for simulation state changes,
+     * and configures the layout for dynamic resizing.
+     */
     public MapPage() 
     {
         initComponents();
         
+        // Retrieve the PauseManager instance from ServerApp
         this.pm = ServerApp.getPM();
+        
+        // Initialize counters and panels in their respective maps
         setupCounters();
         setupPanels();
         
+        // Set up a listener to update the pause/resume button icon based on the pause state
         pm.setPauseStateListener(new Runnable() 
         {
             @Override
@@ -79,9 +99,14 @@ public class MapPage extends javax.swing.JPanel
             }
         });
         
+        // Set up listeners for changes in the simulation state
         setupListeners();        
     }
     
+    /**
+     * Enables automatic resizing of panels based on the size of the MapPage.
+     * Adjusts the width of panels dynamically to fit the available space.
+     */
     public void enableAutoResize() 
     {
         this.addComponentListener(new ComponentAdapter() 
@@ -89,7 +114,7 @@ public class MapPage extends javax.swing.JPanel
             @Override
             public void componentResized(ComponentEvent e) 
             {
-                int totalWidth = getWidth(); // Ancho visible de MapPage
+                int totalWidth = getWidth(); // Visible width of MapPage
 
                 for (Map.Entry<String, JPanel> entry : panels.entrySet()) 
                 {
@@ -98,6 +123,7 @@ public class MapPage extends javax.swing.JPanel
 
                     int maxWidth;
 
+                    // Determine the maximum width for each panel based on its type
                     if (key.startsWith("RH") || key.startsWith("RZ")) 
                     {
                         maxWidth = totalWidth / 8;
@@ -114,6 +140,7 @@ public class MapPage extends javax.swing.JPanel
                         continue;
                     }
 
+                    // Update the panel's size
                     Dimension size = panel.getPreferredSize();
                     panel.setMaximumSize(new Dimension(maxWidth, size.height));
                     panel.setPreferredSize(new Dimension(maxWidth,size.height));
@@ -125,8 +152,11 @@ public class MapPage extends javax.swing.JPanel
             }
         });
     }
-
     
+    /**
+     * Sets up listeners for changes in the game state.
+     * Updates the UI dynamically when changes occur in the backend components.
+     */
     private void setupListeners() 
     {
         ChangeListener masterChangeListener = new ChangeListener() 
@@ -138,10 +168,12 @@ public class MapPage extends javax.swing.JPanel
                 {
                     case CommonArea ca -> 
                     {
+                        // Handle changes in the CommonArea
                         updatePanel("C", ca.getHumansObjInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
+                        // Update label colors based on human states
                         for (Human human : ca.getHumansObjInside()) 
                         {
                             if (human.isBeingAttacked()) 
@@ -158,16 +190,19 @@ public class MapPage extends javax.swing.JPanel
                             }
                         }
                         
+                        // Update counters for the CommonArea
                         setCounter("HC", String.valueOf(ca.getHumansInside()));
                         setCounter("RC", String.valueOf(r.getCount()));
                     }
 
                     case RestArea ra -> 
                     {
+                        // Handle changes in the RestArea
                         updatePanel("R", ra.getHumansObjInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
+                        // Update label colors based on human states
                         for (Human human : ra.getHumansObjInside()) 
                         {
                             if (human.isBeingAttacked()) 
@@ -184,16 +219,19 @@ public class MapPage extends javax.swing.JPanel
                             }
                         }
                         
+                        // Update counters for the RestArea
                         setCounter("HR", String.valueOf(ra.getHumansInside()));
                         setCounter("RC", String.valueOf(r.getCount()));
                     }
 
                     case DiningRoom dr -> 
                     {
+                        // Handle changes in the DiningRoom
                         updatePanel("D", dr.getHumansObjInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
+                        // Update label colors based on human states
                         for (Human human : dr.getHumansObjInside()) 
                         {
                             if (human.isBeingAttacked()) 
@@ -210,6 +248,7 @@ public class MapPage extends javax.swing.JPanel
                             }
                         }    
                         
+                        // Update counters for the DiningRoom
                         setCounter("HD", String.valueOf(dr.getHumansInside()));
                         setCounter("FC", String.valueOf(dr.getFoodCount()));
                         setCounter("RC", String.valueOf(r.getCount()));
@@ -217,14 +256,17 @@ public class MapPage extends javax.swing.JPanel
 
                     case UnsafeArea area -> 
                     {
+                        // Handle changes in UnsafeArea
                         int index = rz.getIndexOfUnsafeArea(area);
                         String humansPanelId = "RH" + String.valueOf(index + 1);
                         String zombiesPanelId = "RZ" + String.valueOf(index + 1);
 
+                        // Update humans in the UnsafeArea
                         updatePanel(humansPanelId, area.getHumansInside().stream()
                             .map(Human::getHumanId)
                             .toList());
                         
+                        // Update label colors based on human states
                         for (Human human : area.getHumansInside()) 
                         {
                             if (human.isBeingAttacked()) 
@@ -241,10 +283,12 @@ public class MapPage extends javax.swing.JPanel
                             }
                         }
 
+                        // Update zombies in the UnsafeArea
                         updatePanel(zombiesPanelId, area.getZombiesInside().stream()
                             .map(Zombie::getZombieId)
                             .toList());
                         
+                        // Update label colors based on zombie states
                         for (Zombie zombie : area.getZombiesInside()) 
                         {
                             if (zombie.isAttacking()) 
@@ -257,6 +301,7 @@ public class MapPage extends javax.swing.JPanel
                             }
                         }
 
+                        // Update counters for the UnsafeArea
                         setCounter("H" + String.valueOf(index + 1), String.valueOf(area.getHumansInsideCount()));
                         setCounter("Z" + String.valueOf(index + 1), String.valueOf(area.getZombiesInsideCount()));
 
@@ -264,6 +309,7 @@ public class MapPage extends javax.swing.JPanel
 
                     case Tunnel tunnel -> 
                     {
+                        // Handle changes in Tunnel
                         int index = t.getIndexOfTunnel(tunnel);
                         String entryPanel = "TR" + String.valueOf(index + 1);
                         String exitPanel = "TE" + String.valueOf(index + 1);
@@ -274,10 +320,12 @@ public class MapPage extends javax.swing.JPanel
                             Queue<Human> exiting  = tunnel.getExiting();
                             String crossing = tunnel.getInTunnel();
 
+                            // Update humans returning to refuge
                             updatePanel(entryPanel, entering.stream()
                            .map(Human::getHumanId)
                            .toList());
 
+                            // Update label colors based on human states
                             for (Human human : entering) 
                             {
                                 if (human.isMarked()) 
@@ -286,10 +334,12 @@ public class MapPage extends javax.swing.JPanel
                                 } 
                             }
 
+                            // Update humans exiting from refuge
                             updatePanel(exitPanel, exiting.stream()
                                 .map(Human::getHumanId)
                                 .toList());
 
+                            // Update label colors based on human states
                             for (Human human : exiting) 
                             {
                                 if (human.isWaiting()) 
@@ -302,6 +352,7 @@ public class MapPage extends javax.swing.JPanel
                                 }
                             }
                             
+                            // Update the crossing human state in the correct tunnel
                             switch (index + 1) 
                             {
                                 case 1 -> currentCrossing1.setText(crossing);
@@ -326,6 +377,7 @@ public class MapPage extends javax.swing.JPanel
 
         };
         
+        // Add the master listener to backend components
         ca.addChangeListener(masterChangeListener);
         dr.addChangeListener(masterChangeListener);
         ra.addChangeListener(masterChangeListener);
@@ -338,6 +390,10 @@ public class MapPage extends javax.swing.JPanel
 
     }
 
+    /**
+    * Sets up the mapping between panel keys and their corresponding JPanel instances.
+    * This mapping is used to dynamically update the UI when the game state changes.
+    */
     private void setupPanels() 
     {
          panels.put("RH1", RiskHuman1);
@@ -361,6 +417,10 @@ public class MapPage extends javax.swing.JPanel
          panels.put("R", RestList);
     }
    
+    /**
+    * Sets up the mapping between counter keys and their corresponding JLabel instances.
+    * This mapping is used to update counters dynamically when the system state changes.
+    */
     private void setupCounters() 
     {
         counters.put("H1", HumanCounter1);
@@ -382,12 +442,19 @@ public class MapPage extends javax.swing.JPanel
         counters.put("RC",refugeCounter);
     }
     
+    /**
+    * Updates the content of a panel based on the provided list of IDs.
+    * Adds or removes labels as needed to match the new state.
+    * 
+    * @param panelId The key of the panel to update.
+    * @param newIds The list of IDs to display in the panel.
+    */
     private synchronized void updatePanel(String panelId, List<String> newIds) 
     {
         Set<String> currentIds = currentPanelState.getOrDefault(panelId, new HashSet<>());
         Set<String> updatedIds = new HashSet<>(newIds);
 
-        // Delete what is no longer there
+        // Compare what should be and what is there, delete what shouldn't be there
         for (String id : new HashSet<>(currentIds)) 
         {
             if (!updatedIds.contains(id)) 
@@ -397,7 +464,7 @@ public class MapPage extends javax.swing.JPanel
             }
         }
 
-        // Add new
+        // Compare what is there and what should be, add what should be there
         for (String id : updatedIds) 
         {
             if (!currentIds.contains(id)) 
@@ -411,6 +478,9 @@ public class MapPage extends javax.swing.JPanel
     }
 
     
+    /**
+     * Toggles the pause state of the game and updates the pause/resume button icon.
+     */
     public void pauseResume()
     {
         pm.togglePause();
@@ -418,6 +488,13 @@ public class MapPage extends javax.swing.JPanel
         pauseResumeButton.setIcon(current);
     }
    
+    
+    /**
+     * Adds a new label to the specified panel.
+     * 
+     * @param panelKey The key of the panel where the label should be added.
+     * @param labelText The text to display on the label.
+     */
     public synchronized void addLabelToPanel(String panelKey, String labelText)
     {
        
@@ -441,6 +518,12 @@ public class MapPage extends javax.swing.JPanel
         targetPanel.repaint();
     }
     
+    /**
+     * Removes a label with the specified text from the given panel.
+     * 
+     * @param panelKey The key of the panel from which the label should be removed.
+     * @param labelText The text of the label to remove.
+     */
     public synchronized void removeLabelFromPanel(String panelKey, String labelText) 
     {
         JPanel targetPanel = panels.get(panelKey);
@@ -466,6 +549,7 @@ public class MapPage extends javax.swing.JPanel
 
         System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
     }
+    
     public synchronized void setLabelColorInPanel(String panelKey, String labelText, Color color) 
     {
         JPanel targetPanel = panels.get(panelKey);

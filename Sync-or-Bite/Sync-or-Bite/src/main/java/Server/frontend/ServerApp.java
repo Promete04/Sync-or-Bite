@@ -12,7 +12,7 @@ import java.awt.Dimension;
 /**
  * 
  *Main application class for the "Sync-or-Bite" game.
- * This class initializes and manages the GUI, backend components, and game logic.
+ * This class initializes and manages the GUI, backend components, and system logic.
  * It uses a CardLayout to switch between different pages (JPanels) in the application.
  * 
  * @author guill
@@ -44,7 +44,7 @@ public class ServerApp
     /**
      * 
      * Main entry point for the application.
-     * Initializes all components, sets up the GUI, and starts the simulation logic.
+     * Initializes all components, sets up the GUI, and starts the system logic.
      * 
      * @param args
      */
@@ -79,10 +79,13 @@ public class ServerApp
         // Redirect to the initial page
         redirect("MAP");
         
+        //Resize to trigger MAP component resizing
+        frame.setSize(1920, 1080);
+        
         // Start the first zombie (patient zero)
         new Zombie(riskZone).start(); 
         
-        // Runnable to generate humans at random intervals
+        // Runnable to generate humans at random bounded (500ms-2000ms) intervals
         Runnable hr = new Runnable()
         {
             public void run()

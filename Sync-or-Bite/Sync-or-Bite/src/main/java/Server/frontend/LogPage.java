@@ -14,29 +14,45 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 
 /**
- *
+ * LogPage is a JPanel that displays the application's log messages and provides
+ * controls for pausing/resuming the simulation and navigating to the map page.
+ * It listens for changes in the log and pause state to update the UI dynamically.
+ * 
+ * Features:
+ * - Displays log messages in a non-editable text area.
+ * - Provides a button to toggle pause/resume state.
+ * - Allows navigation to the map page.
+ * 
  * @author guill
  */
 public class LogPage extends javax.swing.JPanel
 {
 
-    /**
-     * Creates new form LogPage
-     */
+    // PauseManager instance to manage pause/resume state
     private PauseManager pm;
+    
+    // Logger instance to display log messages
     private Logger logger;
+    
+    // Icons for pause and resume button states
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
     
     
-    
+    /**
+     * Creates a new LogPage instance.
+     * Initializes components, sets up listeners for pause state and log changes,
+     * and loads existing log messages from the log file.
+     */
     public LogPage() 
     {
         initComponents();
         
+        // Retrieve PauseManager and Logger instances from the ServerApp
         this.pm = ServerApp.getPM();
         this.logger= ServerApp.getL();
                 
+        // Set up a listener to update the pause/resume button icon based on the pause state
         pm.setPauseStateListener(new Runnable() 
         {
             public void run() 
@@ -46,6 +62,7 @@ public class LogPage extends javax.swing.JPanel
             }
         });
         
+        // Set up a listener to append new log entries to the logsArea
         logger.addChangeListener(new ChangeListener() 
         {
             @Override
@@ -61,7 +78,10 @@ public class LogPage extends javax.swing.JPanel
     }
     
   
-    
+    /**
+     * Loads existing log messages from the log file and appends them to the logsArea.
+     * If the log file does not exist, this method does nothing.
+     */
     private void loadLogs() {
         File file = new File(logger.getFileName());
         if (file.exists()) 
@@ -80,7 +100,12 @@ public class LogPage extends javax.swing.JPanel
             }
         }
     }
-
+    
+    /**
+     * Appends a new log entry to the logsArea.
+     * 
+     * @param logEntry The log message to append.
+     */
     public void onNewLog(String logEntry)
     {
         logsArea.append(logEntry + "\n");  
