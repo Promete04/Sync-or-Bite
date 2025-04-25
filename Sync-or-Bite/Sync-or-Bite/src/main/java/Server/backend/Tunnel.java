@@ -43,10 +43,7 @@ public class Tunnel
     private PauseManager pm;
     // The logger to log events
     private Logger logger;
-    
-    // Observer list
-    private final List<ChangeListener> listeners = new ArrayList<>();
-    
+
     private UnsafeArea unsafeArea;
     private int id;
 
@@ -72,28 +69,6 @@ public class Tunnel
             }
         });
     }
-    
-    /**
-     * Registers a new change listener to be notified when state update occurs.
-     *
-     * @param l the listener to register
-     */
-    public void addChangeListener(ChangeListener l) 
-    {
-        listeners.add(l);
-    }
-    
-    /**
-     * Notifies all registered listeners about a change in the state.
-     */
-    private void notifyChange() 
-    {
-        for (ChangeListener l : listeners) 
-        {
-            l.onChange(this);
-        }
-    }
-    
     /**
      * Requests exit from the shelter to the unsafe area. 
      * The human joins a group of 3, waits for a turn to cross
@@ -112,7 +87,6 @@ public class Tunnel
             waitingToExitQueue.add(h);
             logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea() + ".");
         }
-        notifyChange();
         pm.check();
         
         // Wait for a group of 3 to form
@@ -126,7 +100,7 @@ public class Tunnel
         }
         // Group is formed, prepare for individual tunnel access
         h.toggleWaitGroup();
-        notifyChange();
+        
         pm.check();
         
         // Use the usingLock to ensure only one human is in the tunnel
@@ -148,7 +122,6 @@ public class Tunnel
             // Reserve the tunnel
             tunnelBusy = true;
             currentInside = h;
-            notifyChange();
             pm.check();
         } 
         finally 
@@ -177,7 +150,8 @@ public class Tunnel
             pm.check();
             tunnelBusy = false;
             currentInside = null;
-            notifyChange();
+            pm.check();
+
             // Give priority to returners
             if (hasReturnersWaiting()) 
             {
@@ -211,7 +185,6 @@ public class Tunnel
             waitingToReturnQueue.add(h);
             logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea() + ".");
         }
-        notifyChange();
         pm.check();
 
         // Acquire the tunnel using usingLock
@@ -234,7 +207,6 @@ public class Tunnel
             // Tunnel free, reserve it
             tunnelBusy = true;
             currentInside = h;
-            notifyChange();
             pm.check();
             
         } 
@@ -262,7 +234,6 @@ public class Tunnel
         {
             tunnelBusy = false;
             currentInside = null;
-            notifyChange();
             
             // Give priority to returners
             if (hasReturnersWaiting()) 

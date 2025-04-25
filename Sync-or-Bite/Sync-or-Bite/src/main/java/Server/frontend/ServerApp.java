@@ -201,7 +201,9 @@ public class ServerApp
     public static void redirect(String page)
    {
         
+       
         JPanel p = pages.get(page);
+        
         cards.add(p, page);
         
         cardLayout.show(cards, page);

@@ -37,8 +37,6 @@ public class DiningRoom
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
-    // Observer list
-    private final List<ChangeListener> listeners = new ArrayList<>();
     
     /**
      * Constructor for DiningRoom.
@@ -50,27 +48,6 @@ public class DiningRoom
     {
         this.logger = logger;
         this.pm = pm;
-    }
-    
-    /**
-     * Registers a new change listener to be notified when state update occurs.
-     *
-     * @param l the listener to add
-     */
-    public void addChangeListener(ChangeListener l) 
-    {
-        listeners.add(l);
-    }
-     
-    /**
-     * Notifies all registered listeners about a change in the state.
-     */
-    private void notifyChange() 
-    {
-        for (ChangeListener l : listeners) 
-        {
-            l.onChange(this);
-        }
     }
     
     /**
@@ -90,7 +67,6 @@ public class DiningRoom
             foodList.offer(f);
             foodCount.release();    // One food available, so add one permit or unblock a waiting thread (in FIFO order)
             logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size() + ".");
-            notifyChange(); 
         } 
         pm.check();
     }
@@ -110,7 +86,6 @@ public class DiningRoom
         {  
             foodList.poll();
             logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
-            notifyChange();
         } 
         
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
@@ -148,7 +123,6 @@ public class DiningRoom
             mutex.acquire(); // Mutual exclusion, critical section starts
             logger.log("Human " + h.getHumanId() + " entered the dining room.");
             humansInside.add(h);
-            notifyChange(); 
         }
         finally
         {
@@ -173,8 +147,7 @@ public class DiningRoom
             pm.check();
             mutex.acquire();  // Mutual exclusion, critical section starts
             logger.log("Human " + h.getHumanId() + " left the dining room.");
-            humansInside.remove(h);
-            notifyChange(); 
+            humansInside.remove(h); 
         } 
         finally 
         {

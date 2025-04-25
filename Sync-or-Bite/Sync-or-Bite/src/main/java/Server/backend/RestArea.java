@@ -26,8 +26,6 @@ public class RestArea
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
-    // Observer list
-    private final List<ChangeListener> listeners = new ArrayList<>();
     
     /**
      * Constructor for RestArea.
@@ -40,28 +38,7 @@ public class RestArea
         this.logger = logger;
         this.pm = pm;
     }
-    
-    /**
-     * Registers a new change listener to be notified when state update occurs.
-     *
-     * @param l the listener to add
-     */
-    public void addChangeListener(ChangeListener l) 
-    {
-        listeners.add(l);
-    }
-    
-    /**
-     * Notifies all registered listeners about a change in the state.
-     */
-    private void notifyChange() 
-    {
-        for (ChangeListener l : listeners) 
-        {
-            l.onChange(this);
-        }
-    }
-    
+ 
     /**
      * Called when a human enter the rest area.
      * Updates internal list, notifies listeners and shows the action in the log file.
@@ -75,7 +52,6 @@ public class RestArea
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
         humansInside.add(h);
-        notifyChange();
         pm.check();
         
     }
@@ -93,7 +69,6 @@ public class RestArea
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the rest area.");
         humansInside.remove(h);
-        notifyChange();
         pm.check();
     }
     

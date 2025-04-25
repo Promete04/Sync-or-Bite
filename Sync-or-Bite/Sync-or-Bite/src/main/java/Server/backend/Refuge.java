@@ -4,8 +4,6 @@
  */
 package Server.backend;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -23,9 +21,6 @@ public class Refuge
     private DiningRoom diningRoom;
     private AtomicInteger count;  // Number of humans in the refuge
     private Logger logger;
-    
-    // Observer list
-    private final List<ChangeListener> listeners = new ArrayList<>();
     
     
     /**
@@ -69,35 +64,13 @@ public class Refuge
     }
     
     /**
-     * Adds a listener that will be notified when the refuge state changes.
-     *
-     * @param l the listener to add
-     */
-    public void addChangeListener(ChangeListener l) 
-    {
-        listeners.add(l);
-    }
-    
-    /**
-     * Notifies all registered listeners about a state change.
-     */
-    private void notifyChange() 
-    {
-        for (ChangeListener l : listeners) 
-        {
-            l.onChange(this);
-        }
-    }
-    
-    /**
      * Registers the entrance of a human into the refuge and updates the counter.
      *
      * @param h  the human entering the refuge
      */
     public void access(Human h)
     {
-        count.incrementAndGet();
-        notifyChange();  
+        count.incrementAndGet();  
         logger.log("Human " + h.getHumanId() + " entered the refuge.");
     }
     
@@ -109,7 +82,6 @@ public class Refuge
     public void leave(Human h)
     {
         count.decrementAndGet();
-        notifyChange(); 
         logger.log("Human " + h.getHumanId() + " left the refuge.");
     }
     

@@ -4,7 +4,6 @@
  */
 package Server.frontend;
 
-import Server.backend.ChangeListener;
 import Server.backend.CommonArea;
 import Server.backend.DiningRoom;
 import Server.backend.Human;
@@ -23,19 +22,21 @@ import java.awt.FlowLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * MapPage is a JPanel that visually represents the state of the game.
@@ -101,8 +102,7 @@ public class MapPage extends javax.swing.JPanel
             }
         });
         
-        // Set up listeners for changes in the simulation state
-        setupListeners();        
+        startMainLoop();      
     }
     
     /**
@@ -154,249 +154,161 @@ public class MapPage extends javax.swing.JPanel
             }
         });
     }
-    
+
+        // Scheduled executor to handle periodic UI updates
+    private final ScheduledExecutorService uiUpdater = Executors.newSingleThreadScheduledExecutor();
+    // Control flag to stop the loop gracefully
+    private volatile boolean stopUpdates = false;
+
     /**
-     * Sets up listeners for changes in the game state.
-     * Updates the UI dynamically when changes occur in the backend components.
+     * Starts the main update loop, polling the backend state at a fixed interval (every ~33ms).
+     * It batches all GUI updates to prevent flooding the Event Dispatch Thread (EDT).
+     * This approach ensures smoother rendering and avoids race conditions.
      */
-    private void setupListeners() 
-    {
-        ChangeListener masterChangeListener = new ChangeListener() 
-        {
+    public void startMainLoop() {
+        uiUpdater.scheduleAtFixedRate(new Runnable() {
             @Override
-            public void onChange(Object source) 
-            {
-                switch (source) 
+            public void run() {
+                if (stopUpdates) return;
+                
+                try 
                 {
-                    case CommonArea ca -> 
+                    // BACKEND DATA COLLECTION 
+                    List<Human> caHumans = ca.getHumansInside();
+                    List<Human> raHumans = ra.getHumansInside();
+                    List<Human> drHumans = dr.getHumansInside();
+                    
+                    int caCount = ca.getHumansInsideCounter();
+                    int raCount = ra.getHumansInsideCounter();
+                    int drCount = dr.getHumansInsideCounter();
+                    int rCount  = r.getCount().intValue();
+                    int foodCount = dr.getFoodCount();
+                    
+                    // Unsafe areas
+                    List<List<Human>> unsafeHumans = new ArrayList<>();
+                    List<List<Zombie>> unsafeZombies = new ArrayList<>();
+                    List<Integer> humanCounts = new ArrayList<>();
+                    List<Integer> zombieCounts = new ArrayList<>();
+                    
+                    for (int i = 0; i < 4; i++) 
                     {
-                        ArrayList<Human> commonHumans = ca.getHumansInside();
-                        // Handle changes in the CommonArea
-                        updatePanel("C", commonHumans.stream()
-                            .map(Human::getHumanId)
-                            .toList());
+                        UnsafeArea ua = rz.obtainUnsafeArea(i);
+                        unsafeHumans.add(ua.getHumansInside());
+                        unsafeZombies.add(ua.getZombiesInside());
+                        humanCounts.add(ua.getHumansInsideCount().intValue());
+                        zombieCounts.add(ua.getZombiesInsideCount());
+                    }
+                    
+                    // Tunnels
+                    List<Queue<Human>> entering = new ArrayList<>();
+                    List<Queue<Human>> exiting  = new ArrayList<>();
+                    List<String> crossing = new ArrayList<>();
+                     
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Tunnel tunnel = t.obtainTunnel(i);
+                        entering.add(tunnel.getEntering());
+                        exiting.add(tunnel.getExiting());
+                        crossing.add(tunnel.getInTunnel());
+                    }
+                    
+                    // GUI UPDATES
+                    SwingUtilities.invokeLater(() -> {
                         
-                        // Update label colors based on human states
-                        for (Human human : commonHumans) 
+                        // COMMON AREA
+                        updatePanel("C", caHumans.stream().map(Human::getHumanId).toList());
+                        for (Human h : caHumans) 
                         {
-                            if (human.isBeingAttacked()) 
+                            setLabelColorInPanel("C", h.getHumanId(), h.getHumanColor());
+                        }
+                        setCounter("HC", String.valueOf(caCount)); 
+                        setCounter("RC", String.valueOf(rCount));
+                        
+                        // REST AREA
+                        updatePanel("R", raHumans.stream().map(Human::getHumanId).toList());
+                        for (Human h : raHumans)
+                        {
+                            setLabelColorInPanel("R", h.getHumanId(), h.getHumanColor());
+                        }
+                        setCounter("HR", String.valueOf(raCount));
+                        setCounter("RC", String.valueOf(rCount));
+                        
+                        // DINING ROOM
+                        updatePanel("D", drHumans.stream().map(Human::getHumanId).toList());
+                        for (Human h : drHumans) 
+                        {
+                            setLabelColorInPanel("D", h.getHumanId(), h.getHumanColor()); 
+                        }
+                        setCounter("HD", String.valueOf(drCount));
+                        setCounter("FC", String.valueOf(foodCount));
+                        setCounter("RC", String.valueOf(rCount));
+                        
+                        // UNSAFE AREAS
+                        for (int i = 0; i < 4; i++)
+                        {
+                            String hKey = "RH" + (i + 1);
+                            String zKey = "RZ" + (i + 1);
+                            updatePanel(hKey, unsafeHumans.get(i).stream().map(Human::getHumanId).toList());
+                            updatePanel(zKey, unsafeZombies.get(i).stream().map(Zombie::getZombieId).toList());
+                            
+                            for (Human h : unsafeHumans.get(i))
                             {
-                                setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                            } 
-                            else if (human.isMarked())
-                            {
-                                setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
+                                setLabelColorInPanel(hKey, h.getHumanId(), h.getHumanColor());
                             }
-                            else
+                            for (Zombie z : unsafeZombies.get(i))
                             {
-                                setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                                Color c = z.isAttacking() ? utils.ColorManager.ATTACKING_COLOR : utils.ColorManager.ZOMBIE_COLOR;
+                                setLabelColorInPanel(zKey, z.getZombieId(), c);
                             }
+                            
+                            setCounter("H" + (i + 1), String.valueOf(humanCounts.get(i)));
+                            setCounter("Z" + (i + 1), String.valueOf(zombieCounts.get(i)));
                         }
                         
-                        // Update counters for the CommonArea
-                        setCounter("HC", String.valueOf(ca.getHumansInsideCounter()));
-                        setCounter("RC", String.valueOf(r.getCount()));
-                    }
-
-                    case RestArea ra -> 
-                    {
-                        ArrayList<Human> restHumans = ra.getHumansInside();
-                        // Handle changes in the RestArea
-                        updatePanel("R", restHumans.stream()
-                            .map(Human::getHumanId)
-                            .toList());
-                        
-                        // Update label colors based on human states
-                        for (Human human : restHumans) 
+                        // TUNNELS
+                        for (int i = 0; i < 4; i++)
                         {
-                            if (human.isBeingAttacked()) 
+                            String trKey = "TR" + (i + 1);
+                            String teKey = "TE" + (i + 1);
+                            
+                            updatePanel(trKey, entering.get(i).stream().map(Human::getHumanId).toList());
+                            updatePanel(teKey, exiting.get(i).stream().map(Human::getHumanId).toList());
+                            
+                            for (Human h : entering.get(i))
                             {
-                                setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                            } 
-                            else if (human.isMarked())
-                            {
-                                setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
-                            }
-                            else
-                            {
-                                setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                            }
-                        }
-                        
-                        // Update counters for the RestArea
-                        setCounter("HR", String.valueOf(ra.getHumansInsideCounter()));
-                        setCounter("RC", String.valueOf(r.getCount()));
-                    }
-
-                    case DiningRoom dr -> 
-                    {
-                        ArrayList<Human> dinningHumans = dr.getHumansInside();
-                        // Handle changes in the DiningRoom
-                        updatePanel("D", dinningHumans.stream()
-                            .map(Human::getHumanId)
-                            .toList());
-                        
-                        // Update label colors based on human states
-                        for (Human human : dinningHumans) 
-                        {
-                            if (human.isBeingAttacked()) 
-                            {
-                                setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                            } 
-                            else if (human.isMarked())
-                            {
-                                setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
-                            }
-                            else
-                            {
-                                setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                            }
-                        }    
-                        
-                        // Update counters for the DiningRoom
-                        setCounter("HD", String.valueOf(dr.getHumansInsideCounter()));
-                        setCounter("FC", String.valueOf(dr.getFoodCount()));
-                        setCounter("RC", String.valueOf(r.getCount()));
-                    }
-
-                    case UnsafeArea area -> 
-                    {
-                        
-                        // Handle changes in UnsafeArea
-                        int index = area.getArea();
-                        ArrayList<Human> unsafeHumans = area.getHumansInside();
-                        ArrayList<Zombie> unsafeZombies = area.getZombiesInside();
-                        String humansPanelId = "RH" + String.valueOf(index + 1);
-                        String zombiesPanelId = "RZ" + String.valueOf(index + 1);
-
-                        // Update humans in the UnsafeArea
-                        updatePanel(humansPanelId, unsafeHumans.stream()
-                            .map(Human::getHumanId)
-                            .toList());
-                        
-                        // Update label colors based on human states
-                        for (Human human : unsafeHumans) 
-                        {
-                            if (human.isBeingAttacked()) 
-                            {
-                                setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                            } 
-                            else if (human.isMarked())
-                            {
-                                setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
-                            }
-                            else
-                            {
-                                setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                            }
-                        }
-
-                        // Update zombies in the UnsafeArea
-                        updatePanel(zombiesPanelId, unsafeZombies.stream()
-                            .map(Zombie::getZombieId)
-                            .toList());
-                        
-                        // Update label colors based on zombie states
-                        for (Zombie zombie : unsafeZombies) 
-                        {
-                            if (zombie.isAttacking()) 
-                            {
-                                setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ATTACKING_COLOR);  
-                            } 
-                            else 
-                            {
-                                setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);  
-                            }
-                        }
-
-                        // Update counters for the UnsafeArea
-                        setCounter("H" + String.valueOf(index + 1), String.valueOf(area.getHumansInsideCount()));
-                        setCounter("Z" + String.valueOf(index + 1), String.valueOf(area.getZombiesInsideCount()));
-
-                    }
-
-                    case Tunnel tunnel -> 
-                    {
-                        // Handle changes in Tunnel
-                        int index = tunnel.getId();
-                        String entryPanel = "TR" + String.valueOf(index + 1);
-                        String exitPanel = "TE" + String.valueOf(index + 1);
-                        
-                        try
-                        {
-                            Queue<Human> entering = tunnel.getEntering();
-                            Queue<Human> exiting  = tunnel.getExiting();
-                            String crossing = tunnel.getInTunnel();
-
-                            // Update humans returning to refuge
-                            updatePanel(entryPanel, entering.stream()
-                           .map(Human::getHumanId)
-                           .toList());
-
-                            // Update label colors based on human states
-                            for (Human human : entering) 
-                            {
-                                if (human.isMarked()) 
+                                if (h.isMarked())
                                 {
-                                    setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
-                                } 
-                            }
-
-                            // Update humans exiting from refuge
-                            updatePanel(exitPanel, exiting.stream()
-                                .map(Human::getHumanId)
-                                .toList());
-
-                            // Update label colors based on human states
-                            for (Human human : exiting) 
-                            {
-                                if (human.isWaiting()) 
-                                {
-                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
-                                } 
-                                else
-                                {
-                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                                    setLabelColorInPanel(trKey, h.getHumanId(), utils.ColorManager.INJURED_COLOR);
                                 }
                             }
                             
-                            // Update the crossing human state in the correct tunnel
-                            switch (index + 1) 
+                            for (Human h : exiting.get(i))
                             {
-                                case 1 -> currentCrossing1.setText(crossing);
-                                case 2 -> currentCrossing2.setText(crossing);
-                                case 3 -> currentCrossing3.setText(crossing);
-                                case 4 -> currentCrossing4.setText(crossing);
+                                Color c = h.isWaiting()
+                                        ? utils.ColorManager.WAITING4GROUP_COLOR
+                                        : utils.ColorManager.HUMAN_COLOR;
+                                setLabelColorInPanel(teKey, h.getHumanId(), c);
                             }
                             
-                            setCounter("RC", String.valueOf(r.getCount()));
-                        } 
-                        catch (InterruptedException ex) 
-                        {
-                            Logger.getLogger(MapPage.class.getName()).log(Level.SEVERE, null, ex);
+                            // Set tunnel crossing labels
+                            switch (i + 1)
+                            {
+                                case 1 -> currentCrossing1.setText(crossing.get(i));
+                                case 2 -> currentCrossing2.setText(crossing.get(i));
+                                case 3 -> currentCrossing3.setText(crossing.get(i));
+                                case 4 -> currentCrossing4.setText(crossing.get(i));
+                            }
                         }
-                    }
-                    default -> 
-                    {
-                        System.err.println("Unknown source for change: " + source);
-                    }
-                }
+                    });
+                    
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                } 
             }
-
-        };
-        
-        // Add the master listener to backend components
-        ca.addChangeListener(masterChangeListener);
-        dr.addChangeListener(masterChangeListener);
-        ra.addChangeListener(masterChangeListener);
-
-        for (int i = 0; i < 4; i++) 
-        {
-            rz.obtainUnsafeArea(i).addChangeListener(masterChangeListener);
-            t.obtainTunnel(i).addChangeListener(masterChangeListener);
-        }
-
+        }, 0, 15, MILLISECONDS); //
     }
+
 
     /**
     * Sets up the mapping between panel keys and their corresponding JPanel instances.
@@ -503,28 +415,37 @@ public class MapPage extends javax.swing.JPanel
      * @param panelKey The key of the panel where the label should be added.
      * @param labelText The text to display on the label.
      */
-    public synchronized void addLabelToPanel(String panelKey, String labelText)
+    public void addLabelToPanel(String panelKey, String labelText) 
     {
-       
-        JPanel targetPanel = panels.get(panelKey);
+        SwingUtilities.invokeLater(() -> 
+        {
+            JPanel targetPanel = panels.get(panelKey);
 
-        if (targetPanel == null) {
-            System.err.println("No panel found for key: " + panelKey);
-            return;
-        }
+            if (targetPanel == null) 
+            {
+                System.err.println("No panel found for key: " + panelKey);
+                return;
+            }
 
-        JLabel label = new JLabel(labelText);
-        label.setOpaque(true);
-        Color background = labelText.startsWith("H")? utils.ColorManager.HUMAN_COLOR : utils.ColorManager.ZOMBIE_COLOR;
-        label.setBackground(background); 
-        label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
+            synchronized (targetPanel) 
+            {
+                JLabel label = new JLabel(labelText);
+                label.setOpaque(true);
+                Color background = labelText.startsWith("H")
+                    ? utils.ColorManager.HUMAN_COLOR
+                    : utils.ColorManager.ZOMBIE_COLOR;
+                label.setBackground(background); 
+                label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
 
-        targetPanel.add(label);
-        updatePanelPreferredHeight(targetPanel);
-        
-        targetPanel.revalidate();
-        targetPanel.repaint();
+                targetPanel.add(label);
+                updatePanelPreferredHeight(targetPanel);
+
+                targetPanel.revalidate();
+                targetPanel.repaint();
+            }
+        });
     }
+
     
     /**
      * Removes a label with the specified text from the given panel.
@@ -532,30 +453,35 @@ public class MapPage extends javax.swing.JPanel
      * @param panelKey The key of the panel from which the label should be removed.
      * @param labelText The text of the label to remove.
      */
-    public synchronized void removeLabelFromPanel(String panelKey, String labelText) 
+    public void removeLabelFromPanel(String panelKey, String labelText) 
     {
-        JPanel targetPanel = panels.get(panelKey);
-
-        if (targetPanel == null) 
+        SwingUtilities.invokeLater(() -> 
         {
-            System.err.println("No panel found for key: " + panelKey);
-            return;
-        }
-
-        Component[] components = targetPanel.getComponents();
-        for (Component comp : components) 
-        {
-            if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+            JPanel targetPanel = panels.get(panelKey);
+            synchronized(targetPanel)
             {
-                targetPanel.remove(label);
-                updatePanelPreferredHeight(targetPanel);
-                targetPanel.revalidate();
-                targetPanel.repaint();
-                return;
-            }
-        }
+                if (targetPanel == null) 
+                {
+                    System.err.println("No panel found for key: " + panelKey);
+                    return;
+                }
 
-        System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
+                Component[] components = targetPanel.getComponents();
+                for (Component comp : components) 
+                {
+                    if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+                    {
+                        targetPanel.remove(label);
+                        updatePanelPreferredHeight(targetPanel);
+                        targetPanel.revalidate();
+                        targetPanel.repaint();
+                        return;
+                    }
+                }
+            }
+
+            System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
+        });
     }
     
     /**
@@ -567,28 +493,34 @@ public class MapPage extends javax.swing.JPanel
      */
     public synchronized void setLabelColorInPanel(String panelKey, String labelText, Color color) 
     {
-        JPanel targetPanel = panels.get(panelKey);
-
-        if (targetPanel == null)
+        SwingUtilities.invokeLater(() -> 
         {
-            System.err.println("No panel found for key: " + panelKey);
-            return;
-        }
-
-        for (Component comp : targetPanel.getComponents()) 
-        {
-            if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+            JPanel targetPanel = panels.get(panelKey);
+            synchronized(targetPanel)
             {
-                label.setOpaque(true); 
-                label.setBackground(color);
-                targetPanel.revalidate();
-                targetPanel.repaint();
-                return;
-            }
-        }
+                if (targetPanel == null)
+                {
+                    System.err.println("No panel found for key: " + panelKey);
+                    return;
+                }
 
-        System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
+                for (Component comp : targetPanel.getComponents()) 
+                {
+                    if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+                    {
+                        label.setOpaque(true); 
+                        label.setBackground(color);
+                        targetPanel.revalidate();
+                        targetPanel.repaint();
+                        return;
+                    }
+                }
+            }
+
+            System.out.println("Label with text '" + labelText + "' not found in panel " + panelKey);
+        });
     }
+    
 
     /**
      * Adjust a panel's height based on its content

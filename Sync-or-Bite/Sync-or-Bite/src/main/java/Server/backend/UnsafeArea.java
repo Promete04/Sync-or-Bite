@@ -40,8 +40,6 @@ public class UnsafeArea
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
-    // Observer list
-    private final List<ChangeListener> listeners = new ArrayList<>();
     
     private RiskZone riskZone;
     private int area;
@@ -64,27 +62,6 @@ public class UnsafeArea
     }
     
     /**
-     * Registers a new change listener to be notified when state update occurs.
-     *
-     * @param l the listener to register
-     */
-    public void addChangeListener(ChangeListener l) 
-    {
-        listeners.add(l);
-    }
-    
-    /**
-     * Notifies all registered listeners about a change in the state.
-     */
-    private void notifyChange() 
-    {
-        for (ChangeListener l : listeners) 
-        {
-            l.onChange(this);
-        }
-    }
-    
-    /**
      * Registers a zombie entering the unsafe area.
      * Updates internal list, notifies listeners and shows the action in the log file.
      * Protected using zombiesInside's monitor.
@@ -99,8 +76,7 @@ public class UnsafeArea
         {
             zombiesInside.add(z);
             logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
-            // Update GUI
-            notifyChange();
+            // Update GUI);
         }
         pm.check();
     }
@@ -121,7 +97,6 @@ public class UnsafeArea
             zombiesInside.remove(z);
             logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
             // Update GUI
-            notifyChange();
         }
         pm.check();
     }
@@ -158,7 +133,6 @@ public class UnsafeArea
         {
             z.toggleAttacking();
             logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
-            notifyChange();
             
             // Record the target and itself in the attacks hashmap (using it's monitor).
             synchronized(attacks)
@@ -179,8 +153,6 @@ public class UnsafeArea
             
             attackedHuman.interrupt();      // End of attack using another interrupt
             z.toggleAttacking();
-
-            notifyChange();  // Notify listeners
         }
         
         // Simulate wandering time with periodic pause checks
@@ -217,8 +189,6 @@ public class UnsafeArea
             humansInside.add(h);
             logger.log("Human " + h.getHumanId() + " entered unsafe area " + area + ".");
             humansInsideCount.incrementAndGet();
-            // Update GUI
-            notifyChange();
         }
         pm.check();
     }
@@ -240,8 +210,6 @@ public class UnsafeArea
             humansInside.remove(h);
             logger.log("Human " + h.getHumanId() + " left unsafe area " + area + ".");
             humansInsideCount.decrementAndGet();
-            // Update GUI
-            notifyChange();
         }
         pm.check();
     }
@@ -289,8 +257,6 @@ public class UnsafeArea
             try
             {
                 h.toggleAttacked();
-                h.loseAllFood();     
-                notifyChange();
                 // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
                 Thread.sleep(86400000);       // 24 hours is the maximum time the program can remain stopped during a zombie attack without changing the program behaviour
             }
@@ -305,7 +271,6 @@ public class UnsafeArea
                     // If survived it's marked
                     h.toggleMarked();
                     pm.check();
-                    notifyChange();
                     
                     // Remove the attack from the hashmap using its monitor for synchronization
                     synchronized(attacks) 
@@ -331,7 +296,6 @@ public class UnsafeArea
                         humansInside.remove(h);   // Human died so it's removed from humansInside
                         humansInsideCount.decrementAndGet(); // Decrement the counter
                     }
-                    notifyChange();
                     pm.check(); 
                     
                     // Increase the killer's killcount
@@ -350,7 +314,6 @@ public class UnsafeArea
                         zombiesInside.add(killed);
                     }
                     
-                    notifyChange();
                     pm.check();
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");
                     killed.start();   // Begin zombie behaviour

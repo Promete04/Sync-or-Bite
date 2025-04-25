@@ -27,8 +27,6 @@ public class CommonArea
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
-    // List of listeners observing state changes in this component (used for GUI updates)
-    private final List<ChangeListener> listeners = new ArrayList<>();
     
     /**
      * Constructor for CommonArea.
@@ -40,27 +38,6 @@ public class CommonArea
     {
         this.logger = logger;
         this.pm = pm;
-    }
-    
-    /**
-     * Registers a new change listener to be notified when state update occurs.
-     *
-     * @param l the listener to register
-     */
-    public void addChangeListener(ChangeListener l) 
-    {
-        listeners.add(l);
-    }
-    
-    /**
-     * Notifies all registered listeners about a change in the state.
-     */
-    private void notifyChange() 
-    {
-        for (ChangeListener l : listeners) 
-        {
-            l.onChange(this);
-        }
     }
     
     /**
@@ -76,7 +53,6 @@ public class CommonArea
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the common area.");
         humansInside.add(h);
-        notifyChange();
         pm.check();
     }
     
@@ -93,7 +69,6 @@ public class CommonArea
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the common area.");
         humansInside.remove(h);
-        notifyChange();
         pm.check();
     }
     

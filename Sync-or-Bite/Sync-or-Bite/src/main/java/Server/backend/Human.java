@@ -4,6 +4,7 @@
  */
 package Server.backend;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,5 +204,14 @@ public class Human extends Thread
     {
         this.selectedTunnel = selectedTunnel;
     }
+    
+    public Color getHumanColor() 
+    {
+        Color color = isBeingAttacked() ? utils.ColorManager.ATTACKED_COLOR 
+                :isMarked() ? utils.ColorManager.INJURED_COLOR 
+                :utils.ColorManager.HUMAN_COLOR;
+        return color;
+    }
+
     
 }
