@@ -93,7 +93,7 @@ public class ServerApp
                     for (int i = 1; i < 10001; i++) 
                     {
                         new Human(i, refuge, tunnels).start();
-                        Thread.sleep(100);
+                        Thread.sleep(500 + (int) (Math.random()*1500));
                         pm.check();
                     }
                 } 
@@ -205,7 +205,8 @@ public class ServerApp
         cards.add(p, page);
         
         cardLayout.show(cards, page);
-        if(currentPanel != p){
+        if(currentPanel != p)
+        {
             cards.remove(currentPanel);
         }
         currentPanel = p;

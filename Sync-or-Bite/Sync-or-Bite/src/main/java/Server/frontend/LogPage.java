@@ -80,12 +80,15 @@ public class LogPage extends javax.swing.JPanel
      * Loads existing log messages from the log file and appends them to the logsArea.
      * If the log file does not exist, this method does nothing.
      */
-    private void loadLogs() {
+    private void loadLogs() 
+    {
         File file = new File(logger.getFileName());
-        if (file.exists()) 
+        if (file.exists())
         {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) 
+            BufferedReader br = null;
+            try 
             {
+                br = new BufferedReader(new FileReader(file));
                 String line;
                 while ((line = br.readLine()) != null) 
                 {
@@ -95,6 +98,20 @@ public class LogPage extends javax.swing.JPanel
             catch (IOException e) 
             {
                 e.printStackTrace();
+            } 
+            finally 
+            {
+                if (br != null) 
+                {
+                    try 
+                    {
+                        br.close();
+                    } 
+                    catch (IOException e) 
+                    {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
