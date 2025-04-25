@@ -28,10 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -49,7 +45,6 @@ import javax.swing.SwingUtilities;
  * - Supports resizing to adjust the layout of the panels.
  * - Provides controls to pause/resume the game and navigate to the log page.
  * 
- * @author guill
  */
 public class MapPage extends javax.swing.JPanel 
 {
@@ -74,9 +69,6 @@ public class MapPage extends javax.swing.JPanel
     private DiningRoom dr = ServerApp.getDR();
     private RiskZone rz = ServerApp.getRZ();
     private Tunnels t = ServerApp.getT();
-    
-    // Scheduled executor to handle periodic UI updates
-    private final ScheduledExecutorService uiUpdater = Executors.newSingleThreadScheduledExecutor();
     
     /**
      * Constructor for MapPage.
@@ -113,149 +105,159 @@ public class MapPage extends javax.swing.JPanel
      * It batches all GUI updates to prevent flooding the Event Dispatch Thread (EDT).
      * This approach ensures smoother rendering and avoids race conditions.
      */
-    public void startMainLoop() {
-        uiUpdater.scheduleAtFixedRate(new Runnable() 
+    public void startMainLoop() 
+    {
+        Runnable loop = new Runnable()
         {
             @Override
             public void run() 
             {
-                try 
+                while(true)
                 {
-                    // BACKEND DATA COLLECTION 
-                    List<Human> caHumans = ca.getHumansInside();
-                    List<Human> raHumans = ra.getHumansInside();
-                    List<Human> drHumans = dr.getHumansInside();
-                    
-                    int caCount = ca.getHumansInsideCounter();
-                    int raCount = ra.getHumansInsideCounter();
-                    int drCount = dr.getHumansInsideCounter();
-                    int rCount  = r.getCount().intValue();
-                    int foodCount = dr.getFoodCount();
-                    
-                    // Unsafe areas
-                    List<List<Human>> unsafeHumans = new ArrayList<>();
-                    List<List<Zombie>> unsafeZombies = new ArrayList<>();
-                    List<Integer> humanCounts = new ArrayList<>();
-                    List<Integer> zombieCounts = new ArrayList<>();
-                    
-                    for (int i = 0; i < 4; i++) 
+                    try 
                     {
-                        UnsafeArea ua = rz.obtainUnsafeArea(i);
-                        unsafeHumans.add(ua.getHumansInside());
-                        unsafeZombies.add(ua.getZombiesInside());
-                        humanCounts.add(ua.getHumansInsideCount().intValue());
-                        zombieCounts.add(ua.getZombiesInsideCount());
-                    }
-                    
-                    // Tunnels
-                    List<Queue<Human>> entering = new ArrayList<>();
-                    List<Queue<Human>> exiting  = new ArrayList<>();
-                    List<String> crossing = new ArrayList<>();
-                     
-                    for (int i = 0; i < 4; i++)
-                    {
-                        Tunnel tunnel = t.obtainTunnel(i);
-                        entering.add(tunnel.getEntering());
-                        exiting.add(tunnel.getExiting());
-                        crossing.add(tunnel.getInTunnel());
-                    }
-                    
-                    // GUI UPDATES
-                    SwingUtilities.invokeLater(() -> 
-                    {
-                        
-                        // COMMON AREA
-                        updatePanel("C", caHumans.stream().map(Human::getHumanId).toList());
-                        for (Human h : caHumans) 
+                        // BACKEND DATA COLLECTION 
+                        List<Human> caHumans = ca.getHumansInside();
+                        List<Human> raHumans = ra.getHumansInside();
+                        List<Human> drHumans = dr.getHumansInside();
+
+                        int caCount = ca.getHumansInsideCounter();
+                        int raCount = ra.getHumansInsideCounter();
+                        int drCount = dr.getHumansInsideCounter();
+                        int rCount = r.getCount().intValue();
+                        int foodCount = dr.getFoodCount();
+
+                        // Unsafe areas
+                        List<List<Human>> unsafeHumans = new ArrayList<>();
+                        List<List<Zombie>> unsafeZombies = new ArrayList<>();
+                        List<Integer> humanCounts = new ArrayList<>();
+                        List<Integer> zombieCounts = new ArrayList<>();
+
+                        for (int i = 0; i < 4; i++) 
                         {
-                            setLabelColorInPanel("C", h.getHumanId(), h.getHumanColor());
+                            UnsafeArea ua = rz.obtainUnsafeArea(i);
+                            unsafeHumans.add(ua.getHumansInside());
+                            unsafeZombies.add(ua.getZombiesInside());
+                            humanCounts.add(ua.getHumansInsideCount().intValue());
+                            zombieCounts.add(ua.getZombiesInsideCount());
                         }
-                        setCounter("HC", String.valueOf(caCount)); 
-                        setCounter("RC", String.valueOf(rCount));
-                        
-                        // REST AREA
-                        updatePanel("R", raHumans.stream().map(Human::getHumanId).toList());
-                        for (Human h : raHumans)
+
+                        // Tunnels
+                        List<Queue<Human>> entering = new ArrayList<>();
+                        List<Queue<Human>> exiting = new ArrayList<>();
+                        List<String> crossing = new ArrayList<>();
+
+                        for (int i = 0; i < 4; i++) 
                         {
-                            setLabelColorInPanel("R", h.getHumanId(), h.getHumanColor());
+                            Tunnel tunnel = t.obtainTunnel(i);
+                            entering.add(tunnel.getEntering());
+                            exiting.add(tunnel.getExiting());
+                            crossing.add(tunnel.getInTunnel());
                         }
-                        setCounter("HR", String.valueOf(raCount));
-                        setCounter("RC", String.valueOf(rCount));
-                        
-                        // DINING ROOM
-                        updatePanel("D", drHumans.stream().map(Human::getHumanId).toList());
-                        for (Human h : drHumans) 
+
+                        // GUI UPDATES
+                        SwingUtilities.invokeLater(() -> 
                         {
-                            setLabelColorInPanel("D", h.getHumanId(), h.getHumanColor()); 
-                        }
-                        setCounter("HD", String.valueOf(drCount));
-                        setCounter("FC", String.valueOf(foodCount));
-                        setCounter("RC", String.valueOf(rCount));
-                        
-                        // UNSAFE AREAS
-                        for (int i = 0; i < 4; i++)
-                        {
-                            String hKey = "RH" + (i + 1);
-                            String zKey = "RZ" + (i + 1);
-                            updatePanel(hKey, unsafeHumans.get(i).stream().map(Human::getHumanId).toList());
-                            updatePanel(zKey, unsafeZombies.get(i).stream().map(Zombie::getZombieId).toList());
-                            
-                            for (Human h : unsafeHumans.get(i))
+
+                            // COMMON AREA
+                            updatePanel("C", caHumans.stream().map(Human::getHumanId).toList());
+                            for (Human h : caHumans) 
                             {
-                                setLabelColorInPanel(hKey, h.getHumanId(), h.getHumanColor());
+                                setLabelColorInPanel("C", h.getHumanId(), h.getHumanColor());
                             }
-                            for (Zombie z : unsafeZombies.get(i))
+                            setCounter("HC", String.valueOf(caCount));
+                            setCounter("RC", String.valueOf(rCount));
+
+                            // REST AREA
+                            updatePanel("R", raHumans.stream().map(Human::getHumanId).toList());
+                            for (Human h : raHumans) 
                             {
-                                Color c = z.isAttacking() ? utils.ColorManager.ATTACKING_COLOR : utils.ColorManager.ZOMBIE_COLOR;
-                                setLabelColorInPanel(zKey, z.getZombieId(), c);
+                                setLabelColorInPanel("R", h.getHumanId(), h.getHumanColor());
                             }
-                            
-                            setCounter("H" + (i + 1), String.valueOf(humanCounts.get(i)));
-                            setCounter("Z" + (i + 1), String.valueOf(zombieCounts.get(i)));
-                        }
-                        
-                        // TUNNELS
-                        for (int i = 0; i < 4; i++)
-                        {
-                            String trKey = "TR" + (i + 1);
-                            String teKey = "TE" + (i + 1);
-                            
-                            updatePanel(trKey, entering.get(i).stream().map(Human::getHumanId).toList());
-                            updatePanel(teKey, exiting.get(i).stream().map(Human::getHumanId).toList());
-                            
-                            for (Human h : entering.get(i))
+                            setCounter("HR", String.valueOf(raCount));
+                            setCounter("RC", String.valueOf(rCount));
+
+                            // DINING ROOM
+                            updatePanel("D", drHumans.stream().map(Human::getHumanId).toList());
+                            for (Human h : drHumans) 
                             {
-                                if (h.isMarked())
+                                setLabelColorInPanel("D", h.getHumanId(), h.getHumanColor());
+                            }
+                            setCounter("HD", String.valueOf(drCount));
+                            setCounter("FC", String.valueOf(foodCount));
+                            setCounter("RC", String.valueOf(rCount));
+
+                            // UNSAFE AREAS
+                            for (int i = 0; i < 4; i++) 
+                            {
+                                String hKey = "RH" + (i + 1);
+                                String zKey = "RZ" + (i + 1);
+                                updatePanel(hKey, unsafeHumans.get(i).stream().map(Human::getHumanId).toList());
+                                updatePanel(zKey, unsafeZombies.get(i).stream().map(Zombie::getZombieId).toList());
+
+                                for (Human h : unsafeHumans.get(i)) 
                                 {
-                                    setLabelColorInPanel(trKey, h.getHumanId(), utils.ColorManager.INJURED_COLOR);
+                                    setLabelColorInPanel(hKey, h.getHumanId(), h.getHumanColor());
+                                }
+                                for (Zombie z : unsafeZombies.get(i)) 
+                                {
+                                    Color c = z.isAttacking() ? utils.ColorManager.ATTACKING_COLOR : utils.ColorManager.ZOMBIE_COLOR;
+                                    setLabelColorInPanel(zKey, z.getZombieId(), c);
+                                }
+
+                                setCounter("H" + (i + 1), String.valueOf(humanCounts.get(i)));
+                                setCounter("Z" + (i + 1), String.valueOf(zombieCounts.get(i)));
+                            }
+
+                            // TUNNELS
+                            for (int i = 0; i < 4; i++) 
+                            {
+                                String trKey = "TR" + (i + 1);
+                                String teKey = "TE" + (i + 1);
+
+                                updatePanel(trKey, entering.get(i).stream().map(Human::getHumanId).toList());
+                                updatePanel(teKey, exiting.get(i).stream().map(Human::getHumanId).toList());
+
+                                for (Human h : entering.get(i)) 
+                                {
+                                    if (h.isMarked()) 
+                                    {
+                                        setLabelColorInPanel(trKey, h.getHumanId(), utils.ColorManager.INJURED_COLOR);
+                                    }
+                                }
+
+                                for (Human h : exiting.get(i)) 
+                                {
+                                    Color c = h.isWaiting() ? utils.ColorManager.WAITING4GROUP_COLOR : utils.ColorManager.HUMAN_COLOR;
+                                    setLabelColorInPanel(teKey, h.getHumanId(), c);
+                                }
+
+                                // Set tunnel crossing labels
+                                switch (i + 1) 
+                                {
+                                    case 1 ->
+                                        currentCrossing1.setText(crossing.get(i));
+                                    case 2 ->
+                                        currentCrossing2.setText(crossing.get(i));
+                                    case 3 ->
+                                        currentCrossing3.setText(crossing.get(i));
+                                    case 4 ->
+                                        currentCrossing4.setText(crossing.get(i));
                                 }
                             }
-                            
-                            for (Human h : exiting.get(i))
-                            {
-                                Color c = h.isWaiting()
-                                        ? utils.ColorManager.WAITING4GROUP_COLOR
-                                        : utils.ColorManager.HUMAN_COLOR;
-                                setLabelColorInPanel(teKey, h.getHumanId(), c);
-                            }
-                            
-                            // Set tunnel crossing labels
-                            switch (i + 1)
-                            {
-                                case 1 -> currentCrossing1.setText(crossing.get(i));
-                                case 2 -> currentCrossing2.setText(crossing.get(i));
-                                case 3 -> currentCrossing3.setText(crossing.get(i));
-                                case 4 -> currentCrossing4.setText(crossing.get(i));
-                            }
-                        }
-                    });
-                    
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                } 
+                        });
+                        
+                        Thread.sleep(5);
+
+                    } 
+                    catch (Exception e) 
+                    {
+                        e.printStackTrace();
+                    }
+                }   
             }
-        }, 0, 15, MILLISECONDS); //
+        };
+        new Thread(loop).start();
     }
     
     /**
@@ -290,7 +292,8 @@ public class MapPage extends javax.swing.JPanel
                     else if (key.equals("C") || key.equals("D") || key.equals("R")) 
                     {
                         maxWidth = totalWidth / 3;
-                    } else 
+                    } 
+                    else 
                     {
                         continue;
                     }
@@ -317,25 +320,25 @@ public class MapPage extends javax.swing.JPanel
     */
     private void setupPanels() 
     {
-         panels.put("RH1", RiskHuman1);
-         panels.put("RH2", RiskHuman2);
-         panels.put("RH3", RiskHuman3);   
-         panels.put("RH4", RiskHuman4);
-         panels.put("RZ1", RiskZombie1);
-         panels.put("RZ2", RiskZombie2);
-         panels.put("RZ3", RiskZombie3);
-         panels.put("RZ4", RiskZombie4);
-         panels.put("TR1", TunnelReturning1);
-         panels.put("TR2", TunnelReturning2);
-         panels.put("TR3", TunnelReturning3);
-         panels.put("TR4", TunnelReturning4);
-         panels.put("TE1", TunnelExiting1);
-         panels.put("TE2", TunnelExiting2);
-         panels.put("TE3", TunnelExiting3);
-         panels.put("TE4", TunnelExiting4);
-         panels.put("C", CommonList);
-         panels.put("D", DiningList);
-         panels.put("R", RestList);
+        panels.put("RH1", RiskHuman1);
+        panels.put("RH2", RiskHuman2);
+        panels.put("RH3", RiskHuman3);   
+        panels.put("RH4", RiskHuman4);
+        panels.put("RZ1", RiskZombie1);
+        panels.put("RZ2", RiskZombie2);
+        panels.put("RZ3", RiskZombie3);
+        panels.put("RZ4", RiskZombie4);
+        panels.put("TR1", TunnelReturning1);
+        panels.put("TR2", TunnelReturning2);
+        panels.put("TR3", TunnelReturning3);
+        panels.put("TR4", TunnelReturning4);
+        panels.put("TE1", TunnelExiting1);
+        panels.put("TE2", TunnelExiting2);
+        panels.put("TE3", TunnelExiting3);
+        panels.put("TE4", TunnelExiting4);
+        panels.put("C", CommonList);
+        panels.put("D", DiningList);
+        panels.put("R", RestList);
     }
    
     /**

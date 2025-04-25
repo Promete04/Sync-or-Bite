@@ -22,8 +22,6 @@ import javax.swing.ImageIcon;
  * - Displays log messages in a non-editable text area.
  * - Provides a button to toggle pause/resume state.
  * - Allows navigation to the map page.
- * 
- * @author guill
  */
 public class LogPage extends javax.swing.JPanel
 {

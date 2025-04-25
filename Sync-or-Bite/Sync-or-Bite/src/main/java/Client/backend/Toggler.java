@@ -86,8 +86,8 @@ public class Toggler
     {
         if(!paused)
         {
-        paused=true;
-        pauseStateListener.run();
+            paused=true;
+            pauseStateListener.run();
         }
     }
     
@@ -99,8 +99,8 @@ public class Toggler
     {
         if(paused)
         {
-        paused=false;
-        pauseStateListener.run();
+            paused=false;
+            pauseStateListener.run();
         }
     }
     
