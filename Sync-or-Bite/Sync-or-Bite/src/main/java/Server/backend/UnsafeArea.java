@@ -254,7 +254,7 @@ public class UnsafeArea
                 h.loseAllFood();
                 notifyChange();
                 // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
-                Thread.sleep(10000);       
+                Thread.sleep(86400000);       // 24 hours is the maximum time the program can remain stopped during a zombie attack without changing the program behaviour
             }
             catch(InterruptedException ie2)
             {
