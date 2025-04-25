@@ -10,23 +10,18 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
-
-
 /**
  * Represents a tunnel that allows humans to move between the refuge and an unsafe area. 
  *
  * Synchronization is handled using CyclicBarrier to form groups of 3 for exiting and 
- * ReentrantLock and Condition to coordinate access to the tunnel.
+ * ReentrantLock and Condition to coordinate access to the tunnel and also the monitors
+ * of the waitingToExitQueue and waitingToReturnQueue.
  *
  * The synchronization tools ensure that only one human can cross the tunnel at a time, 
  * with returners having priority over exiters.
  */
 public class Tunnel 
 {
-
-    private UnsafeArea unsafeArea;
-    private PauseManager pm;
-    
     // Barrier to wait for groups of 3 exiters
     private CyclicBarrier groups;
     
@@ -35,8 +30,8 @@ public class Tunnel
     private final ReentrantLock usingLock = new ReentrantLock(true); 
     private final Condition entryCondition = usingLock.newCondition(); // For humans returning
     private final Condition exitCondition = usingLock.newCondition();  // For humans exiting
-   
-    // State tracking variables for tunnel crossing
+    
+// State tracking variables for tunnel crossing
     private boolean tunnelBusy = false;  // True if someone is crossing
     private Human currentInside = null;  // The human currently inside the tunnel
     
@@ -44,13 +39,17 @@ public class Tunnel
     private final Queue<Human> waitingToExitQueue = new LinkedList<>();  // Exit queue
     private final Queue<Human> waitingToReturnQueue = new LinkedList<>();   // Return queue
     
+    // The pause manager used to pause/resume
+    private PauseManager pm;
+    // The logger to log events
     private Logger logger;
-    
-    private int id;
     
     // Observer list
     private final List<ChangeListener> listeners = new ArrayList<>();
     
+    private UnsafeArea unsafeArea;
+    private int id;
+
     /**
      * Constructs a Tunnel associated with an unsafe area.
      *
@@ -74,15 +73,19 @@ public class Tunnel
         });
     }
     
+    /**
+     * Registers a new change listener to be notified when state update occurs.
+     *
+     * @param l the listener to register
+     */
     public void addChangeListener(ChangeListener l) 
     {
         listeners.add(l);
     }
-    public void removeChangeListener(ChangeListener l) 
-    {
-        listeners.remove(l);
-    }
     
+    /**
+     * Notifies all registered listeners about a change in the state.
+     */
     private void notifyChange() 
     {
         for (ChangeListener l : listeners) 
@@ -92,28 +95,19 @@ public class Tunnel
     }
     
     /**
-     * Gets the associated UnsafeArea.
-     *
-     * @return The UnsafeArea of the tunnel.
-     */
-    public UnsafeArea getUnsafeArea() 
-    {
-        return unsafeArea;
-    }
-    
-    /**
      * Requests exit from the shelter to the unsafe area. 
      * The human joins a group of 3, waits for a turn to cross
      * and is animated crossing the tunnel in the GUI. Also handles logs.
      *
-     * @param h The human requesting to exit.
+     * @param h the human requesting to exit
      * @throws InterruptedException if the thread is interrupted
      */
     public void requestExit(Human h) throws InterruptedException 
     {
         pm.check();
-        synchronized(waitingToExitQueue)
+        synchronized(waitingToExitQueue)  // Protected using the queue's monitor
         {
+            // Join the exit queue
             h.toggleWaitGroup();
             waitingToExitQueue.add(h);
             logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea() + ".");
@@ -130,11 +124,11 @@ public class Tunnel
         {
             logger.log("Barrier broken for human " + h.getHumanId() + ": " + e.getMessage());
         }
-        // Now, cross the tunnel individually
+        // Group is formed, prepare for individual tunnel access
         h.toggleWaitGroup();
         notifyChange();
-       
         pm.check();
+        
         // Use the usingLock to ensure only one human is in the tunnel
         usingLock.lock();
         try 
@@ -146,7 +140,7 @@ public class Tunnel
             }
             pm.check();
             // Remove from waiting as it is going to cross
-            synchronized(waitingToExitQueue)
+            synchronized(waitingToExitQueue) // Protected using the queue's monitor
             {
                 waitingToExitQueue.remove(h);
             }
@@ -163,7 +157,7 @@ public class Tunnel
             pm.check();
         }
         pm.check();
-        // Crossing
+        // Simulate crossing with periodic pause checks
         logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea() + ".");
 //        Thread.sleep(1000);
         Thread.sleep(500);
@@ -176,7 +170,7 @@ public class Tunnel
         logger.log("Human " + h.getHumanId() + " has reached unsafe area " + unsafeArea.getArea() + ".");
         pm.check();
         
-        // Release the tunnel
+        // Release the tunnel and notify next human
         usingLock.lock();
         try 
         {
@@ -184,17 +178,14 @@ public class Tunnel
             tunnelBusy = false;
             currentInside = null;
             notifyChange();
-            pm.check();
             // Give priority to returners
             if (hasReturnersWaiting()) 
             {
                 entryCondition.signal();
-                pm.check();
             } 
             else
             {
                 exitCondition.signal();
-                pm.check();
             }
         } 
         finally 
@@ -208,15 +199,15 @@ public class Tunnel
      * Requests return to the refuge from the unsafe area.
      * Ensures only one human is crossing and handles GUI and logs.
      *
-     * @param h The human requesting to return
+     * @param h the human requesting to return
      * @throws InterruptedException if the thread is interrupted
      */
     public void requestReturn(Human h) throws InterruptedException 
     {
         pm.check();
-        // Enqueue the human to the exit waiting list
-        synchronized(waitingToReturnQueue)
+        synchronized(waitingToReturnQueue) // Protected using the queue's monitor
         {
+            // Join the return queue
             waitingToReturnQueue.add(h);
             logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea() + ".");
         }
@@ -233,8 +224,9 @@ public class Tunnel
                 entryCondition.await();
             }            
             pm.check();
+            
             // Remove this human from the waiting queue as it is going to cross
-            synchronized(waitingToReturnQueue)
+            synchronized(waitingToReturnQueue) // Protected using the queue's monitor
             {
                 waitingToReturnQueue.remove(h);
             }
@@ -253,7 +245,7 @@ public class Tunnel
         }
         
         pm.check();
-        // Crossing.
+        // Simulate crossing with periodic pause checks
         logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea() + ".");
 //        Thread.sleep(1000);
         Thread.sleep(500);
@@ -291,7 +283,7 @@ public class Tunnel
     
     /**
      * Checks if there are any humans currently waiting to return to the shelter.
-     * Uses entryWaitingLock to synchronize access.
+     * Uses waitingToReturnQueue's monitor to protect the access.
      *
      * @return true if there are waiting returners, false otherwise.
      */
@@ -306,22 +298,31 @@ public class Tunnel
     /**
      * Reports the number of humans currently involved in the tunnel
      *
-     * @return Total number of humans in the tunnel (waiting and crossing)
+     * @return total number of humans in the tunnel (waiting and crossing)
      */
     public int getTotalInTunnel() 
     {
         int result;
         if(tunnelBusy)
         {
+            // One human is currently crossing the tunnel
             result=1+waitingToReturnQueue.size()+waitingToExitQueue.size();
         }
         else
         {
+            // No one is crossing, only count those in the queues
              result=waitingToReturnQueue.size()+waitingToExitQueue.size();
         }
         return result;
     }
     
+    /**
+     * Returns the ID of the human currently inside the tunnel. 
+     * If tunnel is not in use, returns placeholder "-----".
+     * Protected with the usingLock lock to ensure safety.
+     *
+     * @return ID of current human inside tunnel or "-----" if empty.
+     */
     public String getInTunnel()
     {
         String inside = "-----";
@@ -341,6 +342,14 @@ public class Tunnel
         return inside;
     }
     
+    /**
+     * Returns a copy of the queue of humans waiting to return to the refuge. 
+     * 
+     * Uses waitingToReturnQueue's monitor to ensure safety.
+     *
+     * @return a copy of the queue of humans waiting to return
+     * @throws InterruptedException if thread is interrupted
+     */
     public Queue<Human> getEntering() throws InterruptedException
     {
         synchronized(waitingToReturnQueue)
@@ -349,6 +358,14 @@ public class Tunnel
         }
     }
     
+    /**
+     * Returns a copy of the queue of humans waiting to exit to the unsafe area. 
+     * 
+     * Uses waitingToExitQueue's monitor to ensure safety.
+     *
+     * @return a copy of the queue of humans waiting to exit
+     * @throws InterruptedException if thread is interrupted
+     */
     public Queue<Human> getExiting() throws InterruptedException
     {
         synchronized(waitingToExitQueue)
@@ -357,8 +374,23 @@ public class Tunnel
         }
     }
 
+    /**
+     * Returns the ID of this tunnel.
+     *
+     * @return the tunnel's ID
+     */
     public int getId() 
     {
         return id;
+    }
+    
+    /**
+     * Gets the associated UnsafeArea.
+     *
+     * @return the UnsafeArea of the tunnel.
+     */
+    public UnsafeArea getUnsafeArea() 
+    {
+        return unsafeArea;
     }
 }

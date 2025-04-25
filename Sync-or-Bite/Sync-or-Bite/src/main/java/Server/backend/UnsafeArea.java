@@ -12,30 +12,47 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Represents an unsafe area within a RiskZone where zombies and humans interact.
+ * 
+ * Shared variables like zombiesInside, humansInside, possibleTargets and attacks are
+ * accessed within synchronized using the respective object's monitor to ensure safety.
+ * 
+ * Each human that enters will be visualized in the GUI and logged.
+ * 
+ * The pause manager is periodically checked for pausing/resuming the system.
+ * 
+ * Observers are registered to receive updates when the state changes (for the GUI).
  */
 public class UnsafeArea 
 {
     // List of zombies currently inside this unsafe area
     private List<Zombie> zombiesInside = new ArrayList<>();  
+    // List of humans currently inside 
+    private List<Human> humansInside = new ArrayList<>();  
     // List of humans that can be targeted by zombies
     private List<Human> possibleTargets = new ArrayList<>();  
     // Thread safe counter for the number of humans inside
     private AtomicInteger humansInsideCount = new AtomicInteger(0);
-    private List<Human> humansInside = new ArrayList<>();  
     // Records attacked humans and the zombies attacking them
     private Map<Human,Zombie> attacks = new HashMap<>();
-    private RiskZone riskZone;
-    private int area;
     // Food generator for humans wandering inside
     private FoodGenerator fgenerator;
+    // The logger to log events
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
     // Observer list
     private final List<ChangeListener> listeners = new ArrayList<>();
     
+    private RiskZone riskZone;
+    private int area;
+    
     /**
      * Constructor for UnsafeArea.
+     * @param area the identifier of the unsafe area
+     * @param logger the logger 
+     * @param fgenerator the food generator for human food collection
+     * @param riskZone the RiskZone 
+     * @param pm the pause manager 
      */
     public UnsafeArea(int area, Logger logger, FoodGenerator fgenerator, RiskZone riskZone, PauseManager pm)
     {
@@ -46,15 +63,19 @@ public class UnsafeArea
         this.logger = logger;
     }
     
+    /**
+     * Registers a new change listener to be notified when state update occurs.
+     *
+     * @param l the listener to register
+     */
     public void addChangeListener(ChangeListener l) 
     {
         listeners.add(l);
     }
-    public void removeChangeListener(ChangeListener l) 
-    {
-        listeners.remove(l);
-    }
     
+    /**
+     * Notifies all registered listeners about a change in the state.
+     */
     private void notifyChange() 
     {
         for (ChangeListener l : listeners) 
@@ -64,8 +85,54 @@ public class UnsafeArea
     }
     
     /**
-     * Called by a zombie to perform its wandering behavior. If a human
-     * is inside the area, it attacks that human.
+     * Registers a zombie entering the unsafe area.
+     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Protected using zombiesInside's monitor.
+     *
+     * @param z the zombie entering
+     * @throws InterruptedException if interrupted
+     */
+    public void enter(Zombie z) throws InterruptedException
+    {
+        pm.check();
+        synchronized(zombiesInside)  // Uses the list's monitor for synchronization
+        {
+            zombiesInside.add(z);
+            logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
+            // Update GUI
+            notifyChange();
+        }
+        pm.check();
+    }
+    
+    /**
+     * Registers a zombie leaving the unsafe area.
+     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Protected using zombiesInside's monitor.
+     * 
+     * @param z the zombie leaving
+     * @throws InterruptedException if interrupted
+     */
+    public void exit(Zombie z) throws InterruptedException
+    {
+        pm.check();
+        synchronized(zombiesInside) // Uses the list's monitor for synchronization
+        {
+            zombiesInside.remove(z);
+            logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
+            // Update GUI
+            notifyChange();
+        }
+        pm.check();
+    }
+    
+    /**
+     * Called by a zombie to perform its wandering behavior. 
+     * If a human is inside the area, it attacks that human.
+     * 
+     * Uses possibleTargets and attacks monitor to ensure thread safe access when
+     * selecting targets and recording attacks.
+     * 
      * @param z the Zombie that is wandering.
      * @throws InterruptedException if the thread is interrupted
      */
@@ -113,7 +180,7 @@ public class UnsafeArea
             attackedHuman.interrupt();      // End of attack using another interrupt
             z.toggleAttacking();
 
-            notifyChange();
+            notifyChange();  // Notify listeners
         }
         
         // Simulate wandering time with periodic pause checks
@@ -132,45 +199,11 @@ public class UnsafeArea
     }
     
     /**
-     * Registers a zombie entering the unsafe area.
-     *
-     * @param z the zombie entering
-     * @throws InterruptedException if interrupted
-     */
-    public void enter(Zombie z) throws InterruptedException
-    {
-        pm.check();
-        synchronized(zombiesInside)  // Uses the list's monitor for synchronization
-        {
-            zombiesInside.add(z);
-            logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
-            // Update GUI
-            notifyChange();
-        }
-        pm.check();
-    }
-    
-    /**
-     * Registers a zombie leaving the unsafe area.
-     * 
-     * @param z the zombie leaving
-     * @throws InterruptedException if interrupted
-     */
-    public void exit(Zombie z) throws InterruptedException
-    {
-        pm.check();
-        synchronized(zombiesInside) // Uses the list's monitor for synchronization
-        {
-            zombiesInside.remove(z);
-            logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
-            // Update GUI
-            notifyChange();
-        }
-        pm.check();
-    }
-    
-    /**
      * Registers a human entering the unsafe area.
+     * Adds the human to both possibleTargets and humansInside lists, notifies 
+     * listeners, updates the human counter and shows the action in the log file.
+     * 
+     * Protected using possibleTargets's monitor.
      * 
      * @param h the human entering
      * @throws InterruptedException if interrupted
@@ -192,6 +225,8 @@ public class UnsafeArea
     
     /**
      * Registers a human leaving the unsafe area.
+     * Removes the human from both possibleTargets and humansInside lists, notifies 
+     * listeners, updates the human counter and shows the action in the log file.
      * 
      * @param h the human leaving
      * @throws InterruptedException if interrupted
@@ -214,6 +249,9 @@ public class UnsafeArea
     /**
      * Simulates human wandering through the unsafe area: explores, and if not attacked collects food.
      * If attacked, may defend or be turned into a zombie.
+     * 
+     * Uses attacks and zombiesInside monitor to ensure thread safe access when humans
+     * are attacked, killed or reborn as zombies.
      * 
      * @param h the human
      */
@@ -251,16 +289,16 @@ public class UnsafeArea
             try
             {
                 h.toggleAttacked();
-                h.loseAllFood();
+                h.loseAllFood();     
                 notifyChange();
                 // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
                 Thread.sleep(86400000);       // 24 hours is the maximum time the program can remain stopped during a zombie attack without changing the program behaviour
             }
             catch(InterruptedException ie2)
             {
-                int defense = (int) (Math.random() * 3);  // 2/3 chance to survive
+                int defense = (int) (Math.random() * 3);  
                 pm.check();
-                if (defense < 2) 
+                if (defense < 2)  // 2/3 chance to survive
                 {
                     logger.log("Human " + h.getHumanId() + " successfully defended itself from the attack.");
                     
@@ -290,8 +328,8 @@ public class UnsafeArea
                     {  
                         killer = attacks.get(h);
                         attacks.remove(h);
-                        humansInside.remove(h);
-                        humansInsideCount.decrementAndGet();
+                        humansInside.remove(h);   // Human died so it's removed from humansInside
+                        humansInsideCount.decrementAndGet(); // Decrement the counter
                     }
                     notifyChange();
                     pm.check(); 
@@ -347,19 +385,25 @@ public class UnsafeArea
         return humansInsideCount;
     }
     
+    /**
+     * Returns a copy of the list of humans currently inside the unsafe area.
+     * Protected by humansInside's monitor.
+     *
+     * @return a copy of the list of humans inside the unsafe area
+     */
     public ArrayList<Human> getHumansInside()
     {
         synchronized(humansInside)
         {
-            return new ArrayList<Human> (humansInside);
+            return new ArrayList<Human>(humansInside);
         }
     }
-   
     
     /**
-     * Gets the current number of zombies in this area.
+     * Gets the current number of zombies in the unsafe area.
+     * Protected by zombiesInside's monitor.
      * 
-     * @return number of zombies protected by the list's monitor
+     * @return the number of humans currently inside
      */
     public int getZombiesInsideCount()
     {
@@ -371,11 +415,17 @@ public class UnsafeArea
         }
     }
     
+    /**
+     * Returns a copy of the list of zombies currently inside the unsafe area.
+     * Protected by zombiesInside's monitor.
+     *
+     * @return a copy of the list of zombies inside the unsafe area
+     */
     public ArrayList<Zombie> getZombiesInside()
     {
         synchronized(zombiesInside)
         {
-            return new ArrayList<Zombie> (zombiesInside);
+            return new ArrayList<Zombie>(zombiesInside);
         }
     }
 }
