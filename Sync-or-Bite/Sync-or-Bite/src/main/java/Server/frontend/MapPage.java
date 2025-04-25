@@ -75,6 +75,9 @@ public class MapPage extends javax.swing.JPanel
     private RiskZone rz = ServerApp.getRZ();
     private Tunnels t = ServerApp.getT();
     
+    // Scheduled executor to handle periodic UI updates
+    private final ScheduledExecutorService uiUpdater = Executors.newSingleThreadScheduledExecutor();
+    
     /**
      * Constructor for MapPage.
      * Initializes the UI components, sets up listeners for simulation state changes,
@@ -106,61 +109,6 @@ public class MapPage extends javax.swing.JPanel
     }
     
     /**
-     * Enables automatic resizing of panels based on the size of the MapPage.
-     * Adjusts the width of panels dynamically to fit the available space.
-     */
-    public void enableAutoResize() 
-    {
-        this.addComponentListener(new ComponentAdapter() 
-        {
-            @Override
-            public void componentResized(ComponentEvent e) 
-            {
-                int totalWidth = getWidth(); // Visible width of MapPage
-
-                for (Map.Entry<String, JPanel> entry : panels.entrySet()) 
-                {
-                    String key = entry.getKey();
-                    JPanel panel = entry.getValue();
-
-                    int maxWidth;
-
-                    // Determine the maximum width for each panel based on its type
-                    if (key.startsWith("RH") || key.startsWith("RZ")) 
-                    {
-                        maxWidth = totalWidth / 8;
-                    } 
-                    else if (key.startsWith("TR") || key.startsWith("TE")) 
-                    {
-                        maxWidth = totalWidth / 4;
-                    } 
-                    else if (key.equals("C") || key.equals("D") || key.equals("R")) 
-                    {
-                        maxWidth = totalWidth / 3;
-                    } else 
-                    {
-                        continue;
-                    }
-
-                    // Update the panel's size
-                    Dimension size = panel.getPreferredSize();
-                    panel.setMaximumSize(new Dimension(maxWidth, size.height));
-                    panel.setPreferredSize(new Dimension(maxWidth,size.height));
-                    panel.revalidate();
-                }
-
-                revalidate();
-                repaint();
-            }
-        });
-    }
-
-        // Scheduled executor to handle periodic UI updates
-    private final ScheduledExecutorService uiUpdater = Executors.newSingleThreadScheduledExecutor();
-    // Control flag to stop the loop gracefully
-    private volatile boolean stopUpdates = false;
-
-    /**
      * Starts the main update loop, polling the backend state at a fixed interval (every ~33ms).
      * It batches all GUI updates to prevent flooding the Event Dispatch Thread (EDT).
      * This approach ensures smoother rendering and avoids race conditions.
@@ -169,8 +117,6 @@ public class MapPage extends javax.swing.JPanel
         uiUpdater.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                if (stopUpdates) return;
-                
                 try 
                 {
                     // BACKEND DATA COLLECTION 
@@ -308,6 +254,58 @@ public class MapPage extends javax.swing.JPanel
             }
         }, 0, 15, MILLISECONDS); //
     }
+    
+    /**
+     * Enables automatic resizing of panels based on the size of the MapPage.
+     * Adjusts the width of panels dynamically to fit the available space.
+     */
+    public void enableAutoResize() 
+    {
+        this.addComponentListener(new ComponentAdapter() 
+        {
+            @Override
+            public void componentResized(ComponentEvent e) 
+            {
+                int totalWidth = getWidth(); // Visible width of MapPage
+
+                for (Map.Entry<String, JPanel> entry : panels.entrySet()) 
+                {
+                    String key = entry.getKey();
+                    JPanel panel = entry.getValue();
+
+                    int maxWidth;
+
+                    // Determine the maximum width for each panel based on its type
+                    if (key.startsWith("RH") || key.startsWith("RZ")) 
+                    {
+                        maxWidth = totalWidth / 8;
+                    } 
+                    else if (key.startsWith("TR") || key.startsWith("TE")) 
+                    {
+                        maxWidth = totalWidth / 4;
+                    } 
+                    else if (key.equals("C") || key.equals("D") || key.equals("R")) 
+                    {
+                        maxWidth = totalWidth / 3;
+                    } else 
+                    {
+                        continue;
+                    }
+
+                    // Update the panel's size
+                    Dimension size = panel.getPreferredSize();
+                    panel.setMaximumSize(new Dimension(maxWidth, size.height));
+                    panel.setPreferredSize(new Dimension(maxWidth,size.height));
+                    panel.revalidate();
+                }
+
+                revalidate();
+                repaint();
+            }
+        });
+    }
+
+    
 
 
     /**
