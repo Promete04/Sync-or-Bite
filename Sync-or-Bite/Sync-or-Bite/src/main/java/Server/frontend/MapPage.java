@@ -114,9 +114,11 @@ public class MapPage extends javax.swing.JPanel
      * This approach ensures smoother rendering and avoids race conditions.
      */
     public void startMainLoop() {
-        uiUpdater.scheduleAtFixedRate(new Runnable() {
+        uiUpdater.scheduleAtFixedRate(new Runnable() 
+        {
             @Override
-            public void run() {
+            public void run() 
+            {
                 try 
                 {
                     // BACKEND DATA COLLECTION 
@@ -159,7 +161,8 @@ public class MapPage extends javax.swing.JPanel
                     }
                     
                     // GUI UPDATES
-                    SwingUtilities.invokeLater(() -> {
+                    SwingUtilities.invokeLater(() -> 
+                    {
                         
                         // COMMON AREA
                         updatePanel("C", caHumans.stream().map(Human::getHumanId).toList());
