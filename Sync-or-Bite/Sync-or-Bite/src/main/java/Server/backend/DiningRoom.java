@@ -64,6 +64,8 @@ public class DiningRoom
      
     /**
      * Notifies all registered listeners about a change in the state.
+     * 
+     * @param isRepainting whether a repaint in the GUI is needed
      */
     private void notifyChange(boolean isRepainting) 
     {

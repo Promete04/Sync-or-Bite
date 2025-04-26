@@ -75,6 +75,8 @@ public class UnsafeArea
     
     /**
      * Notifies all registered listeners about a change in the state.
+     * 
+     * @param isRepainting whether a repaint in the GUI is needed
      */
     private void notifyChange(boolean isRepainting) 
     {
@@ -286,7 +288,7 @@ public class UnsafeArea
         {
             try
             {
-                h.toggleAttacked();
+                h.toggleAttacked();  // Attack starts
                 h.loseAllFood();     // In case the human is interrupted after collecting the food.
                 notifyChange(true);
                 // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
