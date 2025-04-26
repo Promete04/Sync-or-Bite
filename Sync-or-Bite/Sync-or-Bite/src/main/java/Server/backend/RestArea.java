@@ -110,16 +110,11 @@ public class RestArea
 //        Thread.sleep(2000 + (int) (Math.random()*2000));     
 
             // Simulate resting time with periodic pause checks
-            Thread.sleep(500 + (int) (Math.random() * 500));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 500));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 500));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 250));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 250));
-            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 500)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 500)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 500)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 250)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 250)); pm.check();
         }
         catch(InterruptedException ie)
         {
@@ -142,20 +137,13 @@ public class RestArea
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 
             // Simulate recovering time with periodic pause checks
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 334));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 167));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 167));
-            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 334)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 167)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 167)); pm.check();
         }
         catch(InterruptedException ie)
         {

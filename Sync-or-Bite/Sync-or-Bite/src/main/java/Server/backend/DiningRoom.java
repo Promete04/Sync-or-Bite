@@ -116,20 +116,13 @@ public class DiningRoom
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 
             // Simulate eating time with periodic pause checks
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 334));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 167));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 167));
-            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 334)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 167)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 167)); pm.check();
         }
         catch(InterruptedException ie)
         {

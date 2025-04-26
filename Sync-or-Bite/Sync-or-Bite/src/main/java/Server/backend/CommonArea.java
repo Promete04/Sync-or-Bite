@@ -110,12 +110,9 @@ public class CommonArea
 //            Thread.sleep(1000 + (int) (Math.random() * 1000));
 
             // Simulate preparing time with periodic pause checks
-            Thread.sleep(500 + (int) (Math.random() * 500));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 250));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 250));
-            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 500)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 250)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 250)); pm.check();  
         }
         catch(InterruptedException ie)
         {

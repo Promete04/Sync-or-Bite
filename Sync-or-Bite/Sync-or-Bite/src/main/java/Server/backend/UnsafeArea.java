@@ -171,11 +171,9 @@ public class UnsafeArea
                 // Simulate attack time with periodic pause checks
                 
 //            Thread.sleep(500 + (int) (Math.random()*1000));
-                Thread.sleep(250 + (int) (Math.random() * 500));
-                pm.check();
-                Thread.sleep(125 + (int) (Math.random() * 250));
-                pm.check();
-                Thread.sleep(125 + (int) (Math.random() * 250));
+                Thread.sleep(250 + (int) (Math.random() * 500)); pm.check();
+                Thread.sleep(125 + (int) (Math.random() * 250)); pm.check();
+                Thread.sleep(125 + (int) (Math.random() * 250)); pm.check();
             }
             catch(InterruptedException ie)
             {
@@ -194,16 +192,11 @@ public class UnsafeArea
             // Simulate wandering time with periodic pause checks
 
 //        Thread.sleep(2000 + (int) (Math.random()*1000));
-            Thread.sleep(500 + (int) (Math.random() * 250));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 250));
-            pm.check();
-            Thread.sleep(500 + (int) (Math.random() * 250));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 125));
-            pm.check();
-            Thread.sleep(250 + (int) (Math.random() * 125));
-            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 250)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 250)); pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 250)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 125)); pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 125)); pm.check();
         }
         catch(InterruptedException ie)
         {
@@ -275,20 +268,13 @@ public class UnsafeArea
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 
             // Exploration simulation with periodic pause checks
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.underAttackCheck();
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.underAttackCheck();
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.underAttackCheck();
-            Thread.sleep(500 + (int) (Math.random() * 333));
-            pm.underAttackCheck();
-            Thread.sleep(500 + (int) (Math.random() * 334));
-            pm.underAttackCheck();
-            Thread.sleep(250 + (int) (Math.random() * 167));
-            pm.underAttackCheck();
-            Thread.sleep(250 + (int) (Math.random() * 167));
-            pm.underAttackCheck();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.underAttackCheck();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.underAttackCheck();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.underAttackCheck();
+            Thread.sleep(500 + (int) (Math.random() * 333)); pm.underAttackCheck();
+            Thread.sleep(500 + (int) (Math.random() * 334)); pm.underAttackCheck();
+            Thread.sleep(250 + (int) (Math.random() * 167)); pm.underAttackCheck();
+            Thread.sleep(250 + (int) (Math.random() * 167)); pm.underAttackCheck();
             
             // Collect food 
             h.collectFood(fgenerator.gatherFood());

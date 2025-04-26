@@ -168,12 +168,9 @@ public class Tunnel
         try
         {
 //        Thread.sleep(1000);
-            Thread.sleep(500);
-            pm.check();
-            Thread.sleep(250);
-            pm.check();
-            Thread.sleep(250);
-            pm.check();
+            Thread.sleep(500); pm.check();
+            Thread.sleep(250); pm.check();
+            Thread.sleep(250); pm.check();
         }
         catch(InterruptedException ie)
         {
@@ -264,11 +261,9 @@ public class Tunnel
         try
         {
 //        Thread.sleep(1000);
-            Thread.sleep(500);
-            pm.check();
-            Thread.sleep(250);
-            pm.check();
-            Thread.sleep(250);
+            Thread.sleep(500); pm.check();
+            Thread.sleep(250); pm.check();
+            Thread.sleep(250); pm.check();
         }
         catch(InterruptedException ie)
         {

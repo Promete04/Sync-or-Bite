@@ -4,6 +4,7 @@
  */
 package Server.backend;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -205,4 +206,14 @@ public class Human extends Thread
         this.selectedTunnel = selectedTunnel;
     }
     
+    /**
+     * Obtains the color that the human should have in the GUI.
+     *
+     * @returns the color that will be used by the GUI
+     */
+    public Color getHumanColor() 
+    {
+        Color color = isBeingAttacked() ? utils.ColorManager.ATTACKED_COLOR : isMarked() ? utils.ColorManager.INJURED_COLOR : utils.ColorManager.HUMAN_COLOR;
+        return color;
+    }
 }
