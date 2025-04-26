@@ -187,7 +187,7 @@ public class Human extends Thread
     {
         return foodList.removeFirst();
     }
-    
+
     /**
      * Clears all collected food.
      */

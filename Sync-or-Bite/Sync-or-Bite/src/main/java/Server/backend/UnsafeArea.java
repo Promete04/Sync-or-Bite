@@ -280,13 +280,14 @@ public class UnsafeArea
             h.collectFood(fgenerator.gatherFood());
             h.collectFood(fgenerator.gatherFood());
             logger.log("Human " + h.getHumanId() + " gathered 2 units of food in unsafe area " + area + ".");
+            Thread.sleep(10);  // To ensure that the interrupt gets triggered in the rare case that the zombie interrupts the human while collecting the food.
         }
         catch(InterruptedException ie)
         {
             try
             {
                 h.toggleAttacked();
-                h.loseAllFood();     
+                h.loseAllFood();     // In case the human is interrupted after collecting the food.
                 notifyChange(true);
                 // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
                 Thread.sleep(86400000);       // 24 hours is the maximum time the program can remain stopped during a zombie attack without changing the program behaviour
