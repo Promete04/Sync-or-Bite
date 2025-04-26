@@ -100,9 +100,8 @@ public class Tunnel
      * and is animated crossing the tunnel in the GUI. Also handles logs.
      *
      * @param h the human requesting to exit
-     * @throws InterruptedException if the thread is interrupted
      */
-    public void requestExit(Human h) throws InterruptedException 
+    public void requestExit(Human h) 
     {
         pm.check();
         synchronized(waitingToExitQueue)  // Protected using the queue's monitor
@@ -120,10 +119,15 @@ public class Tunnel
         {
             groups.await();
         } 
-        catch (BrokenBarrierException e)
+        catch(BrokenBarrierException e)
         {
             logger.log("Barrier broken for human " + h.getHumanId() + ": " + e.getMessage());
         }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
+        
         // Group is formed, prepare for individual tunnel access
         h.toggleWaitGroup();
         notifyChange();
@@ -149,6 +153,10 @@ public class Tunnel
             currentInside = h;
             notifyChange();
         } 
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
         finally 
         {
             usingLock.unlock();
@@ -156,13 +164,21 @@ public class Tunnel
         }
         // Simulate crossing with periodic pause checks
         logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea() + ".");
+        
+        try
+        {
 //        Thread.sleep(1000);
-        Thread.sleep(500);
-        pm.check();
-        Thread.sleep(250);
-        pm.check();
-        Thread.sleep(250);
-        pm.check();
+            Thread.sleep(500);
+            pm.check();
+            Thread.sleep(250);
+            pm.check();
+            Thread.sleep(250);
+            pm.check();
+        }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
         
         logger.log("Human " + h.getHumanId() + " has reached unsafe area " + unsafeArea.getArea() + ".");
         pm.check();
@@ -197,9 +213,8 @@ public class Tunnel
      * Ensures only one human is crossing and handles GUI and logs.
      *
      * @param h the human requesting to return
-     * @throws InterruptedException if the thread is interrupted
      */
-    public void requestReturn(Human h) throws InterruptedException 
+    public void requestReturn(Human h) 
     {
         pm.check();
         synchronized(waitingToReturnQueue) // Protected using the queue's monitor
@@ -233,6 +248,10 @@ public class Tunnel
             notifyChange();
             
         } 
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
         finally 
         {
             usingLock.unlock();
@@ -241,12 +260,21 @@ public class Tunnel
         
         // Simulate crossing with periodic pause checks
         logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea() + ".");
+        
+        try
+        {
 //        Thread.sleep(1000);
-        Thread.sleep(500);
-        pm.check();
-        Thread.sleep(250);
-        pm.check();
-        Thread.sleep(250);
+            Thread.sleep(500);
+            pm.check();
+            Thread.sleep(250);
+            pm.check();
+            Thread.sleep(250);
+        }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
+
         pm.check();
         logger.log("Human " + h.getHumanId() + " has reached the refuge from unsafe area " + unsafeArea.getArea() + ".");
         
@@ -290,11 +318,12 @@ public class Tunnel
     }
     
     /**
-     * Reports the number of humans currently involved in the tunnel
+     * Reports the number of humans currently involved in the tunnel.
+     * Protected with usingLock and waitingToReturnQueue and waitingToExitQueue's monitors.
      *
      * @return total number of humans in the tunnel (waiting and crossing)
      */
-    public int getTotalInTunnel() 
+    public int getTotalInTunnel()  
     {
         usingLock.lock();
         try
@@ -338,7 +367,7 @@ public class Tunnel
      *
      * @return ID of current human inside tunnel or "-----" if empty.
      */
-    public String getInTunnel()
+    public String getInTunnel() 
     {
         String inside = "-----";
         usingLock.lock();
@@ -363,9 +392,8 @@ public class Tunnel
      * Uses waitingToReturnQueue's monitor to ensure safety.
      *
      * @return a copy of the queue of humans waiting to return
-     * @throws InterruptedException if thread is interrupted
      */
-    public Queue<Human> getEntering() throws InterruptedException
+    public Queue<Human> getEntering() 
     {
         synchronized(waitingToReturnQueue)
         {
@@ -379,9 +407,8 @@ public class Tunnel
      * Uses waitingToExitQueue's monitor to ensure safety.
      *
      * @return a copy of the queue of humans waiting to exit
-     * @throws InterruptedException if thread is interrupted
      */
-    public Queue<Human> getExiting() throws InterruptedException
+    public Queue<Human> getExiting() 
     {
         synchronized(waitingToExitQueue)
         {

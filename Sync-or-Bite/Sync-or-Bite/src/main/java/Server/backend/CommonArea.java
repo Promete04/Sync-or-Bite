@@ -69,9 +69,8 @@ public class CommonArea
      * Protected using the monitor.
      * 
      * @param h the human entering the area
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public synchronized void enter(Human h) throws InterruptedException
+    public synchronized void enter(Human h) 
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the common area.");
@@ -86,9 +85,8 @@ public class CommonArea
      * Protected using the monitor.
      * 
      * @param h the human leaving the area
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public synchronized void exit(Human h) throws InterruptedException
+    public synchronized void exit(Human h) 
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the common area.");
@@ -101,22 +99,28 @@ public class CommonArea
      * Human gets prepared and choses a tunnel.
      * 
      * @param h the human preparing in the common area
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public void prepare(Human h) throws InterruptedException
+    public void prepare(Human h) 
     {  
         pm.check();
         logger.log("Human " + h.getHumanId() + " is getting prepared in the common area.");
         
-//        Thread.sleep(1000 + (int) (Math.random() * 1000));
+        try
+        {
+//            Thread.sleep(1000 + (int) (Math.random() * 1000));
 
-        // Simulate preparing time with periodic pause checks
-        Thread.sleep(500 + (int) (Math.random() * 500));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random() * 250));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random() * 250));
-        pm.check();
+            // Simulate preparing time with periodic pause checks
+            Thread.sleep(500 + (int) (Math.random() * 500));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 250));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 250));
+            pm.check();
+        }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }       
         
         // Tunnel selection (from 0 to 3)
         int selectedTunnel = (int)(Math.random()*4);

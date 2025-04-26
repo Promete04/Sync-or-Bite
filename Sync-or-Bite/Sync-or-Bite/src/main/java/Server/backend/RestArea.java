@@ -68,9 +68,8 @@ public class RestArea
      * Protected using the monitor.
      *
      * @param h  the human entering the rest area
-     * @throws InterruptedException if the thread is interrupted during a pause check
      */
-    public synchronized void enter(Human h) throws InterruptedException
+    public synchronized void enter(Human h) 
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
@@ -86,9 +85,8 @@ public class RestArea
      * Protected using the monitor.
      *
      * @param h  the human exiting the rest area
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public synchronized void exit(Human h) throws InterruptedException
+    public synchronized void exit(Human h) 
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the rest area.");
@@ -101,58 +99,69 @@ public class RestArea
      * Called when the human has to rest in the rest area.
      *
      * @param h  the human who is resting
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public void rest(Human h) throws InterruptedException
+    public void rest(Human h)
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " is resting in the rest area.");
         
+        try
+        {
 //        Thread.sleep(2000 + (int) (Math.random()*2000));     
 
-        // Simulate resting time with periodic pause checks
-        Thread.sleep(500 + (int) (Math.random()*500));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random()*500));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random()*500));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random()*250));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random()*250));
-        pm.check();
+            // Simulate resting time with periodic pause checks
+            Thread.sleep(500 + (int) (Math.random() * 500));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 500));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 500));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 250));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 250));
+            pm.check();
+        }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
     }
     
     /**
      * Called when a human has to get fully recovered.
      *
      * @param h  the human recovering
-     * @throws InterruptedException if the thread is interrupted
      */
-    public void fullRecover(Human h) throws InterruptedException
+    public void fullRecover(Human h) 
     {
         pm.check();
         logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");
         
-
+        try
+        {
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 
-        // Simulate recovering time with periodic pause checks
-        Thread.sleep(500 + (int) (Math.random()*333));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random()*333));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random()*333));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random()*333));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random()*334));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random()*167));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random()*167));
-        pm.check();
-        
+            // Simulate recovering time with periodic pause checks
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 334));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 167));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 167));
+            pm.check();
+        }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
+
         // Unmark the human after full recovery
         h.toggleMarked();
         pm.check();

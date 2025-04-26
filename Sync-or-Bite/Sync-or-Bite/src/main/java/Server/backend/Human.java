@@ -65,6 +65,7 @@ public class Human extends Thread
                 tunnels.obtainTunnel(selectedTunnel).requestExit(this);
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().enter(this);
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this);
+                
                 sleep(10);         //Sleep just to trigger the interrupt in case it was interrupted (killed).
                 
                 // Leave the unsafe area through the tunnel

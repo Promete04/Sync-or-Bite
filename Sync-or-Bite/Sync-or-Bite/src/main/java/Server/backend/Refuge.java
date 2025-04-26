@@ -117,9 +117,8 @@ public class Refuge
      * Allows a human to access the common area, perform preparation and then exit.
      *
      * @param h  the human accessing the common area
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public void accessCommonArea(Human h) throws InterruptedException
+    public void accessCommonArea(Human h) 
     {
         commonArea.enter(h);
         commonArea.prepare(h);
@@ -130,9 +129,8 @@ public class Refuge
      * Allows a human to access the rest area, rest and then exit.
      *
      * @param h  the human resting
-     * @throws InterruptedException if the thread is interrupted
      */
-    public void restInRestArea(Human h) throws InterruptedException
+    public void restInRestArea(Human h)
     {
         restArea.enter(h);
         restArea.rest(h);
@@ -143,9 +141,8 @@ public class Refuge
      * Allows a human to access the rest area, fully recover from injury and exit.
      *
      * @param h  the human recovering
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public void fullRecoverInRestArea(Human h) throws InterruptedException
+    public void fullRecoverInRestArea(Human h)
     {
         restArea.enter(h);
         restArea.fullRecover(h);
@@ -157,9 +154,8 @@ public class Refuge
      *
      * @param f  the food to be deposited
      * @param h  the human performing the deposit
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public void depositFoodInDiningRoom(Food f, Human h) throws InterruptedException  
+    public void depositFoodInDiningRoom(Food f, Human h) 
     {
         diningRoom.storeFood(f, h);
     }
@@ -168,9 +164,8 @@ public class Refuge
      * Allows a human to enter the dining room, consume food and exit.
      *
      * @param h  the human accessing the dining room
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public void accessDiningRoom(Human h) throws InterruptedException
+    public void accessDiningRoom(Human h) 
     {
         diningRoom.enter(h);
         diningRoom.eatFood(h);

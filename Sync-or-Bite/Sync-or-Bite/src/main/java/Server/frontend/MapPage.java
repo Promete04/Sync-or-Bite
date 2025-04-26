@@ -322,60 +322,55 @@ public class MapPage extends javax.swing.JPanel
                         String entryPanel = "TR" + String.valueOf(index + 1);
                         String exitPanel = "TE" + String.valueOf(index + 1);
                         
-                        try
+
+                        Queue<Human> entering = tunnel.getEntering();
+                        Queue<Human> exiting  = tunnel.getExiting();
+                        String crossing = tunnel.getInTunnel();
+
+                        // Update humans returning to refuge
+                        updatePanel(entryPanel, entering.stream()
+                       .map(Human::getHumanId)
+                       .toList());
+
+                        // Update label colors based on human states
+                        for (Human human : entering) 
                         {
-                            Queue<Human> entering = tunnel.getEntering();
-                            Queue<Human> exiting  = tunnel.getExiting();
-                            String crossing = tunnel.getInTunnel();
-
-                            // Update humans returning to refuge
-                            updatePanel(entryPanel, entering.stream()
-                           .map(Human::getHumanId)
-                           .toList());
-
-                            // Update label colors based on human states
-                            for (Human human : entering) 
+                            if (human.isMarked()) 
                             {
-                                if (human.isMarked()) 
-                                {
-                                    setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
-                                } 
-                            }
-
-                            // Update humans exiting from refuge
-                            updatePanel(exitPanel, exiting.stream()
-                                .map(Human::getHumanId)
-                                .toList());
-
-                            // Update label colors based on human states
-                            for (Human human : exiting) 
-                            {
-                                if (human.isWaiting()) 
-                                {
-                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
-                                } 
-                                else
-                                {
-                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                }
-                            }
-                            
-                            // Update the crossing human state in the correct tunnel
-                            switch (index + 1) 
-                            {
-                                case 1 -> currentCrossing1.setText(crossing);
-                                case 2 -> currentCrossing2.setText(crossing);
-                                case 3 -> currentCrossing3.setText(crossing);
-                                case 4 -> currentCrossing4.setText(crossing);
-                            }
-                            
-                            setCounter("RC", String.valueOf(r.getCount()));
-                        } 
-                        catch (InterruptedException ex) 
-                        {
-                            Logger.getLogger(MapPage.class.getName()).log(Level.SEVERE, null, ex);
+                                setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
+                            } 
                         }
+
+                        // Update humans exiting from refuge
+                        updatePanel(exitPanel, exiting.stream()
+                            .map(Human::getHumanId)
+                            .toList());
+
+                        // Update label colors based on human states
+                        for (Human human : exiting) 
+                        {
+                            if (human.isWaiting()) 
+                            {
+                                setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
+                            } 
+                            else
+                            {
+                                setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                            }
+                        }
+
+                        // Update the crossing human state in the correct tunnel
+                        switch (index + 1) 
+                        {
+                            case 1 -> currentCrossing1.setText(crossing);
+                            case 2 -> currentCrossing2.setText(crossing);
+                            case 3 -> currentCrossing3.setText(crossing);
+                            case 4 -> currentCrossing4.setText(crossing);
+                        }
+
+                        setCounter("RC", String.valueOf(r.getCount()));    
                     }
+                    
                     default -> 
                     {
                         System.err.println("Unknown source for change: " + source);

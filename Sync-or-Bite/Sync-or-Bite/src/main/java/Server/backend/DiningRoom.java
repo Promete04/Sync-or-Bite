@@ -80,9 +80,8 @@ public class DiningRoom
      * 
      * @param f  the food unit being deposited
      * @param h  the human who is depositing the food
-     * @throws InterruptedException if the thread is interrupted while waiting
      */
-    public void storeFood(Food f, Human h) throws InterruptedException  
+    public void storeFood(Food f, Human h)  
     {
         pm.check();
         synchronized(foodList)
@@ -100,36 +99,42 @@ public class DiningRoom
      * A semaphore ensures that food cannot be eaten unless available, FIFO queue formed in case there are no food units.
      * 
      * @param h  the human who is eating
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public void eatFood(Human h) throws InterruptedException  
+    public void eatFood(Human h) 
     {   
         pm.check();
-        foodCount.acquire();  // Wait until food is available
-        synchronized(foodList) // foodList update and also log and GUI protected by foodList monitor
-        {  
-            foodList.poll();
-            logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
-            notifyChange();
-        } 
-        
+        try
+        {
+            foodCount.acquire();  // Wait until food is available
+            synchronized (foodList) // foodList update and also log and GUI protected by foodList monitor
+            {
+                foodList.poll();
+                logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
+                notifyChange();
+            }
+            
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 
-        // Simulate eating time with periodic pause checks
-        Thread.sleep(500 + (int) (Math.random() * 333));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random() * 333));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random() * 333));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random() * 333));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random() * 334));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random() * 167));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random() * 167));
-        pm.check();
+            // Simulate eating time with periodic pause checks
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 333));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 334));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 167));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 167));
+            pm.check();
+        }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
     }
     
     /**
@@ -138,9 +143,8 @@ public class DiningRoom
      * Updates internal list, notifies listeners and shows the action in the log file.
      * 
      * @param h  the human entering the room.
-     * @throws InterruptedException if the thread is interrupted
      */
-    public void enter(Human h) throws InterruptedException
+    public void enter(Human h)
     {
         try
         {
@@ -149,6 +153,10 @@ public class DiningRoom
             logger.log("Human " + h.getHumanId() + " entered the dining room.");
             humansInside.add(h);
             notifyChange(); 
+        }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
         }
         finally
         {
@@ -164,9 +172,8 @@ public class DiningRoom
      * Updates internal list, notifies listeners and shows the action in the log file.
      * 
      * @param h  the human leaving the room.
-     * @throws InterruptedException if the thread is interrupted 
      */
-    public void exit(Human h) throws InterruptedException
+    public void exit(Human h) 
     {
         try 
         {
@@ -176,6 +183,10 @@ public class DiningRoom
             humansInside.remove(h);
             notifyChange(); 
         } 
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
         finally 
         {
             mutex.release();  // Mutual exclusion, critical section ends

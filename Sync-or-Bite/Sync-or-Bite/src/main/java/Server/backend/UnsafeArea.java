@@ -90,9 +90,8 @@ public class UnsafeArea
      * Protected using zombiesInside's monitor.
      *
      * @param z the zombie entering
-     * @throws InterruptedException if interrupted
      */
-    public void enter(Zombie z) throws InterruptedException
+    public void enter(Zombie z) 
     {
         pm.check();
         synchronized(zombiesInside)  // Uses the list's monitor for synchronization
@@ -111,9 +110,8 @@ public class UnsafeArea
      * Protected using zombiesInside's monitor.
      * 
      * @param z the zombie leaving
-     * @throws InterruptedException if interrupted
      */
-    public void exit(Zombie z) throws InterruptedException
+    public void exit(Zombie z) 
     {
         pm.check();
         synchronized(zombiesInside) // Uses the list's monitor for synchronization
@@ -134,9 +132,8 @@ public class UnsafeArea
      * selecting targets and recording attacks.
      * 
      * @param z the Zombie that is wandering.
-     * @throws InterruptedException if the thread is interrupted
      */
-    public void wander(Zombie z) throws InterruptedException
+    public void wander(Zombie z) 
     {
         pm.check();                     // Check if system is paused 
         Human attackedHuman = null;
@@ -167,15 +164,23 @@ public class UnsafeArea
             }
             
             // Start of attack simulated via interrupt
-            attackedHuman.interrupt();                    
-            
-            // Simulate attack time with periodic pause checks
+            attackedHuman.interrupt();        
+
+            try
+            {
+                // Simulate attack time with periodic pause checks
+                
 //            Thread.sleep(500 + (int) (Math.random()*1000));
-            Thread.sleep(250 + (int) (Math.random()*500));
-            pm.check();
-            Thread.sleep(125 + (int) (Math.random()*250));
-            pm.check();
-            Thread.sleep(125 + (int) (Math.random()*250));
+                Thread.sleep(250 + (int) (Math.random() * 500));
+                pm.check();
+                Thread.sleep(125 + (int) (Math.random() * 250));
+                pm.check();
+                Thread.sleep(125 + (int) (Math.random() * 250));
+            }
+            catch(InterruptedException ie)
+            {
+                ie.printStackTrace();
+            }
             
             attackedHuman.interrupt();      // End of attack using another interrupt
             
@@ -184,19 +189,26 @@ public class UnsafeArea
             notifyChange();  // Notify listeners
         }
         
-        // Simulate wandering time with periodic pause checks
-        pm.check();
+        try
+        {
+            // Simulate wandering time with periodic pause checks
+
 //        Thread.sleep(2000 + (int) (Math.random()*1000));
-        Thread.sleep(500 + (int) (Math.random()*250));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random()*250));
-        pm.check();
-        Thread.sleep(500 + (int) (Math.random()*250));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random()*125));
-        pm.check();
-        Thread.sleep(250 + (int) (Math.random()*125));
-        pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 250));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 250));
+            pm.check();
+            Thread.sleep(500 + (int) (Math.random() * 250));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 125));
+            pm.check();
+            Thread.sleep(250 + (int) (Math.random() * 125));
+            pm.check();
+        }
+        catch(InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
     }
     
     /**
@@ -207,9 +219,8 @@ public class UnsafeArea
      * Protected using possibleTargets's monitor.
      * 
      * @param h the human entering
-     * @throws InterruptedException if interrupted
      */
-    public void enter(Human h) throws InterruptedException
+    public void enter(Human h) 
     {
         pm.check();
         synchronized(possibleTargets) // Uses the list's monitor for synchronization
@@ -230,9 +241,8 @@ public class UnsafeArea
      * listeners, updates the human counter and shows the action in the log file.
      * 
      * @param h the human leaving
-     * @throws InterruptedException if interrupted
      */
-    public void exit(Human h) throws InterruptedException
+    public void exit(Human h) 
     {
         pm.check();
         synchronized (possibleTargets)  // Uses the list's monitor for synchronization

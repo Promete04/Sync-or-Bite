@@ -25,7 +25,6 @@ public class Logger
     private DateTimeFormatter lineFormatter;
     private String lastLogEntry;
 
-    
     // Observer list
     private final List<ChangeListener> listeners = new ArrayList<>();
     
