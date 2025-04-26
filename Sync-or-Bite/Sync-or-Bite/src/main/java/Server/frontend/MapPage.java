@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -164,179 +166,225 @@ public class MapPage extends javax.swing.JPanel
             @Override
             public void onChange(Object source, boolean isRepainting) 
             {
-                try
+                switch (source) 
                 {
-                    switch (source) {
-                        case CommonArea ca -> {
-                            ArrayList<Human> commonHumans = ca.getHumansInside();
-
-                            if (!isRepainting) {
-                                // Handle changes in the CommonArea
-                                updatePanel("C", commonHumans.stream().map(Human::getHumanId).toList());
-
-                                // Update counters for the CommonArea
-                                setCounter("HC", String.valueOf(ca.getHumansInsideCounter()));
-                                setCounter("RC", String.valueOf(r.getCount()));
-                            } else {
-                                // Update label colors based on human states
-                                for (Human human : commonHumans) {
-                                    if (human.isBeingAttacked()) {
-                                        setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                                    } else if (human.isMarked()) {
-                                        setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.INJURED_COLOR);
-                                    } else {
-                                        setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                    }
+                    case CommonArea ca -> 
+                    {
+                        ArrayList<Human> commonHumans = ca.getHumansInside();
+                        
+                        if(!isRepainting)
+                        {
+                            // Handle changes in the CommonArea
+                            updatePanel("C", commonHumans.stream().map(Human::getHumanId).toList());
+                            
+                            // Update counters for the CommonArea
+                            setCounter("HC", String.valueOf(ca.getHumansInsideCounter()));
+                            setCounter("RC", String.valueOf(r.getCount()));
+                        }
+                        else
+                        {
+                            // Update label colors based on human states
+                            for (Human human : commonHumans) 
+                            {
+                                if (human.isBeingAttacked()) 
+                                {
+                                    setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
+                                } 
+                                else if (human.isMarked())
+                                {
+                                    setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
+                                }
+                                else
+                                {
+                                    setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
                                 }
                             }
-                        }
-
-                        case RestArea ra -> {
-                            ArrayList<Human> restHumans = ra.getHumansInside();
-
-                            if (!isRepainting) {
-                                // Handle changes in the RestArea
-                                updatePanel("R", restHumans.stream().map(Human::getHumanId).toList());
-
-                                // Update counters for the RestArea
-                                setCounter("HR", String.valueOf(ra.getHumansInsideCounter()));
-                                setCounter("RC", String.valueOf(r.getCount()));
-                            } else {
-                                // Update label colors based on human states
-                                for (Human human : restHumans) {
-                                    if (human.isBeingAttacked()) {
-                                        setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                                    } else if (human.isMarked()) {
-                                        setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.INJURED_COLOR);
-                                    } else {
-                                        setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                    }
-                                }
-                            }
-                        }
-
-                        case DiningRoom dr -> {
-                            ArrayList<Human> dinningHumans = dr.getHumansInside();
-
-                            if (!isRepainting) {
-                                // Handle changes in the DiningRoom
-                                updatePanel("D", dinningHumans.stream().map(Human::getHumanId).toList());
-                                // Update counters for the DiningRoom
-                                setCounter("HD", String.valueOf(dr.getHumansInsideCounter()));
-                                setCounter("FC", String.valueOf(dr.getFoodCount()));
-                                setCounter("RC", String.valueOf(r.getCount()));
-                            } else {
-                                // Update label colors based on human states
-                                for (Human human : dinningHumans) {
-                                    if (human.isBeingAttacked()) {
-                                        setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                                    } else if (human.isMarked()) {
-                                        setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.INJURED_COLOR);
-                                    } else {
-                                        setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                    }
-                                }
-                            }
-                        }
-
-                        case UnsafeArea area -> {
-                            // Handle changes in UnsafeArea
-                            int index = area.getArea();
-                            ArrayList<Human> unsafeHumans = area.getHumansInside();
-                            ArrayList<Zombie> unsafeZombies = area.getZombiesInside();
-                            String humansPanelId = "RH" + String.valueOf(index + 1);
-                            String zombiesPanelId = "RZ" + String.valueOf(index + 1);
-
-                            if (!isRepainting) {
-                                // Update humans in the UnsafeArea
-                                updatePanel(humansPanelId, unsafeHumans.stream().map(Human::getHumanId).toList());
-
-                                // Update zombies in the UnsafeArea
-                                updatePanel(zombiesPanelId, unsafeZombies.stream().map(Zombie::getZombieId).toList());
-
-                                // Update counters for the UnsafeArea
-                                setCounter("H" + String.valueOf(index + 1), String.valueOf(area.getHumansInsideCount()));
-                                setCounter("Z" + String.valueOf(index + 1), String.valueOf(area.getZombiesInsideCount()));
-                            } else {
-                                // Update label colors based on human states
-                                for (Human human : unsafeHumans) {
-                                    if (human.isBeingAttacked()) {
-                                        setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                                    } else if (human.isMarked()) {
-                                        setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
-                                    } else {
-                                        setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                    }
-                                }
-
-                                // Update label colors based on zombie states
-                                for (Zombie zombie : unsafeZombies) {
-                                    if (zombie.isAttacking()) {
-                                        setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ATTACKING_COLOR);
-                                    } else {
-                                        setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);
-                                    }
-                                }
-                            }
-                        }
-
-                        case Tunnel tunnel -> {
-                            // Handle changes in Tunnel
-                            int index = tunnel.getId();
-                            String entryPanel = "TR" + String.valueOf(index + 1);
-                            String exitPanel = "TE" + String.valueOf(index + 1);
-
-                            Queue<Human> entering = tunnel.getEntering();
-                            Queue<Human> exiting = tunnel.getExiting();
-                            String crossing = tunnel.getInTunnel();
-
-                            if (!isRepainting) {
-                                // Update humans returning to refuge
-                                updatePanel(entryPanel, entering.stream().map(Human::getHumanId).toList());
-
-                                // Update humans exiting from refuge
-                                updatePanel(exitPanel, exiting.stream().map(Human::getHumanId).toList());
-
-                                // Update the crossing human state in the correct tunnel
-                                switch (index + 1) {
-                                    case 1 ->
-                                        currentCrossing1.setText(crossing);
-                                    case 2 ->
-                                        currentCrossing2.setText(crossing);
-                                    case 3 ->
-                                        currentCrossing3.setText(crossing);
-                                    case 4 ->
-                                        currentCrossing4.setText(crossing);
-                                }
-
-                                setCounter("RC", String.valueOf(r.getCount()));
-                            } else {
-                                // Update label colors based on human states
-                                for (Human human : entering) {
-                                    if (human.isMarked()) {
-                                        setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
-                                    }
-                                }
-
-                                // Update label colors based on human states
-                                for (Human human : exiting) {
-                                    if (human.isWaiting()) {
-                                        setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
-                                    } else {
-                                        setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                    }
-                                }
-                            }
-                        }
-
-                        default -> {
-                            System.err.println("Unknown source for change: " + source);
                         }
                     }
-                }
-                catch(Exception e)
-                {
-                    System.out.println("perú es clave");
+
+                    case RestArea ra -> 
+                    {
+                        ArrayList<Human> restHumans = ra.getHumansInside();
+                        
+                        if(!isRepainting)
+                        {
+                            // Handle changes in the RestArea
+                            updatePanel("R", restHumans.stream().map(Human::getHumanId).toList());
+
+                            // Update counters for the RestArea
+                            setCounter("HR", String.valueOf(ra.getHumansInsideCounter()));
+                            setCounter("RC", String.valueOf(r.getCount()));
+                        }
+                        else
+                        {
+                            // Update label colors based on human states
+                            for (Human human : restHumans) 
+                            {
+                                if (human.isBeingAttacked()) 
+                                {
+                                    setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
+                                } 
+                                else if (human.isMarked())
+                                {
+                                    setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
+                                }
+                                else
+                                {
+                                    setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                                }
+                            }
+                        }
+                    }
+
+                    case DiningRoom dr -> 
+                    {
+                        ArrayList<Human> dinningHumans = dr.getHumansInside();
+                        
+                        if(!isRepainting)
+                        {
+                            // Handle changes in the DiningRoom
+                            updatePanel("D", dinningHumans.stream().map(Human::getHumanId).toList());
+                            // Update counters for the DiningRoom
+                            setCounter("HD", String.valueOf(dr.getHumansInsideCounter()));
+                            setCounter("FC", String.valueOf(dr.getFoodCount()));
+                            setCounter("RC", String.valueOf(r.getCount()));
+                        }
+                        else
+                        {
+                            // Update label colors based on human states
+                            for (Human human : dinningHumans) 
+                            {
+                                if (human.isBeingAttacked()) 
+                                {
+                                    setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
+                                } 
+                                else if (human.isMarked())
+                                {
+                                    setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
+                                }
+                                else
+                                {
+                                    setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                                }
+                            }    
+                        }   
+                    }
+
+                    case UnsafeArea area -> 
+                    {
+                        // Handle changes in UnsafeArea
+                        int index = area.getArea();
+                        ArrayList<Human> unsafeHumans = area.getHumansInside();
+                        ArrayList<Zombie> unsafeZombies = area.getZombiesInside();
+                        String humansPanelId = "RH" + String.valueOf(index + 1);
+                        String zombiesPanelId = "RZ" + String.valueOf(index + 1);
+                        
+                        if(!isRepainting)
+                        {
+                            // Update humans in the UnsafeArea
+                            updatePanel(humansPanelId, unsafeHumans.stream().map(Human::getHumanId).toList());
+                            
+                            // Update zombies in the UnsafeArea
+                            updatePanel(zombiesPanelId, unsafeZombies.stream().map(Zombie::getZombieId).toList());
+                            
+                            // Update counters for the UnsafeArea
+                            setCounter("H" + String.valueOf(index + 1), String.valueOf(area.getHumansInsideCount()));
+                            setCounter("Z" + String.valueOf(index + 1), String.valueOf(area.getZombiesInsideCount()));
+                        }
+                        else
+                        {
+                            // Update label colors based on human states
+                            for (Human human : unsafeHumans) 
+                            {
+                                if (human.isBeingAttacked()) 
+                                {
+                                    setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
+                                } 
+                                else if (human.isMarked())
+                                {
+                                    setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
+                                }
+                                else
+                                {
+                                    setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                                }
+                            }
+
+                            // Update label colors based on zombie states
+                            for (Zombie zombie : unsafeZombies) 
+                            {
+                                if (zombie.isAttacking()) 
+                                {
+                                    setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ATTACKING_COLOR);  
+                                } 
+                                else 
+                                {
+                                    setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);  
+                                }
+                            }
+                        }
+                    }
+
+                    case Tunnel tunnel -> 
+                    {
+                        // Handle changes in Tunnel
+                        int index = tunnel.getId();
+                        String entryPanel = "TR" + String.valueOf(index + 1);
+                        String exitPanel = "TE" + String.valueOf(index + 1);
+                        
+                        Queue<Human> entering = tunnel.getEntering();
+                        Queue<Human> exiting  = tunnel.getExiting();
+                        String crossing = tunnel.getInTunnel();
+
+                        if(!isRepainting)
+                        {
+                            // Update humans returning to refuge
+                            updatePanel(entryPanel, entering.stream().map(Human::getHumanId).toList());
+                            
+                            // Update humans exiting from refuge
+                            updatePanel(exitPanel, exiting.stream().map(Human::getHumanId).toList());
+                            
+                            // Update the crossing human state in the correct tunnel
+                            switch (index + 1) 
+                            {
+                                case 1 -> currentCrossing1.setText(crossing);
+                                case 2 -> currentCrossing2.setText(crossing);
+                                case 3 -> currentCrossing3.setText(crossing);
+                                case 4 -> currentCrossing4.setText(crossing);
+                            }
+
+                            setCounter("RC", String.valueOf(r.getCount()));
+                        }
+                        else
+                        {
+                            // Update label colors based on human states
+                            for (Human human : entering) 
+                            {
+                                if (human.isMarked()) 
+                                {
+                                    setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
+                                } 
+                            } 
+                            
+                            // Update label colors based on human states
+                            for (Human human : exiting) 
+                            {
+                                if (human.isWaiting()) 
+                                {
+                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
+                                } 
+                                else
+                                {
+                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
+                                }
+                            }
+                        }
+                    }
+                    
+                    default -> 
+                    {
+                        System.err.println("Unknown source for change: " + source);
+                    }
                 }
             }
 
