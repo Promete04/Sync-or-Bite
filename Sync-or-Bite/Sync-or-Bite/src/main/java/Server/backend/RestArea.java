@@ -12,11 +12,10 @@ import java.util.List;
  * 
  * Synchronization is handled using the monitor for coordinated access.
  * 
- * Each human that enters will be visualized in the GUI and logged.
+ * Each human that enters will be visualized and logged.
  * 
  * The pause manager is periodically checked for pausing/resuming the system.
  * 
- * Observers are registered to receive updates when the state changes (for the GUI).
  */
 public class RestArea 
 {
@@ -41,7 +40,7 @@ public class RestArea
  
     /**
      * Called when a human enter the rest area.
-     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Updates internal list and shows the action in the log file.
      * Protected using the monitor.
      *
      * @param h  the human entering the rest area
@@ -58,7 +57,7 @@ public class RestArea
     
     /**
      * Called when a human exits the rest area.
-     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Updates internal list and shows the action in the log file.
      * Protected using the monitor.
      *
      * @param h  the human exiting the rest area
@@ -135,24 +134,22 @@ public class RestArea
     
     /**
      * Gets the current number of humans in the rest area.
-     * No explicit synchronization is required since this method is used
-     * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
+     * Protected using the monitor.
      * 
      * @return the number of humans currently inside
      */
-    public int getHumansInsideCounter()
+    public synchronized int getHumansInsideCounter()
     {
         return humansInside.size();
     }
     
     /**
      * Returns a copy of the list of humans currently inside the rest area.
-     * No explicit synchronization is required since this method is used
-     * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
+     * Protected using the monitor.
      *
      * @return a copy of the list of humans inside the area
      */
-    public ArrayList<Human> getHumansInside() 
+    public synchronized ArrayList<Human> getHumansInside() 
     {
         return new ArrayList<>(humansInside);
     }

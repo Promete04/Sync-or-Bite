@@ -17,11 +17,10 @@ import java.util.concurrent.Semaphore;
  * Synchronization is handled using the foodList monitor and fair Semaphores to ensure
  * order of arrival.
  * 
- * Each human that enters will be visualized in the GUI and logged.
+ * Each human that enters will be logged.
  * 
  * The pause manager is periodically checked for pausing/resuming the system.
  * 
- * Observers are registered to receive updates when the state changes (for the GUI).
  */
 public class DiningRoom 
 {
@@ -110,7 +109,7 @@ public class DiningRoom
     /**
      * Called when a human enters the dining room.
      * The operation is protected by a fair semaphore to ensure mutual exclusion and FIFO access.
-     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Updates internal list and shows the action in the log file.
      * 
      * @param h  the human entering the room.
      * @throws InterruptedException if the thread is interrupted
@@ -135,7 +134,7 @@ public class DiningRoom
     /**
      * Called when a human exits the dining room.
      * The operation is protected by a fair semaphore to ensure mutual exclusion and FIFO access.
-     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Updates internal list and shows the action in the log file.
      * 
      * @param h  the human leaving the room.
      * @throws InterruptedException if the thread is interrupted 
@@ -158,38 +157,54 @@ public class DiningRoom
     
     /**
      * Gets the current number of food units stored in the dining room.
-     * No explicit synchronization is required since this method is used
-     * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
+     * Protected using foodList's monitor.
      *
      * @return the number of food units available
      */
     public int getFoodCount() 
     {
-        return foodList.size();
+        synchronized(foodList)
+        {
+            return foodList.size();
+        }
     }
     
     /**
      * Gets the current number of humans in the dining room.
-     * No explicit synchronization is required since this method is used
-     * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
+     * Protected using the mutex semaphore to ensure thread safe access.
      * 
      * @return the number of humans currently inside
      */
-    public int getHumansInsideCounter() 
+    public int getHumansInsideCounter() throws InterruptedException
     {
-        return humansInside.size();
+        try
+        {
+            mutex.acquire();
+            return humansInside.size();
+        } 
+        finally
+        {
+            mutex.release();
+        }
     }
     
     
     /**
      * Returns a copy of the list of humans currently inside the dining room.
-     * No explicit synchronization is required since this method is used
-     * by GUI listeners which already run within synchronized contexts (notifyChange() is used under protection).
+     * Protected using the mutex semaphore to ensure thread safe access.
      *
      * @return a copy of the list of humans inside the area
      */
-    public ArrayList<Human> getHumansInside() 
+    public ArrayList<Human> getHumansInside() throws InterruptedException
     {
-        return new ArrayList<>(humansInside);
+        try
+        {
+            mutex.acquire();
+            return new ArrayList<>(humansInside);
+        } 
+        finally
+        {
+            mutex.release();
+        }
     }
 }

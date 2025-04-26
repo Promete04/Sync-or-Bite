@@ -16,11 +16,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Shared variables like zombiesInside, humansInside, possibleTargets and attacks are
  * accessed within synchronized using the respective object's monitor to ensure safety.
  * 
- * Each human that enters will be visualized in the GUI and logged.
+ * Each human that enters will logged.
  * 
  * The pause manager is periodically checked for pausing/resuming the system.
- * 
- * Observers are registered to receive updates when the state changes (for the GUI).
  */
 public class UnsafeArea 
 {
@@ -63,7 +61,7 @@ public class UnsafeArea
     
     /**
      * Registers a zombie entering the unsafe area.
-     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Updates internal list and shows the action in the log file.
      * Protected using zombiesInside's monitor.
      *
      * @param z the zombie entering
@@ -76,14 +74,13 @@ public class UnsafeArea
         {
             zombiesInside.add(z);
             logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
-            // Update GUI);
         }
         pm.check();
     }
     
     /**
      * Registers a zombie leaving the unsafe area.
-     * Updates internal list, notifies listeners and shows the action in the log file.
+     * Updates internal list and shows the action in the log file.
      * Protected using zombiesInside's monitor.
      * 
      * @param z the zombie leaving
@@ -96,7 +93,6 @@ public class UnsafeArea
         {
             zombiesInside.remove(z);
             logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
-            // Update GUI
         }
         pm.check();
     }
@@ -156,7 +152,7 @@ public class UnsafeArea
         }
         
         // Simulate wandering time with periodic pause checks
-        pm.check();
+        
 //        Thread.sleep(2000 + (int) (Math.random()*1000));
         Thread.sleep(500 + (int) (Math.random()*250));
         pm.check();
@@ -172,8 +168,7 @@ public class UnsafeArea
     
     /**
      * Registers a human entering the unsafe area.
-     * Adds the human to both possibleTargets and humansInside lists, notifies 
-     * listeners, updates the human counter and shows the action in the log file.
+     * Adds the human to both possibleTargets and humansInside lists, updates the human counter and shows the action in the log file.
      * 
      * Protected using possibleTargets's monitor.
      * 
@@ -195,8 +190,7 @@ public class UnsafeArea
     
     /**
      * Registers a human leaving the unsafe area.
-     * Removes the human from both possibleTargets and humansInside lists, notifies 
-     * listeners, updates the human counter and shows the action in the log file.
+     * Removes the human from both possibleTargets and humansInside lists, updates the human counter and shows the action in the log file.
      * 
      * @param h the human leaving
      * @throws InterruptedException if interrupted
@@ -218,7 +212,7 @@ public class UnsafeArea
      * Simulates human wandering through the unsafe area: explores, and if not attacked collects food.
      * If attacked, may defend or be turned into a zombie.
      * 
-     * Uses attacks and zombiesInside monitor to ensure thread safe access when humans
+     * Uses attacks or zombiesInside monitor to ensure thread safe access when humans
      * are attacked, killed or reborn as zombies.
      * 
      * @param h the human

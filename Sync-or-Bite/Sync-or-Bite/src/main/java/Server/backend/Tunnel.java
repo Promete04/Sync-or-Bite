@@ -1,9 +1,6 @@
 package Server.backend;
 
-
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
@@ -31,7 +28,7 @@ public class Tunnel
     private final Condition entryCondition = usingLock.newCondition(); // For humans returning
     private final Condition exitCondition = usingLock.newCondition();  // For humans exiting
     
-// State tracking variables for tunnel crossing
+    // State tracking variables for tunnel crossing
     private boolean tunnelBusy = false;  // True if someone is crossing
     private Human currentInside = null;  // The human currently inside the tunnel
     
@@ -71,8 +68,8 @@ public class Tunnel
     }
     /**
      * Requests exit from the shelter to the unsafe area. 
-     * The human joins a group of 3, waits for a turn to cross
-     * and is animated crossing the tunnel in the GUI. Also handles logs.
+     * The human joins a group of 3, waits for a turn to cross. 
+     * It also handles logs.
      *
      * @param h the human requesting to exit
      * @throws InterruptedException if the thread is interrupted
@@ -112,7 +109,7 @@ public class Tunnel
             {
                 exitCondition.await();
             }
-            pm.check();
+
             // Remove from waiting as it is going to cross
             synchronized(waitingToExitQueue) // Protected using the queue's monitor
             {
@@ -122,14 +119,12 @@ public class Tunnel
             // Reserve the tunnel
             tunnelBusy = true;
             currentInside = h;
-            pm.check();
         } 
         finally 
         {
             usingLock.unlock();
             pm.check();
         }
-        pm.check();
         // Simulate crossing with periodic pause checks
         logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea() + ".");
 //        Thread.sleep(1000);
@@ -147,10 +142,8 @@ public class Tunnel
         usingLock.lock();
         try 
         {
-            pm.check();
             tunnelBusy = false;
             currentInside = null;
-            pm.check();
 
             // Give priority to returners
             if (hasReturnersWaiting()) 
@@ -171,7 +164,7 @@ public class Tunnel
     
     /**
      * Requests return to the refuge from the unsafe area.
-     * Ensures only one human is crossing and handles GUI and logs.
+     * Ensures only one human is crossing and handles logs.
      *
      * @param h the human requesting to return
      * @throws InterruptedException if the thread is interrupted
@@ -196,7 +189,6 @@ public class Tunnel
             {
                 entryCondition.await();
             }            
-            pm.check();
             
             // Remove this human from the waiting queue as it is going to cross
             synchronized(waitingToReturnQueue) // Protected using the queue's monitor
@@ -206,9 +198,7 @@ public class Tunnel
             
             // Tunnel free, reserve it
             tunnelBusy = true;
-            currentInside = h;
-            pm.check();
-            
+            currentInside = h;         
         } 
         finally 
         {
@@ -216,7 +206,6 @@ public class Tunnel
             pm.check();
         }
         
-        pm.check();
         // Simulate crossing with periodic pause checks
         logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea() + ".");
 //        Thread.sleep(1000);
@@ -282,7 +271,7 @@ public class Tunnel
         else
         {
             // No one is crossing, only count those in the queues
-             result=waitingToReturnQueue.size()+waitingToExitQueue.size();
+            result=waitingToReturnQueue.size()+waitingToExitQueue.size();
         }
         return result;
     }
@@ -307,7 +296,7 @@ public class Tunnel
         }
         finally
         {
-         usingLock.unlock();
+            usingLock.unlock();
         }
          
         return inside;

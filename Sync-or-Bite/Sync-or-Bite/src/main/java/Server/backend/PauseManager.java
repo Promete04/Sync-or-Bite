@@ -55,7 +55,7 @@ public class PauseManager
     
     /**
      * Toggles the simulation pause state and notifies waiting threads if resuming.
-     * Also triggers the listeners for GUI updates
+     * It also triggers the listeners 
      */
     public synchronized void togglePause() 
     {
