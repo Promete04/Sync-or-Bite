@@ -93,7 +93,6 @@ public class DiningRoom
             logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size() + ".");
             notifyChange(false); 
         } 
-        pm.check();
     }
     
     /**
@@ -104,7 +103,6 @@ public class DiningRoom
      */
     public void eatFood(Human h) 
     {   
-        pm.check();
         try
         {
             foodCount.acquire();  // Wait until food is available

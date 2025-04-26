@@ -263,7 +263,6 @@ public class UnsafeArea
      */
     public void wander(Human h)
     {
-        pm.check();
         try
         {
             logger.log("Human " + h.getHumanId() + " is exploring unsafe area " + area + ".");
@@ -319,7 +318,6 @@ public class UnsafeArea
                     String zombieId = h.getHumanId().replaceFirst("H", "Z");
                     Zombie killer;
                     
-                    pm.check();
                     // If the human failed to defend itself then get its killer and remove the entry from the hashmap using its monitor for synchronization
                     synchronized(attacks)
                     {  

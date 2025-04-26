@@ -105,7 +105,6 @@ public class RestArea
      */
     public void rest(Human h)
     {
-        pm.check();
         logger.log("Human " + h.getHumanId() + " is resting in the rest area.");
         
         try
@@ -132,7 +131,6 @@ public class RestArea
      */
     public void fullRecover(Human h) 
     {
-        pm.check();
         logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");
         
         try
@@ -155,7 +153,6 @@ public class RestArea
 
         // Unmark the human after full recovery
         h.toggleMarked();
-        pm.check();
     }
     
     /**
