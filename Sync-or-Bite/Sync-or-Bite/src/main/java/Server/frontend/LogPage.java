@@ -65,8 +65,7 @@ public class LogPage extends javax.swing.JPanel
         // Set up a listener to append new log entries to the logsArea
         logger.addChangeListener(new ChangeListener() 
         {
-            @Override
-            public void onChange(Object source) 
+            public void onChange(Object source, Boolean isRepainting) 
             {
                 String lastLogEntry = logger.getLastLogEntry(); 
                 logsArea.append(lastLogEntry + "\n");

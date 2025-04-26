@@ -81,11 +81,11 @@ public class Refuge
     /**
      * Notifies all registered listeners about a state change.
      */
-    private void notifyChange() 
+    private void notifyChange(boolean isRepainting) 
     {
         for (ChangeListener l : listeners) 
         {
-            l.onChange(this);
+            l.onChange(this,isRepainting);
         }
     }
     
@@ -97,7 +97,7 @@ public class Refuge
     public void access(Human h)
     {
         count.incrementAndGet();
-        notifyChange();  
+        notifyChange(false);  
         logger.log("Human " + h.getHumanId() + " entered the refuge.");
     }
     
@@ -109,7 +109,7 @@ public class Refuge
     public void leave(Human h)
     {
         count.decrementAndGet();
-        notifyChange(); 
+        notifyChange(false); 
         logger.log("Human " + h.getHumanId() + " left the refuge.");
     }
     

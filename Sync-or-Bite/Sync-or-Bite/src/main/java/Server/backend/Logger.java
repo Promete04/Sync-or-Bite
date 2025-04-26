@@ -55,7 +55,7 @@ public class Logger
     {
         for (ChangeListener l : listeners) 
         {
-            l.onChange(this);
+            l.onChange(this, false);
         }
     }
     

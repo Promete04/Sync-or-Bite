@@ -55,11 +55,11 @@ public class CommonArea
     /**
      * Notifies all registered listeners about a change in the state.
      */
-    private void notifyChange() 
+    private void notifyChange(boolean isRepainting) 
     {
         for (ChangeListener l : listeners) 
         {
-            l.onChange(this);
+            l.onChange(this,isRepainting);
         }
     }
     
@@ -75,7 +75,7 @@ public class CommonArea
         pm.check();
         logger.log("Human " + h.getHumanId() + " entered the common area.");
         humansInside.add(h);
-        notifyChange();
+        notifyChange(false);
         pm.check();
     }
     
@@ -91,7 +91,7 @@ public class CommonArea
         pm.check();
         logger.log("Human " + h.getHumanId() + " left the common area.");
         humansInside.remove(h);
-        notifyChange();
+        notifyChange(false);
         pm.check();
     }
     

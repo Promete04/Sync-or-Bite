@@ -65,11 +65,11 @@ public class DiningRoom
     /**
      * Notifies all registered listeners about a change in the state.
      */
-    private void notifyChange() 
+    private void notifyChange(boolean isRepainting) 
     {
         for (ChangeListener l : listeners) 
         {
-            l.onChange(this);
+            l.onChange(this,isRepainting);
         }
     }
     
@@ -89,7 +89,7 @@ public class DiningRoom
             foodList.offer(f);
             foodCount.release();    // One food available, so add one permit or unblock a waiting thread (in FIFO order)
             logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size() + ".");
-            notifyChange(); 
+            notifyChange(false); 
         } 
         pm.check();
     }
@@ -110,7 +110,7 @@ public class DiningRoom
             {
                 foodList.poll();
                 logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
-                notifyChange();
+                notifyChange(false);
             }
             
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
@@ -145,7 +145,7 @@ public class DiningRoom
             mutex.acquire(); // Mutual exclusion, critical section starts
             logger.log("Human " + h.getHumanId() + " entered the dining room.");
             humansInside.add(h);
-            notifyChange(); 
+            notifyChange(false); 
         }
         catch(InterruptedException ie)
         {
@@ -174,7 +174,7 @@ public class DiningRoom
             mutex.acquire();  // Mutual exclusion, critical section starts
             logger.log("Human " + h.getHumanId() + " left the dining room.");
             humansInside.remove(h);
-            notifyChange(); 
+            notifyChange(false); 
         } 
         catch(InterruptedException ie)
         {
