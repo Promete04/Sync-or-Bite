@@ -167,7 +167,7 @@ public class Refuge
      *
      * @param h  the human accessing the dining room
      */
-    public void accessDiningRoom(Human h) 
+    public void eatInDiningRoom(Human h) 
     {
         diningRoom.enter(h);
         diningRoom.eatFood(h);

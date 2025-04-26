@@ -4,7 +4,7 @@
  */
 package Server.backend;
 
-/*
+/**
  * The RiskZone class represents a big risk zone composed of 4 unsafe areas.
  * It tracks zombie kill counts and logs the top 3 most dangerous zombies.
  */
@@ -13,7 +13,7 @@ public class RiskZone
     private UnsafeArea[] unsafeAreas;
     // Shared FoodGenerator used by all unsafe areas.
     private FoodGenerator fgenerator = new FoodGenerator();
-    private Zombie[] topKillers = new Zombie[3];
+    private Zombie[] topKillers = new Zombie[3];  // Top 3 most lethal zombies
     private Logger logger;
     
     /**
@@ -36,7 +36,7 @@ public class RiskZone
     /**
      * Returns the array containing the 4 UnsafeArea instances in the zone.
      *
-     * @return An array of UnsafeArea.
+     * @return an array of UnsafeArea.
      */
     public UnsafeArea[] getUnsafeAreas()
     {
@@ -46,8 +46,8 @@ public class RiskZone
     /**
      * Returns a specific UnsafeArea based on the index provided.
      *
-     * @param area Index of the unsafe area from 0 to 3.
-     * @return The UnsafeArea at the given index.
+     * @param area index of the unsafe area from 0 to 3.
+     * @return the UnsafeArea at the given index.
      */
     public UnsafeArea obtainUnsafeArea(int area)
     {
@@ -58,7 +58,7 @@ public class RiskZone
      * Reports a zombie kill. Updates the topKillers array if the
      * zombie qualifies as a top killer. Ensures synchronization using the monitor.
      *
-     * @param z The zombie who made a kill
+     * @param z the zombie who made a kill
      */
     public synchronized void reportKill(Zombie z) 
     {
@@ -70,14 +70,14 @@ public class RiskZone
         {
             if (topKillers[i] != null && (topKillers[i].getZombieId() == z.getZombieId())) 
             {
-                // Reorder the list if it's already there as its kill count might have increased.
+                // Reorder the list if it's already there as its kill count might have increased
                 reorderTopKillers();
                 in = true;
             }
             i++;
         }
         
-        // If it's not in the list, try to find a null slot to insert it.
+        // If it's not in the list, try to find a null slot to insert it
         if (!in) 
         {
             i = 0;
@@ -86,21 +86,21 @@ public class RiskZone
                 if (topKillers[i] == null) 
                 {
                     topKillers[i] = z;
-                    reorderTopKillers();        // Reorder the list.
+                    reorderTopKillers();        // Reorder the list
                     in = true;
                 }
                 i++;
             }
         }
 
-        // If the list is full and this zombie has more kills than the third place (the one with least kills in the top), replace it.
+        // If the list is full and this zombie has more kills than the third place (the one with least kills in the top), replace it
         if (!in && (topKillers[2] == null || z.getKillCount() > topKillers[2].getKillCount())) 
         {
             topKillers[2] = z;
-            reorderTopKillers();          // Reorder the list.
+            reorderTopKillers();          // Reorder the list
         }
 
-        // Show in the log the updated list of top killers.
+        // Show in the log the updated list of top killers
         showTopKillers();
     }
 

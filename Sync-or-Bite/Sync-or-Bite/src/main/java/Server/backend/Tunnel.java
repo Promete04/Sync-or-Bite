@@ -31,7 +31,7 @@ public class Tunnel
     private final Condition entryCondition = usingLock.newCondition(); // For humans returning
     private final Condition exitCondition = usingLock.newCondition();  // For humans exiting
     
-// State tracking variables for tunnel crossing
+    // State tracking variables for tunnel crossing
     private boolean tunnelBusy = false;  // True if someone is crossing
     private Human currentInside = null;  // The human currently inside the tunnel
     
@@ -165,11 +165,12 @@ public class Tunnel
             usingLock.unlock();
             pm.check();
         }
-        // Simulate crossing with periodic pause checks
-        logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea() + ".");
         
+        logger.log("Human " + h.getHumanId() + " is crossing to unsafe area " + unsafeArea.getArea() + ".");
         try
         {
+          // Simulate crossing with periodic pause checks
+            
 //        Thread.sleep(1000);
             Thread.sleep(500); pm.check();
             Thread.sleep(250); pm.check();
@@ -258,11 +259,11 @@ public class Tunnel
             pm.check();
         }
         
-        // Simulate crossing with periodic pause checks
-        logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea() + ".");
-        
+        logger.log("Human " + h.getHumanId() + " is crossing to refuge from unsafe area " + unsafeArea.getArea() + ".");  
         try
         {
+          // Simulate crossing with periodic pause checks
+            
 //        Thread.sleep(1000);
             Thread.sleep(500); pm.check();
             Thread.sleep(250); pm.check();
@@ -319,7 +320,7 @@ public class Tunnel
      * Reports the number of humans currently involved in the tunnel.
      * Protected with usingLock and waitingToReturnQueue and waitingToExitQueue's monitors.
      *
-     * @return total number of humans in the tunnel (waiting and crossing)
+     * @return total number of humans in the tunnel (waiting + crossing)
      */
     public int getTotalInTunnel()  
     {
@@ -343,7 +344,7 @@ public class Tunnel
             if(tunnelBusy) 
             {
                 // One human is currently crossing the tunnel
-                result = 1 + returnSize +exitSize;
+                result = 1 + returnSize + exitSize;
             } 
             else 
             {
@@ -360,7 +361,7 @@ public class Tunnel
     
     /**
      * Returns the ID of the human currently inside the tunnel. 
-     * If tunnel is not in use, returns placeholder "-----".
+     * If tunnel is not in use, returns.
      * Protected with the usingLock lock to ensure safety.
      *
      * @return ID of current human inside tunnel or "-----" if empty.

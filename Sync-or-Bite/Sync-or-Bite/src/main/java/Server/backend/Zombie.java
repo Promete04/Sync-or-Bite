@@ -13,11 +13,11 @@ package Server.backend;
 public class Zombie extends Thread
 {
     private final String zombieId;
-    private int killCount = 0;
     private final RiskZone riskZone;
+    private int killCount = 0;
     private int areaWhereReborn = -1; // Specific area if reborn
     
-    private boolean attacking = false;
+    private boolean attacking = false; // Whether the zombie is currently attacking
 
     /**
      * Constructs patient zero zombie.

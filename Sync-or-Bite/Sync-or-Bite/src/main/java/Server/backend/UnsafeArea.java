@@ -129,11 +129,12 @@ public class UnsafeArea
     /**
      * Called by a zombie to perform its wandering behavior. 
      * If a human is inside the area, it attacks that human.
+     * If there are several humans, one is selected randomly.
      * 
      * Uses possibleTargets and attacks monitor to ensure thread safe access when
      * selecting targets and recording attacks.
      * 
-     * @param z the Zombie that is wandering.
+     * @param z the Zombie that is wandering
      */
     public void wander(Zombie z) 
     {
@@ -240,7 +241,7 @@ public class UnsafeArea
     public void exit(Human h) 
     {
         pm.check();
-        synchronized (possibleTargets)  // Uses the list's monitor for synchronization
+        synchronized(possibleTargets)  // Uses the list's monitor for synchronization
         {
             possibleTargets.remove(h);
             humansInside.remove(h);

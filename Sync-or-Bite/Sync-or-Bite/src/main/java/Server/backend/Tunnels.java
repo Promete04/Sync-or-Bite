@@ -16,7 +16,7 @@ public class Tunnels
      * Constructs and initializes the tunnel system.
      * Each tunnel is linked to a specific UnsafeArea from the RiskZone.
      *
-     * @param riskZone Shared RiskZone containing the UnsafeAreas.
+     * @param riskZone the RiskZone containing the UnsafeAreas
      * @param logger the logger
      * @param pm the pause manager
      */
@@ -33,8 +33,8 @@ public class Tunnels
     /**
      * Returns a specific tunnel by index.
      *
-     * @param tunnel Index from 0 to 3 representing the tunnel ID.
-     * @return Tunnel object associated with the given index.
+     * @param tunnel index from 0 to 3 representing the tunnel ID
+     * @return tunnel object associated with the given index
      */
     public Tunnel obtainTunnel(int tunnel) 
     {

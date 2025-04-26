@@ -23,7 +23,7 @@ public class Human extends Thread
     private int selectedTunnel = -1;
     // Whether is waiting for a group
     private boolean waitGroup = false;
-    // Whether is being currently attacked
+    // Whether is being currently being attacked
     private boolean beingAttacked = false;
     // Whether this human was attacked by a zombie
     private boolean marked = false;
@@ -87,7 +87,7 @@ public class Human extends Thread
                 refuge.restInRestArea(this);
                 
                 // Eat 1 unit of food in the dining room
-                refuge.accessDiningRoom(this);
+                refuge.eatInDiningRoom(this);
                 
                 // If the human was attacked
                 if(marked)

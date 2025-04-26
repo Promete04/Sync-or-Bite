@@ -105,7 +105,6 @@ public class CommonArea
     public void prepare(Human h) 
     {  
         logger.log("Human " + h.getHumanId() + " is getting prepared in the common area.");
-        
         try
         {
 //            Thread.sleep(1000 + (int) (Math.random() * 1000));

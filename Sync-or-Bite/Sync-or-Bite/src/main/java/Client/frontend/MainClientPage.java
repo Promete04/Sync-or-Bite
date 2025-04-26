@@ -4,13 +4,10 @@
  */
 package Client.frontend;
 
-import Client.backend.AutomaticUpdaterTask;
-import Client.backend.Toggler;
+import Client.backend.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 

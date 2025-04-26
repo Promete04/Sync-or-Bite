@@ -41,7 +41,7 @@ public class PauseManager
     
     /**
      * Same as check(), but declares InterruptedException explicitly.
-     * Meant to be used when the human is under attack, to ensure that the zombie attack (interrupt) works correctly
+     * Used when the human is under attack, to ensure that the zombie attack (interrupt) works correctly
      *
      * @throws InterruptedException if the waiting thread is interrupted
      */

@@ -6,9 +6,10 @@ package Server.frontend;
 import Server.backend.*;
 import javax.swing.*;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
-import java.awt.Dimension;
+
 /**
  * 
  *Main application class for the "Sync-or-Bite" game.
@@ -94,7 +95,7 @@ public class ServerApp
                     for (int i = 1; i < 10001; i++) 
                     {
                         new Human(i, refuge, tunnels).start();
-                        Thread.sleep(100);
+                        Thread.sleep(500 + (int) (Math.random()*1500));
                         pm.check();
                     }
                 } 

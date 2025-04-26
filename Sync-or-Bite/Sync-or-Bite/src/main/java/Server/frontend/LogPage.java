@@ -4,13 +4,8 @@
  */
 package Server.frontend;
 
-import Server.backend.ChangeListener;
-import Server.backend.Logger;
-import Server.backend.PauseManager;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import Server.backend.*;
+import java.io.*;
 import javax.swing.ImageIcon;
 
 /**
@@ -81,7 +76,8 @@ public class LogPage extends javax.swing.JPanel
      * Loads existing log messages from the log file and appends them to the logsArea.
      * If the log file does not exist, this method does nothing.
      */
-    private void loadLogs() {
+    private void loadLogs() 
+    {
         File file = new File(logger.getFileName());
         if (file.exists()) 
         {

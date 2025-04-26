@@ -106,7 +106,6 @@ public class RestArea
     public void rest(Human h)
     {
         logger.log("Human " + h.getHumanId() + " is resting in the rest area.");
-        
         try
         {
 //        Thread.sleep(2000 + (int) (Math.random()*2000));     
@@ -132,7 +131,6 @@ public class RestArea
     public void fullRecover(Human h) 
     {
         logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");
-        
         try
         {
 //        Thread.sleep(3000 + (int) (Math.random()*2000));

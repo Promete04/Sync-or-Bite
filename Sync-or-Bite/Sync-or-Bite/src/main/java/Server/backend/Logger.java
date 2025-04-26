@@ -61,7 +61,7 @@ public class Logger
     
     /**
      * Logs a message to both the log file and GUI.
-     * Protected with synchronized
+     * Protected with the monitor
      *
      * @param event the message/event description to log
      */

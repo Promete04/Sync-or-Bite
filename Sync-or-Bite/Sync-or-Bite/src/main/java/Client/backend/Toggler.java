@@ -30,7 +30,7 @@ public class Toggler
     /**
      * Registers a listener that will be called whenever the pause state changes.
      *
-     * @param listener A Runnable to execute on pause/resume toggle
+     * @param listener a Runnable to execute pause/resume toggle
      */
     public void setPauseStateListener(Runnable listener) 
     {
@@ -49,14 +49,15 @@ public class Toggler
         {
             // Stablish connection with socket on port 1
             Socket socket = new Socket(InetAddress.getLocalHost(), 1);
+            
             // Create the input and output streams used for the connection
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
             DataInputStream input = new DataInputStream(socket.getInputStream());
 
             // Send request
             output.writeUTF("togglePause");
-
-            paused = !paused;
+            paused = !paused;  // Change local pause state
+            
             // Notify the listener that the state changed
             pauseStateListener.run();
             // Close connection after receiving the response
@@ -86,8 +87,8 @@ public class Toggler
     {
         if(!paused)
         {
-        paused=true;
-        pauseStateListener.run();
+            paused=true;
+            pauseStateListener.run();
         }
     }
     
@@ -99,9 +100,8 @@ public class Toggler
     {
         if(paused)
         {
-        paused=false;
-        pauseStateListener.run();
+            paused=false;
+            pauseStateListener.run();
         }
     }
-    
 }
