@@ -75,6 +75,7 @@ public class RestArea
         logger.log("Human " + h.getHumanId() + " entered the rest area.");
         humansInside.add(h);
         notifyChange(false);
+        notifyChange(true);
         pm.check();
         
     }

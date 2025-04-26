@@ -146,6 +146,7 @@ public class DiningRoom
             logger.log("Human " + h.getHumanId() + " entered the dining room.");
             humansInside.add(h);
             notifyChange(false); 
+            notifyChange(true); 
         }
         catch(InterruptedException ie)
         {
