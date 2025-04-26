@@ -14,8 +14,9 @@ import java.util.List;
 
 /**
  * Provides thread safe (uses the monitor) logging functionality to both GUI and file output.
+ * Entries include timestamps for easier tracking.
  * 
- * Logs are also displayed in the GUI via LogPage.
+ * Logs are also displayed in the GUI log panel via LogPage.
  */
 public class Logger 
 {

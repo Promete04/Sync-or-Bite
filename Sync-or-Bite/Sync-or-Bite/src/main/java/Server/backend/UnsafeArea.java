@@ -16,9 +16,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Shared variables like zombiesInside, humansInside, possibleTargets and attacks are
  * accessed within synchronized using the respective object's monitor to ensure safety.
  * 
- * Each human that enters will logged.
+ * Each human that enters will be visualized in the GUI and logged.
  * 
  * The pause manager is periodically checked for pausing/resuming the system.
+ * 
+ * Observers are registered to receive updates when the state changes (for the GUI).
  */
 public class UnsafeArea 
 {
@@ -38,6 +40,8 @@ public class UnsafeArea
     private Logger logger;
     // The pause manager used to pause/resume
     private PauseManager pm;
+    // Observer list
+    private final List<ChangeListener> listeners = new ArrayList<>();
     
     private RiskZone riskZone;
     private int area;
@@ -60,8 +64,29 @@ public class UnsafeArea
     }
     
     /**
+     * Registers a new change listener to be notified when state update occurs.
+     *
+     * @param l the listener to register
+     */
+    public void addChangeListener(ChangeListener l) 
+    {
+        listeners.add(l);
+    }
+    
+    /**
+     * Notifies all registered listeners about a change in the state.
+     */
+    private void notifyChange() 
+    {
+        for (ChangeListener l : listeners) 
+        {
+            l.onChange(this);
+        }
+    }
+    
+    /**
      * Registers a zombie entering the unsafe area.
-     * Updates internal list and shows the action in the log file.
+     * Updates internal list, notifies listeners and shows the action in the log file.
      * Protected using zombiesInside's monitor.
      *
      * @param z the zombie entering
@@ -74,13 +99,15 @@ public class UnsafeArea
         {
             zombiesInside.add(z);
             logger.log("Zombie " + z.getZombieId() + " entered unsafe area " + area + ".");
+            // Update GUI
+            notifyChange();
         }
         pm.check();
     }
     
     /**
      * Registers a zombie leaving the unsafe area.
-     * Updates internal list and shows the action in the log file.
+     * Updates internal list, notifies listeners and shows the action in the log file.
      * Protected using zombiesInside's monitor.
      * 
      * @param z the zombie leaving
@@ -93,6 +120,8 @@ public class UnsafeArea
         {
             zombiesInside.remove(z);
             logger.log("Zombie " + z.getZombieId() + " left unsafe area " + area + ".");
+            // Update GUI
+            notifyChange();
         }
         pm.check();
     }
@@ -129,6 +158,7 @@ public class UnsafeArea
         {
             z.toggleAttacking();
             logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
+            notifyChange();
             
             // Record the target and itself in the attacks hashmap (using it's monitor).
             synchronized(attacks)
@@ -148,11 +178,14 @@ public class UnsafeArea
             Thread.sleep(125 + (int) (Math.random()*250));
             
             attackedHuman.interrupt();      // End of attack using another interrupt
+            
+            pm.check();
             z.toggleAttacking();
+            notifyChange();  // Notify listeners
         }
         
         // Simulate wandering time with periodic pause checks
-        
+        pm.check();
 //        Thread.sleep(2000 + (int) (Math.random()*1000));
         Thread.sleep(500 + (int) (Math.random()*250));
         pm.check();
@@ -168,7 +201,8 @@ public class UnsafeArea
     
     /**
      * Registers a human entering the unsafe area.
-     * Adds the human to both possibleTargets and humansInside lists, updates the human counter and shows the action in the log file.
+     * Adds the human to both possibleTargets and humansInside lists, notifies 
+     * listeners, updates the human counter and shows the action in the log file.
      * 
      * Protected using possibleTargets's monitor.
      * 
@@ -184,13 +218,16 @@ public class UnsafeArea
             humansInside.add(h);
             logger.log("Human " + h.getHumanId() + " entered unsafe area " + area + ".");
             humansInsideCount.incrementAndGet();
+            // Update GUI
+            notifyChange();
         }
         pm.check();
     }
     
     /**
      * Registers a human leaving the unsafe area.
-     * Removes the human from both possibleTargets and humansInside lists, updates the human counter and shows the action in the log file.
+     * Removes the human from both possibleTargets and humansInside lists, notifies 
+     * listeners, updates the human counter and shows the action in the log file.
      * 
      * @param h the human leaving
      * @throws InterruptedException if interrupted
@@ -204,6 +241,8 @@ public class UnsafeArea
             humansInside.remove(h);
             logger.log("Human " + h.getHumanId() + " left unsafe area " + area + ".");
             humansInsideCount.decrementAndGet();
+            // Update GUI
+            notifyChange();
         }
         pm.check();
     }
@@ -212,7 +251,7 @@ public class UnsafeArea
      * Simulates human wandering through the unsafe area: explores, and if not attacked collects food.
      * If attacked, may defend or be turned into a zombie.
      * 
-     * Uses attacks or zombiesInside monitor to ensure thread safe access when humans
+     * Uses attacks and zombiesInside monitor to ensure thread safe access when humans
      * are attacked, killed or reborn as zombies.
      * 
      * @param h the human
@@ -251,29 +290,29 @@ public class UnsafeArea
             try
             {
                 h.toggleAttacked();
+                h.loseAllFood();     
+                notifyChange();
                 // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
                 Thread.sleep(86400000);       // 24 hours is the maximum time the program can remain stopped during a zombie attack without changing the program behaviour
             }
             catch(InterruptedException ie2)
             {
                 int defense = (int) (Math.random() * 3);  
-                pm.check();
                 if (defense < 2)  // 2/3 chance to survive
                 {
                     logger.log("Human " + h.getHumanId() + " successfully defended itself from the attack.");
                     
                     // If survived it's marked
+                    h.toggleAttacked();
                     h.toggleMarked();
                     pm.check();
+                    notifyChange();
                     
                     // Remove the attack from the hashmap using its monitor for synchronization
                     synchronized(attacks) 
                     { 
                         attacks.remove(h);
                     }
-                    
-                    h.toggleAttacked();
-                    pm.check();
                 } 
                 else 
                 {
@@ -290,6 +329,7 @@ public class UnsafeArea
                         humansInside.remove(h);   // Human died so it's removed from humansInside
                         humansInsideCount.decrementAndGet(); // Decrement the counter
                     }
+                    notifyChange();
                     pm.check(); 
                     
                     // Increase the killer's killcount
@@ -308,6 +348,7 @@ public class UnsafeArea
                         zombiesInside.add(killed);
                     }
                     
+                    notifyChange();
                     pm.check();
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");
                     killed.start();   // Begin zombie behaviour

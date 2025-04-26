@@ -14,6 +14,8 @@ import java.awt.Dimension;
  *Main application class for the "Sync-or-Bite" game.
  * This class initializes and manages the GUI, backend components, and system logic.
  * It uses a CardLayout to switch between different pages (JPanels) in the application.
+ * 
+ * @author guill
  */
 public class ServerApp 
 {    
@@ -93,7 +95,7 @@ public class ServerApp
                     for (int i = 1; i < 10001; i++) 
                     {
                         new Human(i, refuge, tunnels).start();
-                        Thread.sleep(500 + (int) (Math.random()*1500));
+                        Thread.sleep(100);
                         pm.check();
                     }
                 } 
@@ -199,14 +201,11 @@ public class ServerApp
     public static void redirect(String page)
    {
         
-       
         JPanel p = pages.get(page);
-        
         cards.add(p, page);
         
         cardLayout.show(cards, page);
-        if(currentPanel != p)
-        {
+        if(currentPanel != p){
             cards.remove(currentPanel);
         }
         currentPanel = p;

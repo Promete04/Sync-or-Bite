@@ -1,6 +1,9 @@
 package Server.backend;
 
+
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
@@ -28,7 +31,7 @@ public class Tunnel
     private final Condition entryCondition = usingLock.newCondition(); // For humans returning
     private final Condition exitCondition = usingLock.newCondition();  // For humans exiting
     
-    // State tracking variables for tunnel crossing
+// State tracking variables for tunnel crossing
     private boolean tunnelBusy = false;  // True if someone is crossing
     private Human currentInside = null;  // The human currently inside the tunnel
     
@@ -40,7 +43,10 @@ public class Tunnel
     private PauseManager pm;
     // The logger to log events
     private Logger logger;
-
+    
+    // Observer list
+    private final List<ChangeListener> listeners = new ArrayList<>();
+    
     private UnsafeArea unsafeArea;
     private int id;
 
@@ -66,10 +72,32 @@ public class Tunnel
             }
         });
     }
+    
+    /**
+     * Registers a new change listener to be notified when state update occurs.
+     *
+     * @param l the listener to register
+     */
+    public void addChangeListener(ChangeListener l) 
+    {
+        listeners.add(l);
+    }
+    
+    /**
+     * Notifies all registered listeners about a change in the state.
+     */
+    private void notifyChange() 
+    {
+        for (ChangeListener l : listeners) 
+        {
+            l.onChange(this);
+        }
+    }
+    
     /**
      * Requests exit from the shelter to the unsafe area. 
-     * The human joins a group of 3, waits for a turn to cross. 
-     * It also handles logs.
+     * The human joins a group of 3, waits for a turn to cross
+     * and is animated crossing the tunnel in the GUI. Also handles logs.
      *
      * @param h the human requesting to exit
      * @throws InterruptedException if the thread is interrupted
@@ -84,6 +112,7 @@ public class Tunnel
             waitingToExitQueue.add(h);
             logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea() + ".");
         }
+        notifyChange();
         pm.check();
         
         // Wait for a group of 3 to form
@@ -97,7 +126,7 @@ public class Tunnel
         }
         // Group is formed, prepare for individual tunnel access
         h.toggleWaitGroup();
-        
+        notifyChange();
         pm.check();
         
         // Use the usingLock to ensure only one human is in the tunnel
@@ -109,7 +138,6 @@ public class Tunnel
             {
                 exitCondition.await();
             }
-
             // Remove from waiting as it is going to cross
             synchronized(waitingToExitQueue) // Protected using the queue's monitor
             {
@@ -119,6 +147,7 @@ public class Tunnel
             // Reserve the tunnel
             tunnelBusy = true;
             currentInside = h;
+            notifyChange();
         } 
         finally 
         {
@@ -142,9 +171,10 @@ public class Tunnel
         usingLock.lock();
         try 
         {
+            pm.check();
             tunnelBusy = false;
             currentInside = null;
-
+            notifyChange();
             // Give priority to returners
             if (hasReturnersWaiting()) 
             {
@@ -164,7 +194,7 @@ public class Tunnel
     
     /**
      * Requests return to the refuge from the unsafe area.
-     * Ensures only one human is crossing and handles logs.
+     * Ensures only one human is crossing and handles GUI and logs.
      *
      * @param h the human requesting to return
      * @throws InterruptedException if the thread is interrupted
@@ -178,6 +208,7 @@ public class Tunnel
             waitingToReturnQueue.add(h);
             logger.log("Human " + h.getHumanId() + " queued to return via tunnel from unsafe area " + unsafeArea.getArea() + ".");
         }
+        notifyChange();
         pm.check();
 
         // Acquire the tunnel using usingLock
@@ -198,7 +229,9 @@ public class Tunnel
             
             // Tunnel free, reserve it
             tunnelBusy = true;
-            currentInside = h;         
+            currentInside = h;
+            notifyChange();
+            
         } 
         finally 
         {
@@ -223,6 +256,7 @@ public class Tunnel
         {
             tunnelBusy = false;
             currentInside = null;
+            notifyChange();
             
             // Give priority to returners
             if (hasReturnersWaiting()) 
@@ -262,18 +296,39 @@ public class Tunnel
      */
     public int getTotalInTunnel() 
     {
-        int result;
-        if(tunnelBusy)
+        usingLock.lock();
+        try
         {
-            // One human is currently crossing the tunnel
-            result=1+waitingToReturnQueue.size()+waitingToExitQueue.size();
+            int result;
+            int returnSize;
+            int exitSize;
+            
+            synchronized(waitingToReturnQueue)
+            {
+                returnSize = waitingToReturnQueue.size();
+            }
+            
+            synchronized(waitingToExitQueue)
+            {
+                exitSize = waitingToExitQueue.size();
+            }
+            
+            if(tunnelBusy) 
+            {
+                // One human is currently crossing the tunnel
+                result = 1 + returnSize +exitSize;
+            } 
+            else 
+            {
+                // No one is crossing, only count those in the queues
+                result = returnSize + exitSize;
+            }
+            return result;
         }
-        else
+        finally
         {
-            // No one is crossing, only count those in the queues
-            result=waitingToReturnQueue.size()+waitingToExitQueue.size();
-        }
-        return result;
+            usingLock.unlock();  
+        } 
     }
     
     /**
@@ -293,13 +348,13 @@ public class Tunnel
             {
                 inside = currentInside.getHumanId();
             }
+            return inside;
         }
         finally
         {
             usingLock.unlock();
         }
-         
-        return inside;
+
     }
     
     /**

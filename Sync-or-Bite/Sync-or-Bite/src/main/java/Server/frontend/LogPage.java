@@ -22,6 +22,8 @@ import javax.swing.ImageIcon;
  * - Displays log messages in a non-editable text area.
  * - Provides a button to toggle pause/resume state.
  * - Allows navigation to the map page.
+ * 
+ * @author guill
  */
 public class LogPage extends javax.swing.JPanel
 {
@@ -80,15 +82,12 @@ public class LogPage extends javax.swing.JPanel
      * Loads existing log messages from the log file and appends them to the logsArea.
      * If the log file does not exist, this method does nothing.
      */
-    private void loadLogs() 
-    {
+    private void loadLogs() {
         File file = new File(logger.getFileName());
-        if (file.exists())
+        if (file.exists()) 
         {
-            BufferedReader br = null;
-            try 
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) 
             {
-                br = new BufferedReader(new FileReader(file));
                 String line;
                 while ((line = br.readLine()) != null) 
                 {
@@ -98,20 +97,6 @@ public class LogPage extends javax.swing.JPanel
             catch (IOException e) 
             {
                 e.printStackTrace();
-            } 
-            finally 
-            {
-                if (br != null) 
-                {
-                    try 
-                    {
-                        br.close();
-                    } 
-                    catch (IOException e) 
-                    {
-                        e.printStackTrace();
-                    }
-                }
             }
         }
     }

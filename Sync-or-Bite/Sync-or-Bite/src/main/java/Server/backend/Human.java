@@ -4,7 +4,6 @@
  */
 package Server.backend;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,8 @@ public class Human extends Thread
     private final List<Food> foodList = new ArrayList<>();
     
     /**
-     * Constructor for Human.
+     * Constructs a Human object with a unique ID and references to the refuge,
+     * the tunnel system, logger, and pause manager.
      *
      * @param id the human identifier 
      * @param refuge the refuge with the different areas
@@ -65,7 +65,6 @@ public class Human extends Thread
                 tunnels.obtainTunnel(selectedTunnel).requestExit(this);
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().enter(this);
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this);
-                
                 sleep(10);         //Sleep just to trigger the interrupt in case it was interrupted (killed).
                 
                 // Leave the unsafe area through the tunnel
@@ -205,15 +204,4 @@ public class Human extends Thread
         this.selectedTunnel = selectedTunnel;
     }
     
-    /**
-     * Obtains the color that the human should have in the GUI.
-     *
-     * @returns the color that will be used by the GUI
-     */
-    public Color getHumanColor() 
-    {
-        Color color = isBeingAttacked() ? utils.ColorManager.ATTACKED_COLOR : isMarked() ? utils.ColorManager.INJURED_COLOR : utils.ColorManager.HUMAN_COLOR;
-        return color;
-    }
-  
 }
