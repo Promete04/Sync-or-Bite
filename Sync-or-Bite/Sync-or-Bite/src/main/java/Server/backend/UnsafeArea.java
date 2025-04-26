@@ -337,21 +337,17 @@ public class UnsafeArea
                     
                     // Report the kill in case the top 3 most lethal zombies need to be updated
                     riskZone.reportKill(killer);
-                    pm.check();
                     
                     // The human converted to zombie
                     Zombie killed = new Zombie(zombieId,this);
-                    pm.check();
                     synchronized(zombiesInside) // Add the new zombie to zombiesInside list using its monitor for synchronization
                     {
                         zombiesInside.add(killed);
                     }
                     
                     notifyChange(false);
-                    pm.check();
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");
                     killed.start();   // Begin zombie behaviour
-                    pm.check();
                     h.interrupt();    // Termination of human (dies)
                 }
             }
