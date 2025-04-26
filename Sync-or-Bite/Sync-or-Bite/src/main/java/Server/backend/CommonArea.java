@@ -104,7 +104,6 @@ public class CommonArea
      */
     public void prepare(Human h) 
     {  
-        pm.check();
         logger.log("Human " + h.getHumanId() + " is getting prepared in the common area.");
         
         try
@@ -125,7 +124,6 @@ public class CommonArea
         int selectedTunnel = (int)(Math.random()*4);
         logger.log("Human " + h.getHumanId() + " chose tunnel " + selectedTunnel + " in the common area.");
         h.setSelectedTunnel(selectedTunnel);
-        pm.check();
     }
     
     /**

@@ -263,7 +263,6 @@ public class UnsafeArea
      */
     public void wander(Human h)
     {
-        pm.check();
         try
         {
             logger.log("Human " + h.getHumanId() + " is exploring unsafe area " + area + ".");
@@ -319,7 +318,6 @@ public class UnsafeArea
                     String zombieId = h.getHumanId().replaceFirst("H", "Z");
                     Zombie killer;
                     
-                    pm.check();
                     // If the human failed to defend itself then get its killer and remove the entry from the hashmap using its monitor for synchronization
                     synchronized(attacks)
                     {  
@@ -337,21 +335,17 @@ public class UnsafeArea
                     
                     // Report the kill in case the top 3 most lethal zombies need to be updated
                     riskZone.reportKill(killer);
-                    pm.check();
                     
                     // The human converted to zombie
                     Zombie killed = new Zombie(zombieId,this);
-                    pm.check();
                     synchronized(zombiesInside) // Add the new zombie to zombiesInside list using its monitor for synchronization
                     {
                         zombiesInside.add(killed);
                     }
                     
                     notifyChange(false);
-                    pm.check();
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");
                     killed.start();   // Begin zombie behaviour
-                    pm.check();
                     h.interrupt();    // Termination of human (dies)
                 }
             }

@@ -187,7 +187,6 @@ public class Tunnel
         usingLock.lock();
         try 
         {
-            pm.check();
             tunnelBusy = false;
             currentInside = null;
             notifyChange(false);
@@ -274,8 +273,8 @@ public class Tunnel
             ie.printStackTrace();
         }
 
-        pm.check();
         logger.log("Human " + h.getHumanId() + " has reached the refuge from unsafe area " + unsafeArea.getArea() + ".");
+        pm.check();
         
         // Release the tunnel
         usingLock.lock();
