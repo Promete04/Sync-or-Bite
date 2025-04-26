@@ -74,12 +74,12 @@ public class ServerApp
 
         // Setup the application frame
         setupFrame();
-
-        // Redirect to the initial page
-        redirect("MAP");
         
         //Trigger MAP component resizing
         mapPage.enableAutoResize();
+
+        // Redirect to the initial page
+        redirect("MAP");
         
         // Start the first zombie (patient zero)
         new Zombie(riskZone).start(); 

@@ -19,6 +19,7 @@ public interface ChangeListener extends EventListener
      * Called when the observed source’s state changes.
      *
      * @param source the object that generated the change event
+     * @param isRepainting whether a change in colour in the GUI is needed
      */
     void onChange(Object source, boolean isRepainting);
 }
