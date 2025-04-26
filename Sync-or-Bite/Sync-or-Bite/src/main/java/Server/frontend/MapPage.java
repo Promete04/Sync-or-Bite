@@ -164,7 +164,7 @@ public class MapPage extends javax.swing.JPanel
         ChangeListener masterChangeListener = new ChangeListener() 
         {
             @Override
-            public void onChange(Object source, Boolean isRepainting) 
+            public void onChange(Object source, boolean isRepainting) 
             {
                 switch (source) 
                 {
@@ -576,7 +576,7 @@ public class MapPage extends javax.swing.JPanel
                 }
                 catch(Exception e)
                 {
-                    System.err.println("GUI update error");
+                    System.out.println("GUI update error");
                 }
                 finally
                 {
@@ -618,7 +618,7 @@ public class MapPage extends javax.swing.JPanel
                 }
                 catch(Exception e)
                 {
-                    System.err.println("GUI update error");
+                    System.out.println("GUI update error");
                 }
                 finally
                 {

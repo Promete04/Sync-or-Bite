@@ -20,7 +20,7 @@ public interface ChangeListener extends EventListener
      *
      * @param source the object that generated the change event
      */
-    void onChange(Object source, Boolean isRepainting);
+    void onChange(Object source, boolean isRepainting);
 }
 
 
