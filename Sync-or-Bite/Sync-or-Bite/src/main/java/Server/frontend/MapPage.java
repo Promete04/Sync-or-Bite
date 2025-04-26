@@ -175,9 +175,7 @@ public class MapPage extends javax.swing.JPanel
                         if(!isRepainting)
                         {
                             // Handle changes in the CommonArea
-                            updatePanel("C", commonHumans.stream()
-                                .map(Human::getHumanId)
-                                .toList());
+                            updatePanel("C", commonHumans.stream().map(Human::getHumanId).toList());
                             
                             // Update counters for the CommonArea
                             setCounter("HC", String.valueOf(ca.getHumansInsideCounter()));
@@ -211,9 +209,7 @@ public class MapPage extends javax.swing.JPanel
                         if(!isRepainting)
                         {
                             // Handle changes in the RestArea
-                            updatePanel("R", restHumans.stream()
-                                .map(Human::getHumanId)
-                                .toList());
+                            updatePanel("R", restHumans.stream().map(Human::getHumanId).toList());
 
                             // Update counters for the RestArea
                             setCounter("HR", String.valueOf(ra.getHumansInsideCounter()));
@@ -247,9 +243,7 @@ public class MapPage extends javax.swing.JPanel
                         if(!isRepainting)
                         {
                             // Handle changes in the DiningRoom
-                            updatePanel("D", dinningHumans.stream()
-                                .map(Human::getHumanId)
-                                .toList());
+                            updatePanel("D", dinningHumans.stream().map(Human::getHumanId).toList());
                             // Update counters for the DiningRoom
                             setCounter("HD", String.valueOf(dr.getHumansInsideCounter()));
                             setCounter("FC", String.valueOf(dr.getFoodCount()));
@@ -278,7 +272,6 @@ public class MapPage extends javax.swing.JPanel
 
                     case UnsafeArea area -> 
                     {
-                        
                         // Handle changes in UnsafeArea
                         int index = area.getArea();
                         ArrayList<Human> unsafeHumans = area.getHumansInside();
@@ -289,14 +282,10 @@ public class MapPage extends javax.swing.JPanel
                         if(!isRepainting)
                         {
                             // Update humans in the UnsafeArea
-                            updatePanel(humansPanelId, unsafeHumans.stream()
-                                .map(Human::getHumanId)
-                                .toList());
+                            updatePanel(humansPanelId, unsafeHumans.stream().map(Human::getHumanId).toList());
                             
                             // Update zombies in the UnsafeArea
-                            updatePanel(zombiesPanelId, unsafeZombies.stream()
-                                .map(Zombie::getZombieId)
-                                .toList());
+                            updatePanel(zombiesPanelId, unsafeZombies.stream().map(Zombie::getZombieId).toList());
                             
                             // Update counters for the UnsafeArea
                             setCounter("H" + String.valueOf(index + 1), String.valueOf(area.getHumansInsideCount()));
@@ -350,14 +339,10 @@ public class MapPage extends javax.swing.JPanel
                         if(!isRepainting)
                         {
                             // Update humans returning to refuge
-                            updatePanel(entryPanel, entering.stream()
-                                .map(Human::getHumanId)
-                                .toList());
+                            updatePanel(entryPanel, entering.stream().map(Human::getHumanId).toList());
                             
                             // Update humans exiting from refuge
-                            updatePanel(exitPanel, exiting.stream()
-                                .map(Human::getHumanId)
-                                .toList());
+                            updatePanel(exitPanel, exiting.stream().map(Human::getHumanId).toList());
                             
                             // Update the crossing human state in the correct tunnel
                             switch (index + 1) 
@@ -528,7 +513,8 @@ public class MapPage extends javax.swing.JPanel
        
         JPanel targetPanel = panels.get(panelKey);
 
-        if (targetPanel == null) {
+        if (targetPanel == null) 
+        {
             System.err.println("No panel found for key: " + panelKey);
             return;
         }
