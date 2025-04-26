@@ -58,7 +58,6 @@ public class ServerApp
         // Initialize pages
         logPage= new LogPage();
         mapPage = new MapPage();
-        mapPage.enableAutoResize();
         
         // Initialize server data, started later
         ServerData server = new ServerData(pm, tunnels, refuge, riskZone);
@@ -79,8 +78,8 @@ public class ServerApp
         // Redirect to the initial page
         redirect("MAP");
         
-        //Resize to trigger MAP component resizing
-        frame.setSize(1200, 810);
+        //Trigger MAP component resizing
+        mapPage.enableAutoResize();
         
         // Start the first zombie (patient zero)
         new Zombie(riskZone).start(); 
