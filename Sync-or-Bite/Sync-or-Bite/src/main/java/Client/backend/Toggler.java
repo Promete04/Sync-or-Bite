@@ -60,6 +60,11 @@ public class Toggler
             
             // Notify the listener that the state changed
             pauseStateListener.run();
+            
+            // Close input and output streams
+            output.close();
+            input.close();
+                
             // Close connection after receiving the response
             socket.close();
         } 

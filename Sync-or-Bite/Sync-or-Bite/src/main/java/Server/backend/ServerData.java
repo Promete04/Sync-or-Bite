@@ -87,6 +87,10 @@ public class ServerData extends Thread
                     System.out.printf("Unknown message received");
                 } 
                 
+                // Close input and output streams
+                output.close();
+                input.close();
+                
                 // Close client connection after handling request
                 connection.close();
             }
