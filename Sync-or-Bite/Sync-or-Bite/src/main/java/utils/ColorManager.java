@@ -27,10 +27,10 @@ public class ColorManager
     public static Color TRANSPARENT_COLOR =         new Color(0,0,0,0);
     
     // Human color
-    public static Color HUMAN_COLOR =               new Color(204,255,204);
+    public static Color HUMAN_COLOR =               new Color(153,204,0);
     
     // Human waiting for group color
-    public static Color WAITING4GROUP_COLOR =       new Color(153,204,0);
+    public static Color WAITING4GROUP_COLOR =       new Color(180,200,180);
     
     // Injured human color
     public static Color INJURED_COLOR =             new Color(255,80,80);
@@ -40,6 +40,15 @@ public class ColorManager
     
     // Main color, made for bigger visual impact
     public static Color MAIN_COLOR =                new Color(255,61,61);
+    
+    //Refuge color
+    public static Color REFUGE_COLOR =              new Color(204,255,204,70);
+    
+    //Tunnel color
+    public static Color TUNNEL_COLOR =              new Color(224, 187, 83,50);
+    
+    //Unsafe Areas color
+    public static Color UNSAFE_COLOR =              new Color(222, 112, 104,50);
 }
     
 

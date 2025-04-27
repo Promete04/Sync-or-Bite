@@ -852,7 +852,6 @@ public class MapPage extends javax.swing.JPanel
         commonHumanIcon3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
         commonHumanIcon3.setBorderPainted(false);
         commonHumanIcon3.setContentAreaFilled(false);
-        commonHumanIcon3.setEnabled(false);
         commonHumanIcon3.setFocusPainted(false);
         commonHumanIcon3.setFocusable(false);
         commonHumanIcon3.addActionListener(new java.awt.event.ActionListener() {
@@ -869,7 +868,6 @@ public class MapPage extends javax.swing.JPanel
         ZombieIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ZombieIcon.png"))); // NOI18N
         ZombieIcon1.setBorderPainted(false);
         ZombieIcon1.setContentAreaFilled(false);
-        ZombieIcon1.setEnabled(false);
         ZombieIcon1.setFocusPainted(false);
         ZombieIcon1.setFocusable(false);
         ZombieIcon1.addActionListener(new java.awt.event.ActionListener() {
@@ -914,7 +912,6 @@ public class MapPage extends javax.swing.JPanel
         commonHumanIcon4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
         commonHumanIcon4.setBorderPainted(false);
         commonHumanIcon4.setContentAreaFilled(false);
-        commonHumanIcon4.setEnabled(false);
         commonHumanIcon4.setFocusPainted(false);
         commonHumanIcon4.setFocusable(false);
         commonHumanIcon4.addActionListener(new java.awt.event.ActionListener() {
@@ -931,7 +928,6 @@ public class MapPage extends javax.swing.JPanel
         ZombieIcon5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ZombieIcon.png"))); // NOI18N
         ZombieIcon5.setBorderPainted(false);
         ZombieIcon5.setContentAreaFilled(false);
-        ZombieIcon5.setEnabled(false);
         ZombieIcon5.setFocusPainted(false);
         ZombieIcon5.setFocusable(false);
         ZombieIcon5.addActionListener(new java.awt.event.ActionListener() {
@@ -975,7 +971,6 @@ public class MapPage extends javax.swing.JPanel
         commonHumanIcon5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
         commonHumanIcon5.setBorderPainted(false);
         commonHumanIcon5.setContentAreaFilled(false);
-        commonHumanIcon5.setEnabled(false);
         commonHumanIcon5.setFocusPainted(false);
         commonHumanIcon5.setFocusable(false);
         commonHumanIcon5.addActionListener(new java.awt.event.ActionListener() {
@@ -992,7 +987,6 @@ public class MapPage extends javax.swing.JPanel
         ZombieIcon6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ZombieIcon.png"))); // NOI18N
         ZombieIcon6.setBorderPainted(false);
         ZombieIcon6.setContentAreaFilled(false);
-        ZombieIcon6.setEnabled(false);
         ZombieIcon6.setFocusPainted(false);
         ZombieIcon6.setFocusable(false);
         ZombieIcon6.addActionListener(new java.awt.event.ActionListener() {
@@ -1036,7 +1030,6 @@ public class MapPage extends javax.swing.JPanel
         commonHumanIcon6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
         commonHumanIcon6.setBorderPainted(false);
         commonHumanIcon6.setContentAreaFilled(false);
-        commonHumanIcon6.setEnabled(false);
         commonHumanIcon6.setFocusPainted(false);
         commonHumanIcon6.setFocusable(false);
         commonHumanIcon6.addActionListener(new java.awt.event.ActionListener() {
@@ -1053,7 +1046,6 @@ public class MapPage extends javax.swing.JPanel
         ZombieIcon7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ZombieIcon.png"))); // NOI18N
         ZombieIcon7.setBorderPainted(false);
         ZombieIcon7.setContentAreaFilled(false);
-        ZombieIcon7.setEnabled(false);
         ZombieIcon7.setFocusPainted(false);
         ZombieIcon7.setFocusable(false);
         ZombieIcon7.addActionListener(new java.awt.event.ActionListener() {
@@ -1229,7 +1221,6 @@ public class MapPage extends javax.swing.JPanel
         commonHumanIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
         commonHumanIcon.setBorderPainted(false);
         commonHumanIcon.setContentAreaFilled(false);
-        commonHumanIcon.setEnabled(false);
         commonHumanIcon.setFocusPainted(false);
         commonHumanIcon.setFocusable(false);
         commonHumanIcon.addActionListener(new java.awt.event.ActionListener() {
@@ -1263,7 +1254,6 @@ public class MapPage extends javax.swing.JPanel
         commonHumanIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
         commonHumanIcon1.setBorderPainted(false);
         commonHumanIcon1.setContentAreaFilled(false);
-        commonHumanIcon1.setEnabled(false);
         commonHumanIcon1.setFocusPainted(false);
         commonHumanIcon1.setFocusable(false);
         commonHumanIcon1.addActionListener(new java.awt.event.ActionListener() {
@@ -1280,7 +1270,6 @@ public class MapPage extends javax.swing.JPanel
         foodIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiningRoomIcon.png"))); // NOI18N
         foodIcon.setBorderPainted(false);
         foodIcon.setContentAreaFilled(false);
-        foodIcon.setEnabled(false);
         foodIcon.setFocusPainted(false);
         foodIcon.setFocusable(false);
         foodIcon.addActionListener(new java.awt.event.ActionListener() {
@@ -1313,7 +1302,6 @@ public class MapPage extends javax.swing.JPanel
         commonHumanIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HumanIcon.png"))); // NOI18N
         commonHumanIcon2.setBorderPainted(false);
         commonHumanIcon2.setContentAreaFilled(false);
-        commonHumanIcon2.setEnabled(false);
         commonHumanIcon2.setFocusPainted(false);
         commonHumanIcon2.setFocusable(false);
         commonHumanIcon2.addActionListener(new java.awt.event.ActionListener() {
