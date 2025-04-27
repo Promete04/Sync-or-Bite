@@ -4,20 +4,18 @@
  */
 package utils;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
-import javax.swing.SwingUtilities;
-
-/**
- *
- * @author guille
- */
 import javax.swing.SwingUtilities;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class UiDispatcher {
+/**
+ * A class that manages in an ordered and efficient way the dispatchment of tasks to the EDT
+ * 
+ * @author guille
+ */
+public class UiDispatcher 
+{
     private final ConcurrentLinkedQueue<Runnable> queue = new ConcurrentLinkedQueue<>();
     private final AtomicBoolean scheduled = new AtomicBoolean(false);
     
@@ -27,6 +25,7 @@ public class UiDispatcher {
 
     /**
      * call from any thread 
+     * @param uiTask
      */
     public void invoke(Runnable uiTask) 
     {

@@ -101,15 +101,16 @@ public class MainClientPage extends javax.swing.JPanel
                                 totalKills=totalKills+Integer.parseInt(data[i]);
                                 if (totalKills != 0) 
                                 {
+                                    kill1.setText(data[15]);
+                                    kill2.setText(data[17]);
+                                    kill3.setText(data[19]);
+                                    
                                     int finalTotalKills = totalKills;
                                     int val1 = Integer.parseInt(data[15]);
                                     int val2 = Integer.parseInt(data[17]);
                                     int val3 = Integer.parseInt(data[19]);
 
-                                    kill1.setText(data[15]);
-                                    kill2.setText(data[17]);
-                                    kill3.setText(data[19]);
-
+                                    //Obtain and set the relative kill percentage
                                     pTop1.setValue((val1 * 100) / finalTotalKills);
                                     pTop2.setValue((val2 * 100) / finalTotalKills);
                                     pTop3.setValue((val3 * 100) / finalTotalKills);

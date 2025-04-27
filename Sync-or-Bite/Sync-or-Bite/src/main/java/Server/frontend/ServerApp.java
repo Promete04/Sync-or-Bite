@@ -6,12 +6,10 @@ package Server.frontend;
 import Server.backend.*;
 import javax.swing.*;
 import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 
