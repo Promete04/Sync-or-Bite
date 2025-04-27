@@ -50,9 +50,8 @@ public class Toggler
             // Stablish connection with socket on port 1
             Socket socket = new Socket(InetAddress.getLocalHost(), 1);
             
-            // Create the input and output streams used for the connection
+            // Create output stream used for the connection
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-            DataInputStream input = new DataInputStream(socket.getInputStream());
 
             // Send request
             output.writeUTF("togglePause");
@@ -61,9 +60,8 @@ public class Toggler
             // Notify the listener that the state changed
             pauseStateListener.run();
             
-            // Close input and output streams
+            // Close output stream
             output.close();
-            input.close();
                 
             // Close connection after receiving the response
             socket.close();
