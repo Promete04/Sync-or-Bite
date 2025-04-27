@@ -129,7 +129,7 @@ public class Human extends Thread
     }
     
     /**
-     * Indicates whether this human has been attacked.
+     * Indicates whether this human has been marked.
      *
      * @return true if marked (attacked), false otherwise
      */
