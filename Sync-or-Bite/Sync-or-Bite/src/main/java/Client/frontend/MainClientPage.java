@@ -35,10 +35,14 @@ public class MainClientPage extends javax.swing.JPanel
         initComponents();
         setupLabels();
         
+        //Prevent podium component corruption
         pTop1.setStringPainted(false);
         pTop2.setStringPainted(false);
         pTop3.setStringPainted(false);
         
+        /**
+        * Toggles the pause state of the game and updates the pause/resume button icon.
+        */
         toggler.setPauseStateListener(new Runnable() 
         {
             public void run() 
@@ -51,6 +55,10 @@ public class MainClientPage extends javax.swing.JPanel
         updateData();
         
     }
+    
+    /**
+     * Main loop of the data gathering
+     */
     public void updateData()
     {
         Runnable r = new Runnable() 
@@ -69,12 +77,8 @@ public class MainClientPage extends javax.swing.JPanel
                         
                         for (int i = 0; i < data.length; i++) 
                         {
-                            if(i!=0 && i<=14 || i==16 || i==18)
-                            {
-                                JLabel label = labels.get(i);
-                                label.setText(data[i]);
-                            }
-                            else if(i==0)
+                            //check system pause state
+                            if(i==0)
                             {
                                 if(data[0].equals(String.valueOf(true)))
                                     {
@@ -85,7 +89,14 @@ public class MainClientPage extends javax.swing.JPanel
                                         toggler.pause();
                                     }
                             }
-                            else
+                            //Provide labels with gathered data
+                            else if(i<=14 || i==16 || i==18)
+                            {
+                                JLabel label = labels.get(i);
+                                label.setText(data[i]);
+                            }
+                            //Calculate and show a dinamic podium with JScrollBar component
+                            else 
                             {
                                 totalKills=totalKills+Integer.parseInt(data[i]);
                                 if (totalKills != 0) 
@@ -127,6 +138,11 @@ public class MainClientPage extends javax.swing.JPanel
         Thread updater = new Thread(r);
         updater.start();
     }
+    
+    /**
+    * Sets up the mapping between labels keys and their corresponding JLabel instances.
+    * This mapping is used to update the system dynamically when its state changes.
+    */
     private void setupLabels() 
     {
          labels.put(1,HR);

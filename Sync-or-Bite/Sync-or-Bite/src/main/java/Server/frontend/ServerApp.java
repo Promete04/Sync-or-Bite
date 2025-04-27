@@ -9,10 +9,13 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
- *Main application class for the "Sync-or-Bite" game.
+ *Main application class for the "Sync-or-Bite" server system.
  * This class initializes and manages the GUI, backend components, and system logic.
  * It uses a CardLayout to switch between different pages (JPanels) in the application.
  * 
@@ -95,9 +98,11 @@ public class ServerApp
                     for (int i = 1; i < 10001; i++) 
                     {
                         new Human(i, refuge, tunnels).start();
-                        Thread.sleep(500 + (int) (Math.random()*1500));
+                        Thread.sleep(100 + (int) (Math.random()*0));
                         pm.check();
                     }
+                    Thread.sleep(500);
+                    mapPage.updatePanel("C",new ArrayList<>());
                 } 
                 catch (InterruptedException ie) 
                 {
