@@ -90,7 +90,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="utils.ColorManager.TEXT_COLOR" type="code"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="N&#xba; Zombies in risk zones"/>
+                        <Property name="text" type="java.lang.String" value="N&#xba; Zombies in each unsafe area"/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="1" left="10" right="55" top="1"/>
@@ -249,7 +249,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="utils.ColorManager.TEXT_COLOR" type="code"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="N&#xba; Humans in risk zones"/>
+                        <Property name="text" type="java.lang.String" value="N&#xba; Humans in each unsafe area "/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="1" left="10" right="55" top="1"/>
@@ -408,7 +408,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="utils.ColorManager.TEXT_COLOR" type="code"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="N&#xba; Humans in tunnels"/>
+                        <Property name="text" type="java.lang.String" value="N&#xba; Humans in tunnels          "/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                             <EmptyBorder bottom="1" left="10" right="55" top="1"/>
