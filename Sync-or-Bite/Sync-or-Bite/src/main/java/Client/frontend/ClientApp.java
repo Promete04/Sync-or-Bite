@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 /**
  * Main application class for the "Sync-or-Bite" client system.
  * This class initializes and manages the GUI, backend components, and system logic.
- * 
- * @author guill
  */
 public class ClientApp 
 {
@@ -55,7 +53,7 @@ public class ClientApp
     /**
      * Redirects the application to a different page.
      * 
-     * @param page A string with the page name.
+     * @param page a string with the page name
      */
     public static void redirect(String page)
     {
