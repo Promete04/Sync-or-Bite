@@ -17,7 +17,7 @@ public class UiDispatcher
     // Thread safe queue to store pending UI update tasks
     private final ConcurrentLinkedQueue<Runnable> queue = new ConcurrentLinkedQueue<>();
     
-    // Atomic flag to track whether a drain task has already been scheduled
+    // AtomicBoolean to track whether tasks are already scheduled for execution on the EDT 
     private final AtomicBoolean scheduled = new AtomicBoolean(false);
     
     // Policy parameters:
