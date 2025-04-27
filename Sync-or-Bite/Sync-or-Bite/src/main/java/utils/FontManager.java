@@ -8,11 +8,11 @@ import java.awt.*;
 import java.io.InputStream;
 
 
-
+/**
+ * Font library.
+ */
 public class FontManager 
 {
-
-
     public static final Font lightFont = loadFont("/fonts/UniSpaceIt.ttf", 16);
     public static final Font regularFont = loadFont("/fonts/UniSpaceRg.ttf", 16);
     public static final Font boldFont = loadFont("/fonts/UniSpaceBd.ttf", 16);

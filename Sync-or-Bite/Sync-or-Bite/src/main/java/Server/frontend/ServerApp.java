@@ -5,11 +5,9 @@
 package Server.frontend;
 import Server.backend.*;
 import javax.swing.*;
+import java.util.*;
 import java.awt.CardLayout;
-import java.util.HashMap;
-import java.util.Map;
 import java.awt.Dimension;
-import java.util.ArrayList;
 
 /**
  * 

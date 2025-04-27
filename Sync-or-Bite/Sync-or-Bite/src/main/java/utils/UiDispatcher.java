@@ -14,7 +14,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class UiDispatcher 
 {
+    // Thread safe queue to store pending UI update tasks
     private final ConcurrentLinkedQueue<Runnable> queue = new ConcurrentLinkedQueue<>();
+    
+    // Atomic flag to track whether a drain task has already been scheduled
     private final AtomicBoolean scheduled = new AtomicBoolean(false);
     
     // Policy parameters:
@@ -27,12 +30,16 @@ public class UiDispatcher
      */
     public void invoke(Runnable uiTask) 
     {
-        // 1) Drop oldest if we’re already “full”
+        // Drop oldest if we’re already “full”
         if (queue.size() >= maxQueueSize) 
         {
             queue.poll();
         }
+        
+        // Add the new task to the queue
         queue.add(uiTask);
+        
+        // Execute tasks if not already scheduled
         scheduleIfNeeded();
     }
 
@@ -43,27 +50,28 @@ public class UiDispatcher
     {
         if (scheduled.compareAndSet(false, true)) 
         {
-            SwingUtilities.invokeLater(this::drainQueue);
+            SwingUtilities.invokeLater(this::executeQueuedTasks); // Schedule the task processing on the EDT
         }
     }
 
     /** 
      * Runs on the EDT.
      */
-    private void drainQueue() 
+    private void executeQueuedTasks() 
     {
-        long start = System.nanoTime();
+        long start = System.nanoTime(); // Track the start time to monitor processing duration
         try 
         {
+            boolean stop = false;
             Runnable task;
-            while ((task = queue.poll()) != null) 
+            while (((task = queue.poll()) != null) && !stop) 
             {
                 task.run();
-                // 2) If we’ve spent too long, drop the rest and bail out
+                // If we’ve spent too long, clear the remaining tasks and stop
                 if (System.nanoTime() - start > maxProcessingNanos)
                 {
                     queue.clear();
-                    break;
+                    stop = true;
                 }
             }
         } 
@@ -71,7 +79,7 @@ public class UiDispatcher
         {
             // Allow re-scheduling
             scheduled.set(false);
-            // If anything snuck in while we were running, schedule another drain
+            // If any tasks were added during processing, schedule another execution
             if (!queue.isEmpty()) 
             {
                 scheduleIfNeeded();

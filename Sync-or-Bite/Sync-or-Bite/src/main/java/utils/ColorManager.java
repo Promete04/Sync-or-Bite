@@ -7,10 +7,11 @@ package utils;
 import java.awt.Color;
 
 /**
- * Color library 
+ * Color library.
  */
 public class ColorManager 
 {  
+    // Zombie color
     public static Color ZOMBIE_COLOR =              new Color(153, 78, 255);
     
     //Atacking zombie color

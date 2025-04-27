@@ -22,7 +22,7 @@ public class AutomaticUpdaterTask implements Callable<String[]>
      * and receiving the response data.
      *
      * @return an array of strings containing the data returned from the server,
-     * or null if an exception occurs. 
+     * or null if an exception occurs
      * 
      * If an IOException is thrown, the method shows an error dialog and exits the program.
      */
