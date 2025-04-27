@@ -150,7 +150,7 @@ public class RestArea
         }
 
         // Unmark the human after full recovery
-        h.toggleMarked();
+        h.setMarked(false);
     }
     
     /**

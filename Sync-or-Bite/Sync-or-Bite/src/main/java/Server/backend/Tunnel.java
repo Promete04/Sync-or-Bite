@@ -109,7 +109,7 @@ public class Tunnel
         synchronized(waitingToExitQueue)  // Protected using the queue's monitor
         {
             // Join the exit queue
-            h.toggleWaitGroup();
+            h.setWaitGroup(true);
             waitingToExitQueue.add(h);
             logger.log("Human " + h.getHumanId() + " is waiting to form a group to exit to unsafe area " + unsafeArea.getArea() + ".");
         }
@@ -132,7 +132,7 @@ public class Tunnel
         }
         
         // Group is formed, prepare for individual tunnel access
-        h.toggleWaitGroup();
+        h.setWaitGroup(false);
         notifyChange(true);
         pm.check();
         
@@ -182,7 +182,6 @@ public class Tunnel
         }
         
         logger.log("Human " + h.getHumanId() + " has reached unsafe area " + unsafeArea.getArea() + ".");
-        pm.check();
         
         // Release the tunnel and notify next human
         usingLock.lock();
@@ -275,7 +274,6 @@ public class Tunnel
         }
 
         logger.log("Human " + h.getHumanId() + " has reached the refuge from unsafe area " + unsafeArea.getArea() + ".");
-        pm.check();
         
         // Release the tunnel
         usingLock.lock();

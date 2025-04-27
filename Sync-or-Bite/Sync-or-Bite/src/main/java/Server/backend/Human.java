@@ -27,6 +27,8 @@ public class Human extends Thread
     private boolean beingAttacked = false;
     // Whether this human was attacked by a zombie
     private boolean marked = false;
+    // Whether this human has been killed
+    private boolean killed = false;
     // Represents the food it collected from the unsafe area
     private final List<Food> foodList = new ArrayList<>();
     
@@ -67,9 +69,12 @@ public class Human extends Thread
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().enter(this);
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().wander(this);
                 
-                sleep(10);         //Sleep just to trigger the interrupt in case it was interrupted (killed).
-                
-                // Leave the unsafe area through the tunnel
+                if(killed)
+                {
+                    sleep(10);         //Sleep just to trigger the interrupt in case it was interrupted (killed)
+                }
+
+                // Leave the unsafe area and go through the tunnel
                 tunnels.obtainTunnel(selectedTunnel).getUnsafeArea().exit(this);
                 tunnels.obtainTunnel(selectedTunnel).requestReturn(this); 
                 
@@ -114,11 +119,13 @@ public class Human extends Thread
     }
     
     /**
-     * Toggles the marked status of the human.
+     * Sets the marked status to the parameter.
+     * 
+     * @param marked true if has been marked, false otherwise
      */
-    public void toggleMarked() 
+    public void setMarked(boolean marked) 
     {
-        marked = !marked; 
+        this.marked = marked; 
     }
     
     /**
@@ -132,12 +139,15 @@ public class Human extends Thread
     }
     
     /**
-     * Toggles the attacked status of the human.
+     * Sets the beingAttacked status to the parameter.
+     * 
+     * @param beingAttacked true if has been attacked, false otherwise
      */
-    public void toggleAttacked()
+    public void setBeingAttacked(boolean beingAttacked)
     {
-        beingAttacked=!beingAttacked;
+        this.beingAttacked = beingAttacked;
     }
+    
     
     /**
      * Checks whether this human is currently being attacked.
@@ -150,12 +160,25 @@ public class Human extends Thread
     }
     
     /**
-     * Toggles the group waiting status.
+     * Sets the killed status to the parameter.
+     * 
+     * @param killed true if has been killed, false otherwise
      */
-    public void toggleWaitGroup()
+    public void setKilled(boolean killed) 
     {
-        waitGroup=!waitGroup;
+        this.killed = killed;
     }
+    
+    /**
+     * Sets the waitGroup status to the parameter.
+     * 
+     * @param waitGroup true if is waiting, false otherwise
+     */
+    public void setWaitGroup(boolean waitGroup)
+    {
+        this.waitGroup = waitGroup;
+    }
+    
     
     /**
      * Checks if the human is currently waiting for a group.
