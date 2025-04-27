@@ -5,9 +5,6 @@
 package Server.frontend;
 
 import Server.backend.*;
-import java.util.*;
-import javax.swing.*;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -21,8 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -623,7 +618,7 @@ public class MapPage extends javax.swing.JPanel
         int padding = 10;
 
         Dimension currentSize = panel.getPreferredSize();
-        panel.setPreferredSize(new Dimension(currentSize.width, rowCount * (labelHeight + padding/2)));
+        panel.setPreferredSize(new Dimension(currentSize.width, rowCount * labelHeight));
         panel.revalidate();
     }
 
