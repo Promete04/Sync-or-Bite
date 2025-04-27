@@ -10,24 +10,24 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * A class that manages in an ordered and efficient way the dispatchment of tasks to the EDT.
+ * A class that manages in an ordered and efficient way the dispatchment of tasks to the EDT (Event Dispatch Thread).
  */
 public class UiDispatcher 
 {
     private final ConcurrentLinkedQueue<Runnable> queue = new ConcurrentLinkedQueue<>();
     private final AtomicBoolean scheduled = new AtomicBoolean(false);
     
-    // policy parameters:
-    private final int    maxQueueSize         = 1000;                    // max pending tasks
-    private final long   maxProcessingNanos   = TimeUnit.MILLISECONDS.toNanos(50); // max drain time
+    // Policy parameters:
+    private final int    maxQueueSize         = 1000;                    // Max pending tasks
+    private final long   maxProcessingNanos   = TimeUnit.MILLISECONDS.toNanos(50); // Max drain time
 
     /**
-     * call from any thread 
+     * Call from any thread.
      * @param uiTask
      */
     public void invoke(Runnable uiTask) 
     {
-        // 1) drop oldest if we’re already “full”
+        // 1) Drop oldest if we’re already “full”
         if (queue.size() >= maxQueueSize) 
         {
             queue.poll();
@@ -37,7 +37,7 @@ public class UiDispatcher
     }
 
     /** 
-    *  schedule a single invokeLater if none pending
+    *  Schedule a single invokeLater if none pending.
     */
     private void scheduleIfNeeded() 
     {
@@ -48,7 +48,7 @@ public class UiDispatcher
     }
 
     /** 
-     * runs on the EDT
+     * Runs on the EDT.
      */
     private void drainQueue() 
     {
@@ -59,7 +59,7 @@ public class UiDispatcher
             while ((task = queue.poll()) != null) 
             {
                 task.run();
-                // 2) if we’ve spent too long, drop the rest and bail out
+                // 2) If we’ve spent too long, drop the rest and bail out
                 if (System.nanoTime() - start > maxProcessingNanos)
                 {
                     queue.clear();
@@ -69,9 +69,9 @@ public class UiDispatcher
         } 
         finally 
         {
-            // allow re-scheduling
+            // Allow re-scheduling
             scheduled.set(false);
-            // if anything snuck in while we were running, schedule another drain
+            // If anything snuck in while we were running, schedule another drain
             if (!queue.isEmpty()) 
             {
                 scheduleIfNeeded();

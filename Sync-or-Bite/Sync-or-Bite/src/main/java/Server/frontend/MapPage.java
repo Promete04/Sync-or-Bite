@@ -5,29 +5,18 @@
 package Server.frontend;
 
 import Server.backend.*;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import utils.UiDispatcher;
 
+import java.util.*;
+import java.util.List;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  * MapPage is a JPanel that visually represents the state of the game.
- * It displays the current state of various areas (Risk Zones, Refuge, Tunnels, etc.)
+ * It displays the current state of various areas (Risk Zone, Refuge, Tunnels, etc.)
  * and dynamically updates the UI based on changes in the game state.
  * 
  * Features:
@@ -35,8 +24,6 @@ import utils.UiDispatcher;
  * - Dynamically updates counters and panels when the game state changes.
  * - Supports resizing to adjust the layout of the panels.
  * - Provides controls to pause/resume the game and navigate to the log page.
- * 
- * @author guill
  */
 public class MapPage extends javax.swing.JPanel 
 {
@@ -61,6 +48,8 @@ public class MapPage extends javax.swing.JPanel
     private DiningRoom dr = ServerApp.getDR();
     private RiskZone rz = ServerApp.getRZ();
     private Tunnels t = ServerApp.getT();
+    
+    // UiDispatcher instance for proper GUI display
     private final UiDispatcher ui = new UiDispatcher();
     
     /**
@@ -72,9 +61,6 @@ public class MapPage extends javax.swing.JPanel
     {
         initComponents();
 
-        
-
-        
         // Retrieve the PauseManager instance from ServerApp
         this.pm = ServerApp.getPM();
         
@@ -236,6 +222,7 @@ public class MapPage extends javax.swing.JPanel
                         {
                             // Handle changes in the DiningRoom
                             updatePanel("D", dinningHumans.stream().map(Human::getHumanId).toList());
+                            
                             // Update counters for the DiningRoom
                             setCounter("HD", String.valueOf(dr.getHumansInsideCounter()));
                             setCounter("FC", String.valueOf(dr.getFoodCount()));
@@ -397,7 +384,7 @@ public class MapPage extends javax.swing.JPanel
 
     /**
     * Sets up the mapping between panel keys and their corresponding JPanel instances.
-    * This mapping is used to dynamically update the UI when the game state changes.
+    * This mapping is used to dynamically update the UI when the system state changes.
     */
     private void setupPanels() 
     {
@@ -451,43 +438,49 @@ public class MapPage extends javax.swing.JPanel
     * Updates the content of a panel based on the provided list of IDs.
     * Adds or removes labels as needed to match the new state.
     * 
+    * Protected using the monitor.
+    * 
     * @param panelId the key of the panel to update
     * @param newIds the list of IDs to display in the panel
     */
     public synchronized void updatePanel(String panelId, List<String> newIds) 
     {
-        ui.invoke(() -> 
-        { 
-            try
+        // Send the task to UiDispatcher
+        ui.invoke(new Runnable()
+        {
+            public void run()
             {
-                Set<String> currentIds = currentPanelState.getOrDefault(panelId, new HashSet<>());
-                Set<String> updatedIds = new HashSet<>(newIds);
-
-                // Compare what should be and what is there, delete what shouldn't be there
-                for (String id : new HashSet<>(currentIds)) 
+                try 
                 {
-                    if (!updatedIds.contains(id)) 
-                    {
-                        removeLabelFromPanel(panelId, id);
-                        currentIds.remove(id);
-                    }
-                }
+                    Set<String> currentIds = currentPanelState.getOrDefault(panelId, new HashSet<>());
+                    Set<String> updatedIds = new HashSet<>(newIds);
 
-                // Compare what is there and what should be, add what should be there
-                for (String id : updatedIds) 
+                    // Compare what should be and what is there, delete what shouldn't be there
+                    for (String id : new HashSet<>(currentIds)) 
+                    {
+                        if (!updatedIds.contains(id)) 
+                        {
+                            removeLabelFromPanel(panelId, id);
+                            currentIds.remove(id);
+                        }
+                    }
+
+                    // Compare what is there and what should be, add what should be there
+                    for (String id : updatedIds) 
+                    {
+                        if (!currentIds.contains(id)) 
+                        {
+                            addLabelToPanel(panelId, id);
+                            currentIds.add(id);
+                        }
+                    }
+
+                    currentPanelState.put(panelId, currentIds);
+                } 
+                catch (Exception e) 
                 {
-                    if (!currentIds.contains(id)) 
-                    {
-                        addLabelToPanel(panelId, id);
-                        currentIds.add(id);
-                    }
+                    System.out.println("GUI update error");
                 }
-
-                currentPanelState.put(panelId, currentIds);
-            }
-            catch(Exception e)
-            {
-                System.out.println("GUI update error");
             }
         });
     }
@@ -506,6 +499,8 @@ public class MapPage extends javax.swing.JPanel
     
     /**
      * Adds a new label to the specified panel.
+     * 
+     * Protected using the monitor.
      * 
      * @param panelKey the key of the panel where the label should be added
      * @param labelText the text to display on the label
@@ -535,6 +530,8 @@ public class MapPage extends javax.swing.JPanel
     
     /**
      * Removes a label with the specified text from the given panel.
+     * 
+     * Protected using the monitor.
      * 
      * @param panelKey the key of the panel from which the label should be removed
      * @param labelText the text of the label to remove  
@@ -577,6 +574,8 @@ public class MapPage extends javax.swing.JPanel
     /**
      * Updates a label's background color based on human/zombie status.
      * 
+     * Protected using the monitor.
+     * 
      * @param panelKey the key of the panel where the label should be added
      * @param labelText the text of the label to modify
      * @param color the color to change to
@@ -590,26 +589,50 @@ public class MapPage extends javax.swing.JPanel
                 System.err.println("No panel found for key: " + panelKey);
                 return;  
             }
-        ui.invoke(() -> 
+        
+        // Send the task to UiDispatcher
+        ui.invoke(new Runnable()
         {
-            for (Component comp : targetPanel.getComponents()) 
+            public void run()
             {
-                if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+                for (Component comp : targetPanel.getComponents()) 
                 {
-                    label.setOpaque(true);
-                    label.setBackground(color);
-                    targetPanel.revalidate();
-                    targetPanel.repaint();
-                    return;
+                    if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+                    {
+                        label.setOpaque(true);
+                        label.setBackground(color);
+                        targetPanel.revalidate();
+                        targetPanel.repaint();
+                        return;
+                    }
                 }
+            }
+        });
+    }
+    
+    /**
+     * Updates the text of a specific counter label.
+     * 
+     * Protected using the monitor.
+     * 
+     * @param nameLabel the key of the label to modify
+     * @param value talue to set the label's text to
+     */
+    public synchronized void setCounter(String nameLabel, String value) 
+    {
+        ui.invoke(new Runnable()
+        {
+            public void run()
+            {
+                counters.get(nameLabel).setText(value);
             }
         });
     }
 
     /**
-     * Adjust a panel's height based on its content
+     * Adjust a panel's height based on its content.
      * 
-     * @param panel The panel to modify.
+     * @param panel the panel to modify
      */
     private void updatePanelPreferredHeight(JPanel panel) 
     {
@@ -621,20 +644,6 @@ public class MapPage extends javax.swing.JPanel
         panel.revalidate();
     }
 
-    /**
-     * Updates the text of a specific counter label
-     * 
-     * @param nameLabel the key of the label to modify
-     * @param value talue to set the label's text to
-     */
-    public synchronized void setCounter(String nameLabel, String value) 
-    {
-        ui.invoke(() -> 
-        {
-            counters.get(nameLabel).setText(value);
-        });
-    }
-    
     /**
      * Returns the number of rows required in a flow layout for the current panel's compotents.
      * 
@@ -650,7 +659,7 @@ public class MapPage extends javax.swing.JPanel
         }
 
         int x = 0;
-        int rows = 1; // At least one row if there's any content
+        int rows = 1;  // At least one row if there's any content
         int hgap = ((FlowLayout) panel.getLayout()).getHgap();
 
         for (Component comp : panel.getComponents()) 

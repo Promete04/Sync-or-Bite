@@ -13,11 +13,9 @@ import java.util.ArrayList;
 
 /**
  * 
- *Main application class for the "Sync-or-Bite" server system.
+ * Main application class for the "Sync-or-Bite" server system.
  * This class initializes and manages the GUI, backend components, and system logic.
  * It uses a CardLayout to switch between different pages (JPanels) in the application.
- * 
- * @author guill
  */
 public class ServerApp 
 {    
@@ -33,15 +31,13 @@ public class ServerApp
     // Backend components
     private static Logger logger=new Logger();
     private static PauseManager pm = new PauseManager();  
+    private static RiskZone riskZone;
+    private static Refuge refuge;
+    private static Tunnels tunnels;
 
     // Map to store pages and the currently displayed panel
     private static Map<String, JPanel> pages;
     private static JPanel currentPanel; 
-    
-    // Simulation components
-    private static RiskZone riskZone;
-    private static Refuge refuge;
-    private static Tunnels tunnels;
    
     /**
      * 
@@ -52,7 +48,7 @@ public class ServerApp
      */
     public static void main(String[] args)
     {
-        // Initialize simulation components
+        // Initialize system components
         riskZone = new RiskZone(logger,pm);
         refuge = new Refuge(logger,pm);
         tunnels = new Tunnels(riskZone,logger, pm);
@@ -99,11 +95,8 @@ public class ServerApp
                         Thread.sleep(500 + (int) (Math.random()*1500));
                         pm.check();
                     }
-                    /**
-                     * Wait an arbitrary amount of time after having ended the human production
-                     * and send an empty list to CommonArea to deal with the edge-case of ignoring 
-                     * the exit of the last human in the GUI
-                     */
+                    
+                     // Wait an arbitrary amount of time after having ended the human production and send an empty list to CommonArea to deal with the edge-case of ignoring the exit of the last human in the GUI.
                     Thread.sleep(500);
                     mapPage.updatePanel("C",new ArrayList<>());
                 } 
@@ -113,6 +106,7 @@ public class ServerApp
                 }
             }
         }; 
+        
         Thread humanGenerator = new Thread(hr);
         
         // Start the human generator thread
@@ -122,9 +116,9 @@ public class ServerApp
     }   
     
     /**
-     *Gets the PauseManager instance.
+     * Gets the PauseManager instance.
      * 
-     * @return
+     * @return the PauseManager instance
      */
     public static PauseManager getPM()
     {
@@ -134,7 +128,7 @@ public class ServerApp
     /**
      * Gets the Refuge instance.
      * 
-     * @return The Refuge instance.
+     * @return the Refuge instance
      */
     public static Refuge getR()
     {
@@ -144,7 +138,7 @@ public class ServerApp
     /**
      * Gets the CommonArea instance from the Refuge.
      * 
-     * @return The CommonArea instance.
+     * @return the CommonArea instance
      */
     public static CommonArea getCA()
     {
@@ -154,7 +148,7 @@ public class ServerApp
     /**
      * Gets the RestArea instance from the Refuge.
      * 
-     * @return The RestArea instance.
+     * @return the RestArea instance
      */
     public static RestArea getRA()
     {
@@ -164,7 +158,7 @@ public class ServerApp
     /**
      * Gets the DiningRoom instance from the Refuge.
      * 
-     * @return The DiningRoom instance.
+     * @return the DiningRoom instance
      */
     public static DiningRoom getDR()
     {
@@ -174,7 +168,7 @@ public class ServerApp
     /**
      * Gets the RiskZone instance.
      * 
-     * @return The RiskZone instance.
+     * @return the RiskZone instance
      */
     public static RiskZone getRZ()
     {
@@ -184,7 +178,7 @@ public class ServerApp
     /**
      * Gets the Tunnels instance.
      * 
-     * @return The Tunnels instance.
+     * @return the Tunnels instance
      */
     public static Tunnels getT()
     {
@@ -194,7 +188,7 @@ public class ServerApp
     /**
      * Gets the Logger instance.
      * 
-     * @return The Logger instance.
+     * @return the Logger instance
      */
     public static Logger getL()
     {
@@ -204,7 +198,7 @@ public class ServerApp
     /**
      * Redirects the application to a different page.
      * 
-     * @param page A string with the page name.
+     * @param page a string with the page name
      */
     public static void redirect(String page)
    {

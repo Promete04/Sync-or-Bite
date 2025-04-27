@@ -7,12 +7,10 @@ import Server.frontend.ServerApp;
 import java.awt.*;
 import java.io.InputStream;
 
-/**
- *
- * @author guill
- */
 
-public class FontManager {
+
+public class FontManager 
+{
 
 
     public static final Font lightFont = loadFont("/fonts/UniSpaceIt.ttf", 16);
@@ -27,15 +25,18 @@ public class FontManager {
      * useFont() adds a new custom text font to the proyect.
      * @param path the font path relative to "resources/" folder
      * @param size the size of the text
-     * @return a new custom font
+     * @return new custom font
      */
-    private static Font loadFont(String path,float size){
-        try {
+    private static Font loadFont(String path,float size)
+    {
+        try 
+        {
             InputStream is = ServerApp.class.getResourceAsStream(path);
             Font font = Font.createFont(Font.TRUETYPE_FONT, is);
             return font.deriveFont(16f);
         }
-        catch (Exception e){
+        catch (Exception e)
+        {
             e.printStackTrace();
             return null;
         }

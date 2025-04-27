@@ -18,7 +18,6 @@ import javax.swing.ImageIcon;
  * - Provides a button to toggle pause/resume state.
  * - Allows navigation to the map page.
  * 
- * @author guill
  */
 public class LogPage extends javax.swing.JPanel
 {
@@ -78,20 +77,43 @@ public class LogPage extends javax.swing.JPanel
      */
     private void loadLogs() 
     {
+        // Create a File object using the filename provided by the logger
         File file = new File(logger.getFileName());
+        
+        // If the log file exists
         if (file.exists()) 
         {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) 
+            BufferedReader br = null;
+            try 
             {
+                // Initialize the BufferedReader to read from the file
+                br = new BufferedReader(new FileReader(file));
                 String line;
+                
+                // Read line by line
                 while ((line = br.readLine()) != null) 
                 {
-                    logsArea.append(line + "\n");
+                    logsArea.append(line + "\n");  // Append the line from the file to the panel
                 }
             } 
             catch (IOException e) 
             {
                 e.printStackTrace();
+            } 
+            finally 
+            {
+                if (br != null) 
+                {
+                    try 
+                    {
+                        // Close the BufferedReader
+                        br.close();
+                    } 
+                    catch (IOException e) 
+                    {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
@@ -99,7 +121,7 @@ public class LogPage extends javax.swing.JPanel
     /**
      * Appends a new log entry to the logsArea.
      * 
-     * @param logEntry The log message to append.
+     * @param logEntry the log message to append
      */
     public void onNewLog(String logEntry)
     {

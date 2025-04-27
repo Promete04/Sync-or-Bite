@@ -71,7 +71,7 @@ public class Human extends Thread
                 
                 if(killed)
                 {
-                    sleep(10);         //Sleep just to trigger the interrupt in case it was interrupted (killed)
+                    sleep(10);         // Sleep just to trigger the interrupt in case it was interrupted (killed)
                 }
 
                 // Leave the unsafe area and go through the tunnel
