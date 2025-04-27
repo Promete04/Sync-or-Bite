@@ -50,7 +50,9 @@ public class Zombie extends Thread
     public void run()
     {
 
-        int unsafeArea;
+        int lastArea = -1;  // Last area the zombie visited
+        int nextArea = (int) (Math.random() * 4);   // Next area that will be visited
+        
         while(true)
         {
             // If the zombie was reborn
@@ -59,16 +61,25 @@ public class Zombie extends Thread
                 // Zombie starts in a specific area
                 riskZone.obtainUnsafeArea(areaWhereReborn).wander(this);
                 riskZone.obtainUnsafeArea(areaWhereReborn).exit(this);
+                
                 // Reset to behave like normal zombies next iteration
                 areaWhereReborn = -1;
+                lastArea = areaWhereReborn;
             }
             else
             {
-                // Random roaming logic (chooses an unsafe area from 0 to 3)
-                unsafeArea = (int) (Math.random() * 4);
-                riskZone.obtainUnsafeArea(unsafeArea).enter(this);
-                riskZone.obtainUnsafeArea(unsafeArea).wander(this);
-                riskZone.obtainUnsafeArea(unsafeArea).exit(this);
+                // Random roaming logic (chooses an unsafe area from 0 to 3 without repeating consecutively)
+                
+                while (lastArea == nextArea)
+                {
+                    nextArea = (int) (Math.random() * 4);
+                }
+                
+                riskZone.obtainUnsafeArea(nextArea).enter(this);
+                riskZone.obtainUnsafeArea(nextArea).wander(this);
+                riskZone.obtainUnsafeArea(nextArea).exit(this);
+                
+                lastArea = nextArea;
             } 
         }
     }
