@@ -188,7 +188,7 @@ public class ServerApp
     /**
      * Gets the Logger instance.
      * 
-     * @return the Logger instance
+     * @return the Logger instance 
      */
     public static Logger getL()
     {
