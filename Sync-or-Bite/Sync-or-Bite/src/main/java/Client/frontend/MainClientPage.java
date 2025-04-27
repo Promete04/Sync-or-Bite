@@ -193,6 +193,7 @@ public class MainClientPage extends javax.swing.JPanel
         pauseResumeButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
         jPanel51 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -217,6 +218,7 @@ public class MainClientPage extends javax.swing.JPanel
         HR3 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         HR4 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
         jPanel53 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -229,12 +231,14 @@ public class MainClientPage extends javax.swing.JPanel
         HT3 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
         HT4 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
         jPanel55 = new javax.swing.JPanel();
         jPanel30 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         jPanel34 = new javax.swing.JPanel();
         HR = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -271,6 +275,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel2.setLayout(new java.awt.GridLayout(2, 0));
 
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.Y_AXIS));
+        jPanel3.add(jSeparator1);
 
         jPanel51.setForeground(utils.ColorManager.BG_COLOR);
         jPanel51.setLayout(new javax.swing.BoxLayout(jPanel51, javax.swing.BoxLayout.X_AXIS));
@@ -393,6 +398,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel52.add(jPanel13);
 
         jPanel3.add(jPanel52);
+        jPanel3.add(jSeparator3);
 
         jPanel53.setForeground(utils.ColorManager.BG_COLOR);
         jPanel53.setLayout(new javax.swing.BoxLayout(jPanel53, javax.swing.BoxLayout.X_AXIS));
@@ -454,6 +460,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel53.add(jPanel19);
 
         jPanel3.add(jPanel53);
+        jPanel3.add(jSeparator4);
 
         jPanel55.setForeground(utils.ColorManager.BG_COLOR);
         jPanel55.setLayout(new javax.swing.BoxLayout(jPanel55, javax.swing.BoxLayout.X_AXIS));
@@ -484,6 +491,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel55.add(jPanel31);
 
         jPanel3.add(jPanel55);
+        jPanel3.add(jSeparator2);
 
         jPanel2.add(jPanel3);
 
@@ -620,6 +628,10 @@ public class MainClientPage extends javax.swing.JPanel
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel kill1;
     private javax.swing.JLabel kill2;
     private javax.swing.JLabel kill3;
