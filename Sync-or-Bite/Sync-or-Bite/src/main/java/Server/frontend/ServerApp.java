@@ -96,9 +96,14 @@ public class ServerApp
                     for (int i = 1; i < 10001; i++) 
                     {
                         new Human(i, refuge, tunnels).start();
-                        Thread.sleep(100 + (int) (Math.random()*0));
+                        Thread.sleep(500 + (int) (Math.random()*1500));
                         pm.check();
                     }
+                    /**
+                     * Wait an arbitrary amount of time after having ended the human production
+                     * and send an empty list to CommonArea to deal with the edge-case of ignoring 
+                     * the exit of the last human in the GUI
+                     */
                     Thread.sleep(500);
                     mapPage.updatePanel("C",new ArrayList<>());
                 } 
