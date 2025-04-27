@@ -156,18 +156,18 @@ public class UnsafeArea
         // If the zombie successfully picked a human to attack
         if(attackedHuman != null)
         {
-            z.toggleAttacking();
-            logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
-            notifyChange(true);
+            // Start of attack simulated via interrupt
+            attackedHuman.interrupt(); 
             
-            // Record the target and itself in the attacks hashmap (using it's monitor).
+            // Record the target and itself in the attacks hashmap (using it's monitor)
             synchronized(attacks)
             {
                 attacks.put(attackedHuman, z);
             }
             
-            // Start of attack simulated via interrupt
-            attackedHuman.interrupt();        
+            z.toggleAttacking();
+            logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
+            notifyChange(true);
 
             try
             {
@@ -266,6 +266,8 @@ public class UnsafeArea
     {
         try
         {
+            Thread.sleep(10);  // To ensure that the interrupt gets triggered in the case that the zombie interrupts right after entering
+            
             logger.log("Human " + h.getHumanId() + " is exploring unsafe area " + area + ".");
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
 
@@ -282,13 +284,14 @@ public class UnsafeArea
             h.collectFood(fgenerator.gatherFood());
             h.collectFood(fgenerator.gatherFood());
             logger.log("Human " + h.getHumanId() + " gathered 2 units of food in unsafe area " + area + ".");
-            Thread.sleep(10);  // To ensure that the interrupt gets triggered in the rare case that the zombie interrupts the human while collecting the food.
+            
+            Thread.sleep(10);  // To ensure that the interrupt gets triggered in the rare case that the zombie interrupts the human while collecting the food
         }
         catch(InterruptedException ie)
         {
             try
             {
-                h.toggleAttacked();  // Attack starts
+                h.setBeingAttacked(true);  // Attack starts
                 h.loseAllFood();     // In case the human is interrupted after collecting the food.
                 notifyChange(true);
                 // Under attack (time governed by the zombie, when the zombie ends it interrupts again)
@@ -302,8 +305,8 @@ public class UnsafeArea
                     logger.log("Human " + h.getHumanId() + " successfully defended itself from the attack.");
                     
                     // If survived it's marked
-                    h.toggleAttacked();
-                    h.toggleMarked();
+                    h.setBeingAttacked(false);
+                    h.setMarked(true);
                     pm.check();
                     notifyChange(true);
                     
@@ -347,6 +350,8 @@ public class UnsafeArea
                     notifyChange(false);
                     logger.log("Human " + h.getHumanId() + " was reborn as " + "Zombie " + killed.getZombieId() + " in area " + area + ".");
                     killed.start();   // Begin zombie behaviour
+                    
+                    h.setKilled(true);
                     h.interrupt();    // Termination of human (dies)
                 }
             }
