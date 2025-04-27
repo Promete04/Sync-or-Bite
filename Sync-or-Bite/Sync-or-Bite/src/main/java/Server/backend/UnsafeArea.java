@@ -165,7 +165,7 @@ public class UnsafeArea
                 attacks.put(attackedHuman, z);
             }
             
-            z.toggleAttacking();
+            z.setAttacking(true);
             logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
             notifyChange(true);
 
@@ -186,7 +186,7 @@ public class UnsafeArea
             attackedHuman.interrupt();      // End of attack using another interrupt
             
             pm.check();
-            z.toggleAttacking();
+            z.setAttacking(false);
             notifyChange(true);  // Notify listeners
         }
         

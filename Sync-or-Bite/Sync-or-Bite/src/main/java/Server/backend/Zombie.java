@@ -102,11 +102,13 @@ public class Zombie extends Thread
     }
     
     /**
-     * Toggles the attacking status of the zombie.
+     * Sets the attacking status to the parameter.
+     * 
+     * @param attacking true if is attacking, false otherwise
      */
-    public void toggleAttacking()
+    public void setAttacking(boolean attacking)
     {
-        attacking=!attacking;
+        this.attacking=attacking;
     }
     
     /**

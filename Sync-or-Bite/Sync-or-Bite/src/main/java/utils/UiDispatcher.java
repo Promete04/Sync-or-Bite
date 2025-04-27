@@ -10,9 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * A class that manages in an ordered and efficient way the dispatchment of tasks to the EDT
- * 
- * @author guille
+ * A class that manages in an ordered and efficient way the dispatchment of tasks to the EDT.
  */
 public class UiDispatcher 
 {
@@ -50,7 +48,7 @@ public class UiDispatcher
     }
 
     /** 
-     * runs on the EDT 
+     * runs on the EDT
      */
     private void drainQueue() 
     {
