@@ -23,7 +23,7 @@ public class UiDispatcher
 
     /**
      * Call from any thread.
-     * @param uiTask
+     * @param uiTask GUI modification task (e.g. Add a label)
      */
     public void invoke(Runnable uiTask) 
     {
