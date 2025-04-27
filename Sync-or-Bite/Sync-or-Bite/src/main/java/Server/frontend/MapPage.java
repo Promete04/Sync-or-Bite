@@ -615,7 +615,6 @@ public class MapPage extends javax.swing.JPanel
     {
         int rowCount = getFlowLayoutRowCount(panel);
         int labelHeight = 30; // Approximate height per row
-        int padding = 10;
 
         Dimension currentSize = panel.getPreferredSize();
         panel.setPreferredSize(new Dimension(currentSize.width, rowCount * labelHeight));
