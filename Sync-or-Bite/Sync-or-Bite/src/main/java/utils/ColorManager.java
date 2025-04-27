@@ -36,6 +36,9 @@ public class ColorManager
     
     //Being atacked color
     public static Color ATTACKED_COLOR =            new Color(153,47,86); 
+    
+    // Main color, made for bigger visual impact
+    public static Color MAIN_COLOR =                new Color(255,61,61);
 }
     
 
