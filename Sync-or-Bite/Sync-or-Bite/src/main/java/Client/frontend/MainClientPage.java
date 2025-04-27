@@ -14,16 +14,27 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author guill
+ * The MainClientPage class represents the main user interface panel for the client application.
+ * It provides dynamic updates to different labels displaying the state of humans, zombies,
+ * and tunnel activity, as well as a podium for the kills.
+ * 
+ * It uses a SingleThreadExecutor to submit tasks, retrieves results via a Future,
+ * and ensures updates happen every 500 milliseconds to avoid overloading the system.
+ * 
  */
 public class MainClientPage extends javax.swing.JPanel 
 {
+    // Toggler for pause/resume 
     private final Toggler toggler = new Toggler();
+    
+    // ExecutorService responsible for periodic data updates in a background thread
     private ExecutorService automaticUpdater = Executors.newSingleThreadExecutor();
     
+    // Icons
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
     
+    // Map associating label IDs with their corresponding JLabel instances
     private final Map<Integer, JLabel> labels = new HashMap<>();
     
 
@@ -40,9 +51,7 @@ public class MainClientPage extends javax.swing.JPanel
         pTop2.setStringPainted(false);
         pTop3.setStringPainted(false);
         
-        /**
-        * Toggles the pause state of the game and updates the pause/resume button icon.
-        */
+        // Update the pause/resume button icon when toggling
         toggler.setPauseStateListener(new Runnable() 
         {
             public void run() 
@@ -57,7 +66,8 @@ public class MainClientPage extends javax.swing.JPanel
     }
     
     /**
-     * Main loop of the data gathering
+     * Starts the main loop responsible for gathering and updating data periodically.
+     * This method uses a thread to fetch system state and update the GUI accordingly.
      */
     public void updateData()
     {
@@ -72,12 +82,16 @@ public class MainClientPage extends javax.swing.JPanel
                     while (true) 
                     {
                         int totalKills=0;
+                        
+                        // Submit a Callable task that retrieves updated data
                         Future<String[]> future = automaticUpdater.submit(new AutomaticUpdaterTask());
+                        
+                        // Wait for the result
                         data = future.get();
                         
                         for (int i = 0; i < data.length; i++) 
                         {
-                            //check system pause state
+                            //Check server pause/resume state
                             if(i==0)
                             {
                                 if(data[0].equals(String.valueOf(true)))
@@ -89,13 +103,13 @@ public class MainClientPage extends javax.swing.JPanel
                                         toggler.pause();
                                     }
                             }
-                            //Provide labels with gathered data
+                            // Provide labels with gathered data
                             else if(i<=14 || i==16 || i==18)
                             {
                                 JLabel label = labels.get(i);
                                 label.setText(data[i]);
                             }
-                            //Calculate and show a dinamic podium with JScrollBar component
+                            // Calculate and show a dynamic podium with JScrollBar component
                             else 
                             {
                                 totalKills=totalKills+Integer.parseInt(data[i]);
@@ -110,13 +124,13 @@ public class MainClientPage extends javax.swing.JPanel
                                     int val2 = Integer.parseInt(data[17]);
                                     int val3 = Integer.parseInt(data[19]);
 
-                                    //Obtain and set the relative kill percentage
+                                    // Obtain and set the relative kill percentage
                                     pTop1.setValue((val1 * 100) / finalTotalKills);
                                     pTop2.setValue((val2 * 100) / finalTotalKills);
                                     pTop3.setValue((val3 * 100) / finalTotalKills);
 
 
-                                    //method to avoid conflicts and corruption of the gui
+                                    // Refresh the GUI
                                     pTop1.getParent().revalidate();
                                     pTop1.getParent().repaint();
                                     pTop2.getParent().revalidate();
@@ -126,6 +140,8 @@ public class MainClientPage extends javax.swing.JPanel
                                 }
                             }
                         }
+                        
+                        // Wait 500 milliseconds before fetching and updating data again
                         Thread.sleep(500);
                     }
                 } 
@@ -136,6 +152,7 @@ public class MainClientPage extends javax.swing.JPanel
             }
         };
 
+        // Create and start the thread responsible of the periodic background updates
         Thread updater = new Thread(r);
         updater.start();
     }
@@ -263,7 +280,7 @@ public class MainClientPage extends javax.swing.JPanel
 
         jLabel1.setFont(utils.FontManager.boldFont);
         jLabel1.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel1.setText("Nº Zombies in risk zones");
+        jLabel1.setText("Nº Zombies in each unsafe area");
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
         jPanel5.add(jLabel1);
 
@@ -324,7 +341,7 @@ public class MainClientPage extends javax.swing.JPanel
 
         jLabel6.setFont(utils.FontManager.boldFont);
         jLabel6.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel6.setText("Nº Humans in risk zones");
+        jLabel6.setText("Nº Humans in each unsafe area ");
         jLabel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
         jPanel11.add(jLabel6);
 
@@ -385,7 +402,7 @@ public class MainClientPage extends javax.swing.JPanel
 
         jLabel11.setFont(utils.FontManager.boldFont);
         jLabel11.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel11.setText("Nº Humans in tunnels");
+        jLabel11.setText("Nº Humans in tunnels          ");
         jLabel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
         jPanel18.add(jLabel11);
 

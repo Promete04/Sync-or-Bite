@@ -655,7 +655,7 @@ public class MapPage extends javax.swing.JPanel
      * Returns the number of rows required in a flow layout for the current panel's compotents.
      * 
      * @param panel the panel to check
-     * @return The estimated number of rows in the target panel
+     * @return the estimated number of rows in the target panel
      */
     private int getFlowLayoutRowCount(JPanel panel) 
     {
