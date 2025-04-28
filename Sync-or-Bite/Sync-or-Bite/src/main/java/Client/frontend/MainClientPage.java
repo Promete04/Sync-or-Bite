@@ -346,7 +346,7 @@ public class MainClientPage extends javax.swing.JPanel
 
         jLabel6.setFont(utils.FontManager.boldFont);
         jLabel6.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel6.setText("Nº Humans in each unsafe area ");
+        jLabel6.setText("Nº Humans in each unsafe area");
         jLabel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
         jPanel11.add(jLabel6);
 
@@ -355,6 +355,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel13.setForeground(utils.ColorManager.BG_COLOR);
         jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel14.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jPanel14.setForeground(utils.ColorManager.BG_COLOR);
         jPanel14.setLayout(new java.awt.BorderLayout());
 
@@ -408,7 +409,7 @@ public class MainClientPage extends javax.swing.JPanel
 
         jLabel11.setFont(utils.FontManager.boldFont);
         jLabel11.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel11.setText("Nº Humans in tunnels          ");
+        jLabel11.setText("Nº Humans in each tunnel     ");
         jLabel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
         jPanel18.add(jLabel11);
 
@@ -417,6 +418,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel19.setForeground(utils.ColorManager.BG_COLOR);
         jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel20.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
         jPanel20.setForeground(utils.ColorManager.BG_COLOR);
         jPanel20.setLayout(new java.awt.BorderLayout());
 
@@ -463,32 +465,35 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel3.add(jSeparator4);
 
         jPanel55.setForeground(utils.ColorManager.BG_COLOR);
-        jPanel55.setLayout(new javax.swing.BoxLayout(jPanel55, javax.swing.BoxLayout.X_AXIS));
+        jPanel55.setLayout(new java.awt.BorderLayout());
 
         jPanel30.setForeground(utils.ColorManager.BG_COLOR);
         jPanel30.setLayout(new javax.swing.BoxLayout(jPanel30, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel21.setFont(utils.FontManager.boldFont);
         jLabel21.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel21.setText("Nº Humans in refuge");
+        jLabel21.setText("Nº Humans in refuge     ");
         jLabel21.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 55));
         jPanel30.add(jLabel21);
 
-        jPanel55.add(jPanel30);
+        jPanel55.add(jPanel30, java.awt.BorderLayout.WEST);
 
         jPanel31.setForeground(utils.ColorManager.BG_COLOR);
+        jPanel31.setLayout(new java.awt.BorderLayout());
 
+        jPanel34.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 7, 1, 1));
         jPanel34.setForeground(utils.ColorManager.BG_COLOR);
         jPanel34.setLayout(new java.awt.BorderLayout());
 
         HR.setFont(utils.FontManager.regularFont);
         HR.setForeground(utils.ColorManager.TEXT_COLOR);
         HR.setText("0");
+        HR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 45, 1, 1));
         jPanel34.add(HR, java.awt.BorderLayout.CENTER);
 
-        jPanel31.add(jPanel34);
+        jPanel31.add(jPanel34, java.awt.BorderLayout.CENTER);
 
-        jPanel55.add(jPanel31);
+        jPanel55.add(jPanel31, java.awt.BorderLayout.CENTER);
 
         jPanel3.add(jPanel55);
         jPanel3.add(jSeparator2);
@@ -499,7 +504,7 @@ public class MainClientPage extends javax.swing.JPanel
 
         jLabel2.setFont(utils.FontManager.titleFont);
         jLabel2.setForeground(utils.ColorManager.TEXT_COLOR);
-        jLabel2.setText("TOP 3 ZOMBIES");
+        jLabel2.setText("TOP 3 MOST LETHAL ZOMBIES");
         jPanel12.add(jLabel2);
 
         jPanel4.add(jPanel12, java.awt.BorderLayout.NORTH);
