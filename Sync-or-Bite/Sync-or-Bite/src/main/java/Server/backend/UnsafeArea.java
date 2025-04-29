@@ -260,6 +260,9 @@ public class UnsafeArea
      * Uses attacks and zombiesInside monitor to ensure thread safe access when humans
      * are attacked, killed or reborn as zombies.
      * 
+     * When a human dies when it reborns as a zombie in the same area, it will check if there are any humans to attack, 
+     * just as if they had just entered.
+     * 
      * @param h the human
      */
     public void wander(Human h)
