@@ -29,7 +29,7 @@ public class DiningRoom
     private List<Human> humansInside = new ArrayList<>();
     // Concurrent non-blocking queue for storing food units
     private Queue<Food> foodList = new ConcurrentLinkedQueue<>();
-    // Fair Semaphore for mutual exclusion
+    // Fair Semaphore for mutual exclusion keeping order of arrival
     private Semaphore mutex = new Semaphore(1,true);
     // Fair Semaphore used to track the number of food units available (if there are no units a queue will be formed in order of arrival)
     private Semaphore foodCount = new Semaphore(0,true);
