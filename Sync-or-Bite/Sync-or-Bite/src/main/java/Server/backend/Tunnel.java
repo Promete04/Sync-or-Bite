@@ -1,14 +1,9 @@
 package Server.backend;
 
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.locks.*;
 
 /**
  * Represents a tunnel that allows humans to move between the refuge and an unsafe area. 
@@ -18,7 +13,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * of the waitingToExitQueue and waitingToReturnQueue.
  *
  * The synchronization tools ensure that only one human can cross the tunnel at a time, 
- * with returners having priority over exiters.
+ * with returners having priority over exiters and that if many groups are formed, they 
+ * will cross the tunnel in FIFO order.
  */
 public class Tunnel 
 {
@@ -27,7 +23,7 @@ public class Tunnel
     
     // Fair lock and conditions for controlling tunnel crossing
     // Since it's fair if more than one group of 3 is made the groups will go through the tunnel in order of arrival
-    private final ReentrantLock usingLock = new ReentrantLock(true); 
+    private final Lock usingLock = new ReentrantLock(true); 
     private final Condition entryCondition = usingLock.newCondition(); // For humans returning
     private final Condition exitCondition = usingLock.newCondition();  // For humans exiting
     

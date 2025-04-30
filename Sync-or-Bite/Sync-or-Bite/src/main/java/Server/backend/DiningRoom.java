@@ -5,11 +5,8 @@
 package Server.backend;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Semaphore;
+import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * Represents the dining room where humans store food and temporaly eat.

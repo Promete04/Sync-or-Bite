@@ -19,7 +19,7 @@ import javax.swing.JLabel;
  * and tunnel activity, as well as a podium for the kills.
  * 
  * It uses a SingleThreadExecutor to submit tasks, retrieves results via a Future,
- * and ensures updates happen every 500 milliseconds to avoid overloading the system.
+ * and ensures updates happen every 100 milliseconds to avoid overloading the system.
  * 
  */
 public class MainClientPage extends javax.swing.JPanel 
@@ -141,8 +141,8 @@ public class MainClientPage extends javax.swing.JPanel
                             }
                         }
                         
-                        // Wait 500 milliseconds before fetching and updating data again
-                        Thread.sleep(500);
+                        // Wait 100 milliseconds before fetching and updating data again
+                        Thread.sleep(100);
                     }
                 } 
                 catch (Exception e) 
