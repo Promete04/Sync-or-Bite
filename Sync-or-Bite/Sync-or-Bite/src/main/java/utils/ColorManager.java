@@ -45,10 +45,10 @@ public class ColorManager
     public static Color REFUGE_COLOR =              new Color(190,255,190);
     
     //Tunnel color
-    public static Color TUNNEL_COLOR =              new Color(224, 187, 83,50);
+    public static Color TUNNEL_COLOR =              new Color(224, 187, 83);
     
     //Unsafe Areas color
-    public static Color UNSAFE_COLOR =              new Color(222, 112, 104,50);
+    public static Color UNSAFE_COLOR =              new Color(222, 112, 104);
 }
     
 

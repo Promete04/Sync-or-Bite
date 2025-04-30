@@ -77,7 +77,7 @@ public class ClientApp
    {
         frame.setContentPane(cards);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(1200, 810));
+        frame.setMinimumSize(new Dimension(1200, 1000));
         frame.setMaximumSize(new Dimension(1920, 1080));
         frame.setVisible(true);
    }  
