@@ -65,9 +65,8 @@ public class Zombie extends Thread
                 riskZone.obtainUnsafeArea(areaWhereReborn).exit(this);
                 
                 // Reset to behave like normal zombies next iteration
-                areaWhereReborn = -1;
-                lastArea = areaWhereReborn;
-                nextArea = (int) (Math.random() * 4);
+                lastArea = areaWhereReborn; 
+                areaWhereReborn = -1;                  
             }
             else
             {
