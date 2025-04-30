@@ -236,7 +236,9 @@ public class Human extends Thread
      */
     public Color getHumanColor() 
     {
-        Color color = isBeingAttacked() ? utils.ColorManager.ATTACKED_COLOR : isMarked() ? utils.ColorManager.INJURED_COLOR : utils.ColorManager.HUMAN_COLOR;
+        Color color = isBeingAttacked() ? utils.ColorManager.ATTACKED_COLOR : 
+                isMarked() ? utils.ColorManager.INJURED_COLOR : 
+                isWaiting() ? utils.ColorManager.WAITING4GROUP_COLOR : utils.ColorManager.HUMAN_COLOR;
         return color;
     }
 }

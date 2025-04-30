@@ -4,6 +4,8 @@
  */
 package Server.backend;
 
+import java.awt.Color;
+
 /**
  * Represents a zombie. Each zombie runs as a separate thread.
  * 
@@ -130,5 +132,16 @@ public class Zombie extends Thread
     public boolean isAttacking()
     {
         return attacking;
+    }
+    
+    /**
+     * Obtains the color that the zombie should have in the GUI.
+     *
+     * @returns the color that will be used by the GUI
+     */
+    public Color getZombieColor() 
+    {
+        Color color = isAttacking()? utils.ColorManager.ATTACKING_COLOR : utils.ColorManager.ZOMBIE_COLOR;
+        return color;
     }
 }

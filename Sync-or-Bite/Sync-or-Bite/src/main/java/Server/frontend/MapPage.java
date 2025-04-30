@@ -163,19 +163,8 @@ public class MapPage extends javax.swing.JPanel
                         {
                             // Update label colors based on human states
                             for (Human human : commonHumans) 
-                            {
-                                if (human.isBeingAttacked()) 
-                                {
-                                    setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                                } 
-                                else if (human.isMarked())
-                                {
-                                    setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
-                                }
-                                else
-                                {
-                                    setLabelColorInPanel("C", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                }
+                            {                    
+                                    setLabelColorInPanel("C", human.getHumanId(), human.getHumanColor());  
                             }
                         }
                     }
@@ -198,18 +187,7 @@ public class MapPage extends javax.swing.JPanel
                             // Update label colors based on human states
                             for (Human human : restHumans) 
                             {
-                                if (human.isBeingAttacked()) 
-                                {
-                                    setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                                } 
-                                else if (human.isMarked())
-                                {
-                                    setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
-                                }
-                                else
-                                {
-                                    setLabelColorInPanel("R", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                }
+                                setLabelColorInPanel("R", human.getHumanId(), human.getHumanColor()); 
                             }
                         }
                     }
@@ -233,18 +211,7 @@ public class MapPage extends javax.swing.JPanel
                             // Update label colors based on human states
                             for (Human human : dinningHumans) 
                             {
-                                if (human.isBeingAttacked()) 
-                                {
-                                    setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                                } 
-                                else if (human.isMarked())
-                                {
-                                    setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
-                                }
-                                else
-                                {
-                                    setLabelColorInPanel("D", human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                }
+                                setLabelColorInPanel("D", human.getHumanId(), human.getHumanColor()); 
                             }    
                         }   
                     }
@@ -275,31 +242,13 @@ public class MapPage extends javax.swing.JPanel
                             // Update label colors based on human states
                             for (Human human : unsafeHumans) 
                             {
-                                if (human.isBeingAttacked()) 
-                                {
-                                    setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.ATTACKED_COLOR);
-                                } 
-                                else if (human.isMarked())
-                                {
-                                    setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.INJURED_COLOR);  
-                                }
-                                else
-                                {
-                                    setLabelColorInPanel(humansPanelId, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                }
+                                setLabelColorInPanel(humansPanelId, human.getHumanId(), human.getHumanColor()); 
                             }
 
                             // Update label colors based on zombie states
                             for (Zombie zombie : unsafeZombies) 
                             {
-                                if (zombie.isAttacking()) 
-                                {
-                                    setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ATTACKING_COLOR);  
-                                } 
-                                else 
-                                {
-                                    setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), utils.ColorManager.ZOMBIE_COLOR);  
-                                }
+                                    setLabelColorInPanel(zombiesPanelId, zombie.getZombieId(), zombie.getZombieColor());  
                             }
                         }
                     }
@@ -339,23 +288,13 @@ public class MapPage extends javax.swing.JPanel
                             // Update label colors based on human states
                             for (Human human : entering) 
                             {
-                                if (human.isMarked()) 
-                                {
-                                    setLabelColorInPanel(entryPanel, human.getHumanId(), utils.ColorManager.INJURED_COLOR);
-                                } 
+                                setLabelColorInPanel(entryPanel, human.getHumanId(), human.getHumanColor()); 
                             } 
                             
                             // Update label colors based on human states
                             for (Human human : exiting) 
                             {
-                                if (human.isWaiting()) 
-                                {
-                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.WAITING4GROUP_COLOR);
-                                } 
-                                else
-                                {
-                                    setLabelColorInPanel(exitPanel, human.getHumanId(), utils.ColorManager.HUMAN_COLOR);
-                                }
+                                setLabelColorInPanel(exitPanel, human.getHumanId(), human.getHumanColor()); 
                             }
                         }
                     }
