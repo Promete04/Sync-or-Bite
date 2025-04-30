@@ -163,7 +163,7 @@ public class UnsafeArea
             }
             
             z.setAttacking(true);
-            logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId());
+            logger.log("Zombie " + z.getZombieId() + " in unsafe area " + area + " attacks human " + attackedHuman.getHumanId() + ".");
             notifyChange(true);
 
             try
@@ -335,7 +335,7 @@ public class UnsafeArea
                     
                     // Increase the killer's killcount
                     killer.increaseKillCount();
-                    logger.log("Zombie " + killer.getZombieId() + " killed human " + h.getHumanId() + " (Kill count: " + killer.getKillCount() + ")");
+                    logger.log("Zombie " + killer.getZombieId() + " killed human " + h.getHumanId() + " (Kill count: " + killer.getKillCount() + ").");
                     
                     // Report the kill in case the top 3 most lethal zombies need to be updated
                     riskZone.reportKill(killer);

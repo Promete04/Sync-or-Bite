@@ -67,11 +67,11 @@ public class Zombie extends Thread
                 // Reset to behave like normal zombies next iteration
                 areaWhereReborn = -1;
                 lastArea = areaWhereReborn;
+                nextArea = (int) (Math.random() * 4);
             }
             else
             {
                 // Random roaming logic (chooses an unsafe area from 0 to 3 without repeating consecutively)
-                
                 while (lastArea == nextArea)
                 {
                     nextArea = (int) (Math.random() * 4);
