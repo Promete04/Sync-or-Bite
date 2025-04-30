@@ -194,6 +194,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel26 = new javax.swing.JPanel();
         jPanel51 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -277,6 +278,9 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.Y_AXIS));
         jPanel3.add(jSeparator1);
 
+        jPanel26.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, utils.ColorManager.UNSAFE_COLOR));
+        jPanel26.setLayout(new javax.swing.BoxLayout(jPanel26, javax.swing.BoxLayout.PAGE_AXIS));
+
         jPanel51.setForeground(utils.ColorManager.BG_COLOR);
         jPanel51.setLayout(new javax.swing.BoxLayout(jPanel51, javax.swing.BoxLayout.X_AXIS));
 
@@ -336,7 +340,7 @@ public class MainClientPage extends javax.swing.JPanel
 
         jPanel51.add(jPanel6);
 
-        jPanel3.add(jPanel51);
+        jPanel26.add(jPanel51);
 
         jPanel52.setForeground(utils.ColorManager.BG_COLOR);
         jPanel52.setLayout(new javax.swing.BoxLayout(jPanel52, javax.swing.BoxLayout.X_AXIS));
@@ -398,9 +402,12 @@ public class MainClientPage extends javax.swing.JPanel
 
         jPanel52.add(jPanel13);
 
-        jPanel3.add(jPanel52);
+        jPanel26.add(jPanel52);
+
+        jPanel3.add(jPanel26);
         jPanel3.add(jSeparator3);
 
+        jPanel53.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, utils.ColorManager.TUNNEL_COLOR));
         jPanel53.setForeground(utils.ColorManager.BG_COLOR);
         jPanel53.setLayout(new javax.swing.BoxLayout(jPanel53, javax.swing.BoxLayout.X_AXIS));
 
@@ -464,6 +471,7 @@ public class MainClientPage extends javax.swing.JPanel
         jPanel3.add(jPanel53);
         jPanel3.add(jSeparator4);
 
+        jPanel55.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, utils.ColorManager.REFUGE_COLOR));
         jPanel55.setForeground(utils.ColorManager.BG_COLOR);
         jPanel55.setLayout(new java.awt.BorderLayout());
 
@@ -617,6 +625,7 @@ public class MainClientPage extends javax.swing.JPanel
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
