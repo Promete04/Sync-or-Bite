@@ -508,6 +508,7 @@ public class MainClientPage extends javax.swing.JPanel
 
         jPanel2.add(jPanel3);
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, utils.ColorManager.WAITING4GROUP_COLOR));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
         jLabel2.setFont(utils.FontManager.titleFont);
