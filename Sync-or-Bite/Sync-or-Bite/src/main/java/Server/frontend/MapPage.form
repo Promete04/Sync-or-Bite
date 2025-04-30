@@ -107,6 +107,16 @@
       <SubComponents>
         <Container class="javax.swing.JPanel" name="riskZonesPanel">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="utils.ColorManager.UNSAFE_COLOR" type="code"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder bottom="10" left="10" right="10" top="10">
+                  <Connection PropertyName="color" code="utils.ColorManager.UNSAFE_COLOR" type="code"/>
+                </MatteColorBorder>
+              </Border>
+            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
             </Property>
@@ -588,6 +598,16 @@
         </Container>
         <Container class="javax.swing.JPanel" name="tunnelsPanel">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="utils.ColorManager.TUNNEL_COLOR" type="code"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder bottom="10" left="10" right="10" top="10">
+                  <Connection PropertyName="color" code="utils.ColorManager.TUNNEL_COLOR" type="code"/>
+                </MatteColorBorder>
+              </Border>
+            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
             </Property>
@@ -875,6 +895,16 @@
         </Container>
         <Container class="javax.swing.JPanel" name="refuge">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="utils.ColorManager.REFUGE_COLOR" type="code"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder bottom="10" left="10" right="10" top="10">
+                  <Connection PropertyName="color" code="utils.ColorManager.REFUGE_COLOR" type="code"/>
+                </MatteColorBorder>
+              </Border>
+            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="utils.ColorManager.BG_COLOR" type="code"/>
             </Property>

@@ -780,6 +780,8 @@ public class MapPage extends javax.swing.JPanel
         mainPanel.setOpaque(false);
         mainPanel.setLayout(new java.awt.GridLayout(3, 0, 0, 5));
 
+        riskZonesPanel.setBackground(utils.ColorManager.UNSAFE_COLOR);
+        riskZonesPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, utils.ColorManager.UNSAFE_COLOR));
         riskZonesPanel.setForeground(utils.ColorManager.BG_COLOR);
         riskZonesPanel.setLayout(new javax.swing.BoxLayout(riskZonesPanel, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -1019,6 +1021,8 @@ public class MapPage extends javax.swing.JPanel
 
         mainPanel.add(riskZonesPanel);
 
+        tunnelsPanel.setBackground(utils.ColorManager.TUNNEL_COLOR);
+        tunnelsPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, utils.ColorManager.TUNNEL_COLOR));
         tunnelsPanel.setForeground(utils.ColorManager.BG_COLOR);
         tunnelsPanel.setLayout(new javax.swing.BoxLayout(tunnelsPanel, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -1138,6 +1142,8 @@ public class MapPage extends javax.swing.JPanel
 
         mainPanel.add(tunnelsPanel);
 
+        refuge.setBackground(utils.ColorManager.REFUGE_COLOR);
+        refuge.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, utils.ColorManager.REFUGE_COLOR));
         refuge.setForeground(utils.ColorManager.BG_COLOR);
         refuge.setLayout(new java.awt.BorderLayout());
 

@@ -42,7 +42,7 @@ public class ColorManager
     public static Color MAIN_COLOR =                new Color(255,61,61);
     
     //Refuge color
-    public static Color REFUGE_COLOR =              new Color(204,255,204,70);
+    public static Color REFUGE_COLOR =              new Color(190,255,190);
     
     //Tunnel color
     public static Color TUNNEL_COLOR =              new Color(224, 187, 83,50);
