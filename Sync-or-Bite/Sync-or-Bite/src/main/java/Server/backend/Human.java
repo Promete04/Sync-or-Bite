@@ -232,7 +232,7 @@ public class Human extends Thread
     /**
      * Obtains the color that the human should have in the GUI.
      *
-     * @returns the color that will be used by the GUI
+     * @return the color that will be used by the GUI
      */
     public Color getHumanColor() 
     {

@@ -46,7 +46,7 @@ public class MainClientPage extends javax.swing.JPanel
         initComponents();
         setupLabels();
         
-        //Prevent podium component corruption
+        // Prevent podium component corruption
         pTop1.setStringPainted(false);
         pTop2.setStringPainted(false);
         pTop3.setStringPainted(false);

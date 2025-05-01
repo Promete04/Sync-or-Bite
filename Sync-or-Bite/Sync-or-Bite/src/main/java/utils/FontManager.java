@@ -5,6 +5,7 @@
 package utils;
 import Server.frontend.ServerApp;
 import java.awt.*;
+import java.io.IOException;
 import java.io.InputStream;
 
 
@@ -43,7 +44,7 @@ public class FontManager
                 System.err.println("Font resource not found: " + path);
             }
         }
-        catch (Exception e)
+        catch (FontFormatException | IOException e)
         {
             e.printStackTrace();
         }

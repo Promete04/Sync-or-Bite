@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
@@ -10,7 +10,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * A class that manages in an ordered and efficient way the dispatchment of tasks to the EDT (Event Dispatch Thread).
+ * UiDispatcher is a utility class designed to efficiently manage the execution
+ * of GUI-related tasks on the Swing Event Dispatch Thread (EDT).
+ * 
+ * It enables smooth and responsive user interface by batching UI update tasks
+ * and limiting how long they are processed in a single execution cycle. The
+ * dispatcher ensures that updates from background threads are safely enqueued
+ * and executed on the EDT without overwhelming it.
  */
 public class UiDispatcher 
 {

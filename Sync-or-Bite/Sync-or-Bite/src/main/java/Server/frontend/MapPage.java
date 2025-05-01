@@ -115,7 +115,8 @@ public class MapPage extends javax.swing.JPanel
                     else if (key.equals("C") || key.equals("D") || key.equals("R")) 
                     {
                         maxWidth = totalWidth / 3;
-                    } else 
+                    } 
+                    else 
                     {
                         continue;
                     }
