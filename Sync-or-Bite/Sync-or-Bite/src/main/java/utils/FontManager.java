@@ -22,23 +22,31 @@ public class FontManager
     public static final Font subText = lightFont.deriveFont(24f);
 
     /**
-     * useFont() adds a new custom text font to the proyect.
+     * loadFont() adds a new custom text font to the proyect.
      * @param path the font path relative to "resources/" folder
      * @param size the size of the text
      * @return new custom font
      */
     private static Font loadFont(String path,float size)
     {
+        Font resultFont = null;
         try 
         {
             InputStream is = ServerApp.class.getResourceAsStream(path);
-            Font font = Font.createFont(Font.TRUETYPE_FONT, is);
-            return font.deriveFont(16f);
+            if (is != null)
+            {
+                Font font = Font.createFont(Font.TRUETYPE_FONT, is);
+                resultFont = font.deriveFont(size);
+            }
+            else
+            {
+                System.err.println("Font resource not found: " + path);
+            }
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            return null;
         }
+        return resultFont;
     }
 }

@@ -21,8 +21,8 @@ public class UiDispatcher
     private final AtomicBoolean scheduled = new AtomicBoolean(false);
     
     // Policy parameters:
-    private final int    maxQueueSize         = 1000;                    // Max pending tasks
-    private final long   maxProcessingNanos   = TimeUnit.MILLISECONDS.toNanos(50); // Max drain time
+    private final int    maxQueueSize         = 1000;                              // Max pending tasks
+    private final long   maxProcessingNanos   = TimeUnit.MILLISECONDS.toNanos(50); // Max time to execute the queued tasks
 
     /**
      * Call from any thread.
@@ -60,30 +60,26 @@ public class UiDispatcher
     private void executeQueuedTasks() 
     {
         long start = System.nanoTime(); // Track the start time to monitor processing duration
-        try 
+
+        boolean stop = false;
+        Runnable task;
+        while (((task = queue.poll()) != null) && !stop) 
         {
-            boolean stop = false;
-            Runnable task;
-            while (((task = queue.poll()) != null) && !stop) 
+            task.run();
+            // If we’ve spent too long, clear the remaining tasks and stop
+            if (System.nanoTime() - start > maxProcessingNanos)
             {
-                task.run();
-                // If we’ve spent too long, clear the remaining tasks and stop
-                if (System.nanoTime() - start > maxProcessingNanos)
-                {
-                    queue.clear();
-                    stop = true;
-                }
+                queue.clear();
+                stop = true;
             }
-        } 
-        finally 
+        }
+
+        // Allow re-scheduling
+        scheduled.set(false);
+        // If any tasks were added during processing, schedule another execution
+        if (!queue.isEmpty()) 
         {
-            // Allow re-scheduling
-            scheduled.set(false);
-            // If any tasks were added during processing, schedule another execution
-            if (!queue.isEmpty()) 
-            {
-                scheduleIfNeeded();
-            }
+            scheduleIfNeeded();
         }
     }
 }

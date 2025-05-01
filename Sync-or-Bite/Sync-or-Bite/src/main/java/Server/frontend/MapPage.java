@@ -448,23 +448,24 @@ public class MapPage extends javax.swing.JPanel
     {
         JPanel targetPanel = panels.get(panelKey);
 
-        if (targetPanel == null) 
+        if(targetPanel != null) 
+        {
+            JLabel label = new JLabel(labelText);
+            label.setOpaque(true);
+            Color background = labelText.startsWith("H") ? utils.ColorManager.HUMAN_COLOR : utils.ColorManager.ZOMBIE_COLOR;
+            label.setBackground(background);
+            label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
+
+            targetPanel.add(label);
+            updatePanelPreferredHeight(targetPanel);
+
+            targetPanel.revalidate();
+            targetPanel.repaint();
+        }
+        else
         {
             System.err.println("No panel found for key: " + panelKey);
-            return;
         }
-
-        JLabel label = new JLabel(labelText);
-        label.setOpaque(true);
-        Color background = labelText.startsWith("H")? utils.ColorManager.HUMAN_COLOR : utils.ColorManager.ZOMBIE_COLOR;
-        label.setBackground(background); 
-        label.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5)); 
-
-        targetPanel.add(label);
-        updatePanelPreferredHeight(targetPanel);
-
-        targetPanel.revalidate();
-        targetPanel.repaint();
     }
     
     /**
@@ -479,37 +480,39 @@ public class MapPage extends javax.swing.JPanel
     {
         JPanel targetPanel = panels.get(panelKey);
 
-        if (targetPanel == null) 
+        if(targetPanel != null) 
+        {
+            boolean removed = false;
+            int i = 0;
+            Component[] components = targetPanel.getComponents();
+            
+            while(i < components.length && !removed)
+            {
+                Component comp = components[i];
+                if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+                {
+                    try 
+                    {
+                        targetPanel.remove(label);
+                        updatePanelPreferredHeight(targetPanel);
+                        targetPanel.revalidate();
+                        targetPanel.repaint();
+                        removed = true;
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println("GUI update error");
+                    }
+                }
+                i++;
+            }
+        }
+        else
         {
             System.err.println("No panel found for key: " + panelKey);
-            return;
         }
-
-        Component[] components = targetPanel.getComponents();
-        for (Component comp : components) 
-        {
-            if (comp instanceof JLabel label && label.getText().equals(labelText)) 
-            {
-                try
-                {
-                    targetPanel.remove(label);
-                    updatePanelPreferredHeight(targetPanel);
-                    targetPanel.revalidate();
-                    targetPanel.repaint();
-                }
-                catch(Exception e)
-                {
-                    System.out.println("GUI update error");
-                }
-            }
-        } 
-        targetPanel.revalidate();
-        targetPanel.repaint();
     }
         
-        
-    
-    
     /**
      * Updates a label's background color based on human/zombie status.
      * 
@@ -523,30 +526,36 @@ public class MapPage extends javax.swing.JPanel
     {
         JPanel targetPanel = panels.get(panelKey);
 
-        if (targetPanel == null)
-            {
-                System.err.println("No panel found for key: " + panelKey);
-                return;  
-            }
-        
-        // Send the task to UiDispatcher
-        ui.invoke(new Runnable()
+        if (targetPanel != null)
         {
-            public void run()
+            // Send the task to UiDispatcher
+            ui.invoke(new Runnable() 
             {
-                for (Component comp : targetPanel.getComponents()) 
+                public void run() 
                 {
-                    if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+                    boolean found = false;
+                    int i = 0;
+                    Component[] components = targetPanel.getComponents();
+                    while (i < components.length && !found) 
                     {
-                        label.setOpaque(true);
-                        label.setBackground(color);
-                        targetPanel.revalidate();
-                        targetPanel.repaint();
-                        return;
+                        Component comp = components[i];
+                        if (comp instanceof JLabel label && label.getText().equals(labelText)) 
+                        {
+                            label.setOpaque(true);
+                            label.setBackground(color);
+                            targetPanel.revalidate();
+                            targetPanel.repaint();
+                            found = true;
+                        }
+                        i++;
                     }
                 }
-            }
-        });
+            });
+        }
+        else
+        {
+            System.err.println("No panel found for key: " + panelKey);
+        }
     }
     
     /**
