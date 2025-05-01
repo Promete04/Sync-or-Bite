@@ -95,13 +95,13 @@ public class MainClientPage extends javax.swing.JPanel
                             if(i==0)
                             {
                                 if(data[0].equals(String.valueOf(true)))
-                                    {
-                                        toggler.resume();
-                                    }
+                                {
+                                    toggler.resume();
+                                }
                                 else
-                                    {
-                                        toggler.pause();
-                                    }
+                                {
+                                    toggler.pause();
+                                }
                             }
                             // Provide labels with gathered data
                             else if(i<=14 || i==16 || i==18)

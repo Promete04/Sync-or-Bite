@@ -43,7 +43,7 @@ public class AutomaticUpdaterTask implements Callable<String[]>
             
             // Receive response
             String data = input.readUTF();
-            individualData = data.split("\\|");
+            individualData = data.split("\\|");  // The \\ is for using | as a character not with the logic meaning
             
             // Close input and output streams
             output.close();
