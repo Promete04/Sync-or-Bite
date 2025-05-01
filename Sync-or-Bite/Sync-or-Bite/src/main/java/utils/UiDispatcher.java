@@ -30,7 +30,7 @@ public class UiDispatcher
      */
     public void invoke(Runnable uiTask) 
     {
-        // Drop oldest if we’re already “full”
+        // Drop oldest if we're already "full"
         if (queue.size() >= maxQueueSize) 
         {
             queue.poll();
@@ -66,7 +66,7 @@ public class UiDispatcher
         while (((task = queue.poll()) != null) && !stop) 
         {
             task.run();
-            // If we’ve spent too long, clear the remaining tasks and stop
+            // If we've spent too long, clear the remaining tasks and stop
             if (System.nanoTime() - start > maxProcessingNanos)
             {
                 queue.clear();
