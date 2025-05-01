@@ -47,8 +47,8 @@ public class Toggler
         
         try 
         {
-            // Stablish connection with socket on port 1
-            Socket socket = new Socket(InetAddress.getLocalHost(), 1);
+            // Stablish connection with socket on port 1024
+            Socket socket = new Socket(InetAddress.getLocalHost(), 1024);
             
             // Create output stream used for the connection
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());

@@ -48,8 +48,8 @@ public class ServerData extends Thread
     {   
         try
         {
-            // Server listens on port 1
-            ServerSocket server = new ServerSocket(1);
+            // Server listens on port 1024
+            ServerSocket server = new ServerSocket(1024);
             while (true) 
             {
                 // Accept incoming client connection

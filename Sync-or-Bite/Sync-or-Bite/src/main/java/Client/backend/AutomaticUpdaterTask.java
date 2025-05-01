@@ -31,8 +31,8 @@ public class AutomaticUpdaterTask implements Callable<String[]>
         String[] individualData = null;
         try 
         {
-            // Stablish connection with socket on port 1
-            Socket socket = new Socket(InetAddress.getLocalHost(), 1);
+            // Stablish connection with socket on port 1024
+            Socket socket = new Socket(InetAddress.getLocalHost(), 1024);
             
             // Create the input and output streams used for the connection
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
