@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * ServerData listens for incoming client requests over a socket and returns state information.
+ * ServerData listens for incoming client requests over a TCP socket and returns state information.
  * Supports pausing/unpausing the simulation and retrieving real-time status of the system components.
  * 
  * Available commands for clients:
