@@ -12,7 +12,7 @@ import java.net.Socket;
  * ServerData listens for incoming client requests over a TCP socket and returns state information.
  * Supports pausing/unpausing the simulation and retrieving real-time status of the system components.
  * 
- * Available commands for clients:
+ * Available commands for client:
  * - "get": Returns pause state, human counts in refuge, tunnels, and unsafe areas, zombie counts, and top killers (most lethal zombies).
  * - "togglePause": Toggles the pause state of the simulation.
  */
@@ -40,9 +40,8 @@ public class ServerData extends Thread
     }
     
     /**
-     * Continuously listens for socket connections and processes commands from clients.
+     * Continuously listens for socket connections and processes commands from client.
      * Supports toggling pause state and retrieving current program state.
-     * Each client connection is handled individually and closed afterward.
      */
     public void run()
     {   
