@@ -16,7 +16,7 @@ public class Tunnels
      * Constructs and initializes the tunnel system.
      * Each tunnel is linked to a specific UnsafeArea from the RiskZone.
      *
-     * @param riskZone the RiskZone containing the UnsafeAreas
+     * @param riskZone the RiskZone containing the unsafe areas
      * @param logger the logger
      * @param pm the pause manager
      */

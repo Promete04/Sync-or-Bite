@@ -93,7 +93,7 @@ public class Tunnel
     }
     
     /**
-     * Requests exit from the shelter to the unsafe area. 
+     * Requests exit to the unsafe area. 
      * The human joins a group of 3, waits for a turn to cross
      * and is animated crossing the tunnel in the GUI. Also handles logs.
      *
