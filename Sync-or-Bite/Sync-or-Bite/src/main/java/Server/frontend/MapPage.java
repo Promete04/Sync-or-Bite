@@ -442,18 +442,6 @@ public class MapPage extends javax.swing.JPanel
             }
         });
     }
-
-    
-    /**
-     * Toggles the pause state of the game and updates the pause/resume button icon.
-     */
-    public void pauseResume()
-    {
-        pm.togglePause();
-        ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
-        pauseResumeButton.setIcon(current);
-    }
-   
     
     /**
      * Adds a new label to the specified panel.
@@ -651,6 +639,17 @@ public class MapPage extends javax.swing.JPanel
         }
 
         return rows;
+    }
+    
+    /**
+     * Toggles the pause state of the game and updates the pause/resume button
+     * icon.
+     */
+    public void pauseResume() 
+    {
+        pm.togglePause();
+        ImageIcon current = pm.isPaused() ? resumeIcon : pauseIcon;
+        pauseResumeButton.setIcon(current);
     }
     
     /**

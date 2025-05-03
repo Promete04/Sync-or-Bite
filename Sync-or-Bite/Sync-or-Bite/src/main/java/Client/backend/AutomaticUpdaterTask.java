@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * The AutomaticUpdaterTask class defines a task to fetch data from the server. 
  * It sends a "get" command and processes the received response, splitting it into an array.
  * 
- * This class is used by a executor to periodically retrieve updates from the server.
+ * This class is used by a SingleThreadExecutor to periodically retrieve updates via Future from the server.
  */
 public class AutomaticUpdaterTask implements Callable<String[]>
 {

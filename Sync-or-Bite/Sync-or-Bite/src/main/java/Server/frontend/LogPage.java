@@ -71,7 +71,7 @@ public class LogPage extends javax.swing.JPanel
     
   
     /**
-     * Loads existing log messages from the log file and appends them to the logsArea.
+     * Loads existing log messages from the log file and appends them to logsArea.
      * If the log file does not exist, this method does nothing.
      */
     private void loadLogs() 
@@ -116,16 +116,7 @@ public class LogPage extends javax.swing.JPanel
             }
         }
     }
-    
-    /**
-     * Appends a new log entry to the logsArea.
-     * 
-     * @param logEntry the log message to append
-     */
-    public void onNewLog(String logEntry)
-    {
-        logsArea.append(logEntry + "\n");  
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

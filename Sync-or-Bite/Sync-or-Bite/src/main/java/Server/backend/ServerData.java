@@ -76,7 +76,7 @@ public class ServerData extends Thread
                 } 
                 else if(request.equals("togglePause")) 
                 {
-                    // Toggle paused/unpaused mode
+                    // Toggle paused/resume mode
                     pm.togglePause();
                 } 
                 else
