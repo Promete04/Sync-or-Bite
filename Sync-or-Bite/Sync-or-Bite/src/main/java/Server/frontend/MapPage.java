@@ -45,7 +45,6 @@ public class MapPage extends javax.swing.JPanel
     private final Map<String, JPanel> panels = new HashMap<>();
     private final Map<String, Set<String>> currentPanelState = new HashMap<>();
     
-    
     // Backend components for different areas of the system
     private Refuge r = ServerApp.getR();
     private CommonArea ca = ServerApp.getCA();

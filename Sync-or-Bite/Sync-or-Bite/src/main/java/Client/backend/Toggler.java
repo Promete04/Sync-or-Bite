@@ -44,7 +44,6 @@ public class Toggler
      */
     public void togglePause() 
     {
-        
         try 
         {
             // Stablish connection with socket on port 1024

@@ -199,7 +199,7 @@ public class ServerApp
      * @param page a string with the page name
      */
     public static void redirect(String page)
-   {
+    {
         
         JPanel p = pages.get(page);
         cards.add(p, page);
@@ -210,8 +210,7 @@ public class ServerApp
         }
         currentPanel = p;
         frame.repaint();
-        frame.revalidate();
-        
+        frame.revalidate();   
     }
    
     /**
@@ -219,13 +218,13 @@ public class ServerApp
      * Configures the frame's content, size, and visibility.
      */
     public static void setupFrame()
-   {
+    {
         frame.setContentPane(cards);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(1200, 810));
         frame.setMaximumSize(new Dimension(1920, 1080));
         frame.setVisible(true);
-   }  
+    }  
 }
 
 
