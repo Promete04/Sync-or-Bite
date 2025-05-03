@@ -32,6 +32,11 @@ public class MapPage extends javax.swing.JPanel
     private ImageIcon pauseIcon= new ImageIcon(getClass().getResource( "/images/PauseIcon.png" ));
     private ImageIcon resumeIcon= new ImageIcon(getClass().getResource( "/images/ResumeIcon.png" ));
     
+    //Icons for food state
+    private final ImageIcon yesFoodIcon= new ImageIcon(getClass().getResource( "/images/DiningRoomIcon.png" ));
+    private final ImageIcon noFoodIcon= new ImageIcon(getClass().getResource( "/images/DiningRoomIcon2.png" ));
+    private ImageIcon currentFoodIcon;
+    
     // PauseManager instance to manage pause/resume state
     private PauseManager  pm;
     
@@ -63,6 +68,9 @@ public class MapPage extends javax.swing.JPanel
 
         // Retrieve the PauseManager instance from ServerApp
         this.pm = ServerApp.getPM();
+        
+        // Set current icon for DinningRoom
+        currentFoodIcon=noFoodIcon;
         
         // Initialize counters and panels in their respective maps
         setupCounters();
@@ -205,7 +213,7 @@ public class MapPage extends javax.swing.JPanel
                             // Update counters for the DiningRoom
                             setCounter("HD", String.valueOf(dr.getHumansInsideCounter()));
                             setCounter("FC", String.valueOf(dr.getFoodCount()));
-                            setCounter("RC", String.valueOf(r.getCount()));
+                            setCounter("RC", String.valueOf(r.getCount()));                           
                         }
                         else
                         {
@@ -214,7 +222,17 @@ public class MapPage extends javax.swing.JPanel
                             {
                                 setLabelColorInPanel("D", human.getHumanId(), human.getHumanColor()); 
                             }    
-                        }   
+                        }
+                        if (dr.isEmpty() && currentFoodIcon != noFoodIcon)
+                        {
+                            currentFoodIcon = noFoodIcon;
+                            foodIcon.setIcon(currentFoodIcon);
+                        }
+                        else if (!dr.isEmpty() && currentFoodIcon != yesFoodIcon)
+                        {
+                            currentFoodIcon = yesFoodIcon;
+                            foodIcon.setIcon(currentFoodIcon);
+                        }
                     }
 
                     case UnsafeArea area -> 
@@ -634,6 +652,22 @@ public class MapPage extends javax.swing.JPanel
 
         return rows;
     }
+    
+    
+    public void popInfo()
+    {
+        String mensaje = "Color meanings:\n"
+                       + "HUMAN: \n"
+                       + " Green: standar human color\n"
+                       + " Ivy Green: waiting for group color\n"
+                       + " Maroon: being atacked\n"
+                       + " Red: injured color\n"
+                       + "ZOMBIE: \n"
+                       + " Purple: standar zombie color\n"
+                       + " Rose: atacking color\n";
+
+        JOptionPane.showMessageDialog(this, mensaje, "INFO", JOptionPane.INFORMATION_MESSAGE);
+    }
 
 
     /**
@@ -648,6 +682,7 @@ public class MapPage extends javax.swing.JPanel
         buttonPanel = new javax.swing.JPanel();
         pauseResumeButton = new javax.swing.JButton();
         logsButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         riskZonesPanel = new javax.swing.JPanel();
         Risk1 = new javax.swing.JPanel();
@@ -783,6 +818,16 @@ public class MapPage extends javax.swing.JPanel
             }
         });
         buttonPanel.add(logsButton, java.awt.BorderLayout.LINE_END);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/InfoIcon.png"))); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        buttonPanel.add(jButton1, java.awt.BorderLayout.CENTER);
 
         add(buttonPanel, java.awt.BorderLayout.NORTH);
 
@@ -1222,7 +1267,7 @@ public class MapPage extends javax.swing.JPanel
         humanDiningCounter.setText("0");
         diningRoomInfo.add(humanDiningCounter);
 
-        foodIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiningRoomIcon.png"))); // NOI18N
+        foodIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/DiningRoomIcon2.png"))); // NOI18N
         foodIcon.setBorderPainted(false);
         foodIcon.setContentAreaFilled(false);
         foodIcon.setFocusPainted(false);
@@ -1290,12 +1335,16 @@ public class MapPage extends javax.swing.JPanel
         refugeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GroupIcon.png"))); // NOI18N
         refugeIcon.setBorderPainted(false);
         refugeIcon.setContentAreaFilled(false);
-        refugeIcon.setEnabled(false);
         refugeIcon.setFocusable(false);
         refugeIcon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         refugeIcon.setMargin(new java.awt.Insets(0, 0, 0, 0));
         refugeIcon.setMaximumSize(new java.awt.Dimension(100, 100));
         refugeIcon.setMinimumSize(new java.awt.Dimension(30, 30));
+        refugeIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refugeIconActionPerformed(evt);
+            }
+        });
         refugeCounters.add(refugeIcon);
 
         refugeCounter.setFont(utils.FontManager.titleFont);
@@ -1370,6 +1419,14 @@ public class MapPage extends javax.swing.JPanel
         // TODO add your handling code here:
     }//GEN-LAST:event_ZombieIcon7ActionPerformed
 
+    private void refugeIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refugeIconActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refugeIconActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        popInfo();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CommonList;
@@ -1429,6 +1486,7 @@ public class MapPage extends javax.swing.JPanel
     private javax.swing.JLabel foodCounter;
     private javax.swing.JButton foodIcon;
     private javax.swing.JLabel humanDiningCounter;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

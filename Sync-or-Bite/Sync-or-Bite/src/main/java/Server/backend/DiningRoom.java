@@ -26,6 +26,8 @@ public class DiningRoom
     private List<Human> humansInside = new ArrayList<>();
     // Concurrent non-blocking queue for storing food units
     private Queue<Food> foodList = new ConcurrentLinkedQueue<>();
+    //Boolean to ajust icon
+    private boolean isEmpty=true;
     // Fair Semaphore for mutual exclusion keeping order of arrival
     private Semaphore mutex = new Semaphore(1,true);
     // Fair Semaphore used to track the number of food units available (if there are no units a queue will be formed in order of arrival)
@@ -86,6 +88,7 @@ public class DiningRoom
         synchronized(foodList)
         {
             foodList.offer(f);
+            isEmpty=false;
             foodCount.release();    // One food available, so add one permit or unblock a waiting thread (in FIFO order)
             logger.log("Human " + h.getHumanId() + " has deposited 1 unit of food. " + "Total current food: " + foodList.size() + ".");
             notifyChange(false); 
@@ -106,6 +109,10 @@ public class DiningRoom
             synchronized (foodList) // foodList update and also log and GUI protected by foodList monitor
             {
                 foodList.poll();
+                if(foodList.isEmpty())
+                {
+                    isEmpty=true;
+                }
                 logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
                 notifyChange(false);
             }
@@ -220,5 +227,15 @@ public class DiningRoom
     public ArrayList<Human> getHumansInside() 
     {
         return new ArrayList<>(humansInside);
+    }
+    
+    /**
+     * Check if the is food
+     * 
+     * @return the state of the foodList (empty or not)
+     */
+    public boolean isEmpty()
+    {
+        return isEmpty;
     }
 }
