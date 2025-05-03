@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Client.frontend;
+import Client.backend.Toggler;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.HashMap;
@@ -26,6 +27,8 @@ public class ClientApp
     private static MainClientPage mainPage;
     private static JPanel currentPanel;
 
+    private static Toggler toggler;
+
     /**
      * 
      * Main entry point for the application.
@@ -35,9 +38,10 @@ public class ClientApp
      */
     public static void main(String[] args)
     {
+        toggler = new Toggler();
+        
         mainPage = new MainClientPage();
 
-        
         pages = new HashMap<>() 
         {
             {
@@ -67,6 +71,11 @@ public class ClientApp
             cards.remove(currentPanel);
         }
         currentPanel = p;
+    }
+    
+    public static Toggler getToggler()
+    {
+        return toggler;
     }
    
     /**

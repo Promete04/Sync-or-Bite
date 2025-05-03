@@ -25,7 +25,7 @@ import javax.swing.JLabel;
 public class MainClientPage extends javax.swing.JPanel 
 {
     // Toggler for pause/resume 
-    private final Toggler toggler = new Toggler();
+    private final Toggler toggler = ClientApp.getToggler();
     
     // ExecutorService responsible for periodic data updates in a background thread
     private ExecutorService automaticUpdater = Executors.newSingleThreadExecutor();
