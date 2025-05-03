@@ -653,7 +653,9 @@ public class MapPage extends javax.swing.JPanel
         return rows;
     }
     
-    
+    /**
+     * Shows a JOptionPane to help to understand the gui.
+     */
     public void popInfo()
     {
         String mensaje = "Color meanings:\n"
