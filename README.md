@@ -8,3 +8,13 @@ Sync or Bite is project belonging to the Advanced programming course made by [Al
 
 The `docs/` directory contains the essential project documentation, providing a comprehensive guide to the development and design of Sync or Bite. The documentation includes a development diary and the following elements to ensure a thorough understanding of the project's structure and functionality:
 
+* High-level analysis
+* General design and synchronization tools
+* Main classes
+* Class diagram
+* Source Code
+
+## Class diagram 
+
+<img src="Docs/images/ClassDiagram.svg">
+
