@@ -73,6 +73,10 @@ public class ClientApp
         currentPanel = p;
     }
     
+    /**
+     * @return the Toggler for stopping the simulation
+     */
+    
     public static Toggler getToggler()
     {
         return toggler;
