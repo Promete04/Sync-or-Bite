@@ -111,7 +111,7 @@ public class DiningRoom
                 foodList.poll();
                 if(foodList.isEmpty())
                 {
-                    isEmpty=true;
+                    isEmpty=true;         // If there is no more food, change the icon
                 }
                 logger.log("Human " + h.getHumanId() + " is eating 1 unit of food. " + "Total current food: " + foodList.size() + ".");
                 notifyChange(false);
