@@ -91,7 +91,7 @@ public class MainClientPage extends javax.swing.JPanel
                         
                         for (int i = 0; i < data.length; i++) 
                         {
-                            //Check server pause/resume state
+                            // Check server pause/resume state
                             if(i==0)
                             {
                                 if(data[0].equals(String.valueOf(true)))
