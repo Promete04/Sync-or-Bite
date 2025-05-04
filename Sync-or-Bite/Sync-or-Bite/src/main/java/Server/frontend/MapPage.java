@@ -407,37 +407,30 @@ public class MapPage extends javax.swing.JPanel
         {
             public void run()
             {
-                try 
+
+                Set<String> currentIds = currentPanelState.getOrDefault(panelId, new HashSet<>());
+                Set<String> updatedIds = new HashSet<>(newIds);
+
+                // Compare what should be and what is there, delete what shouldn't be there
+                for (String id : new HashSet<>(currentIds)) 
                 {
-                    Set<String> currentIds = currentPanelState.getOrDefault(panelId, new HashSet<>());
-                    Set<String> updatedIds = new HashSet<>(newIds);
-
-                    // Compare what should be and what is there, delete what shouldn't be there
-                    for (String id : new HashSet<>(currentIds)) 
+                    if (!updatedIds.contains(id)) 
                     {
-                        if (!updatedIds.contains(id)) 
-                        {
-                            removeLabelFromPanel(panelId, id);
-                            currentIds.remove(id);
-                        }
+                        removeLabelFromPanel(panelId, id);
+                        currentIds.remove(id);
                     }
-
-                    // Compare what is there and what should be, add what should be there
-                    for (String id : updatedIds) 
-                    {
-                        if (!currentIds.contains(id)) 
-                        {
-                            addLabelToPanel(panelId, id);
-                            currentIds.add(id);
-                        }
-                    }
-
-                    currentPanelState.put(panelId, currentIds);
-                } 
-                catch (Exception e) 
-                {
-                    System.out.println("GUI update error");
                 }
+
+                // Compare what is there and what should be, add what should be there
+                for (String id : updatedIds) 
+                {
+                    if (!currentIds.contains(id)) 
+                    {
+                        addLabelToPanel(panelId, id);
+                        currentIds.add(id);
+                    }
+                }
+                currentPanelState.put(panelId, currentIds);
             }
         });
     }
@@ -497,18 +490,11 @@ public class MapPage extends javax.swing.JPanel
                 Component comp = components[i];
                 if (comp instanceof JLabel label && label.getText().equals(labelText)) 
                 {
-                    try 
-                    {
-                        targetPanel.remove(label);
-                        updatePanelPreferredHeight(targetPanel);
-                        targetPanel.revalidate();
-                        targetPanel.repaint();
-                        removed = true;
-                    } 
-                    catch (Exception e) 
-                    {
-                        System.out.println("GUI update error");
-                    }
+                    targetPanel.remove(label);
+                    updatePanelPreferredHeight(targetPanel);
+                    targetPanel.revalidate();
+                    targetPanel.repaint();
+                    removed = true;
                 }
                 i++;
             }
@@ -660,11 +646,11 @@ public class MapPage extends javax.swing.JPanel
                        + "HUMAN: \n"
                        + " Green: standar human color\n"
                        + " Ivy Green: waiting for group color\n"
-                       + " Maroon: being atacked\n"
+                       + " Maroon: being attacked\n"
                        + " Red: injured color\n"
                        + "ZOMBIE: \n"
-                       + " Purple: standar zombie color\n"
-                       + " Rose: atacking color\n";
+                       + " Purple: standard zombie color\n"
+                       + " Rose: attacking color\n";
         JOptionPane.showMessageDialog(this, mensaje, "INFO", JOptionPane.INFORMATION_MESSAGE);
     }
 

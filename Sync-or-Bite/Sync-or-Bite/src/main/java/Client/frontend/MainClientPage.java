@@ -145,7 +145,7 @@ public class MainClientPage extends javax.swing.JPanel
                         Thread.sleep(100);
                     }
                 } 
-                catch (Exception e) 
+                catch (InterruptedException | NumberFormatException | ExecutionException e) 
                 {
                     e.printStackTrace();
                 }
