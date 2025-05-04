@@ -130,7 +130,7 @@ public class RestArea
      */
     public void fullRecover(Human h) 
     {
-        logger.log("Human " + h.getHumanId() + " is being fully recovered in the rest area.");
+        logger.log("Human " + h.getHumanId() + " is getting fully recovered in the rest area.");
         try
         {
 //        Thread.sleep(3000 + (int) (Math.random()*2000));
