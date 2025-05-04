@@ -91,7 +91,7 @@ public class ServerApp
                     {
                         new Human(i, refuge, tunnels).start();
                         Thread.sleep(500 + (int) (Math.random()*1500));
-                        pm.check();
+                        pm.check(); // Check if the system pause/resume state has changed
                     }
                     
                      // Wait an arbitrary amount of time after having ended the human production and send an empty list to CommonArea to deal with the edge-case of ignoring the exit of the last human in the GUI.
