@@ -149,13 +149,14 @@ public class RiskZone
     
     /**
      * Returns a compact representation of the top 3 zombie killers. It is 
-     * given to the clients when information about the top 3 killers is requested.
+     * given to the client when information about the top 3 killers is requested.
+     * Protected using the monitor.
      *
      * @return A string in the format 
      * "ZombieID|KillCount|ZombieID|KillCount|ZombieID|KillCount|" If a position
      * is empty, it uses "Z----|0|". The order is top 1, top 2 and top 3 from left to right.
      */
-    public String obtainTopKillers() 
+    public synchronized String obtainTopKillers() 
     {
         StringBuilder sb = new StringBuilder();
 
