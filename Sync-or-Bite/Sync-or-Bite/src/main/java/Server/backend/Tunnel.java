@@ -62,6 +62,7 @@ public class Tunnel
         this.unsafeArea = unsafeArea;
         groups = new CyclicBarrier(3, new Runnable() // Cyclic barrier for forming groups of 3
         {
+            @Override
             public void run() 
             {
                 logger.log("A group of " + 3 + " has been formed for exiting to unsafe area " + unsafeArea.getArea() + ".");
