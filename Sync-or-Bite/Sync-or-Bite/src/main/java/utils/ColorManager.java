@@ -14,10 +14,10 @@ public class ColorManager
     // Zombie color
     public static Color ZOMBIE_COLOR =              new Color(153, 78, 255);
     
-    //Atacking zombie color
+    // Attacking zombie color
     public static Color ATTACKING_COLOR =           new Color(204, 0, 204);
     
-    //Text color
+    // Text color
     public static Color TEXT_COLOR =                new Color(0, 0, 0);
     
     // Input background color
@@ -35,19 +35,19 @@ public class ColorManager
     // Injured human color
     public static Color INJURED_COLOR =             new Color(255,80,80);
     
-    //Being atacked color
+    // Being attacked color
     public static Color ATTACKED_COLOR =            new Color(153,47,86); 
     
     // Main color, made for bigger visual impact
     public static Color MAIN_COLOR =                new Color(255,61,61);
     
-    //Refuge color
+    // Refuge color
     public static Color REFUGE_COLOR =              new Color(190,255,190);
     
-    //Tunnel color
+    // Tunnel color
     public static Color TUNNEL_COLOR =              new Color(224, 187, 83);
     
-    //Unsafe Areas color
+    // Unsafe Areas color
     public static Color UNSAFE_COLOR =              new Color(222, 112, 104);
 }
     
