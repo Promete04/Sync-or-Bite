@@ -24,9 +24,9 @@ public class DiningRoom
 {
     // List of humans inside
     private List<Human> humansInside = new ArrayList<>();
-    // Concurrent non-blocking queue for storing food units
-    private Queue<Food> foodList = new ConcurrentLinkedQueue<>();
-    //Boolean to ajust icon
+    // Queue for storing food units
+    private Queue<Food> foodList = new LinkedList<>();
+    // Boolean to adjust icon
     private boolean isEmpty=true;
     // Fair Semaphore for mutual exclusion keeping order of arrival
     private Semaphore mutex = new Semaphore(1,true);
@@ -76,8 +76,8 @@ public class DiningRoom
     
     /**
      * Allows a human to deposit one unit of food into the dining room.
-     * Access to foodList protected by the ConcurrentLinkedQueue but we use its monitor
-     * to ensure that the logs, the semaphore and the GUI are updated together
+     * Access protected by foodList monitor also to ensure that the logs, 
+     * the semaphore and the GUI are updated together
      * 
      * @param f  the food unit being deposited
      * @param h  the human who is depositing the food
@@ -230,9 +230,9 @@ public class DiningRoom
     }
     
     /**
-     * Check if the is food
+     * Check if the food storage is empty.
      * 
-     * @return the state of the foodList (empty or not)
+     * @return true if foodList empty, false otherwise
      */
     public boolean isEmpty()
     {

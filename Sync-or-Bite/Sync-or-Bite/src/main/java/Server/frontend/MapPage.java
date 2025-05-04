@@ -665,7 +665,6 @@ public class MapPage extends javax.swing.JPanel
                        + "ZOMBIE: \n"
                        + " Purple: standar zombie color\n"
                        + " Rose: atacking color\n";
-
         JOptionPane.showMessageDialog(this, mensaje, "INFO", JOptionPane.INFORMATION_MESSAGE);
     }
 

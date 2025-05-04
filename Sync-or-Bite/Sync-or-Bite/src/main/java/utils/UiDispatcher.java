@@ -4,6 +4,7 @@
  */
 package utils;
 
+import java.util.Queue;
 import javax.swing.SwingUtilities;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class UiDispatcher 
 {
     // Thread safe queue to store pending UI update tasks
-    private final ConcurrentLinkedQueue<Runnable> queue = new ConcurrentLinkedQueue<>();
+    private final Queue<Runnable> queue = new ConcurrentLinkedQueue<>();
     
     // AtomicBoolean to track whether tasks are already scheduled for execution on the EDT 
     private final AtomicBoolean scheduled = new AtomicBoolean(false);

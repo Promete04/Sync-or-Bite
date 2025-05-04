@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 /**
  *
  * The MainClientPage class represents the main user interface panel for the client application.
- * It provides dynamic updates to different labels displaying the state of humans, zombies,
+ * It provides dynamic updates to different labels displaying the state of humans, zombies
  * and tunnel activity, as well as a podium for the kills.
  * 
  * It uses a SingleThreadExecutor to submit tasks, retrieves results via a Future,

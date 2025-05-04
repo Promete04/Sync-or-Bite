@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 /**
  * Main application class for the "Sync-or-Bite" client system.
- * This class initializes and manages the GUI, backend components, and system logic.
+ * This class initializes and manages the GUI, backend components and system logic.
  */
 public class ClientApp 
 {
@@ -32,7 +32,7 @@ public class ClientApp
     /**
      * 
      * Main entry point for the application.
-     * Initializes all components, sets up the GUI, and starts the system logic.
+     * Initializes all components, sets up the GUI and starts the system logic.
      * 
      * @param args
      */
@@ -84,7 +84,7 @@ public class ClientApp
    
     /**
      * Sets up the main application frame.
-     * Configures the frame's content, size, and visibility.
+     * Configures the frame's content, size and visibility.
      */
     public static void setupFrame()
    {
