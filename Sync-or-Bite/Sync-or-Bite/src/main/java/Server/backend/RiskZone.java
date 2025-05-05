@@ -7,6 +7,7 @@ package Server.backend;
 /**
  * The RiskZone class represents a big risk zone composed of 4 unsafe areas.
  * It keeps track of the top 3 most lethal zombies.
+ * The access to the top 3 most lethal zombies array is protected using the monitor.
  */
 public class RiskZone 
 {
