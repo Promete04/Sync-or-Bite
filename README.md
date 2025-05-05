@@ -13,9 +13,3 @@ The `docs/` directory contains the essential project documentation, providing a 
 * Main classes
 * Class diagram
 * Source Code
-
-## Class diagram 
-
-<img src="Docs/images/ClassDiagram.png"> 
-
-
