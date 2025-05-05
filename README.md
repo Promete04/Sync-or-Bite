@@ -16,7 +16,6 @@ The `docs/` directory contains the essential project documentation, providing a 
 
 ## Class diagram 
 
-<img src="Docs/images/ClassDiagram.svg"> 
+<img src="Docs/images/ClassDiagram.png"> 
 
-> To see properly the class diagram, download it and open it in your PC.
 
