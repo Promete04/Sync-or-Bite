@@ -12,8 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class FoodGenerator 
 {
-    
-    AtomicInteger IDs = new AtomicInteger(0);
+    // ID counter
+    AtomicInteger ids = new AtomicInteger(0);
     
     /**
      * Constructs a FoodGenerator with an initial ID counter set to 0.
@@ -30,7 +30,7 @@ public class FoodGenerator
      */
     public Food gatherFood()
     {
-        return new Food(IDs.incrementAndGet());
+        return new Food(ids.incrementAndGet());
     }
     
 }
