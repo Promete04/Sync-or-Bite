@@ -66,7 +66,7 @@ public class RiskZone
         int i = 0;
         boolean in = false;
         
-        // First, check if the zombie is already in the topKillers array.
+        // First, check if the zombie is already in the topKillers array
         while (i < 3 && !in) 
         {
             if (topKillers[i] != null && (topKillers[i].getZombieId() == z.getZombieId())) 
