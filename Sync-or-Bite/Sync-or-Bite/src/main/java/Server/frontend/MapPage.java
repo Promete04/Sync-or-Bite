@@ -644,7 +644,7 @@ public class MapPage extends javax.swing.JPanel
     {
         String mensaje = "Color meanings:\n"
                        + "HUMAN: \n"
-                       + " Green: standar human color\n"
+                       + " Green: standard human color\n"
                        + " Ivy Green: waiting for group color\n"
                        + " Brown: being attacked\n"
                        + " Red: injured color\n"
