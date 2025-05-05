@@ -116,8 +116,7 @@ public class RiskZone
         {
             for (int j = i + 1; j < topKillers.length; j++) 
             {
-                if (topKillers[i] != null && topKillers[j] != null
-                        && topKillers[j].getKillCount() > topKillers[i].getKillCount()) 
+                if (topKillers[i] != null && topKillers[j] != null && topKillers[j].getKillCount() > topKillers[i].getKillCount()) 
                 {
                     Zombie aux = topKillers[i];
                     topKillers[i] = topKillers[j];
