@@ -91,7 +91,7 @@ public class Human extends Thread
                 // Rest in the rest area
                 refuge.restInRestArea(this);
                 
-                // Eat 1 unit of food in the dining room
+                // Eat 1 unit of food in the dining room if available, wait in FIFO order otherwise
                 refuge.eatInDiningRoom(this);
                 
                 // If the human was attacked
