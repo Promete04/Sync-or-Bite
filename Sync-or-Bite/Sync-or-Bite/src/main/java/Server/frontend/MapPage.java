@@ -644,13 +644,13 @@ public class MapPage extends javax.swing.JPanel
     {
         String mensaje = "Color meanings:\n"
                        + "HUMAN: \n"
-                       + " Green: standar human color\n"
+                       + " Green: standard human color\n"
                        + " Ivy Green: waiting for group color\n"
                        + " Brown: being attacked\n"
                        + " Red: injured color\n"
                        + "ZOMBIE: \n"
-                       + " Pink: standard zombie color\n"
-                       + " Rose: attacking color\n";
+                       + " Purple: standard zombie color\n"
+                       + " Pink: attacking color\n";
         JOptionPane.showMessageDialog(this, mensaje, "INFO", JOptionPane.INFORMATION_MESSAGE);
     }
 

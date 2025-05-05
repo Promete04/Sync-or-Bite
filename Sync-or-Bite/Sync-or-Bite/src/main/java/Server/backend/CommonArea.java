@@ -8,7 +8,7 @@ import java.util.*;
 
 
 /**
- * Represents the common area where humans temporarily gather before choosing a tunnel.
+ * Represents the common area where humans temporarily gather and choose tunnels.
  * 
  * Synchronization is handled using the monitor for coordinated access.
  * 

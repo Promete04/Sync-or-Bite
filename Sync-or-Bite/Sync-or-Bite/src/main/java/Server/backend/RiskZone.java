@@ -6,7 +6,8 @@ package Server.backend;
 
 /**
  * The RiskZone class represents a big risk zone composed of 4 unsafe areas.
- * It tracks zombie kill counts and logs the top 3 most dangerous zombies.
+ * It keeps track of the top 3 most lethal zombies.
+ * The access to the top 3 most lethal zombies array is protected using the monitor.
  */
 public class RiskZone 
 {
@@ -65,7 +66,7 @@ public class RiskZone
         int i = 0;
         boolean in = false;
         
-        // First, check if the zombie is already in the topKillers array.
+        // First, check if the zombie is already in the topKillers array
         while (i < 3 && !in) 
         {
             if (topKillers[i] != null && (topKillers[i].getZombieId() == z.getZombieId())) 
@@ -115,8 +116,7 @@ public class RiskZone
         {
             for (int j = i + 1; j < topKillers.length; j++) 
             {
-                if (topKillers[i] != null && topKillers[j] != null
-                        && topKillers[j].getKillCount() > topKillers[i].getKillCount()) 
+                if (topKillers[i] != null && topKillers[j] != null && topKillers[j].getKillCount() > topKillers[i].getKillCount()) 
                 {
                     Zombie aux = topKillers[i];
                     topKillers[i] = topKillers[j];

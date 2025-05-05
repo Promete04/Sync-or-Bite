@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a rest area where humans can enter, rest, and get fully recovered.
+ * Represents a rest area where humans can enter, rest and get fully recovered.
  * 
  * Synchronization is handled using the monitor for coordinated access.
  * 
